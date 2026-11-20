@@ -1,0 +1,32 @@
+{
+  "id": "./",
+  "name": "Pikseluj",
+  "short_name": "Pikseluj",
+  "lang": "pl",
+  "description": "Piksele do rysowania w zeszycie.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#f7f5ff",
+  "background_color": "#f7f5ff",
+  "icons": [
+    {
+      "src": "assets/pikseluj-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pikseluj-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/pikseluj-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
