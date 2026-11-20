@@ -176,6 +176,76 @@ h1, h2, h3, p { margin:0 }
   .card-meta { gap:4px }
 }
 @media (prefers-reduced-motion:reduce) { *, *::before, *::after { transition:none !important } }
+/* Własne wzory i arkusze do druku */
+.studio { width:min(540px,100% - 36px); margin:0 auto; padding:14px 0 28px }
+.studio-title { font-size:clamp(1.8rem,6.8vw,2.68rem); letter-spacing:-.06em; line-height:1.06; margin:2px 0 8px; overflow-wrap:anywhere }
+.studio-launch { display:flex; align-items:center; gap:12px; text-decoration:none; background:#fff1df; border:1px solid #f0d3a8; border-radius:16px; padding:10px 12px; margin-bottom:11px; box-shadow:0 3px 0 #f2e6d9; color:#533451 }
+.studio-launch:hover { border-color:#c89e71 }
+.studio-launch .mystery-icon { background:#ffe0b5; box-shadow:0 2px 0 #edbb83; color:#68426c }
+.studio-launch .mystery-copy strong { color:#563259 }
+.studio-launch .mystery-call { color:#563259 }
+.action { display:inline-flex; align-items:center; justify-content:center; gap:6px; min-height:44px; padding:7px 12px; border:1px solid #dfd6f5; border-radius:11px; background:#fff; color:var(--deep); font:inherit; font-size:.85rem; font-weight:825; text-decoration:none; line-height:1.2; text-align:center; white-space:normal }
+.action:hover { border-color:#a38dde }
+.action.primary { background:var(--violet); border-color:var(--violet); color:white }
+.action.primary:hover { background:var(--deep) }
+.action:disabled { border-color:#ebe5f5; background:#f5f1fa; color:#77708a; cursor:default }
+.action[aria-pressed="true"] { background:#ede6ff; border-color:#a78ce2 }
+.action.danger { color:#942f51; border-color:#efceda }
+.studio-panel, .print-panel { background:#fff; border:1px solid var(--line); border-radius:16px; padding:12px; margin:0 0 11px; box-shadow:0 2px 0 #eee9f7 }
+.studio-panel h2, .print-panel h2 { font-size:.97rem; margin:0 0 5px; font-weight:850 }
+.studio-panel p, .print-panel p, .studio-small { color:var(--muted); font-size:.8rem; line-height:1.38; margin:0 0 8px }
+.studio-feedback { color:var(--deep); font-size:.82rem; font-weight:760; margin:7px 0 }
+.studio-feedback:empty { display:none }
+.studio-top { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:12px 0 }
+.studio-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px }
+.studio-item { min-width:0; background:#fff; border:1px solid var(--line); border-radius:16px; padding:8px; box-shadow:0 2px 0 #eee9f7 }
+.studio-item .card-art { background:#ede7fa; height:clamp(107px,29vw,162px) }
+.studio-item h3 { margin:7px 0 0; font-size:1rem; overflow-wrap:anywhere; line-height:1.15 }
+.studio-item .size { display:block; margin-top:4px }
+.studio-item-actions { display:flex; flex-wrap:wrap; gap:4px; margin-top:6px }
+.studio-item-actions .action { flex:1; padding:4px 5px; font-size:.73rem }
+.field-label { display:grid; gap:4px; color:var(--ink); font-size:.79rem; font-weight:760 }
+.field-label :is(input,select) { min-height:44px; width:100%; min-width:0; border:1px solid #dcd3ef; border-radius:9px; padding:6px 8px; font:inherit; font-size:1rem; color:var(--ink); background:#fff }
+.field-label input:focus, .field-label select:focus { border-color:var(--violet) }
+.studio-dims { display:grid; grid-template-columns:1fr 1fr auto; gap:6px; align-items:end; margin:8px 0 4px }
+.studio-dims .action { max-width:120px; padding-inline:8px }
+.edit-palette { display:grid; grid-template-columns:repeat(auto-fill,minmax(39px,1fr)); gap:4px; margin:6px 0 4px }
+.edit-swatch { display:grid; place-items:center; padding:3px; min-width:0; min-height:40px; border:1px solid #ded5ee; border-radius:9px; background:#fff; font-weight:900 }
+.edit-swatch i { width:min(100%,28px); height:25px; border:1px solid #30264145; border-radius:5px; background:var(--swatch); position:relative }
+.edit-swatch[aria-pressed="true"] { border-color:var(--deep); box-shadow:inset 0 0 0 1px var(--deep); background:#eee7ff }
+.edit-swatch[aria-pressed="true"] i::after { content:""; position:absolute; top:4px; right:4px; width:8px; height:5px; border:solid #1a1a1c; border-width:0 0 2px 2px; transform:rotate(-45deg); filter:drop-shadow(0 1px 0 white) drop-shadow(0 -1px 0 white) }
+#editor-color { margin:0 }
+.editor-tools { display:flex; flex-wrap:wrap; gap:5px; margin:8px 0 }
+.editor-tools .action { flex:none; padding-inline:8px; font-size:.76rem }
+.editor-box { padding:6px; border:1px solid var(--line); border-radius:13px; background:#fff; overflow-x:auto; overscroll-behavior-x:contain }
+.editor-box.scaled { background:#f5f0ff }
+.editor-box.pan { overscroll-behavior-x:contain }
+#editor-grid { width:100%; height:auto; display:block; touch-action:none; user-select:none; -webkit-user-select:none; -webkit-touch-callout:none; cursor:crosshair }
+.editor-box.scaled #editor-grid { width:max(100%,var(--large-width)) }
+.editor-box.pan #editor-grid { touch-action:pan-x pan-y pinch-zoom; cursor:grab }
+#editor-grid:focus-visible { outline-offset:-3px }
+.studio-actions { display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:9px 0 }
+.studio-actions .primary { min-width:150px }
+.print-panel { margin-top:-2px }
+.print-choices { display:flex; flex-wrap:wrap; gap:6px; align-items:end; margin:8px 0 }
+.print-choices .field-label { flex:1 1 142px }
+.print-choices .action { flex:0 0 auto }
+.print-panel .studio-small { margin:0 }
+#print-pages { display:none }
+.reader-head h1 { min-width:0; overflow-wrap:anywhere }
+@media (max-width:365px) {
+  .studio { width:calc(100% - 24px) }
+  .edit-palette { grid-template-columns:repeat(auto-fill,minmax(36px,1fr)) }
+  .studio-dims .action { max-width:103px }
+}
+@page { size:A4 portrait; margin:0 }
+@media print {
+  body.printing > :not(#print-pages) { display:none !important }
+  body.printing, body.printing #print-pages { padding:0; margin:0; background:white }
+  body.printing #print-pages { display:block; width:210mm }
+  .print-sheet { width:210mm; height:297mm; display:block; break-inside:avoid; break-after:page; page-break-after:always; print-color-adjust:exact; -webkit-print-color-adjust:exact }
+  .print-sheet:last-child { break-after:auto; page-break-after:auto }
+}
 </style>
 </head>
 <body>
@@ -203,6 +273,11 @@ h1, h2, h3, p { margin:0 }
         <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz piksele</h2></div>
         <span class="count" id="count" role="status"></span>
       </div>
+      <a href="#moje" id="studio-launch" class="studio-launch" aria-labelledby="studio-link-title">
+        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h9M3 8h6m-6 4h4m-4 4h4M10 16l4-.8 4-8-3-1.5-4.2 8.1zM14 8l3 1.5"/></svg></span>
+        <span class="mystery-copy"><strong id="studio-link-title">Moje piksele</strong><small>Twórz i zapisuj własne wzory.</small></span>
+        <span class="mystery-call" aria-hidden="true">Otwórz</span>
+      </a>
       <a href="#zagadka" id="mystery-card" class="mystery-card" aria-labelledby="mystery-card-title" aria-describedby="mystery-card-subtitle">
         <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#ffcf7d" d="M5 2h6v2h2v4h-2v2H9v2H7V8h2V6h2V4H5v2H3V4h2zm2 12h2v2H7z"/></svg></span>
         <span class="mystery-copy"><strong id="mystery-card-title">Tajemnicze piksele</strong><small id="mystery-card-subtitle">Co pojawi się w Twoim zeszycie?</small></span>
@@ -224,6 +299,54 @@ h1, h2, h3, p { margin:0 }
       </details>
     </footer>
   </div>
+  <section id="my-studio" class="studio" aria-labelledby="my-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Twój zeszyt</p>
+    <h1 class="studio-title" id="my-title" tabindex="-1">Moje piksele</h1>
+    <p class="instructions" id="studio-storage">Wzory zapisują się w tej przeglądarce. Nie potrzebujesz konta.</p>
+    <div class="studio-top"><a href="#kreator" id="new-design" class="action primary">+ Nowy wzór</a></div>
+    <p id="studio-feedback" class="studio-feedback" role="status"></p>
+    <div class="studio-panel" id="studio-empty">
+      <h2>Tu pojawią się Twoje wzory</h2>
+      <p>Ułóż pierwszy obrazek na kratkach. Po zapisaniu możesz go dalej zmieniać, odrysować lub wydrukować.</p>
+    </div>
+    <div class="studio-grid" id="my-designs"></div>
+  </section>
+  <section id="editor" class="studio" aria-labelledby="editor-title" hidden>
+    <a href="#moje" id="editor-back" class="back">← Moje piksele</a>
+    <p class="section-kicker">Kreator</p>
+    <h1 class="studio-title" id="editor-title" tabindex="-1">Zrób własne piksele</h1>
+    <div class="studio-panel">
+      <label class="field-label">Nazwa wzoru<input id="editor-name" type="text" maxlength="42" placeholder="Np. Kot w kosmosie" autocomplete="off"></label>
+      <form id="editor-size" class="studio-dims">
+        <label class="field-label">Szerokość<input id="editor-width" type="number" min="5" max="29" value="16" required inputmode="numeric"></label>
+        <label class="field-label">Wysokość<input id="editor-height" type="number" min="5" max="30" value="16" required inputmode="numeric"></label>
+        <button class="action" type="submit">Ustaw kratki</button>
+      </form>
+      <p class="studio-small" id="editor-current-size">Na planszy 16 × 16 kratek</p>
+    </div>
+    <div class="studio-panel">
+      <h2 id="editor-colors-title">Wybierz kredkę</h2>
+      <div class="edit-palette" id="editor-palette" role="group" aria-labelledby="editor-colors-title"></div>
+      <p id="editor-color" class="studio-small" role="status"></p>
+      <div class="editor-tools">
+        <button id="editor-eraser" class="action" type="button" aria-pressed="false">Gumka</button>
+        <button id="editor-undo" class="action" type="button" disabled>Cofnij</button>
+        <button id="editor-redo" class="action" type="button" disabled>Ponów</button>
+        <button id="editor-zoom" class="action" type="button" aria-pressed="false">Powiększ</button>
+        <button id="editor-pan" class="action" type="button" aria-pressed="false" hidden>Przesuwaj</button>
+      </div>
+      <p class="studio-small" id="editor-help">Dotknij kratki lub przeciągnij palcem. Na klawiaturze użyj strzałek i spacji.</p>
+      <div id="editor-box" class="editor-box"><canvas id="editor-grid" tabindex="0" aria-label="Siatka do rysowania" aria-describedby="editor-help"></canvas></div>
+      <p id="editor-position" class="studio-small" role="status" hidden></p>
+    </div>
+    <div class="studio-actions">
+      <button id="editor-save" class="action primary" type="button">Zapisz wzór</button>
+      <button id="editor-clear" class="action" type="button">Wyczyść kratki</button>
+      <button id="editor-delete" class="action danger" type="button" hidden>Usuń wzór</button>
+    </div>
+    <p id="editor-feedback" class="studio-feedback" role="status"></p>
+  </section>
   <section id="reader" class="reader" aria-labelledby="pattern-title" hidden>
     <a href="#galeria" id="back" class="back"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4-6 6 6 6m-6-6h14"/></svg>Wróć do wzorów</a>
     <div class="reader-head"><h1 id="pattern-title" tabindex="-1"></h1><span id="pattern-size" class="size"></span></div>
@@ -232,7 +355,26 @@ h1, h2, h3, p { margin:0 }
       <button id="count-toggle" type="button" class="tool-toggle" aria-controls="row-guide" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 3h14v12H2zM2 7h14M2 11h14M7 3v12M11 3v12"/></svg>Policz kratki</button>
       <button id="wake-toggle" type="button" class="tool-toggle" aria-describedby="wake-status" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="1.5" width="8" height="15" rx="1.4"/><path d="M8 13.8h2M1.5 6l1 1M16.5 6l-1 1"/></svg>Nie wygaszaj ekranu</button>
       <button id="zoom-toggle" type="button" class="tool-toggle" aria-controls="board" aria-pressed="false" hidden><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7.4" cy="7.4" r="4.9"/><path d="m11 11 4 4M7.4 5.3v4.2M5.3 7.4h4.2"/></svg>Powiększ kratki</button>
+      <button id="print-toggle" type="button" class="tool-toggle" aria-expanded="false" aria-controls="print-panel"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 6V2h8v4m0 7h3V7H2v6h3m0-2h8v5H5zM13 9h1"/></svg>Drukuj / PDF</button>
+      <a href="#moje" id="reader-edit" class="action" hidden>Edytuj wzór</a>
     </div>
+    <section id="print-panel" class="print-panel" aria-labelledby="print-title" hidden>
+      <h2 id="print-title">Arkusz do zeszytu</h2>
+      <div class="print-choices">
+        <label class="field-label">Co ma być na A4?
+          <select id="print-kind">
+            <option value="both">Wzór i pusta kratka</option>
+            <option value="pattern">Tylko kolorowy wzór</option>
+            <option value="blank">Tylko pusta kratka</option>
+          </select>
+        </label>
+        <button id="print-pdf" class="action primary" type="button">Pobierz PDF</button>
+        <button id="print-now" class="action" type="button">Drukuj</button>
+      </div>
+      <p id="print-summary" role="status"></p>
+      <p class="studio-small">A4 · kratki 5 mm. W ustawieniach drukarki wybierz skalę 100%, żeby zachować rozmiar kratek.</p>
+      <p id="print-message" class="studio-feedback" role="status"></p>
+    </section>
     <p id="wake-status" class="wake-status" role="status" hidden></p>
     <p id="zoom-hint" class="zoom-hint" hidden>Przesuń siatkę w bok, żeby zobaczyć resztę wiersza.</p>
     <div id="mystery-progress" class="mystery-progress" hidden><progress id="progress" aria-label="Postęp zagadki"></progress></div>
@@ -265,6 +407,7 @@ h1, h2, h3, p { margin:0 }
   </section>
   <noscript><p class="wrap">Żeby wybrać wzór i podświetlać wiersze, włącz JavaScript w przeglądarce.</p></noscript>
 </main>
+<div id="print-pages" aria-hidden="true"></div>
 <script>
 'use strict';
 
@@ -1455,6 +1598,8 @@ function syncReaderMode() {
   $('count-toggle').hidden = isMystery;
   $('count-toggle').setAttribute('aria-pressed',String(showCount));
   $('zoom-toggle').hidden = isMystery || activePattern.width < 18;
+  $('print-toggle').hidden = isMystery;
+  $('reader-edit').hidden = !activePattern.own;
   $('mystery-progress').hidden = !concealed;
   $('guide-help').hidden = !concealed;
   $('mystery-result').hidden = !solution;
@@ -1544,9 +1689,9 @@ function toggleWake() {
 function savedRow(pattern) {
   try {
     const saved = Number(localStorage.getItem(progressKey(pattern)));
-    if (Number.isInteger(saved) && saved >= 0 && saved < pattern.height) return positions.get(pattern.id) ?? saved;
+    if (Number.isInteger(saved) && saved >= 0 && saved < pattern.height) return positions.get(progressKey(pattern)) ?? saved;
   } catch { /* Galeria działa także bez dostępu do pamięci przeglądarki. */ }
-  return positions.get(pattern.id) ?? 0;
+  return positions.get(progressKey(pattern)) ?? 0;
 }
 
 function showRow(index,{scroll = false, focus = false} = {}) {
@@ -1571,7 +1716,7 @@ function showRow(index,{scroll = false, focus = false} = {}) {
     $('progress').value = index + 1;
   }
   paintGuide();
-  positions.set(activePattern.id,index);
+  positions.set(progressKey(activePattern),index);
   try { localStorage.setItem(progressKey(activePattern),String(index)); } catch { /* opcjonalny zapis */ }
   if (focus) rowButtons[index].focus({preventScroll:true});
   else if (previousHadFocus && $('previous').disabled) $('next').focus({preventScroll:true});
@@ -1589,8 +1734,9 @@ function showRow(index,{scroll = false, focus = false} = {}) {
 
 function openPattern(pattern) {
   activePattern = pattern;
-  $('gallery').hidden = true;
-  $('reader').hidden = false;
+  resetPrintPanel();
+  $('back').href = pattern.own ? '#moje' : '#galeria';
+  $('reader-edit').href = pattern.own ? '#kreator/' + pattern.id : '#moje';
   $('pattern-size').textContent = sizeText(pattern);
   $('pattern-size').setAttribute('aria-label',sizeLabel(pattern));
   $('board').style.setProperty('--cols',pattern.width);
@@ -1650,39 +1796,694 @@ function openPattern(pattern) {
   showRow(savedRow(pattern));
   $('pattern-title').focus({preventScroll:true});
 }
+// Arkusz powstaje w milimetrach. Ten sam układ zasila PDF i druk w przeglądarce.
+const paper = {width:210,height:297,cell:5};
+function printLayout(pattern,kind) {
+  const selected = kind === 'pattern' ? [true] : kind === 'blank' ? [false] : [true,false];
+  const w = pattern.width * paper.cell;
+  const h = pattern.height * paper.cell;
+  const legendH = pattern.used.length ? 11 + Math.ceil(pattern.used.length / 3) * 6 : 0;
+  const together = selected.length === 2;
+  const horizontal = together && w <= 80;
+  const stacked = together && !horizontal && 57 + 2 * h + 24 + legendH <= 264;
+  const pages = horizontal || stacked ? [selected] : selected.map(part => [part]);
+  const ink = '#28213f', grey = '#5d5670', accent = '#5742bb';
+  return pages.map((page,index) => {
+    const ops = [];
+    const text = (x,y,s,pt,color = ink,bold = false,align = 'start') => ops.push({tag:'text',x,y,s:String(s),pt,color,bold,align});
+    const line = (x,y,x1,y1,color,weight) => ops.push({tag:'line',x,y,x1,y1,color,weight});
+    const rect = (x,y,w,h,color) => ops.push({tag:'rect',x,y,w,h,color});
+    const grid = (x,y,colored) => {
+      text(x,y - 9,colored ? 'Wzór do odrysowania' : 'Pusta kratka',12,ink,true);
+      if (colored) {
+        for (let row = 0; row < pattern.height; row++) {
+          let col = 0;
+          for (const {color,count} of runsFor(pattern.rows[row])) {
+            if (color !== '.') rect(x + col * 5,y + row * 5,count * 5,5,colors[color][0]);
+            col += count;
+          }
+        }
+      }
+      for (let col = 0; col <= pattern.width; col++) {
+        const at = x + col * 5;
+        const major = col % 5 === 0 || col === pattern.width;
+        line(at,y,at,y + h,major ? '#827c91' : '#b9b5c5',major ? .23 : .14);
+        if (col < pattern.width && (col === 0 || (col + 1) % 5 === 0 || col === pattern.width - 1)) text(at + 2.5,y - 2,col + 1,7.5,grey,false,'middle');
+      }
+      for (let row = 0; row <= pattern.height; row++) {
+        const at = y + row * 5;
+        const major = row % 5 === 0 || row === pattern.height;
+        line(x,at,x + w,at,major ? '#827c91' : '#b9b5c5',major ? .23 : .14);
+        if (row < pattern.height && (row === 0 || (row + 1) % 5 === 0 || row === pattern.height - 1)) text(x - 2.7,at + 3.45,row + 1,7.5,grey,false,'end');
+      }
+    };
+    rect(14,13,4,4,accent);
+    text(20.5,16.65,'PIKSELUJ   /   ARKUSZ DO ZESZYTU',10,accent,true);
+    const titleUnits = [...pattern.name].reduce((sum,ch) => sum + (/[MW@%]/.test(ch) ? 1 : /[iIl., ]/.test(ch) ? .35 : .75),0);
+    const titlePt = Math.min(24,Math.max(10,510 / Math.max(1,titleUnits)));
+    text(14,30,pattern.name,titlePt,ink,true);
+    text(14,38,`${pattern.width} × ${pattern.height} kratek   ·   1 kratka = 5 mm`,10.5,grey);
+    line(14,43,196,43,'#d5cfe2',.28);
+    let bottom;
+    if (horizontal && page.length === 2) {
+      grid(61 - w / 2,57,true);
+      grid(151 - w / 2,57,false);
+      bottom = 57 + h;
+    } else if (stacked && page.length === 2) {
+      grid((210 - w) / 2,57,true);
+      grid((210 - w) / 2,81 + h,false);
+      bottom = 81 + 2 * h;
+    } else {
+      grid((210 - w) / 2,57,page[0]);
+      bottom = 57 + h;
+    }
+    if (page.includes(true) && pattern.used.length) {
+      text(14,bottom + 10,'Przygotuj kredki',10.5,ink,true);
+      pattern.used.forEach((key,i) => {
+        const [hex,label] = colors[key];
+        const x = 14 + (i % 3) * 61, y = bottom + 14 + Math.floor(i / 3) * 6;
+        rect(x,y - 2.6,4,4,'#8e85a0');
+        rect(x + .23,y - 2.37,3.54,3.54,hex);
+        text(x + 6,y + .4,label,8.5,grey);
+      });
+    }
+    line(14,274,196,274,'#d5cfe2',.22);
+    if (pattern.credit && !pattern.own) {
+      const credit = pattern.credit + (pattern.licence ? ' · ' + pattern.licence : '');
+      text(14,279,credit,7.2,grey);
+      if (pattern.sourceUrl) text(14,283,pattern.sourceUrl,7,grey);
+    }
+    text(14,289,'Drukuj w skali 100% (rozmiar rzeczywisty).',8,grey);
+    text(196,289,`${index + 1} / ${pages.length}`,8,grey,false,'end');
+    return ops;
+  });
+}
+
+// Bazowe fonty PDF z polskimi znakami pod osobnymi kodami oraz mapą do kopiowania tekstu.
+const pdfLetters = [
+  ['Ą','Aogonek'],['Ć','Cacute'],['Ę','Eogonek'],['Ł','Lslash'],['Ń','Nacute'],['Ś','Sacute'],['Ź','Zacute'],['Ż','Zdotaccent'],
+  ['ą','aogonek'],['ć','cacute'],['ę','eogonek'],['ł','lslash'],['ń','nacute'],['ś','sacute'],['ź','zacute'],['ż','zdotaccent']
+];
+const pdfByte = new Map(pdfLetters.map(([ch],i) => [ch,128 + i]));
+const byteHex = n => n.toString(16).padStart(2,'0').toUpperCase();
+const unitHex = n => n.toString(16).padStart(4,'0').toUpperCase();
+function pdfText(s) {
+  return [...s].map(ch => {
+    const n = ch.charCodeAt(0);
+    return byteHex(pdfByte.get(ch) ?? (n >= 32 && n <= 126 || n >= 160 && n <= 255 ? n : 63));
+  }).join('');
+}
+const pdfTitleHex = s => 'FEFF' + s.split('').map(ch => unitHex(ch.charCodeAt(0))).join('');
+const pdfNum = n => String(Math.round(n * 1000) / 1000);
+const pdfMm = n => pdfNum(n * 72 / 25.4);
+const pdfY = y => pdfMm(paper.height - y);
+function pdfRgb(hex) {
+  return [1,3,5].map(i => pdfNum(parseInt(hex.slice(i,i + 2),16) / 255)).join(' ');
+}
+function pdfAlign(op) {
+  if (op.align === 'start') return pdfMm(op.x);
+  const widthPt = [...op.s].reduce((width,ch) => width + (ch === '1' ? .49 : ch === ' ' || ch === '/' ? .28 : .556),0) * op.pt;
+  return pdfNum(op.x * 72 / 25.4 - widthPt / (op.align === 'middle' ? 2 : 1));
+}
+function pdfRenderPage(ops) {
+  return ops.map(op => {
+    const c = pdfRgb(op.color);
+    if (op.tag === 'rect') return `${c} rg ${pdfMm(op.x)} ${pdfY(op.y + op.h)} ${pdfMm(op.w)} ${pdfMm(op.h)} re f`;
+    if (op.tag === 'line') return `${c} RG ${pdfMm(op.weight)} w ${pdfMm(op.x)} ${pdfY(op.y)} m ${pdfMm(op.x1)} ${pdfY(op.y1)} l S`;
+    return `BT /${op.bold ? 'F2' : 'F1'} ${op.pt} Tf ${c} rg 1 0 0 1 ${pdfAlign(op)} ${pdfY(op.y)} Tm <${pdfText(op.s)}> Tj ET`;
+  }).join('\n') + '\n';
+}
+function encodePdf(pages,title) {
+  const objects = [null,'<< /Type /Catalog /Pages 2 0 R >>',''];
+  const add = obj => objects.push(obj) - 1;
+  const stream = body => `<< /Length ${body.length} >>\nstream\n${body}endstream`;
+  const unicodePairs = Array.from({length:256},(_,i) => {
+    if (i < 32 || i === 127 || i >= 144 && i < 160) return '';
+    return `<${byteHex(i)}> <${unitHex(i >= 128 && i < 144 ? pdfLetters[i - 128][0].charCodeAt(0) : i)}>`;
+  }).filter(Boolean);
+  const pairGroups = [];
+  for (let i = 0; i < unicodePairs.length; i += 98) {
+    const pairs = unicodePairs.slice(i,i + 98);
+    pairGroups.push(pairs.length + ' beginbfchar\n' + pairs.join('\n') + '\nendbfchar');
+  }
+  const cmap = [
+    '/CIDInit /ProcSet findresource begin','12 dict begin','begincmap',
+    '/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def','/CMapName /PikselujLatin def','/CMapType 2 def',
+    '1 begincodespacerange','<00> <FF>','endcodespacerange',...pairGroups,'endcmap',
+    'CMapName currentdict /CMap defineresource pop','end','end',''
+  ].join('\n');
+  const toUnicode = add(stream(cmap));
+  const encoding = '<< /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences [128 ' + pdfLetters.map(([,g]) => '/' + g).join(' ') + '] >>';
+  const font = weight => add(`<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica${weight} /Encoding ${encoding} /ToUnicode ${toUnicode} 0 R >>`);
+  const regular = font(''), bold = font('-Bold');
+  const info = add(`<< /Title <${pdfTitleHex(title)}> /Creator (Pikseluj) >>`);
+  const pagesRefs = pages.map(ops => {
+    const contents = add(stream(pdfRenderPage(ops)));
+    return add(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${pdfMm(paper.width)} ${pdfMm(paper.height)}] /Resources << /Font << /F1 ${regular} 0 R /F2 ${bold} 0 R >> >> /Contents ${contents} 0 R >>`);
+  });
+  objects[2] = '<< /Type /Pages /Count ' + pagesRefs.length + ' /Kids [' + pagesRefs.map(n => n + ' 0 R').join(' ') + '] >>';
+  let doc = '%PDF-1.4\n';
+  const offsets = [0];
+  for (let i = 1; i < objects.length; i++) {
+    offsets[i] = doc.length;
+    doc += `${i} 0 obj\n${objects[i]}\nendobj\n`;
+  }
+  const table = doc.length;
+  doc += `xref\n0 ${offsets.length}\n0000000000 65535 f \n`;
+  for (const off of offsets.slice(1)) doc += String(off).padStart(10,'0') + ' 00000 n \n';
+  return doc + `trailer\n<< /Size ${offsets.length} /Root 1 0 R /Info ${info} 0 R >>\nstartxref\n${table}\n%%EOF\n`;
+}
+function pageSvg(ops) {
+  const svg = svgNode('svg');
+  svg.setAttribute('viewBox','0 0 210 297');
+  svg.setAttribute('class','print-sheet');
+  const a = (node,props) => Object.entries(props).forEach(([k,v]) => node.setAttribute(k,v));
+  for (const op of ops) {
+    const node = svgNode(op.tag);
+    if (op.tag === 'text') {
+      a(node,{x:op.x,y:op.y,fill:op.color,'font-family':'Arial, sans-serif','font-size':op.pt * 25.4 / 72,'font-weight':op.bold ? '700' : '400','text-anchor':op.align});
+      node.textContent = op.s;
+    } else if (op.tag === 'rect') a(node,{x:op.x,y:op.y,width:op.w,height:op.h,fill:op.color});
+    else a(node,{x1:op.x,y1:op.y,x2:op.x1,y2:op.y1,stroke:op.color,'stroke-width':op.weight});
+    svg.append(node);
+  }
+  return svg;
+}
+function updatePrintSummary() {
+  if (!activePattern || $('print-panel').hidden) return;
+  const pages = printLayout(activePattern,$('print-kind').value).length;
+  $('print-summary').textContent = pages === 1 ? 'Wszystko zmieści się na jednej stronie.' : 'Duży wzór i pusta kratka będą na osobnych stronach.';
+}
+function resetPrintPanel() {
+  $('print-panel').hidden = true;
+  $('print-toggle').setAttribute('aria-expanded','false');
+  $('print-message').textContent = '';
+}
+$('print-toggle').addEventListener('click',() => {
+  $('print-panel').hidden = !$('print-panel').hidden;
+  $('print-toggle').setAttribute('aria-expanded',String(!$('print-panel').hidden));
+  $('print-message').textContent = '';
+  updatePrintSummary();
+});
+$('print-kind').addEventListener('change',() => {
+  $('print-message').textContent = '';
+  updatePrintSummary();
+});
+$('print-pdf').addEventListener('click',() => {
+  if (!activePattern || $('print-panel').hidden) return;
+  try {
+    const kind = $('print-kind').value;
+    const pdf = encodePdf(printLayout(activePattern,kind),activePattern.name + ' — Pikseluj');
+    const url = URL.createObjectURL(new Blob([pdf],{type:'application/pdf'}));
+    const a = el('a');
+    a.href = url;
+    const safeName = activePattern.name.replace(/[\\/:*?"<>|\u0000-\u001f]/g,'-').trim();
+    a.download = 'Pikseluj-' + (safeName || 'wzor') + (kind === 'blank' ? '-pusta-kratka' : '') + '.pdf';
+    a.hidden = true;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url),45000);
+    $('print-message').textContent = 'Jeśli plik nie otworzył się od razu, zajrzyj do pobranych plików.';
+  } catch {
+    $('print-message').textContent = 'Nie udało się pobrać PDF. Spróbuj przycisku Drukuj.';
+  }
+});
+function finishPrint() {
+  document.body.classList.remove('printing');
+  $('print-pages').replaceChildren();
+}
+$('print-now').addEventListener('click',() => {
+  if (!activePattern || $('print-panel').hidden) return;
+  try {
+    $('print-pages').replaceChildren(...printLayout(activePattern,$('print-kind').value).map(pageSvg));
+    document.body.classList.add('printing');
+    window.print();
+  } catch {
+    finishPrint();
+    $('print-message').textContent = 'Drukowanie nie jest dostępne w tej przeglądarce. Pobierz PDF i otwórz go z pobranych plików.';
+  }
+});
+window.addEventListener('afterprint',finishPrint);
+
+// Własne wzory i szkice pozostają w przeglądarce. Nie są częścią galerii.
+const studioKey = 'pikseluj/projekty/v1';
+const ownId = /^moj-[a-z0-9-]{8,64}$/;
+const editorKeys = ['k','w','s','n','e','c','r','O','Y','H','l','g','d','b','a','u','v','p','X','t'];
+const layout = {defaultSize:16,min:5,maxX:29,maxY:30};
+const cleanName = name => [...String(name ?? '').replace(/[\u0000-\u001f\u007f]/g,' ').trim()].slice(0,42).join('') || 'Mój wzór';
+const validRows = rows => Array.isArray(rows) && rows.length >= layout.min && rows.length <= layout.maxY &&
+  typeof rows[0] === 'string' && rows[0].length >= layout.min && rows[0].length <= layout.maxX &&
+  rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || editorKeys.includes(c)));
+const filled = rows => rows.some(row => /[^.]/.test(row));
+function loadStudio() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(studioKey) || 'null');
+    const projects = (Array.isArray(raw?.projects) ? raw.projects : []).filter(p => p && ownId.test(p.id) && validRows(p.rows) && filled(p.rows)).map(p => ({
+      id:p.id,name:cleanName(p.name),rows:p.rows,revision:Number.isSafeInteger(p.revision) && p.revision > 0 ? p.revision : 1
+    }));
+    const drafts = new Map();
+    for (const [key,draft] of Object.entries(raw?.drafts || {})) {
+      if (!(key === 'nowy' || projects.some(p => p.id === key)) || !validRows(draft?.rows)) continue;
+      drafts.set(key,{name:[...String(draft.name ?? '')].slice(0,42).join(''),rows:draft.rows});
+    }
+    return {projects,drafts,available:true};
+  } catch {
+    return {projects:[],drafts:new Map(),available:false};
+  }
+}
+const studio = loadStudio();
+let editor = null;
+let selectedPen = 'a';
+let editorZoom = false;
+let editorPan = false;
+let editorCursor = null;
+let inkStroke = null;
+
+function persistStudio() {
+  try {
+    localStorage.setItem(studioKey,JSON.stringify({projects:studio.projects,drafts:Object.fromEntries(studio.drafts)}));
+    studio.available = true;
+  } catch {
+    studio.available = false;
+  }
+  return studio.available;
+}
+const inheritedNotice = 'Pamięć przeglądarki jest niedostępna. Zmiany mogą zniknąć po zamknięciu karty.';
+const blankRows = (w,h) => Array(h).fill('.'.repeat(w));
+function projectPattern(p) {
+  return readPattern({id:p.id,name:p.name,bg:'#ede7fa',revision:p.revision,own:true,art:p.rows.join('\n')});
+}
+function renderStudio() {
+  $('studio-storage').textContent = studio.available ? 'Wzory zapisują się w tej przeglądarce. Nie potrzebujesz konta.' : inheritedNotice;
+  $('studio-empty').hidden = studio.projects.length > 0;
+  $('new-design').textContent = studio.drafts.has('nowy') ? 'Wróć do szkicu' : '+ Nowy wzór';
+  $('my-designs').replaceChildren();
+  for (const entry of studio.projects) {
+    const pattern = projectPattern(entry);
+    const item = el('article','studio-item');
+    const pic = el('div','card-art');
+    pic.append(sprite(pattern,{paper:true}));
+    const name = el('h3','',entry.name);
+    const info = el('span','size',sizeText(pattern));
+    const actions = el('div','studio-item-actions');
+    const trace = el('a','action','Odrysuj');
+    trace.href = '#wzor/' + entry.id;
+    trace.setAttribute('aria-label','Odrysuj: ' + entry.name);
+    const edit = el('a','action','Edytuj');
+    edit.href = '#kreator/' + entry.id;
+    edit.setAttribute('aria-label','Edytuj: ' + entry.name);
+    if (studio.drafts.has(entry.id)) info.textContent += ' · szkic edycji';
+    actions.append(trace,edit);
+    item.append(pic,name,info,actions);
+    $('my-designs').append(item);
+  }
+}
+const paletteButtons = new Map();
+for (const id of editorKeys) {
+  const label = colors[id][1];
+  const button = el('button','edit-swatch');
+  button.type = 'button';
+  button.title = label;
+  button.setAttribute('aria-label',label);
+  button.append(swatch(id));
+  button.addEventListener('click',() => selectPen(id));
+  paletteButtons.set(id,button);
+  $('editor-palette').append(button);
+}
+function selectPen(value) {
+  selectedPen = value;
+  $('editor-eraser').setAttribute('aria-pressed',String(value === '.'));
+  for (const [id,button] of paletteButtons) button.setAttribute('aria-pressed',String(id === value));
+  $('editor-color').textContent = value === '.' ? 'Wybrano gumkę' : 'Kredka: ' + colors[value][1];
+}
+function setEditorZoom(value) {
+  editorZoom = value;
+  $('editor-box').classList.toggle('scaled',value);
+  $('editor-zoom').setAttribute('aria-pressed',String(value));
+  $('editor-zoom').textContent = value ? 'Zmniejsz' : 'Powiększ';
+  $('editor-pan').hidden = !value;
+  if (!value) {
+    setEditorPan(false);
+    $('editor-box').scrollLeft = 0;
+  }
+}
+function setEditorPan(value) {
+  editorPan = editorZoom && value;
+  $('editor-box').classList.toggle('pan',editorPan);
+  $('editor-pan').setAttribute('aria-pressed',String(editorPan));
+  $('editor-pan').textContent = editorPan ? 'Wróć do rysowania' : 'Przesuwaj';
+  $('editor-help').textContent = editorPan ? 'Przesuń planszę palcem, a potem wróć do rysowania.' :
+    'Dotknij kratki lub przeciągnij palcem. Na klawiaturze użyj strzałek i spacji.';
+}
+function openEditor(id) {
+  const entry = studio.projects.find(p => p.id === id);
+  const key = id || 'nowy';
+  const data = studio.drafts.get(key) || entry || {name:'',rows:blankRows(layout.defaultSize,layout.defaultSize)};
+  editor = {key,id,name:data.name,rows:data.rows.slice(),undo:[],redo:[]};
+  inkStroke = null;
+  editorCursor = null;
+  $('editor-name').value = data.name;
+  $('editor-title').textContent = id ? 'Edytuj własne piksele' : 'Zrób własne piksele';
+  $('editor-delete').hidden = !id;
+  $('editor-feedback').textContent = studio.available ? studio.drafts.has(key) ? 'Wczytano szkic.' : '' : inheritedNotice;
+  selectPen('a');
+  setEditorZoom(false);
+  syncEditor();
+  updateEditorTools();
+}
+const canvas = $('editor-grid');
+const tile = 24;
+function syncEditor() {
+  const w = editor.rows[0].length, h = editor.rows.length;
+  canvas.width = w * tile;
+  canvas.height = h * tile;
+  $('editor-width').value = w;
+  $('editor-height').value = h;
+  $('editor-current-size').textContent = `Na planszy ${w} × ${h} kratek`;
+  $('editor-box').style.setProperty('--large-width',w * 23 + 'px');
+  canvas.setAttribute('aria-label',`Siatka do rysowania. ${w} kratek w poziomie, ${h} w pionie.`);
+  showEditorCursor();
+  drawEditor();
+}
+function drawEditor() {
+  if (!editor) return;
+  const ctx = canvas.getContext?.('2d');
+  if (!ctx) return;
+  ctx.fillStyle = '#f5f2fa';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  editor.rows.forEach((row,y) => {
+    for (let x = 0; x < row.length; x++) {
+      if (row[x] === '.') continue;
+      ctx.fillStyle = colors[row[x]][0];
+      ctx.fillRect(x * tile,y * tile,tile,tile);
+    }
+  });
+  const grids = major => {
+    ctx.beginPath();
+    for (let x = 0; x <= canvas.width; x += tile) {
+      if ((x % (tile * 5) === 0 || x === canvas.width) !== major) continue;
+      ctx.moveTo(x + .5,0);
+      ctx.lineTo(x + .5,canvas.height);
+    }
+    for (let y = 0; y <= canvas.height; y += tile) {
+      if ((y % (tile * 5) === 0 || y === canvas.height) !== major) continue;
+      ctx.moveTo(0,y + .5);
+      ctx.lineTo(canvas.width,y + .5);
+    }
+    ctx.strokeStyle = major ? 'rgba(101,85,143,0.65)' : 'rgba(122,106,153,0.38)';
+    ctx.lineWidth = major ? 1.3 : .85;
+    ctx.stroke();
+  };
+  grids(false);
+  grids(true);
+  if (editorCursor) {
+    const {x,y} = editorCursor;
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x * tile + 3,y * tile + 3,tile - 6,tile - 6);
+    ctx.strokeStyle = '#462e97';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x * tile + 3,y * tile + 3,tile - 6,tile - 6);
+  }
+}
+function showEditorCursor() {
+  $('editor-position').hidden = !editorCursor;
+  if (!editorCursor) return;
+  const {x,y} = editorCursor;
+  const c = editor.rows[y][x];
+  $('editor-position').textContent = `Wiersz ${y + 1}, kolumna ${x + 1} · ${c === '.' ? 'pusta kratka' : colors[c][1]}`;
+}
+function snapshotEditor() { return editor.rows.slice(); }
+function updateEditorTools() {
+  $('editor-undo').disabled = editor.undo.length === 0;
+  $('editor-redo').disabled = editor.redo.length === 0;
+  $('editor-clear').disabled = !filled(editor.rows);
+}
+function cacheDraft({announce = false} = {}) {
+  if (!editor) return;
+  const origin = studio.projects.find(p => p.id === editor.id);
+  const sameAsSaved = origin && editor.name === origin.name && editor.rows.join('/') === origin.rows.join('/');
+  const untouched = !origin && !editor.name.trim() && !filled(editor.rows) &&
+    editor.rows.length === layout.defaultSize && editor.rows[0].length === layout.defaultSize;
+  if (untouched || sameAsSaved) studio.drafts.delete(editor.key);
+  else studio.drafts.set(editor.key,{name:editor.name,rows:editor.rows.slice()});
+  const ok = persistStudio();
+  if (!ok || announce) $('editor-feedback').textContent = ok ? 'Zapisano szkic na tym urządzeniu.' : inheritedNotice;
+}
+function recordEdit(previous) {
+  if (previous.join('/') === editor.rows.join('/')) return;
+  editor.undo.push(previous);
+  if (editor.undo.length > 60) editor.undo.shift();
+  editor.redo.length = 0;
+  updateEditorTools();
+  cacheDraft({announce:true});
+}
+function restoreEdit(from,to) {
+  if (!editor || !from.length) return;
+  to.push(snapshotEditor());
+  editor.rows = from.pop();
+  editorCursor = null;
+  syncEditor();
+  updateEditorTools();
+  cacheDraft({announce:true});
+}
+function setPixel(x,y,pen) {
+  if (editor.rows[y][x] === pen) return;
+  const row = editor.rows[y];
+  editor.rows[y] = row.slice(0,x) + pen + row.slice(x + 1);
+}
+// Połącz kratki pomiędzy zdarzeniami palca, także przy szybkim przeciągnięciu.
+function strokeLine(a,b,pen) {
+  let {x,y} = a;
+  const dx = Math.abs(b.x - x), dy = -Math.abs(b.y - y);
+  const sx = x < b.x ? 1 : -1, sy = y < b.y ? 1 : -1;
+  let err = dx + dy;
+  while (true) {
+    setPixel(x,y,pen);
+    if (x === b.x && y === b.y) break;
+    const e = 2 * err;
+    if (e >= dy) { err += dy; x += sx; }
+    if (e <= dx) { err += dx; y += sy; }
+  }
+}
+function locatePixel(event) {
+  const box = canvas.getBoundingClientRect();
+  if (!box.width || !box.height) return null;
+  const x = Math.floor((event.clientX - box.left) / box.width * editor.rows[0].length);
+  const y = Math.floor((event.clientY - box.top) / box.height * editor.rows.length);
+  return x >= 0 && x < editor.rows[0].length && y >= 0 && y < editor.rows.length ? {x,y} : null;
+}
+function finishStroke(pointerId = inkStroke?.id) {
+  if (!inkStroke || pointerId !== inkStroke.id) return;
+  const previous = inkStroke.previous;
+  inkStroke = null;
+  if (canvas.hasPointerCapture?.(pointerId)) canvas.releasePointerCapture(pointerId);
+  if (editor) recordEdit(previous);
+}
+canvas.addEventListener('pointerdown',event => {
+  if (!editor || editorPan || inkStroke || event.button !== 0) return;
+  const point = locatePixel(event);
+  if (!point) return;
+  event.preventDefault();
+  editorCursor = null;
+  showEditorCursor();
+  inkStroke = {id:event.pointerId,previous:snapshotEditor(),last:point,pen:selectedPen};
+  canvas.setPointerCapture?.(event.pointerId);
+  strokeLine(point,point,selectedPen);
+  drawEditor();
+});
+canvas.addEventListener('pointermove',event => {
+  if (!inkStroke || event.pointerId !== inkStroke.id) return;
+  const point = locatePixel(event);
+  if (!point) { inkStroke.last = null; return; }
+  strokeLine(inkStroke.last || point,point,inkStroke.pen);
+  inkStroke.last = point;
+  drawEditor();
+});
+for (const eventName of ['pointerup','pointercancel','lostpointercapture']) canvas.addEventListener(eventName,event => finishStroke(event.pointerId));
+canvas.addEventListener('keydown',event => {
+  if (!editor) return;
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
+    event.preventDefault();
+    if (event.shiftKey) restoreEdit(editor.redo,editor.undo);
+    else restoreEdit(editor.undo,editor.redo);
+    return;
+  }
+  const direction = {ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[event.key];
+  if (!direction && event.key !== ' ' && event.key !== 'Enter') return;
+  event.preventDefault();
+  const w = editor.rows[0].length-1, h = editor.rows.length-1;
+  if (!editorCursor) editorCursor = {x:0,y:0};
+  else if (direction) {
+    editorCursor.x = Math.min(w,Math.max(0,editorCursor.x + direction[0]));
+    editorCursor.y = Math.min(h,Math.max(0,editorCursor.y + direction[1]));
+  }
+  if (!direction) {
+    const previous = snapshotEditor();
+    setPixel(editorCursor.x,editorCursor.y,selectedPen);
+    recordEdit(previous);
+  }
+  if (editorZoom) {
+    const wrap = $('editor-box');
+    const offset = (editorCursor.x + .5) * canvas.clientWidth / (w + 1);
+    if (offset < wrap.scrollLeft + 10 || offset > wrap.scrollLeft + wrap.clientWidth - 10) wrap.scrollLeft = Math.max(0,offset - wrap.clientWidth / 2);
+  }
+  showEditorCursor();
+  drawEditor();
+});
+$('editor-name').addEventListener('input',event => {
+  if (!editor) return;
+  editor.name = event.target.value;
+  cacheDraft();
+});
+$('editor-size').addEventListener('submit',event => {
+  event.preventDefault();
+  if (!editor) return;
+  finishStroke();
+  const w = Number($('editor-width').value), h = Number($('editor-height').value);
+  if (!Number.isInteger(w) || !Number.isInteger(h) || w < layout.min || h < layout.min || w > layout.maxX || h > layout.maxY) return;
+  const old = snapshotEditor();
+  const lost = old.some((row,y) => /[^.]/.test(y >= h ? row : row.slice(w)));
+  editor.rows = Array.from({length:h},(_,y) => (old[y] || '').slice(0,w).padEnd(w,'.'));
+  editorCursor = null;
+  syncEditor();
+  recordEdit(old);
+  if (lost) $('editor-feedback').textContent = 'Przycięto część rysunku. Przycisk Cofnij przywróci poprzedni rozmiar.';
+});
+$('editor-eraser').addEventListener('click',() => selectPen('.'));
+$('editor-undo').addEventListener('click',() => { if (editor) { finishStroke(); restoreEdit(editor.undo,editor.redo); } });
+$('editor-redo').addEventListener('click',() => { if (editor) { finishStroke(); restoreEdit(editor.redo,editor.undo); } });
+$('editor-zoom').addEventListener('click',() => { finishStroke(); setEditorZoom(!editorZoom); });
+$('editor-pan').addEventListener('click',() => { finishStroke(); setEditorPan(!editorPan); });
+$('editor-clear').addEventListener('click',() => {
+  if (!editor || !filled(editor.rows)) return;
+  finishStroke();
+  const old = snapshotEditor();
+  editor.rows = blankRows(editor.rows[0].length,editor.rows.length);
+  drawEditor();
+  showEditorCursor();
+  recordEdit(old);
+});
+$('editor-save').addEventListener('click',() => {
+  if (!editor) return;
+  finishStroke();
+  if (!filled(editor.rows)) {
+    $('editor-feedback').textContent = 'Zamaluj przynajmniej jedną kratkę, żeby zapisać wzór.';
+    return;
+  }
+  const prior = studio.projects.find(p => p.id === editor.id);
+  const id = prior?.id || 'moj-' + (globalThis.crypto?.randomUUID?.() ?? Date.now().toString(36) + '-' + Math.random().toString(36).slice(2));
+  const name = cleanName(editor.name);
+  const rows = editor.rows.slice();
+  const revision = prior ? prior.revision + (prior.rows.join('/') === rows.join('/') ? 0 : 1) : 1;
+  studio.projects = [{id,name,rows,revision},...studio.projects.filter(p => p.id !== id)];
+  studio.drafts.delete(editor.key);
+  const ok = persistStudio();
+  $('studio-feedback').textContent = ok ? 'Zapisano „' + name + '”.' : 'Wzór jest widoczny w tej karcie. ' + inheritedNotice;
+  navigateStudio('#moje');
+});
+$('editor-delete').addEventListener('click',() => {
+  if (!editor?.id) return;
+  const entry = studio.projects.find(p => p.id === editor.id);
+  if (!entry || !window.confirm('Usunąć wzór „' + entry.name + '”?')) return;
+  finishStroke();
+  studio.projects = studio.projects.filter(p => p.id !== entry.id);
+  studio.drafts.delete(entry.id);
+  const ok = persistStudio();
+  $('studio-feedback').textContent = ok ? 'Usunięto wzór.' : 'Usunięto wzór z otwartej karty, ale nie udało się zapisać tej zmiany.';
+  navigateStudio('#moje');
+});
+window.addEventListener('pagehide',() => finishStroke());
+
+function navigateStudio(hash) {
+  if (history.state?.pikselujFromStudio) {
+    history.back();
+    return;
+  }
+  if (location.hash !== hash) history.replaceState(null,'',hash);
+  route();
+}
+
+let view = 'gallery';
+function showScreen(next) {
+  if (view === 'gallery' && next !== 'gallery') lastGalleryY = window.scrollY;
+  view = next;
+  $('gallery').hidden = next !== 'gallery';
+  $('reader').hidden = next !== 'reader';
+  $('my-studio').hidden = next !== 'studio';
+  $('editor').hidden = next !== 'editor';
+}
 function route() {
-  const pattern = location.hash === '#zagadka' ? mystery : patterns.find(item => location.hash === '#wzor/' + item.id);
-  if (pattern) {
-    if (pattern === activePattern) return;
-    if (!activePattern) lastGalleryY = window.scrollY;
-    openPattern(pattern);
+  const hash = location.hash;
+  const projectId = hash.startsWith('#wzor/') ? hash.slice(6) : '';
+  const editId = hash.startsWith('#kreator/') ? hash.slice(9) : '';
+  const project = studio.projects.find(p => p.id === projectId);
+  const editing = studio.projects.some(p => p.id === editId);
+  const target = hash === '#zagadka' ? mystery : patterns.find(item => item.id === projectId) || (project && projectPattern(project));
+  if (target) {
+    if (view === 'reader' && target.id === activePattern?.id && target.revision === activePattern.revision) return;
+    if (editor) { finishStroke(); editor = null; }
+    if (activePattern && activePattern !== target) stopWake();
+    showScreen('reader');
+    openPattern(target);
     return;
   }
   const old = activePattern;
   activePattern = null;
+  if (old) { stopWake(); resetPrintPanel(); }
+  if (hash === '#kreator' || editing) {
+    if (view === 'editor' && editor?.id === editId) return;
+    if (editor) finishStroke();
+    showScreen('editor');
+    openEditor(editId);
+    document.title = $('editor-title').textContent + ' — Pikseluj';
+    window.scrollTo(0,0);
+    $('editor-title').focus({preventScroll:true});
+    return;
+  }
+  if (editor) { finishStroke(); editor = null; }
+  if (hash === '#moje' || editId || ownId.test(projectId)) {
+    const previous = view;
+    showScreen('studio');
+    renderStudio();
+    document.title = 'Moje piksele — Pikseluj';
+    if (previous !== 'studio') {
+      window.scrollTo(0,0);
+      $('my-title').focus({preventScroll:true});
+    }
+    return;
+  }
+  const previous = view;
+  showScreen('gallery');
   document.title = 'Pikseluj — Piksele do rysowania w zeszycie';
-  $('reader').hidden = true;
-  $('gallery').hidden = false;
-  if (old) {
-    stopWake();
-    const card = old === mystery ? $('mystery-card') : $('card-title-' + old.id).closest('a');
+  if (previous !== 'gallery') {
+    const card = !old || old.own ? $('studio-launch') : old === mystery ? $('mystery-card') : $('card-title-' + old.id)?.closest('a');
     window.scrollTo(0,lastGalleryY);
-    card.focus({preventScroll:true});
+    card?.focus({preventScroll:true});
   }
 }
 for (const id of ['back']) $(id).addEventListener('click',event => {
-  if (!history.state?.pikselujFromGallery || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  const cameFromList = activePattern?.own ? history.state?.pikselujFromStudio : history.state?.pikselujFromGallery;
+  if (!cameFromList || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   event.preventDefault();
   history.back();
 });
-function followCard(event,card) {
+function followCard(event,card,fromStudio = false) {
   if (!card || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   event.preventDefault();
-  history.pushState({pikselujFromGallery:true},'',card.hash);
+  history.pushState(fromStudio ? {pikselujFromStudio:true} : {pikselujFromGallery:true},'',card.hash);
   route();
 }
 $('cards').addEventListener('click',event => followCard(event,event.target.closest('a')));
 $('mystery-card').addEventListener('click',event => followCard(event,$('mystery-card')));
+$('my-designs').addEventListener('click',event => followCard(event,event.target.closest('a'),true));
+$('new-design').addEventListener('click',event => followCard(event,$('new-design'),true));
+$('editor-back').addEventListener('click',event => {
+  if (!history.state?.pikselujFromStudio || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  event.preventDefault();
+  history.back();
+});
 $('count-toggle').addEventListener('click',() => {
   showCount = !showCount;
   $('count-toggle').setAttribute('aria-pressed',String(showCount));
