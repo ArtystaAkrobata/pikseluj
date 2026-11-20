@@ -246,6 +246,43 @@ h1, h2, h3, p { margin:0 }
   .print-sheet { width:210mm; height:297mm; display:block; break-inside:avoid; break-after:page; page-break-after:always; print-color-adjust:exact; -webkit-print-color-adjust:exact }
   .print-sheet:last-child { break-after:auto; page-break-after:auto }
 }
+/* Powrót do zeszytu, album i potworki */
+.resume-card { background:#ede7fa; border-color:#d9c8f2; box-shadow:0 3px 0 #e8def5; color:var(--deep) }
+.resume-card .mystery-icon { background:#dfd2fb; color:var(--deep); box-shadow:0 2px 0 #bfa9ed }
+.resume-card .mystery-copy strong, .resume-card .mystery-call { color:var(--deep) }
+.resume-card .mystery-copy small { overflow-wrap:anywhere }
+.home-tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin:0 0 10px }
+.home-tool { display:flex; align-items:center; gap:8px; padding:8px; min-height:62px; border:1px solid #d1e5d7; border-radius:14px; background:#eaf6ed; color:#2d5c43; text-decoration:none }
+.home-tool:nth-child(2) { background:#fce9f1; color:#783c5f; border-color:#eed4e2 }
+.home-tool:hover { border-color:currentColor }
+.home-tool-icon { display:grid; place-items:center; width:32px; height:32px; flex:0 0 32px; border-radius:9px; background:#fff9 }
+.home-tool-icon svg { width:21px; height:21px }
+.home-tool strong, .home-tool small { display:block }
+.home-tool strong { font-weight:880; font-size:.9rem; line-height:1.2 }
+.home-tool small { font-size:.71rem; line-height:1.23; margin-top:2px }
+.finish-strip { display:flex; align-items:center; flex-wrap:wrap; gap:8px; justify-content:space-between; margin:10px 0 13px; padding:9px 11px; background:#edf7ef; border:1px solid #d4e7d8; border-radius:13px }
+.finish-strip strong { display:block; font-size:.89rem; color:#315b45 }
+.finish-strip span { display:block; font-size:.78rem; color:#486858 }
+.finish-actions { display:flex; gap:6px; flex-wrap:wrap }
+.finish-actions .primary { background:#286745; border-color:#286745 }
+.finish-actions .primary:disabled { background:#dcefe1; color:#315b45; border-color:#c9e2d0 }
+.album-date { display:block; margin-top:4px; color:#50745d; font-size:.76rem; font-weight:750 }
+.album-restore { margin:0 0 8px }
+.monster-workbench { display:grid; grid-template-columns:minmax(0,1fr) minmax(145px,1fr); gap:9px; align-items:start }
+.monster-preview { padding:8px; border:1px solid #ded2f1; border-radius:15px; background:#eee7fa; position:sticky; top:4px }
+.monster-preview-top { display:flex; flex-wrap:wrap; justify-content:space-between; gap:3px; color:var(--deep); font-size:.69rem; font-weight:820 }
+.monster-art { display:grid; place-items:center; min-width:0; aspect-ratio:1/1; margin-top:5px }
+.monster-art svg { height:100%; width:100% }
+.monster-options { padding:8px }
+.monster-fields { display:grid; gap:6px; margin-bottom:8px }
+.monster-fields select { padding-inline:6px; font-size:.84rem }
+.monster-palette { grid-template-columns:repeat(3,minmax(0,1fr)) }
+.monster-palette .edit-swatch { min-height:38px }
+.monster-options #monster-random { margin-top:6px; width:100%; padding-inline:6px }
+.monster-save { display:grid; gap:8px }
+.monster-save .action { justify-self:start }
+@media(min-width:490px) { .monster-options { padding:12px } .monster-preview { padding:12px } }
+@media(max-width:365px) { .home-tool { padding:7px; gap:5px } .home-tool-icon { width:27px; flex-basis:27px; height:27px } .home-tool strong { font-size:.8rem } .home-tool small { font-size:.68rem } }
 </style>
 </head>
 <body>
@@ -272,6 +309,21 @@ h1, h2, h3, p { margin:0 }
       <div class="section-head">
         <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz piksele</h2></div>
         <span class="count" id="count" role="status"></span>
+      </div>
+      <a href="#galeria" class="studio-launch resume-card" id="resume-card" aria-labelledby="resume-title" aria-describedby="resume-line" hidden>
+        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h10M4 8h7M4 12h5m-5 4h3m6-7 5 4-5 4z"/></svg></span>
+        <span class="mystery-copy"><strong id="resume-title">Dokończ rysunek</strong><small id="resume-line"></small></span>
+        <span class="mystery-call" aria-hidden="true">Wróć</span>
+      </a>
+      <div class="home-tools">
+        <a href="#album" class="home-tool" id="album-launch">
+          <span class="home-tool-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h14v14H3zM5.5 13.5l3-3 2 2 2.5-2.5 2 3.5"/><circle cx="12" cy="7" r="1"/></svg></span>
+          <span><strong>Mój album</strong><small id="album-home-count">Ukończone rysunki</small></span>
+        </a>
+        <a href="#potworek" class="home-tool" id="monster-launch">
+          <span class="home-tool-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V3l4 2h4l4-2v3l2 2v7l-2 2H4l-2-2V8zM7 10h.1m5.8 0h.1M8 13h4"/></svg></span>
+          <span><strong>Zbuduj potworka</strong><small>Oczy, uszy i kolory</small></span>
+        </a>
       </div>
       <a href="#moje" id="studio-launch" class="studio-launch" aria-labelledby="studio-link-title">
         <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h9M3 8h6m-6 4h4m-4 4h4M10 16l4-.8 4-8-3-1.5-4.2 8.1zM14 8l3 1.5"/></svg></span>
@@ -304,7 +356,7 @@ h1, h2, h3, p { margin:0 }
     <p class="section-kicker">Twój zeszyt</p>
     <h1 class="studio-title" id="my-title" tabindex="-1">Moje piksele</h1>
     <p class="instructions" id="studio-storage">Wzory zapisują się w tej przeglądarce. Nie potrzebujesz konta.</p>
-    <div class="studio-top"><a href="#kreator" id="new-design" class="action primary">+ Nowy wzór</a></div>
+    <div class="studio-top"><a href="#kreator" id="new-design" class="action primary">+ Nowy wzór</a><a href="#potworek" class="action">Zbuduj potworka</a></div>
     <p id="studio-feedback" class="studio-feedback" role="status"></p>
     <div class="studio-panel" id="studio-empty">
       <h2>Tu pojawią się Twoje wzory</h2>
@@ -346,6 +398,52 @@ h1, h2, h3, p { margin:0 }
       <button id="editor-delete" class="action danger" type="button" hidden>Usuń wzór</button>
     </div>
     <p id="editor-feedback" class="studio-feedback" role="status"></p>
+  </section>
+  <section id="album" class="studio" aria-labelledby="album-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Rysunki z zeszytu</p>
+    <h1 id="album-title" class="studio-title" tabindex="-1">Mój album</h1>
+    <p class="instructions" id="album-count"></p>
+    <div id="album-empty" class="studio-panel">
+      <h2>Tu pojawi się Twój pierwszy rysunek</h2>
+      <p>Skończ wzór w zeszycie i stuknij <strong>Narysowane!</strong> pod siatką. W albumie zobaczysz miniaturę wzoru i datę ukończenia.</p>
+    </div>
+    <p class="studio-feedback" id="album-feedback" role="status"></p>
+    <button id="album-restore" class="action album-restore" type="button" hidden>Cofnij usunięcie</button>
+    <div id="album-items" class="studio-grid"></div>
+  </section>
+  <section id="monster" class="studio monster-screen" aria-labelledby="monster-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Zabawa w kratkę</p>
+    <h1 id="monster-title" class="studio-title" tabindex="-1">Zbuduj potworka</h1>
+    <p class="instructions">Wybierz części albo wylosuj potworka. Zapisany wzór możesz odrysować i wydrukować.</p>
+    <div class="monster-workbench">
+      <div class="monster-preview">
+        <div class="monster-preview-top"><span>Podgląd</span><span id="monster-size">21 × 22 kratki</span></div>
+        <div id="monster-art" class="monster-art" role="img" aria-label="Podgląd potworka"></div>
+      </div>
+      <div class="studio-panel monster-options">
+        <div class="monster-fields">
+          <label class="field-label">Uszy<select id="monster-ears">
+            <option value="tri">Spiczaste</option><option value="round">Okrągłe</option><option value="long">Królicze</option><option value="none">Bez uszu</option>
+          </select></label>
+          <label class="field-label">Oczy<select id="monster-eyes">
+            <option value="big">Duże</option><option value="cyclops">Jedno oko</option><option value="sleepy">Śpiące</option><option value="happy">Wesołe</option>
+          </select></label>
+          <label class="field-label">Buźka<select id="monster-mouth">
+            <option value="smile">Uśmiech</option><option value="fang">Ząbek</option><option value="oh">Zaskoczenie</option>
+          </select></label>
+        </div>
+        <h2 id="monster-color-label">Kolor potworka</h2>
+        <div class="edit-palette monster-palette" id="monster-palette" role="group" aria-labelledby="monster-color-label"></div>
+        <button id="monster-random" class="action" type="button">✦ Losuj potworka</button>
+      </div>
+    </div>
+    <div class="studio-panel monster-save">
+      <label class="field-label">Jak ma na imię?<input id="monster-name" maxlength="42" placeholder="Np. Fikuś" autocomplete="off"></label>
+      <button id="monster-save" class="action primary" type="button">Zapisz w Moich pikselach</button>
+    </div>
+    <p class="studio-feedback" id="monster-feedback" role="status"></p>
   </section>
   <section id="reader" class="reader" aria-labelledby="pattern-title" hidden>
     <a href="#galeria" id="back" class="back"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4-6 6 6 6m-6-6h14"/></svg>Wróć do wzorów</a>
@@ -396,6 +494,13 @@ h1, h2, h3, p { margin:0 }
       <h2 id="legend-title">Przygotuj kredki</h2><ul id="palette"></ul>
       <p id="pattern-credit" class="pattern-credit" hidden></p>
     </section>
+    <div class="finish-strip" id="finish-strip" hidden>
+      <div><strong>Gotowe w zeszycie?</strong><span id="finish-status" role="status">Dodaj ten wzór do swojego albumu.</span></div>
+      <div class="finish-actions">
+        <button type="button" class="action primary" id="finish-design">✓ Narysowane!</button>
+        <a href="#album" id="reader-album" class="action" hidden>Mój album</a>
+      </div>
+    </div>
     <div class="dock" id="dock">
       <div class="controls" aria-label="Zmiana wiersza">
         <button id="previous" type="button">Poprzedni</button>
@@ -1605,6 +1710,7 @@ function syncReaderMode() {
   $('mystery-result').hidden = !solution;
   $('board').hidden = concealed;
   $('dock').hidden = solution;
+  syncFinishStrip();
   for (const button of rowButtons) button.disabled = solution;
 }
 
@@ -1694,7 +1800,7 @@ function savedRow(pattern) {
   return positions.get(progressKey(pattern)) ?? 0;
 }
 
-function showRow(index,{scroll = false, focus = false} = {}) {
+function showRow(index,{scroll = false, focus = false, remember = true} = {}) {
   if (!activePattern || !rowButtons[index]) return;
   activeRow = index;
   const isMystery = activePattern === mystery;
@@ -1717,6 +1823,7 @@ function showRow(index,{scroll = false, focus = false} = {}) {
   }
   paintGuide();
   positions.set(progressKey(activePattern),index);
+  if (remember) updateJourney(activePattern,index);
   try { localStorage.setItem(progressKey(activePattern),String(index)); } catch { /* opcjonalny zapis */ }
   if (focus) rowButtons[index].focus({preventScroll:true});
   else if (previousHadFocus && $('previous').disabled) $('next').focus({preventScroll:true});
@@ -1735,7 +1842,7 @@ function showRow(index,{scroll = false, focus = false} = {}) {
 function openPattern(pattern) {
   activePattern = pattern;
   resetPrintPanel();
-  $('back').href = pattern.own ? '#moje' : '#galeria';
+  $('back').href = history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
   $('reader-edit').href = pattern.own ? '#kreator/' + pattern.id : '#moje';
   $('pattern-size').textContent = sizeText(pattern);
   $('pattern-size').setAttribute('aria-label',sizeLabel(pattern));
@@ -1793,8 +1900,10 @@ function openPattern(pattern) {
   syncReaderMode();
   setZoom(false);
   window.scrollTo(0,0);
-  showRow(savedRow(pattern));
-  $('pattern-title').focus({preventScroll:true});
+  const resume = history.state?.pikselujResume ? journey.recent.find(p => p.id === pattern.id && p.revision === (pattern.revision || 0))?.row : null;
+  const directRow = Number.isInteger(resume) && resume >= 0 && resume < pattern.height && pattern !== mystery;
+  showRow(directRow ? resume : savedRow(pattern),{scroll:directRow,focus:directRow,remember:false});
+  if (!directRow) $('pattern-title').focus({preventScroll:true});
 }
 // Arkusz powstaje w milimetrach. Ten sam układ zasila PDF i druk w przeglądarce.
 const paper = {width:210,height:297,cell:5};
@@ -2070,6 +2179,7 @@ function persistStudio() {
   return studio.available;
 }
 const inheritedNotice = 'Pamięć przeglądarki jest niedostępna. Zmiany mogą zniknąć po zamknięciu karty.';
+const newProjectId = () => 'moj-' + (globalThis.crypto?.randomUUID?.() ?? Date.now().toString(36) + '-' + Math.random().toString(36).slice(2));
 const blankRows = (w,h) => Array(h).fill('.'.repeat(w));
 function projectPattern(p) {
   return readPattern({id:p.id,name:p.name,bg:'#ede7fa',revision:p.revision,own:true,art:p.rows.join('\n')});
@@ -2373,7 +2483,7 @@ $('editor-save').addEventListener('click',() => {
     return;
   }
   const prior = studio.projects.find(p => p.id === editor.id);
-  const id = prior?.id || 'moj-' + (globalThis.crypto?.randomUUID?.() ?? Date.now().toString(36) + '-' + Math.random().toString(36).slice(2));
+  const id = prior?.id || newProjectId();
   const name = cleanName(editor.name);
   const rows = editor.rows.slice();
   const revision = prior ? prior.revision + (prior.rows.join('/') === rows.join('/') ? 0 : 1) : 1;
@@ -2405,6 +2515,262 @@ function navigateStudio(hash) {
   route();
 }
 
+// Album zachowuje kopię rysunku z dnia ukończenia. Zmiana własnego wzoru jej nie nadpisuje.
+const journeyKey = 'pikseluj/zeszyt/v1';
+const journalRows = rows => Array.isArray(rows) && rows.length >= 1 && rows.length <= 30 &&
+  typeof rows[0] === 'string' && rows[0].length >= 1 && rows[0].length <= 29 &&
+  rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || Object.hasOwn(colors,c)));
+const validJournalId = id => typeof id === 'string' && /^[a-z0-9-]{1,72}$/.test(id);
+const validRevision = n => Number.isSafeInteger(n) && n >= 0;
+const journalStamp = (id,revision) => id + '/v' + revision;
+const patternStamp = pattern => journalStamp(pattern.id,pattern.revision || 0);
+function readJourney() {
+  try {
+    const record = JSON.parse(localStorage.getItem(journeyKey) || '{}');
+    const recent = (Array.isArray(record?.recent) ? record.recent : []).filter(p => p && validJournalId(p.id) &&
+      validRevision(p.revision) && Number.isInteger(p.row) && p.row >= 0 && p.row < 30);
+    const completed = (Array.isArray(record?.completed) ? record.completed : []).filter(p => p && validJournalId(p.id) &&
+      validRevision(p.revision) && journalRows(p.rows) && typeof p.doneAt === 'number' && !Number.isNaN(new Date(p.doneAt).getTime())).map(p => ({
+      id:p.id,revision:p.revision,name:cleanName(p.name),rows:p.rows,doneAt:p.doneAt
+    }));
+    return {recent,completed};
+  } catch {
+    return {recent:[],completed:[]};
+  }
+}
+const journey = readJourney();
+let trashEntry = null;
+const albumDate = new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric'});
+function writeJourney() {
+  try { localStorage.setItem(journeyKey,JSON.stringify(journey)); return true; }
+  catch { return false; }
+}
+function findJournalPattern(id) {
+  if (id === mystery.id) return mysteryRevealed ? mystery : null;
+  const gallery = patterns.find(p => p.id === id);
+  if (gallery) return gallery;
+  const project = studio.projects.find(p => p.id === id);
+  return project ? projectPattern(project) : null;
+}
+const inAlbum = pattern => journey.completed.some(p => journalStamp(p.id,p.revision) === patternStamp(pattern));
+function updateJourney(pattern,row) {
+  if (pattern === mystery) return;
+  const record = {id:pattern.id,revision:pattern.revision || 0,row};
+  journey.recent = [record,...journey.recent.filter(p => p.id !== record.id)];
+  writeJourney();
+}
+function resumeJourney() {
+  for (const entry of journey.recent) {
+    const pattern = findJournalPattern(entry.id);
+    if (!pattern || (pattern.revision || 0) !== entry.revision || inAlbum(pattern) || entry.row >= pattern.height) continue;
+    return {pattern,row:entry.row};
+  }
+  return null;
+}
+function albumCountText(n) {
+  const plural = n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14);
+  return n + (n === 1 ? ' ukończony rysunek' : plural ? ' ukończone rysunki' : ' ukończonych rysunków');
+}
+function renderJourneyHome() {
+  const next = resumeJourney();
+  $('resume-card').hidden = !next;
+  $('resume-card').href = next ? '#wzor/' + next.pattern.id : '#galeria';
+  $('resume-line').textContent = next ? `${next.pattern.name} · wiersz ${next.row + 1} z ${next.pattern.height}` : '';
+  $('album-home-count').textContent = journey.completed.length ? albumCountText(journey.completed.length) : 'Ukończone rysunki';
+}
+function syncFinishStrip() {
+  const hidden = !activePattern || activePattern === mystery && !mysteryRevealed;
+  $('finish-strip').hidden = hidden;
+  if (hidden) return;
+  const saved = inAlbum(activePattern);
+  $('finish-design').disabled = saved;
+  $('finish-design').textContent = saved ? '✓ W albumie' : '✓ Narysowane!';
+  $('reader-album').hidden = !saved;
+  $('finish-status').textContent = saved ? 'Ten rysunek jest już w Twoim albumie.' : 'Dodaj ten wzór do swojego albumu.';
+}
+$('finish-design').addEventListener('click',() => {
+  if (!activePattern || activePattern === mystery && !mysteryRevealed || inAlbum(activePattern)) return;
+  journey.completed.unshift({
+    id:activePattern.id,revision:activePattern.revision || 0,name:activePattern.name,
+    rows:activePattern.rows.slice(),doneAt:Date.now()
+  });
+  const ok = writeJourney();
+  syncFinishStrip();
+  $('reader-album').focus({preventScroll:true});
+  $('finish-status').textContent = ok ? 'Brawo! Rysunek trafił do albumu.' : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
+  $('album-feedback').textContent = ok ? 'Dodano nowy rysunek.' : inheritedNotice;
+});
+function renderAlbum() {
+  $('album-count').textContent = journey.completed.length ? albumCountText(journey.completed.length) + ' · tylko w tej przeglądarce' :
+    'Zbieraj piksele, które udało Ci się narysować na papierze.';
+  $('album-empty').hidden = journey.completed.length > 0;
+  $('album-restore').hidden = !trashEntry;
+  $('album-items').replaceChildren();
+  for (const item of journey.completed) {
+    const p = readPattern({id:item.id,name:item.name,art:item.rows.join('\n')});
+    const card = el('article','studio-item');
+    const thumb = el('div','card-art');
+    thumb.append(sprite(p,{paper:true}));
+    const date = el('time','album-date',albumDate.format(item.doneAt));
+    date.setAttribute('datetime',new Date(item.doneAt).toISOString());
+    const actions = el('div','studio-item-actions');
+    const published = findJournalPattern(item.id);
+    if (published && (published.revision || 0) === item.revision) {
+      const link = el('a','action','Zobacz wzór');
+      link.href = published === mystery ? '#zagadka' : '#wzor/' + item.id;
+      link.setAttribute('aria-label','Zobacz wzór: ' + item.name);
+      link.addEventListener('click',event => {
+        if (!plainLink(event)) return;
+        event.preventDefault();
+        history.pushState({pikselujFromAlbum:true},'',link.hash);
+        route();
+      });
+      actions.append(link);
+    }
+    const remove = el('button','action','Usuń z albumu');
+    remove.type = 'button';
+    remove.setAttribute('aria-label','Usuń z albumu: ' + item.name);
+    remove.addEventListener('click',() => {
+      trashEntry = item;
+      journey.completed = journey.completed.filter(p => p !== item);
+      const ok = writeJourney();
+      $('album-feedback').textContent = ok ? 'Usunięto z albumu. Sam wzór pozostał bez zmian.' : inheritedNotice;
+      renderAlbum();
+      $('album-restore').focus({preventScroll:true});
+    });
+    actions.append(remove);
+    card.append(thumb,el('h3','',item.name),date,actions);
+    $('album-items').append(card);
+  }
+}
+$('album-restore').addEventListener('click',() => {
+  if (!trashEntry) return;
+  journey.completed = [...journey.completed,trashEntry].sort((a,b) => b.doneAt - a.doneAt);
+  trashEntry = null;
+  $('album-feedback').textContent = writeJourney() ? 'Przywrócono rysunek w albumie.' : inheritedNotice;
+  renderAlbum();
+  $('album-title').focus({preventScroll:true});
+});
+function plainLink(event) {
+  return event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+}
+$('resume-card').addEventListener('click',event => {
+  const next = resumeJourney();
+  if (!next || !plainLink(event)) return;
+  event.preventDefault();
+  history.pushState({pikselujFromGallery:true,pikselujResume:true},'',$('resume-card').hash);
+  route();
+});
+
+// Moduły potworka są nakładane na siatkę 21 × 22, bez skalowania i półpikseli.
+const monsterColors = {
+  v:['a','t'], b:['a','t'], g:['d','t'], Y:['O','t'], p:['X','c'], l:['g','p']
+};
+const monsterParts = {
+  ears:{tri:[[3,5,5],[4,5,6],[5,5,7],[6,5,8],[7,5,9],[8,5,8]],
+    round:[[4,4,6],[5,3,7],[6,3,8],[7,4,8],[8,5,8]],
+    long:[[1,5,6],[2,4,7],[3,4,7],[4,4,7],[5,4,7],[6,5,8],[7,5,9],[8,5,8]],none:[]},
+  eyes:{
+    big:[[5,10,['.kk.','kwww','kwkk','.kkk']],[12,10,['.kk.','kwww','kwkk','.kkk']]],
+    cyclops:[[7,8,['..kkk..','.kwwwk.','kwwkwkk','kwkwkwk','kwwkkwk','.kwwwk.','..kkk..']]],
+    sleepy:[[5,11,['k..k','.kk.']],[12,11,['k..k','.kk.']]],
+    happy:[[5,11,['.kk.','k..k']],[12,11,['.kk.','k..k']]]
+  },
+  mouth:{
+    smile:[8,14,['k...k','.kkk.']],
+    fang:[8,14,['kkkkk','kwkck','.kkk.']],
+    oh:[9,15,['.k.','kck','.k.']]
+  }
+};
+const monsterKey = 'pikseluj/potworek/v1';
+let monster = {ears:'tri',eyes:'big',mouth:'smile',color:'v',name:''};
+try {
+  const state = JSON.parse(localStorage.getItem(monsterKey) || '{}');
+  for (const part of ['ears','eyes','mouth']) if (Object.hasOwn(monsterParts[part],state?.[part])) monster[part] = state[part];
+  if (Object.hasOwn(monsterColors,state?.color)) monster.color = state.color;
+  if (typeof state?.name === 'string') monster.name = [...state.name].slice(0,42).join('');
+} catch { /* bez zapisu kreator pozostaje dostępny */ }
+function monsterRows(choice) {
+  const w = 21, h = 22;
+  const mask = Array.from({length:h},() => Array(w).fill(false));
+  const pixels = Array.from({length:h},() => Array(w).fill('.'));
+  const body = [[6,14],[4,16],[3,17],[3,17],[2,18],[2,18],[2,18],[2,18],[2,18],[2,18],[3,17],[4,16],[5,15]];
+  const [shade,cheek] = monsterColors[choice.color];
+  const span = (y,left,right) => { for (let x = left; x <= right; x++) mask[y][x] = true; };
+  body.forEach(([l,r],i) => span(i + 7,l,r));
+  for (const [y,l,r] of [[17,4,8],[18,4,8],[19,5,8],[20,5,8],[21,6,8]]) {
+    span(y,l,r); span(y,w - 1 - r,w - 1 - l);
+  }
+  for (const [y,l,r] of monsterParts.ears[choice.ears]) {
+    span(y,l,r); span(y,w - 1 - r,w - 1 - l);
+  }
+  const occupied = (x,y) => Boolean(mask[y]?.[x]);
+  const inner = (x,y) => occupied(x,y) && [[-1,0],[1,0],[0,-1],[0,1]].every(([a,b]) => occupied(x+a,y+b));
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (mask[y][x]) {
+    pixels[y][x] = !inner(x,y) ? 'k' : y >= 19 || x >= 16 && y >= 13 || y === 18 && x >= 10 ? shade : choice.color;
+  }
+  const brush = (x,y,color) => { if (inner(x,y)) pixels[y][x] = color; };
+  for (const [y,l,r] of monsterParts.ears[choice.ears]) if (y <= 7) {
+    for (let x = l + 1; x < r; x++) { brush(x,y,cheek); brush(w - 1 - x,y,cheek); }
+  }
+  for (const [x,y] of [[5,9],[6,9],[4,10]]) brush(x,y,'w');
+  for (const [x,y] of [[4,15],[5,15],[15,15],[16,15]]) brush(x,y,cheek);
+  const motif = ([x,y,rows]) => rows.forEach((row,v) => [...row].forEach((c,u) => { if (c !== '.') brush(x+u,y+v,c); }));
+  monsterParts.eyes[choice.eyes].forEach(motif);
+  if (choice.eyes === 'cyclops' && choice.mouth !== 'oh') {
+    const [x,y,rows] = monsterParts.mouth[choice.mouth];
+    motif([x,y+1,rows]);
+  } else motif(monsterParts.mouth[choice.mouth]);
+  return pixels.map(row => row.join(''));
+}
+const monsterSwatches = new Map();
+for (const key of Object.keys(monsterColors)) {
+  const b = el('button','edit-swatch');
+  b.type = 'button';
+  b.title = colors[key][1];
+  b.setAttribute('aria-label',colors[key][1]);
+  b.append(swatch(key));
+  b.addEventListener('click',() => { monster.color = key; updateMonster(); });
+  monsterSwatches.set(key,b);
+  $('monster-palette').append(b);
+}
+function renderMonster() {
+  for (const part of ['ears','eyes','mouth']) $('monster-' + part).value = monster[part];
+  for (const [key,button] of monsterSwatches) button.setAttribute('aria-pressed',String(key === monster.color));
+  const pat = readPattern({id:'podglad-potworka',name:cleanName(monster.name),art:monsterRows(monster).join('\n')});
+  $('monster-art').replaceChildren(sprite(pat,{paper:true}));
+}
+function updateMonster({redraw = true} = {}) {
+  try { localStorage.setItem(monsterKey,JSON.stringify(monster)); }
+  catch { /* Wybór pozostaje w otwartej karcie. */ }
+  if (redraw) renderMonster();
+}
+for (const part of ['ears','eyes','mouth']) $('monster-' + part).addEventListener('change',event => {
+  if (!Object.hasOwn(monsterParts[part],event.target.value)) return;
+  monster[part] = event.target.value;
+  updateMonster();
+});
+$('monster-name').addEventListener('input',event => { monster.name = event.target.value; updateMonster({redraw:false}); });
+$('monster-random').addEventListener('click',() => {
+  const pick = (set,except) => {
+    const keys = Object.keys(set).filter(k => k !== except);
+    return keys[Math.floor(Math.random() * keys.length)];
+  };
+  for (const key of ['ears','eyes','mouth']) monster[key] = pick(monsterParts[key],monster[key]);
+  monster.color = pick(monsterColors,monster.color);
+  updateMonster();
+  $('monster-feedback').textContent = 'Wylosowano innego potworka.';
+});
+$('monster-save').addEventListener('click',() => {
+  const id = newProjectId();
+  const name = cleanName(monster.name.trim() || 'Mój potworek');
+  studio.projects.unshift({id,name,rows:monsterRows(monster),revision:1});
+  const ok = persistStudio();
+  $('studio-feedback').textContent = ok ? 'Zapisano „' + name + '”. Wybierz Odrysuj albo Edytuj.' : 'Potworek jest widoczny w tej karcie. ' + inheritedNotice;
+  history.pushState(null,'','#moje');
+  route();
+});
+
 let view = 'gallery';
 function showScreen(next) {
   if (view === 'gallery' && next !== 'gallery') lastGalleryY = window.scrollY;
@@ -2413,6 +2779,8 @@ function showScreen(next) {
   $('reader').hidden = next !== 'reader';
   $('my-studio').hidden = next !== 'studio';
   $('editor').hidden = next !== 'editor';
+  $('album').hidden = next !== 'album';
+  $('monster').hidden = next !== 'monster';
 }
 function route() {
   const hash = location.hash;
@@ -2443,6 +2811,28 @@ function route() {
     return;
   }
   if (editor) { finishStroke(); editor = null; }
+  if (hash === '#album') {
+    const previous = view;
+    showScreen('album');
+    renderAlbum();
+    document.title = 'Mój album — Pikseluj';
+    if (previous !== 'album') {
+      window.scrollTo(0,0);
+      $('album-title').focus({preventScroll:true});
+    }
+    return;
+  }
+  if (hash === '#potworek') {
+    if (view === 'monster') return;
+    showScreen('monster');
+    $('monster-name').value = monster.name;
+    $('monster-feedback').textContent = '';
+    renderMonster();
+    document.title = 'Zbuduj potworka — Pikseluj';
+    window.scrollTo(0,0);
+    $('monster-title').focus({preventScroll:true});
+    return;
+  }
   if (hash === '#moje' || editId || ownId.test(projectId)) {
     const previous = view;
     showScreen('studio');
@@ -2456,6 +2846,7 @@ function route() {
   }
   const previous = view;
   showScreen('gallery');
+  renderJourneyHome();
   document.title = 'Pikseluj — Piksele do rysowania w zeszycie';
   if (previous !== 'gallery') {
     const card = !old || old.own ? $('studio-launch') : old === mystery ? $('mystery-card') : $('card-title-' + old.id)?.closest('a');
@@ -2464,7 +2855,7 @@ function route() {
   }
 }
 for (const id of ['back']) $(id).addEventListener('click',event => {
-  const cameFromList = activePattern?.own ? history.state?.pikselujFromStudio : history.state?.pikselujFromGallery;
+  const cameFromList = history.state?.pikselujFromAlbum || history.state?.pikselujFromGallery || (activePattern?.own && history.state?.pikselujFromStudio);
   if (!cameFromList || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   event.preventDefault();
   history.back();
