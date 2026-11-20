@@ -56,6 +56,14 @@ h1, h2, h3, p { margin:0 }
 .section-kicker { display:block; margin-bottom:2px }
 .section-head h2 { font-size:clamp(1.65rem,3.7vw,2.3rem); line-height:1.1; font-weight:900; letter-spacing:-.055em }
 .count { font-size:.79rem; color:var(--muted); font-weight:720; white-space:nowrap; padding-bottom:2px }
+.mystery-card { display:flex; align-items:center; gap:12px; margin-bottom:14px; padding:10px 12px; background:#eee8ff; border:1px solid #d9cbf8; border-radius:16px; text-decoration:none; box-shadow:0 3px 0 #e8e0fa }
+.mystery-card:hover { border-color:#b9a8e6 }
+.mystery-icon { display:grid; place-items:center; width:46px; height:46px; flex:none; border-radius:12px; background:var(--violet); box-shadow:0 2px 0 var(--deep) }
+.mystery-icon svg { width:27px; height:27px }
+.mystery-copy { display:grid; min-width:0; gap:1px; flex:1 }
+.mystery-copy strong { color:var(--deep); font-size:1.03rem; line-height:1.2; font-weight:870 }
+.mystery-copy small { color:var(--muted); font-size:.78rem; line-height:1.25 }
+.mystery-call { padding:6px 9px; border-radius:9px; background:#fff; color:var(--deep); font-weight:830; font-size:.73rem }
 .cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px }
 .card { display:block; min-width:0; padding:9px; text-decoration:none; border:1px solid var(--line); border-radius:19px; background:#fff; box-shadow:0 3px 0 #eae5f7; transition:transform .15s, border-color .15s, box-shadow .15s }
 .card:active { transform:translateY(2px); box-shadow:0 1px 0 #eae5f7 }
@@ -76,6 +84,31 @@ h1, h2, h3, p { margin:0 }
 .reader-head h1 { font-size:clamp(1.8rem,6.8vw,2.65rem); line-height:1.05; font-weight:900; letter-spacing:-.064em }
 .reader-head .size { font-size:.84rem }
 .instructions { color:var(--muted); font-size:.9rem; margin-bottom:12px }
+.reader-tools { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 8px }
+.tool-toggle { display:inline-flex; align-items:center; gap:6px; min-height:44px; border-radius:10px; border:1px solid #dfd6f5; background:#fff; color:var(--deep); padding:4px 9px; font-size:.76rem; font-weight:800 }
+.tool-toggle svg { width:15px; height:15px; flex:none }
+.tool-toggle[aria-pressed="true"] { background:#e9e0ff; border-color:#9e8add }
+.tool-toggle[aria-pressed="true"]::after { content:""; width:9px; height:5px; border:solid currentColor; border-width:0 0 2px 2px; transform:rotate(-45deg); margin:0 1px 3px }
+.wake-status { margin:-2px 0 8px; color:var(--muted); font-size:.76rem }
+.row-guide { margin-bottom:9px; padding:7px 8px; border:1px solid #dfd6f5; border-radius:13px; background:#f0ebff }
+.row-guide h2 { font-size:.88rem; font-weight:850 }
+.row-guide p { color:var(--muted); font-size:.77rem }
+.runs { list-style:none; display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 0; padding:0 }
+.runs li { display:inline-flex; align-items:center; gap:4px; border-radius:7px; padding:3px 5px; border:1px solid #e0d7f4; background:#fff; font-size:.74rem; font-weight:720 }
+.runs i { width:11px; height:11px; border:1px solid #27214546; border-radius:2px; background:var(--swatch,#fff) }
+.runs i.empty { border:1px dashed #766f89 }
+.mystery-progress { margin:6px 0 12px }
+.mystery-progress progress { appearance:none; display:block; width:100%; height:8px; border:0; border-radius:20px; background:#e7def9; accent-color:var(--violet) }
+.mystery-progress progress::-webkit-progress-bar { background:#e7def9; border-radius:20px }
+.mystery-progress progress::-webkit-progress-value { background:var(--violet); border-radius:20px }
+.mystery-progress progress::-moz-progress-bar { background:var(--violet); border-radius:20px }
+.mystery-reader .row-guide { padding:14px; background:#eee8ff }
+.mystery-reader .row-guide h2 { font-size:1.14rem; margin-bottom:3px }
+.mystery-reader .runs { margin-top:11px; gap:7px }
+.mystery-reader .runs li { padding:5px 9px; font-size:.88rem }
+.mystery-reader .runs i { width:14px; height:14px }
+.mystery-result { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px; margin:10px 0; color:var(--deep); font-size:.88rem; font-weight:770 }
+.mystery-result button { min-height:44px; border-radius:10px; border:1px solid #dfd6f5; padding:5px 9px; color:var(--deep); background:#fff; font-weight:800 }
 .board { background:#fff; border:1px solid var(--line); border-radius:18px; padding:8px 8px 10px; box-shadow:0 3px 0 #eae5f7; --label:1.65rem; --grid-line:#ddd9e8 }
 .column-guide, .grid-row { display:grid; grid-template-columns:var(--label) repeat(var(--cols),minmax(0,1fr)); width:100% }
 .column-guide { min-height:20px; color:var(--muted); font-size:.65rem; align-items:center; text-align:center; user-select:none }
@@ -90,6 +123,7 @@ h1, h2, h3, p { margin:0 }
 .grid-row[aria-pressed="true"] { z-index:1 }
 .grid-row[aria-pressed="true"]::after { content:""; position:absolute; pointer-events:none; inset:0; border:2px solid var(--violet); border-radius:4px 0 0 4px }
 .grid-row[aria-pressed="true"] .row-label { background:var(--violet); color:#fff; font-weight:900 }
+.board.solution .grid-row { cursor:default; opacity:1 }
 .legend { margin:15px 0 13px }
 .legend h2 { font-size:.88rem; font-weight:850; margin-bottom:6px }
 .legend ul { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:5px }
@@ -98,7 +132,7 @@ h1, h2, h3, p { margin:0 }
 .dock { position:sticky; bottom:0; z-index:5; background:var(--bg); padding:8px 0 max(8px,env(safe-area-inset-bottom)); box-shadow:0 -6px 16px #f7f5ffec }
 .controls { display:grid; grid-template-columns:1fr auto 1fr; gap:6px; align-items:center; background:#fff; border:1px solid var(--line); border-radius:15px; padding:6px; box-shadow:0 2px 0 #eae5f7 }
 .controls button { border-radius:10px; min-height:44px; min-width:0; border:1px solid #e2daf6; background:#f3eeff; color:var(--deep); font-size:.76rem; font-weight:810; padding:4px 5px }
-.controls button:last-child { background:var(--violet); color:#fff; border-color:var(--violet) }
+.controls :is(#next,#reveal):enabled { background:var(--violet); color:#fff; border-color:var(--violet) }
 .controls button:disabled { background:#f6f3fb; color:#736c89; border-color:#eee9f5; cursor:default }
 .row-status { color:var(--deep); font-size:.84rem; font-weight:880; white-space:nowrap; text-align:center; font-variant-numeric:tabular-nums }
 @media (max-width:700px) {
@@ -114,6 +148,7 @@ h1, h2, h3, p { margin:0 }
   .spark.two { bottom:20%; left:6%; transform:scale(.58) }
   .card-art { height:clamp(94px,30vw,148px) }
   .topbar { min-height:59px }
+  .mystery-card { margin-bottom:10px }
 }
 @media (max-width:365px) {
   .wrap { width:calc(100% - 24px) }
@@ -151,6 +186,11 @@ h1, h2, h3, p { margin:0 }
         <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz piksele</h2></div>
         <span class="count" id="count"></span>
       </div>
+      <a href="#zagadka" id="mystery-card" class="mystery-card" aria-labelledby="mystery-card-title" aria-describedby="mystery-card-subtitle">
+        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#ffcf7d" d="M5 2h6v2h2v4h-2v2H9v2H7V8h2V6h2V4H5v2H3V4h2zm2 12h2v2H7z"/></svg></span>
+        <span class="mystery-copy"><strong id="mystery-card-title">Tajemnicze piksele</strong><small id="mystery-card-subtitle">Co pojawi się w Twoim zeszycie?</small></span>
+        <span class="mystery-call" aria-hidden="true">Zagraj</span>
+      </a>
       <div id="cards" class="cards"></div>
     </section>
     <footer class="site-footer">Ty rysujesz, Pikseluj pilnuje wiersza.</footer>
@@ -159,6 +199,20 @@ h1, h2, h3, p { margin:0 }
     <a href="#galeria" id="back" class="back"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4-6 6 6 6m-6-6h14"/></svg>Wróć do wzorów</a>
     <div class="reader-head"><h1 id="pattern-title" tabindex="-1"></h1><span id="pattern-size" class="size"></span></div>
     <p class="instructions" id="instructions">Dotknij wiersza, żeby go podświetlić. Białe kratki zostaw puste.</p>
+    <div class="reader-tools">
+      <button id="count-toggle" type="button" class="tool-toggle" aria-controls="row-guide" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 3h14v12H2zM2 7h14M2 11h14M7 3v12M11 3v12"/></svg>Policz kratki</button>
+      <button id="wake-toggle" type="button" class="tool-toggle" aria-describedby="wake-status" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="1.5" width="8" height="15" rx="1.4"/><path d="M8 13.8h2M1.5 6l1 1M16.5 6l-1 1"/></svg>Nie wygaszaj ekranu</button>
+    </div>
+    <p id="wake-status" class="wake-status" role="status" hidden></p>
+    <div id="mystery-progress" class="mystery-progress" hidden><progress id="progress" aria-label="Postęp zagadki"></progress></div>
+    <section id="row-guide" class="row-guide" aria-labelledby="guide-title" hidden>
+      <h2 id="guide-title">Kratki od lewej</h2>
+      <p id="guide-help" hidden>Koloruj po kolei od lewej. Puste kratki zostaw bez koloru.</p>
+      <ol id="runs" class="runs" aria-label="Kratki od lewej"></ol>
+    </section>
+    <div id="mystery-result" class="mystery-result" hidden>
+      <span>Tak wygląda rozwiązanie. Porównaj ze swoim zeszytem.</span><button id="restart-mystery" type="button">Zacznij od nowa</button>
+    </div>
     <div id="board" class="board" role="group" aria-label="Wzór do odrysowania" aria-describedby="instructions">
       <div id="columns" class="column-guide" aria-hidden="true"></div>
       <div id="rows"></div>
@@ -166,11 +220,12 @@ h1, h2, h3, p { margin:0 }
     <section class="legend" aria-labelledby="legend-title">
       <h2 id="legend-title">Przygotuj kredki</h2><ul id="palette"></ul>
     </section>
-    <div class="dock">
+    <div class="dock" id="dock">
       <div class="controls" aria-label="Zmiana wiersza">
         <button id="previous" type="button">Poprzedni</button>
         <output id="row-status" class="row-status" aria-live="polite" aria-atomic="true"></output>
         <button id="next" type="button">Następny</button>
+        <button id="reveal" type="button" hidden>Pokaż rozwiązanie</button>
       </div>
     </div>
   </section>
@@ -316,7 +371,25 @@ const patterns = [
     ....kks.kks....
     ...............
   ` }
-].map(({art,...pattern}) => {
+].map(readPattern);
+
+const mystery = readPattern({ id:'zagadka-1', name:'Pingwin w szaliku', art:`
+    .............
+    ....kkkkk....
+    ...kkkkkkk...
+    ...kcckcck...
+    ..kkkckckkk..
+    ..kkccocckk..
+    ..kpppppppk..
+    ..kkcccpkkk..
+    ..kkcccpkkk..
+    ..kkccccckk..
+    ...kkccckk...
+    ...ookkkoo...
+    .............
+` });
+
+function readPattern({art,...pattern}) {
   const rows = art.trim().split('\n').map(row => row.trim());
   const width = rows[0].length;
   if (rows.some(row => row.length !== width || [...row].some(cell => cell !== '.' && !Object.hasOwn(colors,cell)))) {
@@ -324,7 +397,7 @@ const patterns = [
   }
   const used = Object.keys(colors).filter(color => rows.some(row => row.includes(color)));
   return {...pattern, rows, width, height:rows.length, used};
-});
+}
 
 const $ = id => document.getElementById(id);
 const el = (name, className, value) => {
@@ -395,8 +468,142 @@ let activePattern = null;
 let activeRow = 0;
 let rowButtons = [];
 let lastGalleryY = 0;
+let showCount = false;
 const positions = new Map();
 const storageKey = 'pikseluj/wiersz/';
+const revealKey = 'pikseluj/rozwiazanie/' + mystery.id;
+let mysteryRevealed = false;
+try { mysteryRevealed = localStorage.getItem(revealKey) === '1'; } catch { /* opcjonalny zapis */ }
+
+const runWords = {
+  '.':['pusta','puste','pustych'],
+  k:['czarna','czarne','czarnych'], o:['pomarańczowa','pomarańczowe','pomarańczowych'],
+  p:['różowa','różowe','różowych'], r:['czerwona','czerwone','czerwonych'],
+  y:['żółta','żółte','żółtych'], g:['zielona','zielone','zielonych'],
+  d:['ciemnozielona','ciemnozielone','ciemnozielonych'], b:['błękitna','błękitne','błękitnych'],
+  v:['fioletowa','fioletowe','fioletowych'], n:['brązowa','brązowe','brązowych'],
+  c:['kremowa','kremowe','kremowych'], s:['szara','szare','szarych']
+};
+
+function runsFor(row) {
+  const runs = [];
+  for (const color of row) {
+    const last = runs.at(-1);
+    if (last?.color === color) last.count++;
+    else runs.push({color,count:1});
+  }
+  return runs;
+}
+
+function paintGuide() {
+  if (!activePattern) return;
+  const isMystery = activePattern === mystery;
+  const concealed = isMystery && !mysteryRevealed;
+  $('row-guide').hidden = isMystery ? !concealed : !showCount;
+  if ($('row-guide').hidden) return;
+  $('guide-title').textContent = concealed ? 'Wiersz ' + (activeRow + 1) + ' · od lewej' : 'Kratki od lewej';
+  $('runs').replaceChildren();
+  for (const {color,count} of runsFor(activePattern.rows[activeRow])) {
+    const plural = count === 1 ? 0 : count % 10 >= 2 && count % 10 <= 4 && !(count % 100 >= 12 && count % 100 <= 14) ? 1 : 2;
+    const word = runWords[color][plural];
+    const item = el('li');
+    const chip = color === '.' ? el('i','empty') : swatch(color);
+    chip.setAttribute('aria-hidden','true');
+    item.append(chip,document.createTextNode(count + ' ' + word));
+    $('runs').append(item);
+  }
+}
+
+function syncReaderMode() {
+  const isMystery = activePattern === mystery;
+  const concealed = isMystery && !mysteryRevealed;
+  const solution = isMystery && mysteryRevealed;
+  $('reader').classList.toggle('mystery-reader',isMystery);
+  $('board').classList.toggle('solution',solution);
+  $('pattern-title').textContent = concealed ? 'Tajemnicze piksele' : activePattern.name;
+  document.title = $('pattern-title').textContent + ' — Pikseluj';
+  $('instructions').textContent = concealed
+    ? 'Zacznij od góry. Odrysuj wiersz, przejdź dalej i zobacz, co powstaje w zeszycie.'
+    : solution ? 'Udało się odkryć tajemniczy obrazek!' : 'Dotknij wiersza, żeby go podświetlić. Białe kratki zostaw puste.';
+  $('count-toggle').hidden = isMystery;
+  $('count-toggle').setAttribute('aria-pressed',String(showCount));
+  $('mystery-progress').hidden = !concealed;
+  $('guide-help').hidden = !concealed;
+  $('mystery-result').hidden = !solution;
+  $('board').hidden = concealed;
+  $('dock').hidden = solution;
+  for (const button of rowButtons) button.disabled = solution;
+}
+
+function setMysteryReveal(value) {
+  if (activePattern !== mystery || (value && activeRow !== mystery.height - 1)) return;
+  mysteryRevealed = value;
+  try { localStorage.setItem(revealKey,value ? '1' : '0'); } catch { /* opcjonalny zapis */ }
+  syncReaderMode();
+  showRow(value ? activeRow : 0);
+  window.scrollTo(0,0);
+  $('pattern-title').focus({preventScroll:true});
+}
+
+let wakeWanted = false;
+let wakePending = false;
+let wakeSentinel = null;
+function wakeStatus(message = '') {
+  $('wake-toggle').setAttribute('aria-pressed',String(Boolean(wakeSentinel && !wakeSentinel.released)));
+  $('wake-status').textContent = message;
+  $('wake-status').hidden = !message;
+}
+
+async function requestWake() {
+  if (!wakeWanted || !activePattern || wakePending || wakeSentinel || document.visibilityState !== 'visible') return;
+  wakePending = true;
+  try {
+    const lock = await navigator.wakeLock.request('screen');
+    if (!wakeWanted || !activePattern || document.visibilityState !== 'visible') {
+      await lock.release();
+      return;
+    }
+    if (lock.released) throw new Error('Ekran nie pozostał aktywny.');
+    wakeSentinel = lock;
+    lock.addEventListener('release',() => {
+      if (wakeSentinel !== lock) return;
+      wakeSentinel = null;
+      if (wakeWanted && document.visibilityState === 'visible') {
+        wakeWanted = false;
+        wakeStatus('Telefon zwolnił blokadę wygaszania. Możesz włączyć ją ponownie.');
+      } else wakeStatus();
+    },{once:true});
+    wakeStatus();
+  } catch {
+    if (!wakeWanted || !activePattern || document.visibilityState !== 'visible') return;
+    wakeWanted = false;
+    wakeStatus('Telefon nie pozwolił teraz utrzymać ekranu włączonego. Wzór nadal działa.');
+  } finally {
+    wakePending = false;
+  }
+}
+
+function stopWake() {
+  wakeWanted = false;
+  const lock = wakeSentinel;
+  wakeSentinel = null;
+  if (lock && !lock.released) void lock.release().catch(() => {});
+  wakeStatus();
+}
+
+function toggleWake() {
+  if (wakeWanted) {
+    stopWake();
+    return;
+  }
+  if (!navigator.wakeLock?.request) {
+    wakeStatus('Ta przeglądarka nie obsługuje niewygaszania ekranu.');
+    return;
+  }
+  wakeWanted = true;
+  void requestWake();
+}
+
 function savedRow(pattern) {
   try {
     const saved = Number(localStorage.getItem(storageKey + pattern.id));
@@ -408,21 +615,31 @@ function savedRow(pattern) {
 function showRow(index,{scroll = false, focus = false} = {}) {
   if (!activePattern || !rowButtons[index]) return;
   activeRow = index;
+  const isMystery = activePattern === mystery;
+  const solution = isMystery && mysteryRevealed;
   rowButtons.forEach((button,i) => {
-    button.setAttribute('aria-pressed',String(i === index));
-    button.tabIndex = i === index ? 0 : -1;
+    button.setAttribute('aria-pressed',String(!solution && i === index));
+    button.tabIndex = !solution && i === index ? 0 : -1;
   });
   const previousHadFocus = document.activeElement === $('previous');
   const nextHadFocus = document.activeElement === $('next');
   $('previous').disabled = index === 0;
   $('next').disabled = index === activePattern.height - 1;
+  const showReveal = isMystery && !solution && index === activePattern.height - 1;
+  $('next').hidden = showReveal;
+  $('reveal').hidden = !showReveal;
   $('row-status').textContent = `Wiersz ${index + 1} z ${activePattern.height}`;
+  if (isMystery) {
+    $('progress').max = activePattern.height;
+    $('progress').value = index + 1;
+  }
+  paintGuide();
   positions.set(activePattern.id,index);
   try { localStorage.setItem(storageKey + activePattern.id,String(index)); } catch { /* opcjonalny zapis */ }
   if (focus) rowButtons[index].focus({preventScroll:true});
   else if (previousHadFocus && $('previous').disabled) $('next').focus({preventScroll:true});
-  else if (nextHadFocus && $('next').disabled) $('previous').focus({preventScroll:true});
-  if (scroll) {
+  else if (nextHadFocus && $('next').disabled) $(showReveal ? 'reveal' : 'previous').focus({preventScroll:true});
+  if (scroll && !isMystery) {
     const rowRect = rowButtons[index].getBoundingClientRect();
     const dockTop = document.querySelector('.dock').getBoundingClientRect().top;
     if (rowRect.top < 4 || rowRect.bottom > Math.min(dockTop,innerHeight) - 4) {
@@ -435,7 +652,6 @@ function openPattern(pattern) {
   activePattern = pattern;
   $('gallery').hidden = true;
   $('reader').hidden = false;
-  $('pattern-title').textContent = pattern.name;
   $('pattern-size').textContent = sizeText(pattern);
   $('pattern-size').setAttribute('aria-label',sizeLabel(pattern));
   $('board').style.setProperty('--cols',pattern.width);
@@ -473,16 +689,16 @@ function openPattern(pattern) {
     item.append(swatch(color),document.createTextNode(colors[color][1]));
     $('palette').append(item);
   }
+  syncReaderMode();
   window.scrollTo(0,0);
   showRow(savedRow(pattern));
   $('pattern-title').focus({preventScroll:true});
 }
 function route() {
-  const pattern = patterns.find(item => location.hash === '#wzor/' + item.id);
+  const pattern = location.hash === '#zagadka' ? mystery : patterns.find(item => location.hash === '#wzor/' + item.id);
   if (pattern) {
     if (pattern === activePattern) return;
     if (!activePattern) lastGalleryY = window.scrollY;
-    document.title = pattern.name + ' — Pikseluj';
     openPattern(pattern);
     return;
   }
@@ -492,7 +708,8 @@ function route() {
   $('reader').hidden = true;
   $('gallery').hidden = false;
   if (old) {
-    const card = $('card-title-' + old.id).closest('a');
+    stopWake();
+    const card = old === mystery ? $('mystery-card') : $('card-title-' + old.id).closest('a');
     window.scrollTo(0,lastGalleryY);
     card.focus({preventScroll:true});
   }
@@ -502,16 +719,29 @@ for (const id of ['back']) $(id).addEventListener('click',event => {
   event.preventDefault();
   history.back();
 });
-$('cards').addEventListener('click',event => {
-  const card = event.target.closest('a');
+function followCard(event,card) {
   if (!card || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
   event.preventDefault();
   history.pushState({pikselujFromGallery:true},'',card.hash);
   route();
+}
+$('cards').addEventListener('click',event => followCard(event,event.target.closest('a')));
+$('mystery-card').addEventListener('click',event => followCard(event,$('mystery-card')));
+$('count-toggle').addEventListener('click',() => {
+  showCount = !showCount;
+  $('count-toggle').setAttribute('aria-pressed',String(showCount));
+  paintGuide();
 });
+$('wake-toggle').addEventListener('click',toggleWake);
+$('reveal').addEventListener('click',() => setMysteryReveal(true));
+$('restart-mystery').addEventListener('click',() => setMysteryReveal(false));
 $('previous').addEventListener('click',() => showRow(activeRow - 1,{scroll:true}));
 $('next').addEventListener('click',() => showRow(activeRow + 1,{scroll:true}));
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+document.addEventListener('visibilitychange',() => {
+  if (document.visibilityState === 'visible') void requestWake();
+});
+window.addEventListener('pagehide',stopWake);
 window.addEventListener('popstate',route);
 window.addEventListener('hashchange',route);
 route();
