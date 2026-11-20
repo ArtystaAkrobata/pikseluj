@@ -1,15 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img">
-<title>Ikona Pikseluj</title>
-<defs>
-<linearGradient id="bg" x1="0" x2="1" y1="0" y2="1" gradientUnits="objectBoundingBox"><stop stop-color="#694ecc"/><stop offset=".48" stop-color="#5742bb"/><stop offset="1" stop-color="#3e2794"/></linearGradient>
-<clipPath id="rounded"><rect width="32" height="32" rx="7"/></clipPath>
-</defs>
-<g clip-path="url(#rounded)">
-<path fill="url(#bg)" d="M0 0h32v32H0z"/>
-<path d="M4 0v32 M0 4h32 M8 0v32 M0 8h32 M12 0v32 M0 12h32 M16 0v32 M0 16h32 M20 0v32 M0 20h32 M24 0v32 M0 24h32 M28 0v32 M0 28h32" fill="none" stroke="#eae2ff" stroke-width=".08" opacity=".20"/>
-<path fill="#fffaf7" d="M8 7h12v1h-12zM8 8h12v1h-12zM8 9h12v1h-12zM8 10h12v1h-12zM8 11h5v1h-5zM19 11h1v1h-1zM8 12h5v1h-5zM20 12h4v1h-4zM8 13h5v1h-5zM20 13h4v1h-4zM8 14h5v1h-5zM20 14h4v1h-4zM8 15h5v1h-5zM19 15h5v1h-5zM8 16h16v1h-16zM8 17h15v1h-15zM8 18h13v1h-13zM8 19h5v1h-5zM8 20h5v1h-5zM8 21h5v1h-5z"/>
-<path fill="#ffcb70" d="M20 7h1v1h-1zM20 8h3v1h-3zM20 9h4v1h-4zM20 10h4v1h-4zM20 11h4v1h-4z"/>
-<path fill="#f3a9c5" d="M8 22h5v1h-5zM8 23h5v1h-5zM8 24h5v1h-5z"/>
-<path fill="#38237e" d="M24 10h1v1h-1zM13 11h6v1h-6zM24 11h1v1h-1zM13 12h1v1h-1zM24 12h1v1h-1zM13 13h1v1h-1zM24 13h1v1h-1zM13 14h1v1h-1zM24 14h1v1h-1zM13 15h1v1h-1zM24 15h1v1h-1zM24 16h1v1h-1zM23 17h2v1h-2zM21 18h3v1h-3zM13 19h9v1h-9zM13 20h1v1h-1zM13 21h1v1h-1zM13 22h1v1h-1zM13 23h1v1h-1zM13 24h1v1h-1zM9 25h5v1h-5z"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><title>Pikseluj — P z pikseli</title><defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#6e50cf"/><stop offset="1" stop-color="#432884"/></linearGradient><clipPath id="rounded"><rect width="32" height="32" rx="7"/></clipPath></defs><g clip-path="url(#rounded)"><path fill="url(#bg)" d="M0 0h32v32H0z"/><path d="M4 0v32M0 4h32 M8 0v32M0 8h32 M12 0v32M0 12h32 M16 0v32M0 16h32 M20 0v32M0 20h32 M24 0v32M0 24h32 M28 0v32M0 28h32" fill="none" stroke="#f5eaff" stroke-width=".16" opacity=".16"/><g shape-rendering="crispEdges"><path fill="#fff9ec" d="M9 6h4v1h-4zM14 6h4v1h-4zM9 7h4v1h-4zM14 7h4v1h-4zM9 8h4v1h-4zM14 8h4v1h-4zM9 9h4v1h-4zM14 9h4v1h-4zM9 11h4v1h-4zM9 12h4v1h-4zM9 13h4v1h-4zM9 14h4v1h-4zM9 16h4v1h-4zM14 16h4v1h-4zM19 16h4v1h-4zM9 17h4v1h-4zM14 17h4v1h-4zM19 17h4v1h-4zM9 18h4v1h-4zM14 18h4v1h-4zM19 18h4v1h-4zM9 19h4v1h-4zM14 19h4v1h-4zM19 19h4v1h-4z"/><path fill="#ffcd65" d="M19 6h4v1h-4zM19 7h4v1h-4zM19 8h4v1h-4zM19 9h4v1h-4zM19 11h4v1h-4zM19 12h4v1h-4zM19 13h4v1h-4zM19 14h4v1h-4z"/><path fill="#372270" d="M13 7h1v1h-1zM18 7h1v1h-1zM23 7h1v1h-1zM13 8h1v1h-1zM18 8h1v1h-1zM23 8h1v1h-1zM13 9h1v1h-1zM18 9h1v1h-1zM23 9h1v1h-1zM10 10h4v1h-4zM15 10h4v1h-4zM20 10h4v1h-4zM13 12h1v1h-1zM23 12h1v1h-1zM13 13h1v1h-1zM23 13h1v1h-1zM13 14h1v1h-1zM23 14h1v1h-1zM10 15h4v1h-4zM20 15h4v1h-4zM13 17h1v1h-1zM18 17h1v1h-1zM23 17h1v1h-1zM13 18h1v1h-1zM18 18h1v1h-1zM23 18h1v1h-1zM13 19h1v1h-1zM18 19h1v1h-1zM23 19h1v1h-1zM10 20h4v1h-4zM15 20h4v1h-4zM20 20h4v1h-4zM13 22h1v1h-1zM13 23h1v1h-1zM13 24h1v1h-1zM13 25h1v1h-1zM10 26h4v1h-4z"/><path fill="#f6a9c2" d="M9 21h4v1h-4zM9 22h4v1h-4zM9 23h4v1h-4zM9 24h4v1h-4zM9 25h4v1h-4z"/></g></g></svg>
