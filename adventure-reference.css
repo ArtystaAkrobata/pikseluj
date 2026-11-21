@@ -1,0 +1,46 @@
+/* Pikseluj Adventure 1:1 — original user-approved artwork with real interactive hit regions */
+.reference-stage{display:none;position:relative;width:min(100vw,600px);max-width:100%;margin:0 auto;aspect-ratio:864/1536;isolation:isolate;background:#86ce68;overflow:hidden;box-shadow:0 6px 24px #1b492f28}
+.reference-stage.loaded{display:block}
+.reference-stage img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.reference-hit{position:absolute;z-index:2;display:block;border:0;background:transparent;color:transparent;text-decoration:none;cursor:pointer;padding:0;font-size:0;border-radius:13px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.reference-hit:active{background:#fff59a44;box-shadow:inset 0 0 0 3px #fffed2}
+.reference-hit:focus-visible{outline:4px solid #fff46b;outline-offset:2px;background:#ffe9a43d}
+.reference-hit[aria-pressed="true"]{box-shadow:inset 0 0 0 3px #ffe560a6}
+.reference-stage .r-animals{left:14%;top:18%;width:29%;height:5.6%}
+.reference-stage .r-sport{left:59%;top:18%;width:26%;height:5.6%}
+.reference-stage .r-food{left:5%;top:30.5%;width:31%;height:5.7%}
+.reference-stage .r-fantasy{left:66%;top:30.5%;width:30%;height:5.7%}
+.reference-stage .r-tile1{left:17%;top:42.5%;width:22%;height:11%}
+.reference-stage .r-tile2{left:40%;top:42.5%;width:22%;height:11%}
+.reference-stage .r-tile3{left:63%;top:42.5%;width:21%;height:11%}
+.reference-stage .r-tile4{left:17%;top:53.6%;width:22%;height:11.2%}
+.reference-stage .r-tile5{left:40%;top:53.6%;width:22%;height:11.2%}
+.reference-stage .r-tile6{left:63%;top:53.6%;width:21%;height:11.2%}
+.reference-stage .r-create{left:22%;top:65.5%;width:57%;height:7.3%;border-radius:40px}
+.reference-stage .r-projects{left:7%;top:73.9%;width:29%;height:10.8%;border-radius:20px}
+.reference-stage .r-editor{left:37%;top:73.9%;width:27%;height:10.8%;border-radius:20px}
+.reference-stage .r-print{left:65%;top:73.9%;width:30%;height:10.8%;border-radius:20px}
+.reference-stage .r-start{left:6%;top:88.3%;width:21%;height:11%;border-radius:16px}
+.reference-stage .r-map{left:27%;top:88.3%;width:23%;height:11%;border-radius:16px}
+.reference-stage .r-achievements{left:51%;top:88.3%;width:24%;height:11%;border-radius:16px}
+.reference-stage .r-collection{left:76%;top:88.3%;width:22%;height:11%;border-radius:16px}
+body.reference-ready:has(#gallery:not([hidden])){background:#74c7a5}
+body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!important}
+#gallery:has(.reference-stage.loaded){width:100%;max-width:none;overflow:visible}
+#gallery:has(.reference-stage.loaded)>.hero,#gallery:has(.reference-stage.loaded)>.adventure-nav,#gallery:has(.reference-stage.loaded)>.site-footer{display:none!important}
+#gallery:has(.reference-stage.loaded)>.adventure-panel{display:none!important}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel{display:block!important;margin:10px auto 28px}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.site-footer{display:block!important;max-width:600px;margin:0 auto}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-create,
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-shortcuts,
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-bonus{display:none}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .gallery-tools{margin-top:9px}
+#gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel #adventure-filter-menu[open] .filters{display:flex}
+@media(min-width:700px){
+ .reference-stage{border-radius:0 0 18px 18px}
+}
+@media(max-width:360px){
+ .reference-hit{border-radius:9px}
+}
+@media(prefers-reduced-motion:reduce){.reference-hit{transition:none}}
