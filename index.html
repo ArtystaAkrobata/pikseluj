@@ -287,9 +287,10 @@ h1, h2, h3, p { margin:0 }
 @media(max-width:365px) { .home-tool { padding:7px; gap:5px } .home-tool-icon { width:27px; flex-basis:27px; height:27px } .home-tool strong { font-size:.8rem } .home-tool small { font-size:.68rem } }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
+<link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
 </head>
 <body>
-<header class="site-header">
+<header class="site-header" id="galeria">
   <div class="topbar wrap">
     <a class="brand" href="#galeria" aria-label="Pikseluj — galeria wzorów"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Pikseluj</a>
     <span class="topnote"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m8 1 2 4.5 5 .7-3.6 3.5.9 5L8 12.3l-4.3 2.4.8-5L1 6.2l5-.7z"/></svg>Pikselowa przygoda</span>
@@ -310,13 +311,13 @@ h1, h2, h3, p { margin:0 }
       <div class="adventure-landmarks" role="group" aria-label="Wybierz krainę">
         <button type="button" class="adventure-landmark zone-animals" data-adventure-group="zwierzaki"><span class="zone-emoji" aria-hidden="true">🐾</span> Zwierzęta</button>
         <button type="button" class="adventure-landmark zone-sport" data-adventure-group="sport"><span class="zone-emoji" aria-hidden="true">⚽</span> Sport</button>
-        <button type="button" class="adventure-landmark zone-food" data-adventure-group="slodkosci"><span class="zone-emoji" aria-hidden="true">🍦</span> Słodkości</button>
+        <button type="button" class="adventure-landmark zone-food" data-adventure-group="slodkosci"><span class="zone-emoji" aria-hidden="true">🍎</span> Jedzenie</button>
         <button type="button" class="adventure-landmark zone-fantasy" data-adventure-group="fantazja"><span class="zone-emoji" aria-hidden="true">🦄</span> Fantazja</button>
       </div>
     </section>
     <section class="adventure-panel" id="galeria-wzory" aria-labelledby="gallery-heading">
       <div class="section-head">
-        <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz obrazek</h2></div>
+        <div><span class="section-kicker">📜 Twoja kolekcja przygód</span><h2 id="gallery-heading">Wybierz obrazek</h2></div>
         <span class="count" id="count" role="status"></span>
       </div>
       <a href="#galeria" class="studio-launch resume-card" id="resume-card" aria-labelledby="resume-title" aria-describedby="resume-line" hidden>
@@ -325,10 +326,11 @@ h1, h2, h3, p { margin:0 }
         <span class="mystery-call" aria-hidden="true">Wróć</span>
       </a>
       <div class="gallery-tools">
-        <div id="filters" class="filters" role="group" aria-label="Kategorie wzorów"></div>
+        <details class="adventure-filter-menu" id="adventure-filter-menu"><summary>Wszystkie krainy i kategorie</summary><div id="filters" class="filters" role="group" aria-label="Kategorie wzorów"></div></details>
         <p class="gallery-note">Największe wzory zajmują do 29 × 30 kratek (14,5 × 15 cm przy kratce 5 mm). Przed rysowaniem sprawdź, ile miejsca masz obok marginesu.</p>
       </div>
       <div id="cards" class="cards"></div>
+      <button type="button" class="gallery-more" id="adventure-more">✨ Pokaż wszystkie obrazki</button>
       <a href="#kreator" class="adventure-create" aria-label="Stwórz własny obrazek w kreatorze"><span aria-hidden="true">✏️</span> + Stwórz własny</a>
       <div class="adventure-shortcuts" aria-label="Narzędzia">
       <a href="#moje" id="studio-launch" class="studio-launch adventure-shortcut" aria-labelledby="studio-link-title">
@@ -1637,18 +1639,38 @@ for (const pattern of patterns) {
   $('cards').append(card);
   galleryCards.set(pattern.id,card);
 }
+// Sześć prawdziwych wzorów na ekranie startowym; pozostałe pozostają dostępne.
+const adventureFeatured = ['pusheen','jednorozec','donut','rakieta','pingwin','truskawka'];
+for (const id of [...adventureFeatured].reverse()) {
+  const card = galleryCards.get(id);
+  if (card) $('cards').prepend(card);
+}
+let adventureExpanded = false;
+let adventureCurrentGroup = 'all';
 function filterGallery(group) {
+  adventureCurrentGroup = group;
+  if (group !== 'all') adventureExpanded = true;
+  const featured = group === 'all' && !adventureExpanded;
   let visible = 0;
+  let total = 0;
   for (const pattern of patterns) {
     const matches = group === 'all' || group === pattern.group;
-    galleryCards.get(pattern.id).hidden = !matches;
-    if (matches) visible++;
+    const show = matches && (!featured || adventureFeatured.includes(pattern.id));
+    galleryCards.get(pattern.id).hidden = !show;
+    if (matches) total++;
+    if (show) visible++;
   }
   for (const [key,button] of filterButtons) button.setAttribute('aria-pressed',String(group === key));
+  for (const sign of document.querySelectorAll('[data-adventure-group]')) sign.setAttribute('aria-pressed',String(sign.dataset.adventureGroup === group));
   const last = visible % 10;
   const words = visible === 1 ? 'wzór' : last >= 2 && last <= 4 && !(visible % 100 >= 12 && visible % 100 <= 14) ? 'wzory' : 'wzorów';
-  $('count').textContent = visible + ' ' + words;
+  $('count').textContent = featured ? visible + ' z ' + total + ' wzorów' : visible + ' ' + words;
+  $('adventure-more').hidden = !featured;
 }
+$('adventure-more').addEventListener('click', () => {
+  adventureExpanded = true;
+  filterGallery('all');
+});
 filterGallery('all');
 // Adventure: mapa filtruje istniejące wzory; bez zmiany mechaniki aplikacji.
 for (const sign of document.querySelectorAll('[data-adventure-group]')) {
@@ -2897,7 +2919,7 @@ function route() {
   const previous = view;
   showScreen('gallery');
   renderJourneyHome();
-  document.title = 'Pikseluj — Piksele do rysowania w zeszycie';
+  document.title = 'Pikseluj — Kraina pikselowych przygód';
   if (previous !== 'gallery') {
     const card = !old || old.own ? $('studio-launch') : old === mystery ? $('mystery-card') : $('card-title-' + old.id)?.closest('a');
     window.scrollTo(0,lastGalleryY);
