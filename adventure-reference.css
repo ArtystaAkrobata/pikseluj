@@ -44,3 +44,49 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
  .reference-hit{border-radius:9px}
 }
 @media(prefers-reduced-motion:reduce){.reference-hit{transition:none}}
+
+/* Wariant 2 — pełny ekran; obraz powiększony proporcjonalnie.
+   Pola dotykowe pozostają w układzie współrzędnych oryginalnej grafiki,
+   bo całe zdjęcie i przyciski są wspólnie umieszczone w reference-canvas. */
+.reference-canvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.reference-stage .reference-canvas>img{
+  width:100%;
+  height:100%;
+  object-fit:fill;
+}
+@media(max-width:699px){
+  body.reference-ready:has(#gallery:not([hidden])){
+    background:#8e5837;
+  }
+  #gallery:has(.reference-stage.loaded){
+    width:100%;
+    min-height:100dvh;
+  }
+  #gallery .reference-stage{
+    width:100vw;
+    max-width:none;
+    height:100dvh;
+    min-height:100dvh;
+    aspect-ratio:auto;
+    margin:0 auto;
+    border-radius:0;
+    box-shadow:none;
+    overflow:hidden;
+  }
+  #gallery .reference-canvas{
+    inset:auto;
+    top:50%;
+    left:50%;
+    /* 864:1536, jak w oryginalnej grafice. Węższe ekrany
+       przycinają wyłącznie brzegi, nie samą dolną nawigację. */
+    width:max(100%, calc(100dvh * 0.5625));
+    height:auto;
+    aspect-ratio:864 / 1536;
+    transform:translate(-50%,-50%);
+  }
+}
