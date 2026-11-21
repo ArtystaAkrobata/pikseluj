@@ -3,12 +3,12 @@
   "name": "Pikseluj",
   "short_name": "Pikseluj",
   "lang": "pl",
-  "description": "Piksele do rysowania w zeszycie.",
+  "description": "Wybieraj krainy, rysuj piksele i twórz własne obrazki.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "theme_color": "#f7f5ff",
-  "background_color": "#f7f5ff",
+  "theme_color": "#55bcf5",
+  "background_color": "#d8f6bc",
   "icons": [
     {
       "src": "assets/pikseluj-192.png?v=p01",
