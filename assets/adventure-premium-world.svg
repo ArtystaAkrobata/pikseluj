@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 790" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Kolorowa kraina Pikseluj: wodospady, zamek, stadion, zwierzątka, stoisko z jedzeniem i zaczarowany las">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#169ef5"/><stop offset=".55" stop-color="#7de0ff"/><stop offset="1" stop-color="#e2f8c0"/></linearGradient>
+ <linearGradient id="hill" x2=".4" y2="1"><stop stop-color="#9de656"/><stop offset=".5" stop-color="#54bb53"/><stop offset="1" stop-color="#26905a"/></linearGradient>
+ <linearGradient id="forest" x2="0" y2="1"><stop stop-color="#59ba4d"/><stop offset="1" stop-color="#247f48"/></linearGradient>
+ <linearGradient id="trail" x2="0" y2="1"><stop stop-color="#fff3b8"/><stop offset=".5" stop-color="#efd48c"/><stop offset="1" stop-color="#daa057"/></linearGradient>
+ <linearGradient id="water" x2="1" y2="0"><stop stop-color="#128ad5"/><stop offset=".45" stop-color="#63e5f3"/><stop offset=".7" stop-color="#b2faff"/><stop offset="1" stop-color="#1aa8e1"/></linearGradient>
+ <linearGradient id="timber" x2="0" y2="1"><stop stop-color="#f5bb72"/><stop offset=".35" stop-color="#d78d4b"/><stop offset="1" stop-color="#925022"/></linearGradient>
+ <linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff3a1"/><stop offset=".6" stop-color="#fbc43d"/><stop offset="1" stop-color="#e48620"/></linearGradient>
+ <radialGradient id="magic"><stop stop-color="#fff8ff"/><stop offset=".45" stop-color="#e59cff"/><stop offset="1" stop-color="#7134bc"/></radialGradient>
+ <radialGradient id="leaf"><stop stop-color="#a5ee58"/><stop offset=".55" stop-color="#49b548"/><stop offset="1" stop-color="#26783c"/></radialGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7"/></filter>
+ <filter id="drop" x="-20%" y="-20%" width="145%" height="155%"><feGaussianBlur in="SourceAlpha" stdDeviation="3"/><feOffset dy="5"/><feComponentTransfer><feFuncA type="linear" slope=".38"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <g id="pine"><path d="M-9 13H9V58H-9Z" fill="#805038" stroke="#694126" stroke-width="4"/><path d="M0-100 -49-24H-25L-61 17H61L25-24H49Z" fill="#246f43" stroke="#195b39" stroke-width="6"/><path d="M0-89 -34-33H-11L-45 6H20L4-16" fill="#53b45a" opacity=".8"/></g>
+ <g id="oak"><path d="M-10-3H11L17 64H-17Z" fill="#9b5d36" stroke="#704025" stroke-width="5"/><path d="M-63-6Q-91-33-62-67Q-68-114-17-113Q0-151 40-118Q92-121 84-66Q115-30 78 3Q25 38-27 13Z" fill="url(#leaf)" stroke="#287b40" stroke-width="9"/><path d="M-60-43Q-59-89-27-89Q-9-125 22-105Q44-98 64-76" fill="none" stroke="#b5f46c" stroke-width="12" stroke-linecap="round" opacity=".75"/></g>
+ <g id="bloom"><path d="M0 4v-30M0-9q-18-17-22-4q7 14 22 12M0-13q20-18 21-4Q16-3 0-2" fill="#48ba59" stroke="#318742" stroke-width="3"/><g fill="#ff83b2" stroke="#e45493" stroke-width="2"><circle cy="-43" r="9"/><circle cx="-12" cy="-35" r="9"/><circle cx="12" cy="-35" r="9"/><circle cx="-8" cy="-23" r="9"/><circle cx="8" cy="-23" r="9"/></g><circle cy="-33" r="8" fill="#ffe46a" stroke="#ebb34e" stroke-width="2"/></g>
+ <g id="stone"><path d="M-29 6Q-34-24-8-30Q13-38 28-9L33 10Z" fill="#b2aeb5" stroke="#746f81" stroke-width="4"/><path d="M-21-10Q-6-25 13-17" fill="none" stroke="#eeeff0" stroke-width="5" stroke-linecap="round"/></g>
+ <g id="star"><path d="M0-17 4-4 17 0 4 4 0 17-4 4-17 0-4-4Z" fill="#fff0a1" stroke="#efae45" stroke-width="2"/></g>
+ <g id="butterfly"><path d="M0 0Q-34-45-41-7Q-33 17-3 8Q-32 28-11 33L0 16Q10 34 28 26L7 6Q36 14 39-7Q28-42 0 0Z" fill="#e968e4" stroke="#7a2aa7" stroke-width="5"/><path d="M0-6V22" stroke="#5e337e" stroke-width="5"/><path d="M0-10Q-11-22-18-16M0-10Q11-22 18-16" fill="none" stroke="#68407c" stroke-width="3"/><g fill="#ffe369"><circle cx="-23" cy="-9" r="6"/><circle cx="20" cy="-9" r="6"/></g></g>
+</defs>
+<rect width="1000" height="790" fill="url(#sky)"/>
+<circle cx="518" cy="106" r="94" fill="#fffeca" opacity=".32"/>
+<g fill="#fff" opacity=".93"><path d="M20 137q18-47 73-39q21-44 71-16q65-20 92 36q38 33-6 42H22q-33-8-2-23Z"/><path d="M625 120q24-34 66-19q20-49 69-24q62-21 86 38q40 12 18 35H619q-31-12 6-30Z"/><path d="M430 190q11-32 52-24q26-41 57-10q36-4 45 34Z" opacity=".7"/></g>
+<path d="M0 370 112 165 230 325 350 112 477 332 580 173 717 378 860 158 1000 340V520H0Z" fill="#79a7d0" stroke="#6a95c2" stroke-width="5"/>
+<path d="M78 219 112 165 146 224 121 207 108 191 97 216M309 176 350 112 397 190 366 175 344 148 328 183M555 221 580 173 614 235 590 221 581 191 570 223M826 205 860 158 889 213 866 200 854 181 843 206" fill="#f7fdff"/>
+<path d="M0 370Q114 292 258 354Q383 291 492 351Q642 283 820 346Q924 318 1000 362V526H0Z" fill="#51a777"/>
+<path d="M0 415Q155 310 316 405Q466 303 614 390Q792 315 1000 398V632H0Z" fill="#4fbe60"/>
+<path d="M0 515Q178 390 341 476Q539 368 735 459Q881 395 1000 446V790H0Z" fill="url(#hill)"/>
+<path d="M0 631Q183 503 349 607Q559 484 728 579Q890 524 1000 578V790H0Z" fill="#3cad57" opacity=".88"/>
+<!-- path through the kingdom -->
+<path d="M520 865Q407 767 519 716Q680 632 550 574Q437 522 590 462Q697 423 620 385Q525 345 687 298" fill="none" stroke="#865d30" stroke-width="88" stroke-linecap="round" opacity=".78"/>
+<path d="M520 865Q407 767 519 716Q680 632 550 574Q437 522 590 462Q697 423 620 385Q525 345 687 298" fill="none" stroke="url(#trail)" stroke-width="74" stroke-linecap="round"/>
+<path d="M520 865Q407 767 519 716Q680 632 550 574Q437 522 590 462Q697 423 620 385Q525 345 687 298" fill="none" stroke="#fff7cb" stroke-width="7" stroke-dasharray="22 22" stroke-linecap="round" opacity=".65"/>
+<!-- river and waterfalls -->
+<path d="M-20 330Q56 304 98 337L93 502Q89 553 184 593Q281 631 360 611Q432 602 462 649Q513 696 420 739L307 820H-30Z" fill="#197ab9" stroke="#366c9b" stroke-width="12"/>
+<path d="M0 337Q52 320 81 338L77 502Q69 553 183 603Q289 643 363 625Q429 616 447 652Q479 690 399 732L294 800H-20Z" fill="url(#water)"/>
+<path d="M14 350Q19 477 30 505Q45 536 89 555M43 341Q46 474 53 513Q82 554 112 564M15 586Q123 603 151 649M129 673Q238 703 295 682M304 761Q359 727 400 692" fill="none" stroke="#d2ffff" stroke-width="10" stroke-linecap="round" opacity=".82"/>
+<path d="M0 540q88 3 123 31" stroke="#fff" stroke-width="16" opacity=".7"/>
+<!-- clouds of evergreen forests -->
+
+<use href="#pine" transform="translate(53.6 407.7) scale(0.43)" opacity=".92"/>
+<use href="#pine" transform="translate(112.6 427.6) scale(0.53)" opacity=".92"/>
+<use href="#pine" transform="translate(176.6 435.4) scale(0.30)" opacity=".92"/>
+<use href="#pine" transform="translate(229.3 416.6) scale(0.39)" opacity=".92"/>
+<use href="#pine" transform="translate(294.3 420.6) scale(0.49)" opacity=".92"/>
+<use href="#pine" transform="translate(374.8 402.4) scale(0.54)" opacity=".92"/>
+<use href="#pine" transform="translate(428.7 452.1) scale(0.51)" opacity=".92"/>
+<use href="#pine" transform="translate(514.5 403.8) scale(0.50)" opacity=".92"/>
+<use href="#pine" transform="translate(552.7 420.0) scale(0.46)" opacity=".92"/>
+<use href="#pine" transform="translate(634.7 415.0) scale(0.55)" opacity=".92"/>
+<use href="#pine" transform="translate(689.4 425.6) scale(0.42)" opacity=".92"/>
+<use href="#pine" transform="translate(771.0 399.6) scale(0.35)" opacity=".92"/>
+<use href="#pine" transform="translate(825.8 431.7) scale(0.41)" opacity=".92"/>
+<use href="#pine" transform="translate(876.5 442.1) scale(0.44)" opacity=".92"/>
+<use href="#pine" transform="translate(948.1 442.2) scale(0.57)" opacity=".92"/>
+<use href="#pine" transform="translate(1033.9 433.9) scale(0.49)" opacity=".92"/>
+<use href="#pine" transform="translate(32.3 487.3) scale(0.46)" opacity=".95"/>
+<use href="#pine" transform="translate(105.7 486.6) scale(0.46)" opacity=".95"/>
+<use href="#pine" transform="translate(168.4 490.2) scale(0.58)" opacity=".95"/>
+<use href="#pine" transform="translate(230.4 506.4) scale(0.70)" opacity=".95"/>
+<use href="#pine" transform="translate(295.6 498.3) scale(0.42)" opacity=".95"/>
+<use href="#pine" transform="translate(370.0 496.3) scale(0.72)" opacity=".95"/>
+<use href="#pine" transform="translate(426.9 514.2) scale(0.40)" opacity=".95"/>
+<use href="#pine" transform="translate(483.2 514.2) scale(0.64)" opacity=".95"/>
+<use href="#pine" transform="translate(564.5 528.1) scale(0.44)" opacity=".95"/>
+<use href="#pine" transform="translate(619.3 496.1) scale(0.62)" opacity=".95"/>
+<use href="#pine" transform="translate(695.1 496.1) scale(0.42)" opacity=".95"/>
+<use href="#pine" transform="translate(765.0 516.3) scale(0.43)" opacity=".95"/>
+<use href="#pine" transform="translate(815.6 520.0) scale(0.63)" opacity=".95"/>
+<use href="#pine" transform="translate(886.6 503.9) scale(0.65)" opacity=".95"/>
+<use href="#pine" transform="translate(945.2 498.8) scale(0.69)" opacity=".95"/>
+<use href="#pine" transform="translate(1016.4 500.5) scale(0.52)" opacity=".95"/>
+<!-- castle with pastel turrets -->
+<g filter="url(#drop)" stroke="#75577e" stroke-width="5" stroke-linejoin="round">
+ <path d="M766 232 790 225 793 155H824V222L860 231V170H888V225L915 235V333H766Z" fill="#f8e8c3"/>
+ <path d="M774 220V164H812V220M859 215V148H893V228" fill="#e7ddfd"/>
+ <path d="M764 164 791 114 820 164ZM849 149 877 93 908 149Z" fill="#8b70da"/>
+ <path d="M819 231V156L843 115 868 156V235" fill="#ffd4e4"/>
+ <path d="M807 156 843 106 880 156Z" fill="#7c58c9"/>
+ <path d="M818 332V299Q843 269 868 299V332" fill="#79536d"/>
+ <path d="M787 253h18v31h-18ZM875 248h18v32h-18ZM831 186h17v30h-17Z" fill="#78d5f5"/>
+ <path d="M794 117V88M877 97V67M844 112V80" stroke="#a07945" stroke-width="4"/>
+</g>
+<path d="M795 89h31l-9 15 9 16h-31ZM878 68h34l-11 15 11 15h-34ZM844 81h32l-9 14 9 15h-32Z" fill="#f06c52" stroke="#c64249" stroke-width="3"/>
+<path d="M751 338Q840 312 943 342" fill="none" stroke="#438e4b" stroke-width="17"/>
+<!-- forest canopy and waterfall cliffs -->
+<g><use href="#oak" transform="translate(130 318) scale(1.32)"/><use href="#oak" transform="translate(312 341) scale(.8)"/><use href="#oak" transform="translate(973 452) scale(1.05)"/><use href="#oak" transform="translate(24 598) scale(.85)"/></g>
+<path d="M-35 375 3 329 92 325 114 365 106 502 73 522 55 453 21 481 -20 456Z" fill="#75818a" stroke="#53616b" stroke-width="9"/>
+<path d="M-22 374 11 347 54 350 73 326 94 351 99 394 70 408 25 395Z" fill="#acd36e" stroke="#539d55" stroke-width="6"/>
+<path d="M-4 377Q15 358 40 375L43 487Q56 517 89 529" fill="none" stroke="#e8ffff" stroke-width="16" stroke-linecap="round"/>
+<!-- stadion sportowy -->
+<g transform="translate(676 419)" filter="url(#drop)">
+ <ellipse cx="17" cy="45" rx="119" ry="71" fill="#596d9b" stroke="#354776" stroke-width="11"/>
+ <ellipse cx="17" cy="24" rx="104" ry="54" fill="#deddf5" stroke="#7b7bc0" stroke-width="14"/>
+ <path d="M-84 19q100-70 202 0" fill="none" stroke="#5e73a0" stroke-width="20"/>
+ <ellipse cx="17" cy="35" rx="83" ry="41" fill="#48b854" stroke="#dbf5e4" stroke-width="5"/>
+ <path d="M17-2V72M-65 36H99" stroke="#d5fbd0" stroke-width="4" fill="none"/><circle cx="17" cy="36" r="15" fill="none" stroke="#d5fbd0" stroke-width="4"/>
+ <path d="M-57 -14V-52M36-29V-67M97-12V-54" stroke="#fff9df" stroke-width="5"/>
+ <path d="M-57-52h30l-8 14 8 12h-30ZM36-67h31l-8 12 8 13H36ZM97-54h31l-9 13 9 13H97Z" fill="#f56052" stroke="#bc3f39" stroke-width="2"/>
+ <path d="M3 -14V-58H40V-14Z" fill="#2456ac" stroke="#fbd96f" stroke-width="4"/><path d="M11-46h20v15l-10 9-10-9z" fill="#ffdc56" stroke="#fff2c5" stroke-width="2"/>
+</g>
+<!-- animal fox and deer near left sign -->
+<g transform="translate(225 350)" filter="url(#drop)" stroke-linejoin="round">
+ <path d="M-71 51Q-131-28-92-51Q-82-58-63-23Q-52 3-18 14Z" fill="#f78436" stroke="#99491f" stroke-width="6"/>
+ <path d="M-105-51Q-82-44-84-21Q-96-17-113-40Z" fill="#fff1d2"/>
+ <ellipse cx="-9" cy="56" rx="55" ry="43" fill="#eb7b27" stroke="#97491f" stroke-width="7"/>
+ <path d="M-46 58q27 47 67 4" fill="#fff1cf" stroke="#fff1cf" stroke-width="12"/>
+ <path d="M-47-19-34-77-3-42 24-76 38-14" fill="#f58f3e" stroke="#9c4d20" stroke-width="7"/>
+ <path d="M-35-48-25-66-16-42M15-42 26-63 30-46" fill="#ffbfd0"/>
+ <ellipse cx="-4" cy="-7" rx="55" ry="43" fill="#f49134" stroke="#9c4d20" stroke-width="7"/>
+ <path d="M-51-5q19 50 47 37Q24 46 44-8Q24 6 2 10Q-16-1-51-5Z" fill="#ffeed4"/>
+ <path d="M-29-7q8-8 16 0m28 0q9-9 16 0" fill="none" stroke="#513725" stroke-width="5" stroke-linecap="round"/>
+ <path d="M-6 5q6-4 12 0l-6 7Z" fill="#513725"/><path d="M0 13q-10 12-21 0M0 13q10 12 21 0" fill="none" stroke="#633b31" stroke-width="3" stroke-linecap="round"/>
+ <circle cx="-37" cy="12" r="8" fill="#ffad91"/><circle cx="37" cy="12" r="8" fill="#ffad91"/>
+</g>
+<g transform="translate(346 316)" stroke-linejoin="round" filter="url(#drop)">
+<path d="M-34 20Q-62-14-72-62M-34 20Q-51-22-22-87M35 20Q72-23 73-62M35 20Q54-27 20-86" stroke="#7f532e" stroke-width="10" fill="none" stroke-linecap="round"/>
+<path d="M-62-46-82-47M-40-21-14-49M60-43 80-45M40-20 14-50" stroke="#7f532e" stroke-width="8" stroke-linecap="round"/>
+<path d="M-56-8-27-22-14 14M57-8 27-22 14 14" fill="#b96d38" stroke="#7f4b2d" stroke-width="6"/>
+<ellipse cy="22" rx="44" ry="49" fill="#c9874c" stroke="#86552d" stroke-width="7"/><ellipse cy="44" rx="28" ry="23" fill="#f8d5a5"/><circle cx="-18" cy="11" r="5" fill="#3d3527"/><circle cx="18" cy="11" r="5" fill="#3d3527"/><ellipse cy="32" rx="7" ry="5" fill="#47362f"/>
+</g>
+<!-- merchant's food shop -->
+<g transform="translate(148 570)" filter="url(#drop)" stroke-linejoin="round">
+ <path d="M-97 10H108V100H-97Z" fill="#d58b4b" stroke="#80461d" stroke-width="10"/>
+ <path d="M-107 7H120L96-42H-83Z" fill="#ffe6b8" stroke="#8b4f22" stroke-width="9"/>
+ <path d="M-105-1h37l10-40h-30ZM-32-1h37l3-40h-40ZM43-1h39l-6-40H44Z" fill="#f75d5b"/>
+ <path d="M-93 31H104M-90 66H105" stroke="#965021" stroke-width="7"/>
+ <g fill="#ffda56" stroke="#e2a93b" stroke-width="3"><circle cx="-77" cy="54" r="14"/><circle cx="-43" cy="51" r="14"/><circle cx="-7" cy="55" r="15"/><circle cx="29" cy="55" r="13"/><circle cx="66" cy="55" r="15"/></g>
+ <g fill="#ed4548" stroke="#a62e37" stroke-width="3"><circle cx="-59" cy="50" r="13"/><circle cx="5" cy="48" r="15"/><circle cx="78" cy="46" r="13"/></g>
+ <path d="M-5-56q-19-24-35-9M-5-56q20-26 39-8" stroke="#4b9842" stroke-width="8" fill="none"/><circle cx="-5" cy="-78" r="23" fill="#ed5350" stroke="#9f3c37" stroke-width="5"/><path d="M-4-103v-8" stroke="#6c8b30" stroke-width="6"/>
+</g>
+<!-- crystal grove and fairy mushrooms -->
+<g transform="translate(827 565)" filter="url(#drop)" stroke-linejoin="round">
+<path d="M-112 130-130 54-105 24-83 66-69 11-33 51-20 142Z" fill="#ad64ee" stroke="#6732a8" stroke-width="7"/>
+<path d="M-130 54-105 24-83 66-105 142M-69 11-33 51-49 141" fill="none" stroke="#ebc2ff" stroke-width="7"/>
+<path d="M-105 24-83 66-61 38" stroke="#fff0ff" stroke-width="5" fill="none"/>
+<path d="M62 135V64h39v71Z" fill="#fae6d6" stroke="#9b59bb" stroke-width="7"/>
+<path d="M12 65Q27-28 83-32Q145-24 157 65Q87 99 12 65Z" fill="#a14cc7" stroke="#6d31a5" stroke-width="9"/>
+<g fill="#ffd4ff"><ellipse cx="48" cy="40" rx="11" ry="7"/><ellipse cx="79" cy="3" rx="16" ry="10"/><ellipse cx="111" cy="39" rx="14" ry="9"/><ellipse cx="135" cy="60" rx="9" ry="6"/></g>
+<path d="M-2 146V92h30v54Z" fill="#ffedca" stroke="#986cc3" stroke-width="6"/><path d="M-27 93Q-18 31 15 34Q52 35 64 93Z" fill="#9a59cf" stroke="#7643b9" stroke-width="8"/><circle cx="20" cy="72" r="9" fill="#f9d8ff"/>
+</g>
+<!-- friendly unicorn -->
+<g transform="translate(769 610)" filter="url(#drop)" stroke="#6a61b1" stroke-linejoin="round">
+ <path d="M22 30q67-37 91 14Q124 97 89 91" fill="none" stroke="#f069cc" stroke-width="18" stroke-linecap="round"/>
+ <path d="M18 26q74-37 95 19" fill="none" stroke="#6bcaff" stroke-width="7" stroke-linecap="round"/>
+ <ellipse cx="13" cy="56" rx="64" ry="43" fill="#f9f4ff" stroke-width="6"/>
+ <path d="M-26 79v53h22l9-55M35 79v53h22l8-51" fill="#fafaff" stroke-width="6"/>
+ <path d="M-38 16Q-67-18-92-7Q-123 10-105 42Q-87 63-55 48L-29 41Z" fill="#fffafd" stroke-width="6"/>
+ <path d="M-86-10-66-59-50-14" fill="#f7e8ff" stroke-width="7"/><path d="M-72-30-66-48-58-24" fill="#ff9ccd" stroke="none"/>
+ <path d="M-82-54-72-98-62-55Z" fill="url(#gold)" stroke="#d48431" stroke-width="5"/>
+ <path d="M-51-4Q-26-26 3-13Q-16 5-37 18" fill="#d95fc0" stroke="#6a61b1" stroke-width="5"/>
+ <path d="M-36 5Q-16-15 10-7" fill="none" stroke="#62d5f5" stroke-width="7"/>
+ <path d="M-102 20q9-10 17 0" stroke="#443e78" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <circle cx="-95" cy="30" r="6" fill="#f9a6c4" stroke="none"/>
+</g>
+<!-- curved stone bridge -->
+<g transform="translate(465 702)" filter="url(#drop)" stroke-linejoin="round">
+ <path d="M-118 34Q-99-55 0-61Q96-53 120 34H87Q76-17 0-24Q-78-21-88 34Z" fill="#b5abb9" stroke="#666078" stroke-width="9"/>
+ <path d="M-106 8Q0-89 108 8" stroke="#e2d7d5" fill="none" stroke-width="16"/>
+ <path d="M-84 10q27-8 34-49M-42-17l9-36M16-25 11-56M66-9 52-48" stroke="#786f7a" stroke-width="5" fill="none"/>
+ <path d="M-112-1Q0-103 114-1" fill="none" stroke="#948797" stroke-width="8"/>
+</g>
+<!-- field details -->
+
+<use href="#bloom" transform="translate(261.2 759.2) scale(0.44)" opacity="0.81"/>
+<use href="#bloom" transform="translate(211.4 701.0) scale(0.29)" opacity="0.98"/>
+<use href="#bloom" transform="translate(565.8 692.8) scale(0.30)" opacity="0.75"/>
+<use href="#bloom" transform="translate(353.8 590.5) scale(0.59)" opacity="1.00"/>
+<use href="#bloom" transform="translate(505.6 553.4) scale(0.57)" opacity="0.82"/>
+<use href="#bloom" transform="translate(431.5 536.3) scale(0.35)" opacity="0.81"/>
+<use href="#bloom" transform="translate(358.7 718.2) scale(0.43)" opacity="0.97"/>
+<use href="#bloom" transform="translate(627.7 731.8) scale(0.26)" opacity="1.00"/>
+<use href="#bloom" transform="translate(306.0 529.6) scale(0.60)" opacity="0.93"/>
+<use href="#bloom" transform="translate(195.1 771.1) scale(0.31)" opacity="0.87"/>
+<use href="#bloom" transform="translate(714.4 745.2) scale(0.62)" opacity="0.84"/>
+<use href="#bloom" transform="translate(562.5 696.5) scale(0.42)" opacity="0.91"/>
+<use href="#bloom" transform="translate(230.3 713.6) scale(0.48)" opacity="0.89"/>
+<use href="#bloom" transform="translate(52.7 721.6) scale(0.39)" opacity="0.90"/>
+<use href="#bloom" transform="translate(287.7 695.4) scale(0.30)" opacity="0.98"/>
+<use href="#bloom" transform="translate(569.0 586.7) scale(0.25)" opacity="0.79"/>
+<use href="#bloom" transform="translate(334.1 537.4) scale(0.32)" opacity="0.82"/>
+<use href="#bloom" transform="translate(348.5 656.5) scale(0.52)" opacity="0.78"/>
+<use href="#bloom" transform="translate(281.2 549.2) scale(0.22)" opacity="0.88"/>
+<use href="#bloom" transform="translate(393.0 764.0) scale(0.50)" opacity="0.96"/>
+<use href="#bloom" transform="translate(498.5 620.2) scale(0.43)" opacity="0.92"/>
+<use href="#bloom" transform="translate(262.6 593.0) scale(0.33)" opacity="0.95"/>
+<use href="#bloom" transform="translate(396.2 542.7) scale(0.65)" opacity="0.82"/>
+<use href="#bloom" transform="translate(194.1 701.4) scale(0.53)" opacity="0.76"/>
+<use href="#bloom" transform="translate(677.5 743.2) scale(0.48)" opacity="0.86"/>
+<use href="#bloom" transform="translate(35.3 551.6) scale(0.42)" opacity="0.91"/>
+<use href="#bloom" transform="translate(-13.7 526.5) scale(0.58)" opacity="0.82"/>
+<use href="#bloom" transform="translate(511.3 512.1) scale(0.61)" opacity="0.93"/>
+<use href="#bloom" transform="translate(547.2 601.8) scale(0.36)" opacity="0.86"/>
+<use href="#bloom" transform="translate(567.9 751.2) scale(0.44)" opacity="0.97"/>
+<use href="#bloom" transform="translate(384.7 547.6) scale(0.47)" opacity="1.00"/>
+<use href="#bloom" transform="translate(298.8 754.0) scale(0.42)" opacity="0.79"/>
+<use href="#bloom" transform="translate(459.8 606.4) scale(0.64)" opacity="0.78"/>
+<use href="#stone" transform="translate(84.9 778.4) scale(0.45)" opacity=".83"/>
+<use href="#stone" transform="translate(573.8 583.2) scale(0.42)" opacity=".83"/>
+<use href="#stone" transform="translate(1002.1 778.1) scale(0.31)" opacity=".83"/>
+<use href="#stone" transform="translate(912.3 747.1) scale(0.38)" opacity=".83"/>
+<use href="#stone" transform="translate(417.5 746.7) scale(0.20)" opacity=".83"/>
+<use href="#stone" transform="translate(612.9 671.4) scale(0.42)" opacity=".83"/>
+<use href="#stone" transform="translate(100.9 661.8) scale(0.38)" opacity=".83"/>
+<use href="#stone" transform="translate(291.3 751.3) scale(0.26)" opacity=".83"/>
+<use href="#stone" transform="translate(612.6 653.5) scale(0.40)" opacity=".83"/>
+<use href="#stone" transform="translate(925.3 722.4) scale(0.29)" opacity=".83"/>
+<use href="#stone" transform="translate(629.8 687.3) scale(0.53)" opacity=".83"/>
+<use href="#stone" transform="translate(312.6 745.6) scale(0.24)" opacity=".83"/>
+<use href="#stone" transform="translate(845.1 628.4) scale(0.40)" opacity=".83"/>
+<use href="#stone" transform="translate(123.5 646.0) scale(0.45)" opacity=".83"/>
+<use href="#stone" transform="translate(888.7 682.1) scale(0.40)" opacity=".83"/>
+<use href="#stone" transform="translate(1002.5 584.3) scale(0.40)" opacity=".83"/>
+<use href="#stone" transform="translate(35.2 637.4) scale(0.52)" opacity=".83"/>
+<use href="#stone" transform="translate(410.1 728.0) scale(0.19)" opacity=".83"/>
+<use href="#stone" transform="translate(186.5 684.8) scale(0.49)" opacity=".83"/>
+<use href="#stone" transform="translate(938.6 623.1) scale(0.28)" opacity=".83"/>
+<use href="#stone" transform="translate(476.4 636.1) scale(0.47)" opacity=".83"/>
+<use href="#stone" transform="translate(386.4 731.8) scale(0.23)" opacity=".83"/>
+<use href="#stone" transform="translate(961.3 774.7) scale(0.35)" opacity=".83"/>
+<use href="#stone" transform="translate(310.9 761.0) scale(0.38)" opacity=".83"/>
+<use href="#stone" transform="translate(593.6 662.0) scale(0.47)" opacity=".83"/>
+<use href="#stone" transform="translate(297.8 591.1) scale(0.51)" opacity=".83"/>
+<use href="#stone" transform="translate(-0.2 733.7) scale(0.22)" opacity=".83"/>
+<use href="#stone" transform="translate(441.3 721.7) scale(0.44)" opacity=".83"/>
+<use href="#stone" transform="translate(811.9 771.1) scale(0.26)" opacity=".83"/>
+<use href="#stone" transform="translate(952.3 694.5) scale(0.35)" opacity=".83"/>
+<use href="#stone" transform="translate(934.7 628.2) scale(0.19)" opacity=".83"/>
+<use href="#stone" transform="translate(818.3 655.9) scale(0.45)" opacity=".83"/>
+<use href="#stone" transform="translate(301.6 776.8) scale(0.26)" opacity=".83"/>
+<use href="#stone" transform="translate(19.7 657.2) scale(0.28)" opacity=".83"/>
+<use href="#star" transform="translate(659.9 577.9) scale(0.41)" opacity=".65"/>
+<use href="#star" transform="translate(11.9 721.9) scale(0.28)" opacity=".65"/>
+<use href="#star" transform="translate(989.3 378.4) scale(0.24)" opacity=".65"/>
+<use href="#star" transform="translate(780.9 731.1) scale(0.44)" opacity=".65"/>
+<use href="#star" transform="translate(535.3 327.2) scale(0.26)" opacity=".65"/>
+<use href="#star" transform="translate(982.2 416.7) scale(0.38)" opacity=".65"/>
+<use href="#star" transform="translate(174.8 612.4) scale(0.26)" opacity=".65"/>
+<use href="#star" transform="translate(192.7 686.6) scale(0.27)" opacity=".65"/>
+<use href="#star" transform="translate(547.4 444.2) scale(0.40)" opacity=".65"/>
+<use href="#star" transform="translate(512.3 371.1) scale(0.31)" opacity=".65"/>
+<use href="#star" transform="translate(645.0 315.1) scale(0.29)" opacity=".65"/>
+<use href="#star" transform="translate(48.7 415.7) scale(0.29)" opacity=".65"/>
+<use href="#star" transform="translate(572.3 355.9) scale(0.34)" opacity=".65"/>
+<use href="#star" transform="translate(917.6 714.0) scale(0.20)" opacity=".65"/>
+<use href="#star" transform="translate(144.9 585.2) scale(0.47)" opacity=".65"/>
+<use href="#star" transform="translate(635.3 204.3) scale(0.39)" opacity=".65"/>
+<use href="#star" transform="translate(723.6 216.7) scale(0.42)" opacity=".65"/>
+<use href="#star" transform="translate(260.3 491.1) scale(0.43)" opacity=".65"/>
+<use href="#star" transform="translate(501.6 275.9) scale(0.35)" opacity=".65"/>
+<use href="#star" transform="translate(936.1 437.5) scale(0.40)" opacity=".65"/>
+<use href="#star" transform="translate(176.9 710.3) scale(0.41)" opacity=".65"/>
+<use href="#star" transform="translate(638.0 249.3) scale(0.28)" opacity=".65"/>
+<use href="#butterfly" transform="translate(80 592) scale(.5) rotate(-15)"/><use href="#butterfly" transform="translate(908 526) scale(.35) rotate(22)"/><use href="#butterfly" transform="translate(400 392) scale(.32) rotate(-9)"/>
+<!-- leafy foreground frame -->
+<path d="M0 0Q50 30 110 0H0ZM1000 0Q940 30 900 0H1000Z" fill="#327b38"/>
+<g opacity=".94"><use href="#oak" transform="translate(-12 160) scale(1.1)"/><use href="#oak" transform="translate(1024 215) scale(1.18)"/></g>
+<g fill="none" stroke="#a7f26a" stroke-width="9" stroke-linecap="round"><path d="M0 54q69-26 111-21M1000 47q-76-33-119-13"/></g>
+</svg>
