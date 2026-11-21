@@ -288,6 +288,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-03">
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -298,6 +299,27 @@ h1, h2, h3, p { margin:0 }
 </header>
 <main>
   <div id="gallery" class="wrap">
+    <section class="reference-stage" id="adventure-reference" aria-label="Interaktywny ekran Pikseluj Adventure">
+      <img id="adventure-reference-image" width="864" height="1536" src="https://d2ol7oe51mr4n9.cloudfront.net/user_387mp2dEwLb25gJ3bfC9Ndvt4r4/563156ba-3093-42dc-9cdb-39e7bf1b92a5.png" alt="Bajkowa kraina Pikseluj z czterema drogowskazami, galerią sześciu pikselowych obrazków, przyciskami tworzenia i nawigacją." decoding="async" fetchpriority="high">
+      <button type="button" class="reference-hit r-animals" data-adventure-group="zwierzaki" aria-label="Zwierzęta — zobacz obrazki"></button>
+      <button type="button" class="reference-hit r-sport" data-adventure-group="sport" aria-label="Sport — zobacz obrazki"></button>
+      <button type="button" class="reference-hit r-food" data-adventure-group="slodkosci" aria-label="Jedzenie — zobacz obrazki"></button>
+      <button type="button" class="reference-hit r-fantasy" data-adventure-group="fantazja" aria-label="Fantazja — zobacz obrazki"></button>
+      <a class="reference-hit r-tile1" href="#wzor/piksel-kotek" aria-label="Otwórz wzór Kotek"></a>
+      <a class="reference-hit r-tile2" href="#wzor/piksel-motyl" aria-label="Otwórz wzór Motyl"></a>
+      <a class="reference-hit r-tile3" href="#wzor/piksel-lody" aria-label="Otwórz wzór Lody w rożku"></a>
+      <a class="reference-hit r-tile4" href="#wzor/rakieta" aria-label="Otwórz wzór Rakieta"></a>
+      <a class="reference-hit r-tile5" href="#wzor/piksel-panda" aria-label="Otwórz wzór Panda"></a>
+      <a class="reference-hit r-tile6" href="#wzor/piksel-kwiat" aria-label="Otwórz wzór Kwiatek"></a>
+      <a class="reference-hit r-create" href="#kreator" aria-label="Stwórz własny projekt"></a>
+      <a class="reference-hit r-projects" href="#moje" aria-label="Moje projekty"></a>
+      <a class="reference-hit r-editor" href="#kreator" aria-label="Kreator obrazków"></a>
+      <button type="button" class="reference-hit r-print" id="reference-print" aria-label="Wybierz obrazek do drukowania"></button>
+      <a class="reference-hit r-start reference-home" href="#galeria" aria-label="Start"></a>
+      <a class="reference-hit r-map reference-home" href="#galeria" aria-label="Mapa"></a>
+      <a class="reference-hit r-achievements" href="#album" aria-label="Osiągnięcia i ukończone obrazki"></a>
+      <a class="reference-hit r-collection" href="#album" aria-label="Kolekcja ukończonych obrazków"></a>
+    </section>
     <section class="hero adventure-world" id="mapa" aria-labelledby="title">
       <div class="hero-copy">
         <span class="hero-kicker">✨ Witaj w krainie pikseli ✨</span>
@@ -591,6 +613,116 @@ const colors = {
 };
 
 const patterns = [
+  { id:"piksel-kotek", name:"Kotek", group:"zwierzaki", bg:"#fef3e7", revision:1, credit:"Autorski wzór Pikseluj", art:`
+    ....................
+    ....k..........k....
+    ....kk........kkk...
+    ...kkOkk....kkkOk...
+    ...kkOpkkkkkkkOpkk..
+    ..kkOppOkkkkkOppkk..
+    ..kkOOOpOOOOOpppOkk.
+    ..kkOOOOOOOOOOOOOkk.
+    ..kkOOOOOOOOOOOOOkk.
+    ..kkOOOOOOOOOOOOOkk.
+    ..kkOOkkwOOOwkkOOkk.
+    ..kkwwkkwwOwwkkwwk..
+    ..kppwwwwwkwwwwppk..
+    kkkppwwwkkwkkwwppkkk
+    ..kkwwwwwwwwwwwwkk..
+    ..kkwwwwwwwwwwwwkk..
+    ...kkwwwwwwwwwkkk...
+    ....kkwwwwwwwkkk....
+    .....kkkkkkkkkk.....
+    ....................
+  ` },
+  { id:"piksel-motyl", name:"Kolorowy motyl", group:"zwierzaki", bg:"#fcf0ff", revision:1, credit:"Autorski wzór Pikseluj", art:`
+    ....................
+    .......k.....k......
+    ..kkkkkk.....kkkkkk.
+    ..kkkvkkk...kkkvkkk.
+    ..kvvvvkk...kkvvvvk.
+    .kkvpppvkkkkkvpppvkk
+    .kvvpppvvkkkvvpppvvk
+    ..kvpppvvkkkvvpppvk.
+    ..kvvvvvkkkkkvvvvvk.
+    ...kvvvvkkkkkvvvvk..
+    ...kkfkkkkkkkkkfkk..
+    ...kfffffkkkfffffk..
+    ..kfffffkkkkkfffffk.
+    ..ffyfffkkkkkfffyff.
+    .kfffffkkkkkkkfffffk
+    ..kffffk.kkk.kffffk.
+    ..kfkkkk.....kkkkfk.
+    ...k.............k..
+    ....................
+    ....................
+  ` },
+  { id:"piksel-lody", name:"Lody w rożku", group:"slodkosci", bg:"#ffe9f2", revision:1, credit:"Autorski wzór Pikseluj", art:`
+    ..........rgg.......
+    .........rrggr......
+    .........rrrrr......
+    .........rrrrr......
+    .......kkkrrr.......
+    .....kkppppppkk.....
+    ....kkpppppfppkk....
+    ...kkpfppppppppkk...
+    ...kpppppppppfppk...
+    ...kppppppppppppk...
+    ...kkppppfpppppkk...
+    ....kppfpppppppk....
+    ....kkkkkkkkkkkk....
+    .....kyyyyyyyyk.....
+    .....kkyyyyyykk.....
+    ......kyyyyyyk......
+    ......kkyyyyk.......
+    .......kyyyy........
+    .......kkyyk........
+    ........kkk.........
+  ` },
+  { id:"piksel-panda", name:"Panda", group:"zwierzaki", bg:"#ecfff2", revision:1, credit:"Autorski wzór Pikseluj", art:`
+    ....................
+    ....................
+    ...kkk.........kkk..
+    ..kkkkk.......kkkkk.
+    .kkkkkkkkkkkkkkkkkkk
+    .kkkkkkkwwwwwkkkkkkk
+    .kkkkkwwwwwwwwwkkkkk
+    .kkkkwwwwwwwwwwwkkkk
+    ..kkwwwwwwwwwwwwwkk.
+    ..kwkkkkwwwwwkkkkwk.
+    ..kkkkwkkwwwkkwkkgk.
+    ..kkkkkkkwwwkkkkggg.
+    ..kkkkkkkwwwkkkkggk.
+    ..kkkkkkwkkkwkkgggk.
+    ...kkwwwwkkkwwgggk.g
+    ...kkkwwkkwkkwgggggg
+    .kkkkkkkwwwwwggggkkk
+    .kkkkkkkkkkkgggkkkkk
+    .kkkkkkkkkkkggkkkkkk
+    ...kkk.....ggg.kkk..
+  ` },
+  { id:"piksel-kwiat", name:"Kwiatek", group:"zwierzaki", bg:"#fff1fb", revision:1, credit:"Autorski wzór Pikseluj", art:`
+    ....................
+    ....................
+    .........kkk........
+    ........kkpkk.......
+    .......kkpppkk......
+    .....kkkpppppkkk....
+    ....kpppppppppppk...
+    ...kpppppppppppppk..
+    ...kpppppyyypppppk..
+    ...kppppyyyyyppppk..
+    ...kppppyyyyyppppk..
+    ....kpppyyyyypppk...
+    .....kpppyyypppk....
+    .....kpppppppppk....
+    .....kpppppppppk....
+    ......kpppkpppk.....
+    ....g..kkgggkk..g...
+    ....ggg..ggg..ggg...
+    ....ggggggggggggg...
+    .........ggg........
+  ` },
   { id:"duch", name:"Duch", group:"postacie", bg:"#eee6fa", revision:3, credit:"Przepisany z przesłanego wzoru", art:`
     ......kkkk.......
     .....k..ssk......
@@ -1641,7 +1773,7 @@ for (const pattern of patterns) {
   galleryCards.set(pattern.id,card);
 }
 // Sześć prawdziwych wzorów na ekranie startowym; pozostałe pozostają dostępne.
-const adventureFeatured = ['pusheen','jednorozec','donut','rakieta','pingwin','truskawka'];
+const adventureFeatured = ['piksel-kotek','piksel-motyl','piksel-lody','rakieta','piksel-panda','piksel-kwiat'];
 for (const id of [...adventureFeatured].reverse()) {
   const card = galleryCards.get(id);
   if (card) $('cards').prepend(card);
@@ -1676,13 +1808,40 @@ filterGallery('all');
 // Adventure: mapa filtruje istniejące wzory; bez zmiany mechaniki aplikacji.
 for (const sign of document.querySelectorAll('[data-adventure-group]')) {
   sign.addEventListener('click', () => {
+    if ($('adventure-reference').classList.contains('loaded')) $('gallery').classList.add('adventure-explore');
     filterGallery(sign.dataset.adventureGroup);
-    $('galeria-wzory').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+    requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'}));
   });
 }
 $('adventure-print').addEventListener('click', () => {
   $('adventure-print-hint').hidden = false;
   $('cards').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+});
+
+// Wierne Adventure: grafika referencyjna i interaktywne strefy.
+const adventureReference = $('adventure-reference');
+const adventureReferenceImage = $('adventure-reference-image');
+const activateAdventureReference = () => {
+  if (adventureReferenceImage.naturalWidth > 0) {
+    adventureReference.classList.add('loaded');
+    document.body.classList.add('reference-ready');
+  }
+};
+adventureReferenceImage.addEventListener('load',activateAdventureReference);
+if (adventureReferenceImage.complete) activateAdventureReference();
+$('reference-print').addEventListener('click',() => {
+  $('gallery').classList.add('adventure-explore');
+  adventureExpanded = true;
+  filterGallery('all');
+  $('adventure-print-hint').hidden = false;
+  $('adventure-filter-menu').open = true;
+  requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:'smooth',block:'start'}));
+});
+for (const link of document.querySelectorAll('.reference-home')) link.addEventListener('click',(event) => {
+  event.preventDefault();
+  $('gallery').classList.remove('adventure-explore');
+  history.replaceState(history.state,'','#galeria');
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 });
 
 let activePattern = null;
