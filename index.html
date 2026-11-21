@@ -308,6 +308,7 @@ h1, h2, h3, p { margin:0 }
         <span class="spark one"></span><span class="spark two"></span>
         <div class="sticker"><div id="sticker" class="sticker-paper"></div></div>
       </div>
+      <div class="adventure-magic" aria-hidden="true"><span class="pixie pixie-one">✦</span><span class="pixie pixie-two">✧</span><span class="pixie pixie-three">✦</span><span class="pixie pixie-four">✧</span></div>
       <div class="adventure-landmarks" role="group" aria-label="Wybierz krainę">
         <button type="button" class="adventure-landmark zone-animals" data-adventure-group="zwierzaki"><span class="zone-emoji" aria-hidden="true">🐾</span> Zwierzęta</button>
         <button type="button" class="adventure-landmark zone-sport" data-adventure-group="sport"><span class="zone-emoji" aria-hidden="true">⚽</span> Sport</button>
@@ -1610,7 +1611,7 @@ for (const [group,label] of Object.entries(groupNames)) {
   const button = el('button','filter',label);
   button.type = 'button';
   button.setAttribute('aria-controls','cards');
-  button.addEventListener('click',() => filterGallery(group));
+  button.addEventListener('click',() => { if (group === 'all') adventureExpanded = true; filterGallery(group); });
   filterButtons.set(group,button);
   $('filters').append(button);
 }
