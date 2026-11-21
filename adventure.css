@@ -1,0 +1,147 @@
+/* PIKSELUJ — Adventure / kraina pikseli, 2026-11. Oryginalne funkcje aplikacji bez zmian. */
+:root{color-scheme:light;--bg:#d8f6bc;--ink:#392536;--muted:#695b56;--violet:#7542ae;--deep:#59347e;--line:#dfbc8f;--cream:#fff7de;font-family:ui-rounded,system-ui,-apple-system,"Segoe UI",sans-serif}
+html{background:#88d0e9;scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#78cbff 0,#c3f3bd 480px,#c9f0a6 100%);min-height:100dvh}
+.site-header{border:0;background:linear-gradient(#199ee2,#7dd7fc);position:relative;z-index:4}
+.site-header:after{content:"";position:absolute;bottom:-11px;left:0;right:0;height:18px;background:radial-gradient(ellipse at 30px 0,#42ac52 25px,transparent 27px) repeat-x;background-size:61px 25px;pointer-events:none}
+.topbar{min-height:94px;justify-content:center;position:relative}
+.brand{position:relative;display:inline-flex;gap:11px;font-size:clamp(2.2rem,6.5vw,3.7rem);letter-spacing:-.055em;padding:6px 28px 13px;border:5px solid #714016;border-radius:18px 18px 24px 24px;background:repeating-linear-gradient(0deg,transparent 0 22px,#fff1ba18 23px 25px),linear-gradient(#df9a50,#b3662b 55%,#89501f);box-shadow:0 7px 0 #5b3619,0 11px 18px #1d5f6266,inset 0 3px #f9d78a,inset 0 -4px #66390d;color:#fff7dc;text-shadow:0 4px 0 #593048,3px 0 #593048,-3px 0 #593048,0 -2px #593048;font-weight:1000;transform:rotate(-1deg)}
+.brand:before,.brand:after{content:"";position:absolute;top:15px;width:9px;height:9px;background:#f7cc77;border:2px solid #854719;border-radius:50%;box-shadow:inset 0 1px #fff4d1}
+.brand:before{left:7px}.brand:after{right:7px}
+.brand-mark{background:linear-gradient(135deg,#bb63ef,#7140c6);border:2px solid #fff2b3;box-shadow:0 3px 0 #592888;transform:rotate(-8deg);flex:none}
+.topnote{position:absolute;right:0;top:10px;color:#623312;border-color:#a76328;background:#ffe2a2;box-shadow:0 3px 0 #ae6d2d}
+#gallery.wrap{width:min(1080px,100% - 26px)}
+.hero{display:block;isolation:isolate;position:relative;min-height:570px;margin:24px 0 24px;border:7px solid #75421f;border-radius:30px;overflow:hidden;background:#71c965 url("./assets/adventure-world.svg") center 48% /cover no-repeat;box-shadow:0 10px 0 #4d7b31,0 18px 30px #1f644944,inset 0 0 0 5px #eed18c}
+.hero:before{content:"";position:absolute;z-index:0;inset:0;background:linear-gradient(180deg,#061a3209 0%,transparent 50%,#0f522621 100%);pointer-events:none}
+.hero:after{content:"";position:absolute;z-index:0;left:0;right:0;bottom:-15px;height:42px;background:radial-gradient(circle at 15px 0,#3eac3e 26px,transparent 28px) repeat-x;background-size:49px 42px;pointer-events:none}
+.hero-copy{position:absolute;z-index:2;top:14px;left:50%;transform:translateX(-50%);width:min(90%,550px);padding:9px 16px 12px;text-align:center;border:4px solid #a4622d;border-radius:19px;background:linear-gradient(#fff5cd,#f9dea3);box-shadow:0 5px 0 #79441e,0 9px 18px #2d613a52}
+.hero-kicker,.section-kicker{color:#a44d25;letter-spacing:.09em;font-weight:900}
+.hero-kicker{border:0;padding:0;background:transparent;font-size:.7rem}
+.hero-kicker:before{display:none}
+.hero h1{font-size:clamp(1.25rem,3.1vw,1.95rem);letter-spacing:-.045em;margin:3px 0;color:#60371e;line-height:1.1}
+.hero p{margin:auto;font-size:.79rem;font-weight:720;color:#755132;max-width:440px;line-height:1.35}
+.hero-art{pointer-events:none;position:absolute;z-index:2;left:42%;top:auto;bottom:9%;height:135px;width:130px;display:grid;place-items:center;filter:drop-shadow(2px 7px 3px #34572f88);animation:adventure-hop 3.6s ease-in-out infinite}
+.sticker{width:120px;height:120px;border:0;border-radius:0;transform:none;box-shadow:none;background:transparent}
+.sticker:before,.sticker:after,.sticker-paper{border:0;background:none;box-shadow:none}
+.sticker:before,.sticker:after{display:none}
+.sticker-paper{height:100%;width:100%}.sticker-paper svg{width:100%;height:100%;image-rendering:pixelated;filter:drop-shadow(0 3px 0 #ffffffb5)}
+.spark.one{top:8%;right:-5%;background:#ffe264}.spark.two{bottom:8%;left:-5%;background:#f8a4fa}
+.adventure-landmarks{position:absolute;z-index:3;inset:0;pointer-events:none}
+.adventure-landmark{pointer-events:auto;position:absolute;display:flex;align-items:center;justify-content:center;gap:10px;min-height:63px;min-width:185px;padding:8px 15px;color:#fff9de;font-size:1.05rem;line-height:1.1;font-weight:950;letter-spacing:-.03em;border:4px solid #613414;border-radius:16px;background:repeating-linear-gradient(0deg,transparent 0 16px,#f7d18a22 17px 19px),linear-gradient(#d28a41,#b96a2f 56%,#945020);box-shadow:0 6px 0 #6b3d1c,0 10px 14px #17382060,inset 0 3px 0 #f5c578,inset 0 -3px 0 #6c371a;text-shadow:0 2px 2px #5b2c17;transition:transform .18s,filter .18s}
+.adventure-landmark:before{content:"";position:absolute;z-index:-1;bottom:-35px;left:50%;transform:translateX(-50%);width:12px;height:32px;border:3px solid #653813;border-top:0;background:linear-gradient(90deg,#875027,#c98743,#794019);box-shadow:2px 5px 3px #24572b5a}
+.adventure-landmark .zone-emoji{font-size:1.7rem;line-height:1;filter:drop-shadow(0 2px 0 #613419)}
+.adventure-landmark:active{transform:translateY(4px) rotate(0)!important;box-shadow:0 2px 0 #6b3d1c}
+@media(hover:hover){.adventure-landmark:hover{filter:brightness(1.12);transform:translateY(-4px) rotate(0)!important}}
+.zone-animals{top:31%;left:5%;transform:rotate(-4deg)}
+.zone-sport{top:36%;right:6%;transform:rotate(3deg)}
+.zone-food{top:66%;left:4%;transform:rotate(2deg)}
+.zone-fantasy{top:69%;right:5%;transform:rotate(-3deg)}
+.adventure-panel{position:relative;scroll-margin-top:12px;border:7px solid #a96c36;border-radius:26px;padding:20px 20px 24px;background:radial-gradient(circle at 15% 10%,#fffcef 0,#fff6dd 45%,#f5ddb7 100%);box-shadow:0 8px 0 #80502c,0 14px 22px #3a65294a,inset 0 0 0 3px #ffeabd}
+.adventure-panel:before,.adventure-panel:after{content:"";position:absolute;z-index:1;top:12px;width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 35% 32%,#ffedac,#a36b31);border:3px solid #8a571d}
+.adventure-panel:before{left:12px}.adventure-panel:after{right:12px}
+.section-head{align-items:center;padding:0 15px;margin-bottom:13px}
+.section-head h2{color:#56321e;font-size:clamp(1.7rem,4vw,2.35rem);text-shadow:0 2px #fff3b8}
+.section-kicker{color:#a46c34}
+.count{border-radius:50px;background:#fff7d5;border:2px solid #e8c796;color:#76583f;font-size:.75rem;padding:4px 9px}
+.gallery-tools{margin-bottom:17px}
+.filters{gap:7px;justify-content:center}
+.filter{border-radius:12px;border:3px solid #d49b59;background:linear-gradient(#fff6cf,#f3dba5);box-shadow:0 3px 0 #a57b3b;color:#5b391e;font-weight:850;padding:7px 13px;min-height:45px}
+.filter[aria-pressed="true"]{border-color:#549c43;background:linear-gradient(#a1ec5e,#58b93e);box-shadow:0 3px 0 #3c812e;color:#214719}
+.filter:active{transform:translateY(2px);box-shadow:0 1px 0 #7c5427}
+.gallery-note{background:#fff8e8c7;border:1px dashed #d2aa78;border-radius:10px;padding:7px 10px;margin-top:12px;color:#75664f;font-size:.75rem}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{border:3px solid #c4a0d4;border-radius:17px;background:#fffdf4;padding:7px;box-shadow:0 5px 0 #ac8aab,0 8px 12px #6b58412a}
+.card-art{border-radius:10px;background:linear-gradient(#fffcf1,#f8f4ea);height:145px}
+.card-art svg{image-rendering:pixelated}
+.card-caption h3{color:#55384f}
+.card:active{box-shadow:0 1px 0 #ac8aab}
+@media(hover:hover){.card:hover{border-color:#9c61c7;box-shadow:0 7px 0 #ac8aab,0 10px 14px #6b584133}}
+.adventure-create{display:flex;justify-content:center;align-items:center;gap:9px;max-width:560px;min-height:67px;margin:22px auto 18px;padding:9px 20px;border:4px solid #397e1e;border-radius:30px;background:linear-gradient(#c0ff56 0,#75dc28 46%,#47b813 100%);box-shadow:0 6px 0 #246e20,0 10px 18px #3e842d61,inset 0 4px 0 #e7ffa6;color:#1f4817;text-decoration:none;font-size:clamp(1.1rem,3.1vw,1.6rem);font-weight:1000;letter-spacing:-.03em;text-shadow:0 1px #f1ffc5;transition:transform .18s}
+.adventure-create:active{transform:translateY(4px);box-shadow:0 2px 0 #246e20}
+.adventure-shortcuts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:18px}
+.adventure-shortcut{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:0;min-height:92px;padding:10px 8px;gap:6px;text-align:center;text-decoration:none;border:3px solid #65418b;border-radius:20px;background:linear-gradient(#dfadff,#a669e8);box-shadow:0 5px 0 #6c4594,inset 0 3px #f5ddff;color:#4b216f;font-weight:900;cursor:pointer}
+.adventure-shortcut:nth-child(2){background:linear-gradient(#81dbff,#3aacee);border-color:#3a7cad;box-shadow:0 5px 0 #2d699a;color:#1d4d75}
+.adventure-shortcut:nth-child(3){background:linear-gradient(#ffe08d,#ffa33e);border-color:#b75d1e;box-shadow:0 5px 0 #8f4b21;color:#79421b}
+.adventure-shortcut .mystery-icon,.adventure-shortcut .shortcut-icon{display:grid;place-items:center;width:38px;height:38px;flex:none;background:#fff8dc88;border:2px solid #ffffff9c;border-radius:11px;box-shadow:none}
+.adventure-shortcut .mystery-icon svg{height:26px;width:26px}
+.adventure-shortcut .mystery-copy{display:contents}
+.adventure-shortcut .mystery-copy strong{color:inherit;font-size:.95rem}
+.adventure-shortcut .mystery-copy small,.adventure-shortcut .mystery-call{display:none}
+.adventure-shortcut:active{transform:translateY(4px);box-shadow:0 1px 0 #6c4594}
+.adventure-shortcut .shortcut-icon{font-size:1.5rem}
+.adventure-tip{margin:0 0 14px;text-align:center;color:#65482c;font-weight:730;font-size:.77rem}
+.adventure-bonus{margin-top:14px;padding:14px 14px 4px;background:#fff9e88a;border:2px dashed #d9b477;border-radius:18px}
+.adventure-bonus h3{margin:0 0 12px;color:#87552a;font-size:1rem;font-weight:950}
+.home-tools{margin-bottom:11px}
+.home-tool{background:#e1f5d3;border:2px solid #86b879;box-shadow:0 3px 0 #7eaa70;color:#315b3c}
+.home-tool:nth-child(2){background:#fbe1ef;border-color:#db9fbd;box-shadow:0 3px 0 #c4879c;color:#7d385f}
+.studio-launch,.mystery-card,.resume-card{border:2px solid #deb478;border-radius:15px;box-shadow:0 3px 0 #c79e65;background:#fff5d6;color:#624229}
+.mystery-icon{background:#8c4ac1;box-shadow:0 3px 0 #6b319b}
+.mystery-copy strong,.mystery-call{color:#573520}
+.mystery-call{background:#fff5df}
+.resume-card{background:#e6f4cf;border-color:#a9c28c}
+.adventure-nav{position:sticky;bottom:7px;z-index:8;margin:22px 0 6px;padding:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;border:5px solid #774321;border-radius:24px;background:linear-gradient(#b7733d,#805026);box-shadow:0 6px 0 #4d321e,0 10px 16px #3a4a2b52,inset 0 3px #dba365}
+.adventure-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:62px;padding:5px 3px;text-align:center;color:#fff5d5;font-size:.72rem;line-height:1.08;font-weight:850;text-decoration:none;border-radius:13px;text-shadow:0 2px #57311e}
+.adventure-nav a:first-child{color:#48281a;text-shadow:none;border:3px solid #c18a24;background:linear-gradient(#ffec8a,#ffba29);box-shadow:0 3px 0 #8a5822}
+.adventure-nav .nav-pict{font-size:1.7rem;line-height:1.1;filter:drop-shadow(0 2px #774220)}
+.site-footer{color:#446642;margin-top:28px}
+.reader,.studio{--bg:#e8f3db}
+body:has(#gallery[hidden]){background:linear-gradient(#9adcfa,#e9f6d8 340px,#d5e9c6)}
+body:has(#gallery[hidden]) .topnote{display:none}
+.studio-title,.reader-head h1{color:#603518}
+.back{color:#6a3b25}
+.studio-panel,.print-panel,.board,.controls,.studio-item{border-color:#e2bf85;background:#fff9eb;box-shadow:0 3px 0 #e4cd9d}
+.action.primary,.controls :is(#next,#reveal):enabled{background:#598e33;border-color:#447726;color:#fff}
+.action{border-color:#d7ac79;color:#70421d}
+.dock{background:#e9f2d8;box-shadow:0 -6px 14px #e9f2d8eb}
+.tool-toggle,.filter,.action,.card,.adventure-shortcut{transition:transform .15s,filter .15s,border-color .15s,box-shadow .15s}
+@keyframes adventure-hop{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@media(max-width:700px){
+ .topbar{min-height:82px}
+ .brand{font-size:clamp(1.95rem,8vw,2.7rem);padding:5px 20px 10px;border-width:4px}
+ .brand-mark{width:30px;height:30px}
+ .topnote{display:none}
+ #gallery.wrap{width:calc(100% - 16px)}
+ .hero{margin:18px 0 18px;min-height:490px;border-width:5px;border-radius:25px;background-position:center center}
+ .hero-copy{top:10px;width:88%;padding:9px 10px}
+ .hero h1{font-size:clamp(1.05rem,4.3vw,1.45rem);margin:3px 0}
+ .hero p{font-size:.69rem}
+ .hero-kicker{font-size:.63rem}
+ .hero-art{left:40%;bottom:9%;width:87px;height:87px}
+ .sticker{width:87px;height:87px}
+ .adventure-landmark{min-height:56px;min-width:0;width:clamp(124px,35%,167px);padding:6px 7px;gap:4px;border-width:3px;border-radius:13px;font-size:.9rem}
+ .adventure-landmark .zone-emoji{font-size:1.35rem}
+ .zone-animals{top:29%;left:2%}
+ .zone-sport{top:37%;right:2%}
+ .zone-food{top:65%;left:2%}
+ .zone-fantasy{top:73%;right:2%}
+ .adventure-panel{padding:18px 10px 20px;border-width:5px;border-radius:22px}
+ .section-head{padding:0 5px}
+ .cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+ .card{padding:5px;border-width:2px;border-radius:13px;box-shadow:0 3px 0 #ac8aab}
+ .card-art{height:clamp(72px,25vw,123px);border-radius:8px}
+ .card-caption{padding:5px 0 0}
+ .card-caption h3{font-size:.83rem;line-height:1.13}
+ .card-meta{margin-top:3px}
+ .size{font-size:.64rem}
+ .mini-colors i{width:7px;height:7px}
+ .adventure-shortcuts{gap:6px}
+ .adventure-shortcut{padding:8px 3px;min-height:81px;border-width:2px;border-radius:13px}
+ .adventure-shortcut .mystery-copy strong{font-size:.75rem}
+ .adventure-shortcut .mystery-icon,.adventure-shortcut .shortcut-icon{height:30px;width:30px;font-size:1.2rem}
+ .adventure-shortcut .mystery-icon svg{width:20px;height:20px}
+ .adventure-nav{bottom:4px;margin-inline:0;border-width:3px;gap:2px}
+ .adventure-nav a{font-size:.66rem;min-height:57px}
+ .adventure-nav .nav-pict{font-size:1.5rem}
+}
+@media(max-width:360px){
+ .hero{min-height:465px}
+ .adventure-landmark{width:42%;font-size:.78rem}
+ .adventure-landmark .zone-emoji{font-size:1.15rem}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .card-art{height:120px}
+ .section-head{flex-wrap:wrap}
+ .brand{font-size:1.82rem}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-art{animation:none}*,*:before,*:after{transition:none!important;animation:none!important}}
+@media print{.site-header,.adventure-nav{display:none!important}html,body{background:white!important}}
