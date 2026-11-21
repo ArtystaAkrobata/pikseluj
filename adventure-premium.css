@@ -142,3 +142,13 @@ body:has(#gallery[hidden]) .brand{font-size:2.2rem}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
 @media print{body{background:#fff!important}.site-header,.adventure-nav{display:none!important}}
+
+/* Drobne animacje świata bez odciągania uwagi od rysowania */
+.adventure-magic{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.adventure-magic .pixie{position:absolute;color:#fff7b5;font-size:clamp(17px,2.5vw,31px);text-shadow:0 0 5px #fff,0 0 13px #f1f084,0 0 22px #fff0b3;animation:adventure-twinkle 3.2s ease-in-out infinite alternate,adventure-drift 5s ease-in-out infinite;opacity:.92}
+.pixie-one{top:27%;left:47%}.pixie-two{top:63%;right:12%;animation-delay:-1.1s!important}.pixie-three{top:68%;left:32%;animation-delay:-2.1s!important}.pixie-four{top:19%;right:28%;animation-delay:-.6s!important}
+.adventure-landmark[aria-pressed="true"]{border-color:#f7cb45;outline:3px solid #fff3a9;outline-offset:1px;box-shadow:0 7px 0 #76401f,0 0 19px #ffe5628c,inset 0 4px 0 #ffe4aa}
+.adventure-shortcut:focus-visible,.adventure-landmark:focus-visible,.adventure-create:focus-visible,.gallery-more:focus-visible{outline:4px solid #ffe868;outline-offset:4px}
+@keyframes adventure-twinkle{0%{opacity:.2;filter:brightness(.7)}100%{opacity:1;filter:brightness(1.2)}}
+@keyframes adventure-drift{0%,100%{translate:0 0}50%{translate:0 -7px}}
+@media(prefers-reduced-motion:reduce){.adventure-magic .pixie{animation:none}}
