@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 920" role="img" aria-label="Bajkowa kraina z górami, zamkiem, rzeką, drzewami i ścieżką">
+<defs>
+<linearGradient id="sky" x2="0" y2="1"><stop stop-color="#54baff"/><stop offset=".7" stop-color="#b6ecff"/><stop offset="1" stop-color="#efffe8"/></linearGradient>
+<linearGradient id="grass" x2="0" y2="1"><stop stop-color="#93e65d"/><stop offset="1" stop-color="#328e37"/></linearGradient>
+<linearGradient id="river" x2="1" y2="0"><stop stop-color="#20a9e6"/><stop offset=".5" stop-color="#91f8ff"/><stop offset="1" stop-color="#187ccc"/></linearGradient>
+<linearGradient id="path" x2="0" y2="1"><stop stop-color="#ffe69a"/><stop offset="1" stop-color="#dda65a"/></linearGradient>
+<linearGradient id="wood" x2="0" y2="1"><stop stop-color="#db8944"/><stop offset=".5" stop-color="#a65325"/><stop offset="1" stop-color="#713912"/></linearGradient>
+<filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+<g id="tree"><path d="M-10 0H11L18 79H-15Z" fill="#89512d" stroke="#5b331a" stroke-width="6"/><path d="M-65 14Q-100-13-72-52Q-91-107-30-110Q-9-166 44-118Q95-120 88-69Q120-23 73 7Q21 42-26 20Z" fill="#207947" stroke="#135c35" stroke-width="10"/><path d="M-64-32Q-72-86-25-87Q-10-133 29-100Q64-107 70-72" fill="none" stroke="#51b453" stroke-width="17" stroke-linecap="round"/></g>
+<g id="flower"><path d="M0 0V-25" stroke="#297e3b" stroke-width="4"/><path d="M0-19Q-17-35-20-21Q-16-10 0-14M0-12Q20-30 22-16Q20-4 0-8" fill="#4abc54"/><g fill="#ff9ad4"><circle cx="0" cy="-37" r="10"/><circle cx="11" cy="-29" r="9"/><circle cx="-11" cy="-29" r="9"/><circle cx="6" cy="-18" r="9"/><circle cx="-6" cy="-18" r="9"/></g><circle cy="-28" r="8" fill="#ffd85e"/></g>
+</defs>
+<rect width="960" height="920" fill="url(#sky)"/>
+<g fill="#fff" opacity=".94"><path d="M24 113Q40 75 84 84Q106 38 151 76Q209 60 229 109Q251 130 223 143H25Q-4 136 24 113Z"/><path d="M615 101Q636 59 675 84Q707 39 748 78Q800 60 821 111Q845 126 821 139H611Q589 126 615 101Z"/><path d="M331 176Q353 142 382 156Q411 120 446 155Q486 147 501 178Z" opacity=".8"/></g>
+<path d="M0 400 93 211 185 360 286 137 425 386 532 233 669 418 804 230 960 410V553H0Z" fill="#8cadd6"/>
+<path d="M80 244 93 211 112 252 100 248 93 238 82 250M259 181 286 137 319 198 300 189 283 165 270 194M506 272 532 233 559 276 539 266 530 251 520 275M778 267 804 230 833 276 811 262 798 247 785 274" fill="#f7fcff"/>
+<path d="M0 429Q161 316 294 399Q417 308 539 404Q694 321 960 407V600H0Z" fill="#4fa971"/>
+<path d="M0 514Q180 380 365 464Q594 333 960 468V920H0Z" fill="#4ac160"/>
+<path d="M0 638Q222 481 415 611Q595 459 960 586V920H0Z" fill="url(#grass)"/>
+<path d="M0 805Q214 653 423 730Q671 594 960 759V920H0Z" fill="#2d9845"/>
+<!-- castle on distant hill -->
+<g stroke="#78517a" stroke-width="7" stroke-linejoin="round"><path d="M712 295Q770 256 851 296L860 408H703Z" fill="#f4e2b9"/><path d="M719 288V218H759V288M803 288V213H844V288" fill="#dfd8fd"/><path d="M713 216 737 178 764 216ZM794 213 823 172 851 213Z" fill="#9873d7"/><path d="M752 307V245L779 206 807 245V307" fill="#f3a7d5"/><path d="M749 244 779 195 810 244Z" fill="#7552bd"/><path d="M762 408V360Q779 330 796 360V408" fill="#63456a"/><rect x="720" y="319" width="16" height="26" rx="6" fill="#76daff"/><rect x="819" y="316" width="16" height="26" rx="6" fill="#76daff"/><path d="M736 178V158M824 173V151M779 195V165" stroke="#916237"/></g>
+<path d="M737 156h30l-8 12 8 13h-30ZM824 151h32l-8 12 8 12h-24ZM779 165h27l-7 12 7 12h-27Z" fill="#ff8b51"/>
+<!-- waterfall and brook -->
+<path d="M0 378Q35 355 60 382L76 537Q101 581 144 605L184 659Q210 689 259 700Q345 723 344 806Q340 855 290 920H0Z" fill="#247db3" opacity=".48"/>
+<path d="M8 381Q38 354 57 382L64 534Q93 586 152 620Q196 656 221 674Q352 699 326 805Q312 869 270 920H0Z" fill="url(#river)"/>
+<path d="M23 380 32 524Q52 561 89 574M45 390 51 522Q65 547 88 555" fill="none" stroke="#edffff" stroke-width="13" stroke-linecap="round" opacity=".9"/>
+<path d="M90 605Q159 614 164 647M65 631Q134 642 161 681M201 721Q303 719 301 785M170 753Q270 742 283 812" fill="none" stroke="#c4ffff" stroke-width="12" stroke-linecap="round" opacity=".7"/>
+<!-- winding trail -->
+<path d="M486 920Q442 853 544 799Q646 741 556 695Q467 648 573 604Q688 557 628 513Q554 464 670 413" stroke="#ae763a" stroke-width="105" fill="none" stroke-linecap="round"/>
+<path d="M486 920Q442 853 544 799Q646 741 556 695Q467 648 573 604Q688 557 628 513Q554 464 670 413" stroke="url(#path)" stroke-width="93" fill="none" stroke-linecap="round"/>
+<path d="M486 920Q442 853 544 799Q646 741 556 695Q467 648 573 604Q688 557 628 513Q554 464 670 413" stroke="#fff1b3" stroke-width="5" fill="none" stroke-dasharray="18 35" opacity=".72"/>
+<!-- grove -->
+<use href="#tree" transform="translate(119 473) scale(1.3)"/>
+<use href="#tree" transform="translate(913 510) scale(1.4)"/>
+<use href="#tree" transform="translate(62 693) scale(1.42)"/>
+<use href="#tree" transform="translate(883 770) scale(1.22)"/>
+<use href="#tree" transform="translate(335 541) scale(.73)"/>
+<use href="#tree" transform="translate(381 441) scale(.65)"/>
+<use href="#tree" transform="translate(696 490) scale(.65)"/>
+<!-- tiny cottage -->
+<g stroke="#7b4a29" stroke-width="8" stroke-linejoin="round"><path d="M168 565H296V658H168Z" fill="#ffd39a"/><path d="M148 567 234 490 315 567Z" fill="#b84f43"/><rect x="209" y="609" width="38" height="49" rx="6" fill="#82513b"/><path d="M177 590h26v24h-26zM255 590h27v24h-27z" fill="#9ce9ff"/></g>
+<!-- arena -->
+<g transform="translate(660 600)"><ellipse cx="78" cy="41" rx="118" ry="62" fill="#39536b" stroke="#eef3ef" stroke-width="16"/><ellipse cx="78" cy="30" rx="89" ry="40" fill="#96e273" stroke="#9ccff5" stroke-width="9"/><path d="M0 0q78-33 156 0" fill="none" stroke="#fcfaf1" stroke-width="7"/><path d="M78 -9v79M20 30h119" stroke="#f6fefa" stroke-width="4"/><circle cx="78" cy="30" r="17" fill="none" stroke="#f4fff1" stroke-width="4"/></g>
+<!-- enchanted mushrooms -->
+<g transform="translate(778 785)"><path d="M-28 0V-95H37V0Z" fill="#ffe9c8" stroke="#ad78a5" stroke-width="8"/><path d="M-95-89Q-79-181 5-172Q74-164 96-88Z" fill="#a15de4" stroke="#713ac3" stroke-width="10"/><g fill="#ffe0ff"><ellipse cx="-35" cy="-133" rx="12" ry="9"/><ellipse cx="7" cy="-146" rx="16" ry="10"/><ellipse cx="51" cy="-123" rx="13" ry="10"/></g><path d="M-6 0V-34Q5-53 20-34V0" fill="#a45c75"/></g>
+<!-- near plants -->
+<g><use href="#flower" transform="translate(143 872) scale(1.4)"/><use href="#flower" transform="translate(359 828) scale(.8)"/><use href="#flower" transform="translate(909 869) scale(1.4)"/><use href="#flower" transform="translate(629 870) scale(.85)"/><use href="#flower" transform="translate(439 480) scale(.8)"/><use href="#flower" transform="translate(859 452) scale(.7)"/></g>
+<g fill="#d0ff87" opacity=".75"><circle cx="324" cy="699" r="8"/><circle cx="352" cy="720" r="5"/><circle cx="930" cy="630" r="9"/><circle cx="420" cy="586" r="7"/><circle cx="675" cy="760" r="5"/></g>
+</svg>
