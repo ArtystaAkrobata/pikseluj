@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f7f5ff">
-<meta name="description" content="Wybierz wzór, przygotuj kredki i odrysuj piksele w zeszycie w kratkę.">
+<meta name="theme-color" content="#55bcf5">
+<meta name="description" content="Pikseluj — wybierz krainę, odkrywaj obrazki i twórz własne pikselowe przygody.">
 <title>Pikseluj — Piksele do rysowania w zeszycie</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./assets/pikseluj-favicon.svg?v=p01">
@@ -286,30 +286,37 @@ h1, h2, h3, p { margin:0 }
 @media(min-width:490px) { .monster-options { padding:12px } .monster-preview { padding:12px } }
 @media(max-width:365px) { .home-tool { padding:7px; gap:5px } .home-tool-icon { width:27px; flex-basis:27px; height:27px } .home-tool strong { font-size:.8rem } .home-tool small { font-size:.68rem } }
 </style>
+<link rel="stylesheet" href="./adventure.css?v=adventure-01">
 </head>
 <body>
 <header class="site-header">
   <div class="topbar wrap">
     <a class="brand" href="#galeria" aria-label="Pikseluj — galeria wzorów"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Pikseluj</a>
-    <span class="topnote"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3 1.8h10v12.4H3zM1 5h4M1 8h4M1 11h4m2-5h4M7 9h4"/></svg>Zeszyt i kredki</span>
+    <span class="topnote"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m8 1 2 4.5 5 .7-3.6 3.5.9 5L8 12.3l-4.3 2.4.8-5L1 6.2l5-.7z"/></svg>Pikselowa przygoda</span>
   </div>
 </header>
 <main>
   <div id="gallery" class="wrap">
-    <section class="hero" aria-labelledby="title">
+    <section class="hero adventure-world" id="mapa" aria-labelledby="title">
       <div class="hero-copy">
-        <span class="hero-kicker">Zabawa w kratkę</span>
-        <h1 id="title" tabindex="-1">Piksele do rysowania w&nbsp;zeszycie</h1>
-        <p>Połóż telefon obok zeszytu i&nbsp;rysuj kratka po kratce.</p>
+        <span class="hero-kicker">✨ Witaj w krainie pikseli ✨</span>
+        <h1 id="title" tabindex="-1">Twoja pikselowa przygoda!</h1>
+        <p>Wybierz krainę, a potem narysuj swój obrazek kratka po kratce.</p>
       </div>
       <div class="hero-art" aria-hidden="true">
         <span class="spark one"></span><span class="spark two"></span>
         <div class="sticker"><div id="sticker" class="sticker-paper"></div></div>
       </div>
+      <div class="adventure-landmarks" role="group" aria-label="Wybierz krainę">
+        <button type="button" class="adventure-landmark zone-animals" data-adventure-group="zwierzaki"><span class="zone-emoji" aria-hidden="true">🐾</span> Zwierzęta</button>
+        <button type="button" class="adventure-landmark zone-sport" data-adventure-group="sport"><span class="zone-emoji" aria-hidden="true">⚽</span> Sport</button>
+        <button type="button" class="adventure-landmark zone-food" data-adventure-group="slodkosci"><span class="zone-emoji" aria-hidden="true">🍦</span> Słodkości</button>
+        <button type="button" class="adventure-landmark zone-fantasy" data-adventure-group="fantazja"><span class="zone-emoji" aria-hidden="true">🦄</span> Fantazja</button>
+      </div>
     </section>
-    <section aria-labelledby="gallery-heading">
+    <section class="adventure-panel" id="galeria-wzory" aria-labelledby="gallery-heading">
       <div class="section-head">
-        <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz piksele</h2></div>
+        <div><span class="section-kicker">Galeria</span><h2 id="gallery-heading">Wybierz obrazek</h2></div>
         <span class="count" id="count" role="status"></span>
       </div>
       <a href="#galeria" class="studio-launch resume-card" id="resume-card" aria-labelledby="resume-title" aria-describedby="resume-line" hidden>
@@ -317,6 +324,24 @@ h1, h2, h3, p { margin:0 }
         <span class="mystery-copy"><strong id="resume-title">Dokończ rysunek</strong><small id="resume-line"></small></span>
         <span class="mystery-call" aria-hidden="true">Wróć</span>
       </a>
+      <div class="gallery-tools">
+        <div id="filters" class="filters" role="group" aria-label="Kategorie wzorów"></div>
+        <p class="gallery-note">Największe wzory zajmują do 29 × 30 kratek (14,5 × 15 cm przy kratce 5 mm). Przed rysowaniem sprawdź, ile miejsca masz obok marginesu.</p>
+      </div>
+      <div id="cards" class="cards"></div>
+      <a href="#kreator" class="adventure-create" aria-label="Stwórz własny obrazek w kreatorze"><span aria-hidden="true">✏️</span> + Stwórz własny</a>
+      <div class="adventure-shortcuts" aria-label="Narzędzia">
+      <a href="#moje" id="studio-launch" class="studio-launch adventure-shortcut" aria-labelledby="studio-link-title">
+        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h9M3 8h6m-6 4h4m-4 4h4M10 16l4-.8 4-8-3-1.5-4.2 8.1zM14 8l3 1.5"/></svg></span>
+        <span class="mystery-copy"><strong id="studio-link-title">Moje projekty</strong><small>Twórz i zapisuj własne wzory.</small></span>
+        <span class="mystery-call" aria-hidden="true">Otwórz</span>
+      </a>
+        <a href="#kreator" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🪄</span><strong>Kreator</strong></a>
+        <button type="button" id="adventure-print" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🖨️</span><strong>Drukuj</strong></button>
+      </div>
+      <p id="adventure-print-hint" class="adventure-tip" role="status" hidden>Wybierz obrazek. Opcja drukowania znajduje się w jego podglądzie.</p>
+      <div class="adventure-bonus">
+        <h3>🌟 Więcej przygód</h3>
       <div class="home-tools">
         <a href="#album" class="home-tool" id="album-launch">
           <span class="home-tool-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h14v14H3zM5.5 13.5l3-3 2 2 2.5-2.5 2 3.5"/><circle cx="12" cy="7" r="1"/></svg></span>
@@ -327,22 +352,20 @@ h1, h2, h3, p { margin:0 }
           <span><strong>Zbuduj potworka</strong><small>Oczy, uszy i kolory</small></span>
         </a>
       </div>
-      <a href="#moje" id="studio-launch" class="studio-launch" aria-labelledby="studio-link-title">
-        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h9M3 8h6m-6 4h4m-4 4h4M10 16l4-.8 4-8-3-1.5-4.2 8.1zM14 8l3 1.5"/></svg></span>
-        <span class="mystery-copy"><strong id="studio-link-title">Moje piksele</strong><small>Twórz i zapisuj własne wzory.</small></span>
-        <span class="mystery-call" aria-hidden="true">Otwórz</span>
-      </a>
       <a href="#zagadka" id="mystery-card" class="mystery-card" aria-labelledby="mystery-card-title" aria-describedby="mystery-card-subtitle">
         <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#ffcf7d" d="M5 2h6v2h2v4h-2v2H9v2H7V8h2V6h2V4H5v2H3V4h2zm2 12h2v2H7z"/></svg></span>
         <span class="mystery-copy"><strong id="mystery-card-title">Tajemnicze piksele</strong><small id="mystery-card-subtitle">Co pojawi się w Twoim zeszycie?</small></span>
         <span class="mystery-call" aria-hidden="true">Zagraj</span>
       </a>
-      <div class="gallery-tools">
-        <div id="filters" class="filters" role="group" aria-label="Kategorie wzorów"></div>
-        <p class="gallery-note">Największe wzory zajmują do 29 × 30 kratek (14,5 × 15 cm przy kratce 5 mm). Przed rysowaniem sprawdź, ile miejsca masz obok marginesu.</p>
       </div>
-      <div id="cards" class="cards"></div>
+
     </section>
+    <nav class="adventure-nav" aria-label="Nawigacja Pikseluj">
+      <a href="#galeria" aria-current="page"><span class="nav-pict" aria-hidden="true">🏠</span>Start</a>
+      <a href="#mapa"><span class="nav-pict" aria-hidden="true">🗺️</span>Mapa</a>
+      <a href="#album"><span class="nav-pict" aria-hidden="true">🏆</span>Kolekcja</a>
+      <a href="#moje"><span class="nav-pict" aria-hidden="true">📒</span>Moje projekty</a>
+    </nav>
     <footer class="site-footer">
       <p>Ty rysujesz, Pikseluj pilnuje wiersza.</p>
       <details class="source-notes">
@@ -1627,6 +1650,17 @@ function filterGallery(group) {
   $('count').textContent = visible + ' ' + words;
 }
 filterGallery('all');
+// Adventure: mapa filtruje istniejące wzory; bez zmiany mechaniki aplikacji.
+for (const sign of document.querySelectorAll('[data-adventure-group]')) {
+  sign.addEventListener('click', () => {
+    filterGallery(sign.dataset.adventureGroup);
+    $('galeria-wzory').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+  });
+}
+$('adventure-print').addEventListener('click', () => {
+  $('adventure-print-hint').hidden = false;
+  $('cards').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
+});
 
 let activePattern = null;
 let activeRow = 0;
