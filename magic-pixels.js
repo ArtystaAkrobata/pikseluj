@@ -173,7 +173,13 @@ function magicRows(){
   const sy=Math.min(23,Math.floor((y+.5)*24/square));
   output[y+offY][x+offX]=source[sy][sx];
  }
- if(!isLarge)return output.map(row=>row.join(''));
+ if(!isLarge){
+  // Na małej latarni kolor dachu musi pozostać widoczny także po zmniejszeniu do 16 × 16.
+  if(magicState.category==='worlds'&&o.kind==='sea'){
+   output[4][5]=o.color;output[4][6]=o.color;
+  }
+  return output.map(row=>row.join(''));
+ }
  // Im większa siatka, tym więcej nowych, drobnych elementów.
  const base=output.map(row=>row.slice()),body=o.color;
  const detailColor={p:'t',v:'p',b:'w',l:'g',O:'e',g:'d'}[body]||'c';
