@@ -293,11 +293,42 @@ h1, h2, h3, p { margin:0 }
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
 <link rel="stylesheet" href="./adventure-reference.css?v=adventure-16">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-06">
+
+<style>
+/* Cztery kafelki podmienione nad nawigacją w zatwierdzonej ilustracji strony startowej. */
+.reference-stage .r-logo{left:14%;top:1.3%;width:72%;height:13%;z-index:3;border-radius:25px}
+.reference-stage .reference-bottom-nav{
+  position:absolute;z-index:5;left:3.5%;right:3.5%;bottom:.3%;height:11.4%;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.1%;
+  align-items:stretch;padding:1.1%;
+  border:clamp(2px,.75vw,6px) solid #704020;border-radius:clamp(12px,3.3vw,23px);
+  background:linear-gradient(175deg,#d58c4d 0%,#a76230 60%,#7a4124 100%);
+  box-shadow:0 4px 0 #60341d,inset 0 2px #f5c07e;
+}
+.reference-stage .reference-bottom-nav a{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:clamp(1px,.36vh,4px);min-width:0;min-height:0;padding:2px 1px;
+  border-radius:clamp(8px,2vw,16px);border:1px solid #b07133;
+  background:linear-gradient(#ffefb0,#efc56e);
+  box-shadow:inset 0 1px #fff8dc,0 3px 0 #8c5123;
+  text-decoration:none;color:#613817;font-family:"DynaPuff",system-ui,sans-serif;
+  font-weight:700;font-size:clamp(8px,2.25vw,13px);line-height:1.1;text-align:center;
+  text-shadow:0 1px #fff3cd;white-space:nowrap;touch-action:manipulation;
+}
+.reference-stage .reference-bottom-nav a span{font-size:clamp(18px,5vw,29px);line-height:1.1}
+.reference-stage .reference-bottom-nav a strong{font:inherit;letter-spacing:-.025em}
+.reference-stage .reference-bottom-nav a:active{transform:translateY(2px);box-shadow:inset 0 1px #fff8dc,0 1px 0 #8c5123}
+.reference-stage .reference-bottom-nav a:focus-visible{outline:3px solid #6b3ecd;outline-offset:1px}
+@media (max-width:360px){
+  .reference-stage .reference-bottom-nav a{font-size:clamp(7px,2.2vw,9px)}
+  .reference-stage .reference-bottom-nav a span{font-size:clamp(17px,5vw,21px)}
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
   <div class="topbar wrap">
-    <a class="brand" href="#galeria" aria-label="Pikseluj — galeria wzorów"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Pikseluj</a>
+    <a class="brand" href="#galeria" aria-label="Pikseluj — strona główna"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Pikseluj</a>
     <span class="topnote"><svg aria-hidden="true" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="m8 1 2 4.5 5 .7-3.6 3.5.9 5L8 12.3l-4.3 2.4.8-5L1 6.2l5-.7z"/></svg>Pikselowa przygoda</span>
   </div>
 </header>
@@ -343,10 +374,13 @@ h1, h2, h3, p { margin:0 }
 </svg>
          <span class="reference-tile-label">Tajemnica</span>
        </a>
-      <a class="reference-hit r-start reference-home" href="#galeria" aria-label="Start"></a>
-      <a class="reference-hit r-map reference-home" href="#galeria" aria-label="Mapa"></a>
-      <a class="reference-hit r-achievements" href="#album" aria-label="Osiągnięcia i ukończone obrazki"></a>
-      <a class="reference-hit r-collection" href="#album" aria-label="Kolekcja ukończonych obrazków"></a>
+      <a class="reference-hit r-logo" href="#galeria" aria-label="Pikseluj — wróć na stronę główną"></a>
+      <nav class="reference-bottom-nav" aria-label="Nawigacja Pikseluj">
+        <a href="#mapa"><span aria-hidden="true">🗺️</span><strong>Mapa</strong></a>
+        <a href="#minigry"><span aria-hidden="true">🎮</span><strong>Minigry</strong></a>
+        <a href="#osiagniecia"><span aria-hidden="true">🏆</span><strong>Osiągnięcia</strong></a>
+        <a href="#album"><span aria-hidden="true">🖼️</span><strong>Kolekcja</strong></a>
+      </nav>
       </div>
     </section>
     <section class="hero adventure-world" id="mapa" aria-labelledby="title">
@@ -430,10 +464,10 @@ h1, h2, h3, p { margin:0 }
 
     </section>
     <nav class="adventure-nav" aria-label="Nawigacja Pikseluj">
-      <a href="#galeria" aria-current="page"><span class="nav-pict" aria-hidden="true">🏠</span>Start</a>
       <a href="#mapa"><span class="nav-pict" aria-hidden="true">🗺️</span>Mapa</a>
-      <a href="#album"><span class="nav-pict" aria-hidden="true">🏆</span>Kolekcja</a>
-      <a href="#moje"><span class="nav-pict" aria-hidden="true">📒</span>Moje projekty</a>
+      <a href="#minigry"><span class="nav-pict" aria-hidden="true">🎮</span>Minigry</a>
+      <a href="#osiagniecia"><span class="nav-pict" aria-hidden="true">🏆</span>Osiągnięcia</a>
+      <a href="#album"><span class="nav-pict" aria-hidden="true">🖼️</span>Kolekcja</a>
     </nav>
     <footer class="site-footer">
       <p>Ty rysujesz, Pikseluj pilnuje wiersza.</p>
@@ -445,6 +479,41 @@ h1, h2, h3, p { margin:0 }
       </details>
     </footer>
   </div>
+
+  <section id="world-map" class="studio" aria-labelledby="map-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Twoja pikselowa przygoda</p>
+    <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa</h1>
+    <div class="studio-panel">
+      <h2>Bajkowa mapa przygód</h2>
+      <p>Tu powstaną krainy, poziomy i kolejne obrazki do odkrycia. Mapę rozbudujemy w następnym etapie.</p>
+      <a href="#galeria" class="action primary">Wybierz obrazek z galerii</a>
+    </div>
+  </section>
+  <section id="mini-games" class="studio" aria-labelledby="games-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Zabawa z pikselami</p>
+    <h1 class="studio-title" id="games-title" tabindex="-1">🎮 Minigry</h1>
+    <div class="studio-panel">
+      <h2>🔐 Tajemniczy obrazek</h2>
+      <p>Odkrywaj ukryty rysunek wiersz po wierszu. Nie wiesz, co powstanie, dopóki nie skończysz!</p>
+      <a href="#zagadka" class="action primary">Zagraj</a>
+    </div>
+    <div class="studio-panel">
+      <h2>🧩 Kolejne gry i zagadki</h2>
+      <p>Przygotujemy tutaj pikselową pamięć, dokańczanie obrazków, łamigłówki i inne zabawy.</p>
+    </div>
+  </section>
+  <section id="achievements-screen" class="studio" aria-labelledby="achievements-title" hidden>
+    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <p class="section-kicker">Twoje nagrody</p>
+    <h1 class="studio-title" id="achievements-title" tabindex="-1">🏆 Osiągnięcia</h1>
+    <div class="studio-panel">
+      <h2>Tu pojawią się odznaki i puchary</h2>
+      <p>Nagrody będzie można zdobywać za przechodzenie mapy i ukończenie minigier. System osiągnięć zbudujemy wraz z tymi funkcjami.</p>
+      <a href="#minigry" class="action primary">Zobacz minigry</a>
+    </div>
+  </section>
   <section id="my-studio" class="studio" aria-labelledby="my-title" hidden>
     <a href="#galeria" class="back">← Wróć do galerii</a>
     <p class="section-kicker">Twój zeszyt</p>
@@ -3094,10 +3163,13 @@ function showScreen(next) {
   $('editor').hidden = next !== 'editor';
   $('album').hidden = next !== 'album';
   $('monster').hidden = next !== 'monster';
+  $('world-map').hidden = next !== 'map';
+  $('mini-games').hidden = next !== 'games';
+  $('achievements-screen').hidden = next !== 'achievements';
 }
 function route() {
   const hash = location.hash;
-  if (!hash || hash === '#galeria' || hash === '#mapa') syncGalleryMode();
+  if (!hash || hash === '#galeria') syncGalleryMode();
   const projectId = hash.startsWith('#wzor/') ? hash.slice(6) : '';
   const editId = hash.startsWith('#kreator/') ? hash.slice(9) : '';
   const project = studio.projects.find(p => p.id === projectId);
@@ -3129,6 +3201,22 @@ function route() {
     return;
   }
   if (editor) { finishStroke(); editor = null; }
+  const newSections = {
+    '#mapa':{screen:'map',title:'map-title',documentTitle:'Mapa'},
+    '#minigry':{screen:'games',title:'games-title',documentTitle:'Minigry'},
+    '#osiagniecia':{screen:'achievements',title:'achievements-title',documentTitle:'Osiągnięcia'}
+  };
+  if (Object.hasOwn(newSections,hash)) {
+    const target = newSections[hash];
+    const previous = view;
+    showScreen(target.screen);
+    document.title = target.documentTitle + ' — Pikseluj';
+    if (previous !== target.screen) {
+      window.scrollTo(0,0);
+      $(target.title).focus({preventScroll:true});
+    }
+    return;
+  }
   if (hash === '#album') {
     const previous = view;
     showScreen('album');
@@ -3189,7 +3277,7 @@ function initialAppHistory() {
   const current = history.state && typeof history.state === 'object' ? history.state : {};
   const root = {...current,[APP_NAV]:true,pikselujIndex:0};
   // Głęboki link też ma bezpieczne Wstecz do ekranu startowego.
-  if (currentHash && currentHash !== '#galeria' && currentHash !== '#mapa') {
+  if (currentHash && currentHash !== '#galeria') {
     history.replaceState(root,'',baseUrl + '#galeria');
     history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',
       pikselujFromGallery:true},'',baseUrl + currentHash);
@@ -3284,7 +3372,7 @@ document.addEventListener('click',event => {
   event.preventDefault();
   if (anchor.classList.contains('back')) {
     navigateBack();
-  } else if (target === '#galeria' || target === '#mapa') {
+  } else if (target === '#galeria') {
     navigateHome();
   } else {
     navigateTo(target);
