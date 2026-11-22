@@ -73,8 +73,8 @@ function magicAnimal(g,o){
  g.eye(15,11,o.eyes==='wink'?'round':o.eyes);
  g.pixel(12,14,'k');g.pixel(11,16,'k');g.pixel(13,16,'k');
  g.pixel(6,14,'p');g.pixel(18,14,'p');
- if(o.extra==='bow'){g.rect(3,4,3,3,'p');g.rect(9,4,3,3,'p');g.rect(6,5,3,2,'y')}
- if(o.extra==='star')g.star(20,4,'y');
+ if(o.extra==='bow'){g.rect(3,4,3,3,'p');g.rect(9,4,3,3,'p');g.rect(6,5,3,2,'H')}
+ if(o.extra==='star')g.star(20,4,'H');
  if(o.extra==='heart')g.heart(19,3,'r');
 }
 function magicMonster(g,o){
@@ -83,7 +83,7 @@ function magicMonster(g,o){
  else if(o.kind==='jelly'){g.blob(12,13,9,8,c);g.rect(5,17,3,3,c);g.rect(16,17,3,3,c)}
  else g.blob(12,12,8,8,c);
  if(o.extra==='horns'){
-  g.rect(6,3,3,5,'k');g.rect(15,3,3,5,'k');g.rect(7,4,1,4,'y');g.rect(16,4,1,4,'y');
+  g.rect(6,3,3,5,'k');g.rect(15,3,3,5,'k');g.rect(7,4,1,4,'H');g.rect(16,4,1,4,'H');
  }else if(o.extra==='antenna'){g.rect(11,3,2,6,'k');g.blob(12,3,2,2,'p')}
  if(o.eyes==='one'){g.blob(12,11,4,4,'w');g.blob(12,12,2,2,'k');g.pixel(11,11,'w')}
  else if(o.eyes==='three'){for(const [x,y] of [[7,11],[12,9],[17,11]]){g.blob(x,y,2,3,'w');g.pixel(x,y+1,'k')}}
@@ -96,13 +96,13 @@ function magicRobot(g,o){
  g.rect(3,14,3,5,'k');g.rect(18,14,3,5,'k');
  g.rect(4,15,2,2,'s');g.rect(18,15,2,2,'s');
  g.rect(8,22,3,2,'k');g.rect(14,22,3,2,'k');
- g.rect(10,16,4,3,'k');g.rect(11,17,2,1,'y');
+ g.rect(10,16,4,3,'k');g.rect(11,17,2,1,'H');
  if(o.kind==='tall'){g.rect(5,4,14,10,'k');g.rect(6,5,12,8,c)}
  else if(o.kind==='round')g.blob(12,9,8,6,c);
  else{g.rect(4,6,16,9,'k');g.rect(5,7,14,7,c)}
  g.rect(3,10,2,3,'s');g.rect(19,10,2,3,'s');
  if(o.extra==='one'){g.rect(11,2,2,5,'k');g.rect(10,1,4,3,'r')}
- else if(o.extra==='two'){g.rect(7,2,2,5,'k');g.rect(16,2,2,5,'k');g.rect(6,1,4,3,'y');g.rect(15,1,4,3,'p')}
+ else if(o.extra==='two'){g.rect(7,2,2,5,'k');g.rect(16,2,2,5,'k');g.rect(6,1,4,3,'H');g.rect(15,1,4,3,'p')}
  if(o.eyes==='visor'){g.rect(7,9,10,4,'k');g.rect(8,10,8,2,'b');g.pixel(9,10,'w')}
  else if(o.eyes==='sleepy'){g.hline(8,10,3,'k');g.hline(14,10,3,'k')}
  else{g.rect(7,9,4,4,'w');g.rect(14,9,4,4,'w');g.rect(9,10,2,2,'k');g.rect(15,10,2,2,'k')}
@@ -112,8 +112,8 @@ function magicWorld(g,o){
  const c=o.color, sky=o.eyes==='night'?'u':o.eyes==='evening'?'p':'b';
  g.rect(0,0,24,18,sky);g.rect(0,16,24,8,o.kind==='sea'?'a':'l');
  g.rect(0,19,24,5,o.kind==='sea'?'b':'g');
- if(o.eyes==='night'){g.star(3,3,'y');g.star(18,4,'y')}
- else g.blob(20,4,3,3,o.eyes==='evening'?'O':'y');
+ if(o.eyes==='night'){g.star(3,3,'H');g.star(18,4,'H')}
+ else g.blob(20,4,3,3,o.eyes==='evening'?'O':'H');
  if(o.kind==='castle'){
   g.rect(5,9,14,13,'k');g.rect(6,10,12,11,c);
   g.rect(3,7,5,15,'k');g.rect(4,8,3,13,c);
@@ -130,16 +130,16 @@ function magicWorld(g,o){
   g.rect(6,12,12,10,'k');g.rect(7,13,10,8,'c');
   g.rect(4,10,16,3,'r');g.rect(8,7,8,3,'r');
   g.rect(10,17,4,5,'n');g.rect(15,15,2,3,'b');
-  for(const x of [3,20]){g.rect(x,17,1,6,'d');g.blob(x,16,2,2,x===3?c:'p');g.pixel(x,16,'y')}
+  for(const x of [3,20]){g.rect(x,17,1,6,'d');g.blob(x,16,2,2,x===3?c:'p');g.pixel(x,16,'H')}
  }else{
   g.rect(0,20,12,4,'e');g.rect(4,10,7,12,'k');g.rect(5,11,5,10,'w');
   g.rect(5,14,5,3,'r');g.rect(5,19,5,2,'r');
   g.rect(3,7,9,3,'k');g.rect(4,6,7,2,c);
-  g.rect(6,5,3,3,'y');g.rect(7,3,1,2,'k');
+  g.rect(6,5,3,3,'H');g.rect(7,3,1,2,'k');
   g.hline(14,20,9,'w');
  }
  if(o.extra==='cloud'){g.blob(5,4,3,2,'w');g.blob(10,5,3,2,'w')}
- else if(o.extra==='stars'){g.star(3,3,'y');g.star(15,2,'y')}
+ else if(o.extra==='stars'){g.star(3,3,'H');g.star(15,2,'H')}
  else if(o.extra==='hearts'){g.heart(3,2,'r');g.heart(16,4,'r')}
 }
 function magicRows(){
