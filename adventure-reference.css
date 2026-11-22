@@ -296,3 +296,44 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
    text-underline-offset:5px;
  }
 }
+
+/* Ekran startowy w pionie mieści się dokładnie w dostępnym widoku.
+   Nie blokujemy przewijania galerii po kliknięciu „Wybierz obrazek”
+   ani pozostałych ekranów aplikacji. */
+@media (orientation:portrait) {
+  html:has(body.reference-ready #gallery:not([hidden]):not(.adventure-explore) .reference-stage.loaded) {
+    height:100%;
+    overflow-y:hidden;
+  }
+  body.reference-ready:has(#gallery:not([hidden]):not(.adventure-explore) .reference-stage.loaded) {
+    height:100dvh;
+    min-height:0;
+    max-height:100dvh;
+    overflow-y:hidden;
+    overscroll-behavior-y:none;
+  }
+  #gallery:not([hidden]):not(.adventure-explore):has(.reference-stage.loaded) {
+    display:block;
+    height:100dvh;
+    min-height:0;
+    max-height:100dvh;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+  }
+  #gallery:not([hidden]):not(.adventure-explore)>.reference-stage.loaded {
+    display:block;
+    position:relative;
+    height:100dvh;
+    min-height:0;
+    max-height:100dvh;
+    width:100vw;
+    max-width:none;
+    aspect-ratio:auto;
+    margin:0;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+    overflow:hidden;
+  }
+}
