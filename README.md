@@ -46,6 +46,18 @@ Galeria, szczegóły wzoru, Moje projekty i Kolekcja informują o rozmiarze, naj
 
 Historia postępu i ukończone prace: `pikseluj/zeszyt/v1`. Zachowujemy kompatybilność danych z wcześniejszymi mniejszymi wzorami.
 
+## Zdjęcia ukończonych obrazków
+
+- Po naciśnięciu **✓ Narysowane!** pojawiają się przyciski **📷 Zrób zdjęcie** oraz **🖼️ Wybierz z telefonu**.
+- Zdjęcie można dodać później z Kolekcji, zamienić na inne, usunąć niezależnie od wzoru lub obejrzeć w powiększeniu.
+- W Kolekcji fotografia rysunku znajduje się obok oryginalnego wzoru pikselowego.
+- Fotografie są zmniejszane w przeglądarce do maksymalnie 1600 px dłuższego boku (JPEG, jakość 0,83), aby ograniczyć zużycie miejsca.
+- Zapisywane są w lokalnym **IndexedDB** (`pikseluj-zdjecia-albumu-v1`), a nie w `localStorage` z pikselami i nie w chmurze.
+- Klucz obrazu to identyfikator wzoru plus jego rewizja, taki sam jak dla ukończonego wpisu.
+- Przy usunięciu ukończonej pracy usuwane jest też zdjęcie; dostępne w danej sesji **Cofnij usunięcie** odtwarza oba.
+- **Ważne:** usunięcie danych przeglądarki / aplikacji może bezpowrotnie usunąć fotografie. Zdjęcia nie synchronizują się między telefonami. Do trwałej archiwizacji należy zachować kopię w galerii telefonu.
+- Pliki: `album-photos.js` i `album-photos.css`. Po zmianach aktualizować wersję `?v=...` w `index.html`.
+
 ## Wydruk i PDF
 
 - PDF i druk przeglądarkowy są na A4 w pionie. Każda kratka ma **rzeczywiste 5 mm**, bez skalowania wzoru.
