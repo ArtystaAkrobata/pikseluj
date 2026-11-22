@@ -113,82 +113,91 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
 .reference-stage .r-master5 {left:40.86%;top:54.20%;width:18.55%;height:9.46%}
 .reference-stage .r-master6 {left:63.07%;top:54.20%;width:18.65%;height:9.46%}
 
-/* "Tajemnica" w miejscu dawnego przycisku Drukuj.
-   Zachowuje proporcje oryginalnej ilustracji i przycisk 3D jak obok. */
+/* Tajemnica: oryginalny pomarańczowy kafelek z ilustracji bazowej.
+   Zachowujemy jego obrys, glanz i cień, podmieniamy tylko środek.
+   Tak wszystkie 3 kafelki mają tę samą geometrię i charakter. */
 .reference-stage .reference-mystery-tile {
+  left:65.4%;
+  top:74.05%;
+  width:28%;
+  height:10.65%;
   z-index:4;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:0;
+  display:block;
+  padding:0;
+  margin:0;
   overflow:hidden;
-  padding:4px 3px 5px;
-  border:clamp(2px,.52vw,5px) solid #b6531c;
-  border-radius:clamp(11px,3.5vw,27px);
-  background:linear-gradient(160deg,#fff29e 0%,#ffc04d 11%,#ff9b23 46%,#f27713 74%,#c24d16 100%);
-  box-shadow:
-    0 clamp(2px,.6vw,5px) 0 #7d3319,
-    0 6px 9px #522a3580,
-    inset 0 3px 0 #fff6c5,
-    inset 0 -4px 0 #ad4316;
-  color:#fffaf0;
-  font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;
-  text-decoration:none;
-  font-size:clamp(10px,3.15vw,25px);
-  font-weight:1000;
-  letter-spacing:-.05em;
-  line-height:1.1;
+  border:0;
+  border-radius:12%;
+  background:transparent;
+  box-shadow:none;
+  color:#fff;
   text-align:center;
-  text-shadow:
-    0 2px 0 #843c26,
-    2px 1px 0 #903c26,
-    -2px 1px 0 #903c26;
+  text-decoration:none;
+  touch-action:manipulation;
   -webkit-tap-highlight-color:transparent;
 }
-.reference-stage .reference-mystery-tile:before {
+
+/* Wewnętrzne wypełnienie przykrywa stary nadruk drukarki i napis,
+   pozostawiając oryginalną ramkę 3D i jej zewnętrzny cień. */
+.reference-stage .reference-mystery-tile::before {
   content:"";
   position:absolute;
-  inset:4% 5% auto;
-  height:25%;
-  border-radius:40px 40px 60% 60%;
-  background:linear-gradient(#ffffff8a,#ffffff00);
+  z-index:0;
+  inset:6% 4.4% 9%;
+  border-radius:14%;
+  background:
+    radial-gradient(ellipse 63% 24% at 49% 6%,#ffe78c48,transparent 95%),
+    linear-gradient(180deg,#fa9b28 0%,#ff951f 21%,#ff8c1c 44%,#fd7d17 68%,#fb7314 100%);
+  box-shadow:inset 0 2px 0 #ffe6a422;
   pointer-events:none;
 }
-.reference-stage .reference-mystery-tile .mystery-treasure-icon {
-  position:relative;
+
+.reference-stage .reference-mystery-tile .mystery-key-icon {
+  position:absolute;
   z-index:1;
-  display:block;
-  width:51%;
-  height:55%;
-  flex:none;
+  top:8%;
+  left:26%;
+  width:48%;
+  height:60%;
   overflow:visible;
-  filter:drop-shadow(0 3px 1px #76382394);
+  filter:drop-shadow(0 2px 1px #592d4670);
 }
+
 .reference-stage .reference-mystery-label {
-  position:relative;
+  position:absolute;
   z-index:1;
-  display:block;
-  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  inset:68% 2% 7%;
+  width:auto;
   margin:0;
+  padding:0;
   white-space:nowrap;
+  font-family:"Arial Rounded MT Bold","Trebuchet MS",ui-rounded,system-ui,sans-serif;
+  font-size:clamp(14px,3.7vw,28px);
+  line-height:1;
+  letter-spacing:-.055em;
+  font-weight:1000;
+  color:#fff9f3;
+  -webkit-text-stroke:.45px #593148;
+  text-shadow:0 2px 0 #753b37,1px 2px 1px #6a2e38,-1px 1px 1px #6a2e38,0 3px 3px #46234498;
 }
 .reference-stage .reference-mystery-tile:active {
-  transform:translateY(3px);
-  background:linear-gradient(#ffda67,#f38b1a 60%,#be4d12);
-  box-shadow:0 2px 0 #7d3319,inset 0 2px 0 #fff7bc;
+  transform:translateY(2px);
 }
 .reference-stage .reference-mystery-tile:focus-visible {
-  outline:4px solid #f9eb83;
+  outline:4px solid #ffe87c;
   outline-offset:2px;
 }
+#adventure-mystery .shortcut-icon .mystery-key-icon {
+  display:block;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  filter:drop-shadow(0 2px 1px #502e6f70);
+}
 @media(max-width:360px) {
-  .reference-stage .reference-mystery-tile{
-    padding:2px 2px 3px;
-    font-size:clamp(9px,3.05vw,11px);
-    border-width:2px;
-  }
-  .reference-stage .reference-mystery-tile .mystery-treasure-icon{
-    width:47%;height:52%;
-  }
+  .reference-stage .reference-mystery-label {font-size:clamp(13px,3.65vw,15px)}
+  .reference-stage .reference-mystery-tile .mystery-key-icon{top:10%;height:56%}
 }
