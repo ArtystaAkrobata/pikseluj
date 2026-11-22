@@ -3319,7 +3319,8 @@ function renderAlbum() {
       $('album-restore').focus({preventScroll:true});
     });
     actions.append(remove);
-    card.append(thumb,el('h3','',item.name),date,actions);
+    const formatTag=el('span','paper-tag',paperDescriptor(p));
+    card.append(thumb,el('h3','',item.name),date,formatTag,actions);
     $('album-items').append(card);
   }
 }
