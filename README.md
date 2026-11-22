@@ -37,6 +37,14 @@ Generator służy do zabawy w tworzenie postaci i scen na papierze w kratkę 5 m
 - `magic-premium-ui.css`: responsywna stylistyka premium, animacje i przyciski
 - `magic-pixels.css`: historyczne style (zachowane dla kompatybilności; nowszy CSS ładuje się później)
 
+**Nowa biblioteka Zwierzątek (v3):**
+- `magic-curated-data.js`: 16 ręcznie zaprojektowanych bazowych obrazków (lisek, kotek, miś, króliczek × cztery poziomy), zapisanych bezstratnie w krótkich wierszach RLE (para: długość w base36 + znak koloru).
+- `magic-curated-animals.js`: dekoder i wyłącznie kontrolowane nakładanie oczu, uśmiechu, ozdób, dodatków oraz zmian koloru; zmiana cech nie rusza bazowej sylwetki.
+- `magic-premium-worlds.js`: wybiera bibliotekę kuratorowanych zwierzątek. Pozostałe trzy kategorie nadal działają na poprzednim silniku proceduralnym i wymagają analogicznej oceny artystycznej.
+- `magic-jakosc.html`: pomocnicza mobilna galeria 4 × 4 autorskich wzorów, z przełączaniem siatki, dla kontroli jakości na prawdziwym ekranie telefonu.
+
+Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obrazu**. Każdy nowy sprite przed publikacją musi przejść przegląd wizualny 16×16, 24×24, 32×40 i 40×56, w tym kontrolę czytelności sylwetki, konsekwentnych proporcji, ciągłości ciemnego obrysu, skali detali oraz typowego wydruku 5 mm. Nowe style zatwierdzać w galerii jakości.
+
 **Zasady jakości grafik:**
 - Każdy wzór powstaje bezpośrednio na siatce docelowego rozmiaru: 16 × 16, 24 × 24, 32 × 40 lub 40 × 56.
 - **Nie wolno rozciągać gotowego obrazka 24 × 24**, ponieważ deformuje to kontury, uszy i pyszczki.
