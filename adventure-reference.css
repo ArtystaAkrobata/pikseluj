@@ -115,46 +115,94 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
 
 /* Przywrócona opcja niespodzianki: widoczna na pełnoekranowej ilustracji.
    Naklejka znajduje się między drogowskazami, zamiast tworzyć nowe okno. */
+/* Sekret na chorągiewce z sercem: mały magiczny znacznik zamiast
+   dużej tablicy, która zakrywała most i ścieżkę w krainie. */
 .reference-stage .reference-surprise {
   position:absolute;
   z-index:5;
-  left:37%;
-  top:26.1%;
-  width:26%;
-  height:5.25%;
-  min-height:0;
+  left:42.5%;
+  top:18%;
+  width:13.5%;
+  height:8.5%;
+  display:block;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  color:#532757;
+  text-decoration:none;
+  text-align:center;
+  overflow:visible;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  outline-offset:2px;
+}
+.reference-stage .reference-surprise .surprise-present {
+  position:absolute;
+  top:20%;
+  right:35%;
+  display:grid;
+  place-items:center;
+  width:31%;
+  height:28%;
+  min-width:18px;
+  min-height:18px;
+  border:2px solid #fff4ba;
+  border-radius:50%;
+  background:radial-gradient(circle at 29% 23%,#fff7ca,#d68bf1 57%,#893ab9 100%);
+  box-shadow:0 2px 0 #653279,0 0 12px #fff6b6,inset 0 1px #fff;
+  font-size:clamp(11px,2.3vw,18px);
+  line-height:1;
+  text-shadow:0 1px 1px #643879;
+  animation:surprise-gleam 3s ease-in-out infinite;
+}
+.reference-stage .reference-surprise .surprise-label {
+  position:absolute;
+  left:-24%;
+  top:83%;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:3px;
-  padding:2px 4px;
-  border:3px solid #72411b;
-  border-radius:14px;
-  background:linear-gradient(165deg,#f5d895,#d38b49 38%,#975125 100%);
-  box-shadow:0 4px 0 #693718,0 7px 11px #4b371d88,inset 0 2px 0 #ffe9bc;
-  color:#fff8e2;
-  text-shadow:0 1px 2px #582b1b;
-  text-align:center;
-  text-decoration:none;
-  font-size:clamp(9px,2.2vw,15px);
-  line-height:1.1;
+  width:165%;
+  min-height:25px;
+  padding:3px 5px;
+  border:2px solid #aa73ca;
+  border-radius:17px;
+  background:linear-gradient(175deg,#fff9d9 0%,#f6d6fc 55%,#d998ef 100%);
+  box-shadow:0 3px 0 #81549d,0 5px 8px #3c445366,inset 0 2px #ffffffa6;
+  color:#57285c;
+  font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;
+  font-size:clamp(10px,2vw,15px);
   font-weight:950;
-  letter-spacing:-.025em;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;
+  letter-spacing:-.035em;
+  line-height:1.1;
+  white-space:nowrap;
+  text-shadow:0 1px #fff8e8;
 }
-.reference-stage .reference-surprise .surprise-present{
-  font-size:clamp(14px,3.4vw,24px);
-  line-height:1;
-  filter:drop-shadow(0 2px #683322);
+.reference-stage .reference-surprise .surprise-label:before,
+.reference-stage .reference-surprise .surprise-label:after {
+  content:"✦";
+  position:absolute;
+  top:32%;
+  font-size:.85em;
+  color:#f9e874;
+  text-shadow:0 0 6px #fff;
 }
-.reference-stage .reference-surprise:active{
+.reference-stage .reference-surprise .surprise-label:before {left:-12px}
+.reference-stage .reference-surprise .surprise-label:after {right:-12px}
+.reference-stage .reference-surprise:active .surprise-label {
   translate:0 2px;
-  box-shadow:0 2px 0 #693718;
+  box-shadow:0 1px 0 #81549d;
 }
-.reference-stage .reference-surprise:focus-visible{
+.reference-stage .reference-surprise:focus-visible {
   outline:3px solid #ffe86d;
-  outline-offset:3px;
+}
+@keyframes surprise-gleam {
+  0%,100%{filter:brightness(1);translate:0 0}
+  50%{filter:brightness(1.17);translate:0 -2px}
+}
+@media(prefers-reduced-motion:reduce) {
+  .reference-stage .reference-surprise .surprise-present{animation:none}
 }
 .adventure-panel .adventure-surprise-ribbon{
   display:flex;
@@ -191,6 +239,10 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   border:1px solid #deb77b;
 }
 @media(max-width:360px){
-  .reference-stage .reference-surprise{font-size:9px;border-width:2px;border-radius:10px;padding:1px 2px}
-  .reference-stage .reference-surprise .surprise-present{font-size:14px}
+  .reference-stage .reference-surprise .surprise-label{
+    min-height:21px;padding:2px 3px;font-size:9px;border-width:1.5px
+  }
+  .reference-stage .reference-surprise .surprise-present{
+    min-width:16px;min-height:16px;border-width:1px;font-size:11px
+  }
 }
