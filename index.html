@@ -474,6 +474,29 @@ h1, h2, h3, p { margin:0 }
 #magic-screen #magic-size-hint{margin:5px 0 13px;font-size:.79rem}
 #magic-screen .magic-art svg{max-width:100%;max-height:100%;object-fit:contain}
 </style>
+<style>
+/* Własne potwierdzenie usunięcia, czytelne także w trybie zainstalowanej aplikacji. */
+.album-delete-dialog{
+  position:fixed;inset:0;box-sizing:border-box;
+  width:min(90vw,390px);max-width:390px;max-height:90dvh;
+  margin:auto;padding:24px 19px 20px;border:3px solid #ad83c3;
+  border-radius:23px;background:linear-gradient(165deg,#fffdf0,#f7e9ff);
+  color:#51366c;text-align:center;box-shadow:0 12px 55px #21112d80;
+}
+.album-delete-dialog::backdrop{background:#1b1126b8}
+.album-delete-dialog .album-delete-symbol{font-size:2.2rem;margin:0 0 7px}
+.album-delete-dialog h2{font-family:"DynaPuff",ui-rounded,system-ui,sans-serif;font-size:1.12rem;line-height:1.3;color:#573477;margin:0 0 9px}
+.album-delete-dialog p{font-size:.88rem;line-height:1.45;color:#67556c;margin:0 0 19px;white-space:pre-line;overflow-wrap:anywhere}
+.album-delete-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.album-delete-actions button{
+  min-height:49px;padding:10px 6px;border-radius:14px;
+  font:800 .94rem "DynaPuff",ui-rounded,system-ui,sans-serif;cursor:pointer;
+}
+.album-delete-cancel{border:2px solid #9d8daf;background:linear-gradient(#fff,#eee9f5);color:#584575;box-shadow:0 3px 0 #bbb0c8}
+.album-delete-approve{border:2px solid #ad404b;background:linear-gradient(#ffb4b4,#e86a73);color:#611d28;box-shadow:0 3px 0 #a34954}
+.album-delete-actions button:focus-visible{outline:3px solid #8f4cb6;outline-offset:2px}
+.album-delete-actions button:active{transform:translateY(2px);box-shadow:none}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -886,6 +909,15 @@ h1, h2, h3, p { margin:0 }
     <button type="button" class="album-photo-viewer-close" id="album-photo-viewer-close">Zamknij ✕</button>
   </div>
   <img id="album-photo-viewer-image" alt="Zdjęcie narysowanego wzoru">
+</dialog>
+<dialog id="album-delete-dialog" class="album-delete-dialog" role="alertdialog" aria-labelledby="album-delete-title" aria-describedby="album-delete-description">
+  <div class="album-delete-symbol" aria-hidden="true">🗑️</div>
+  <h2 id="album-delete-title">Czy na pewno usunąć?</h2>
+  <p id="album-delete-description">Tej czynności nie należy wykonywać przypadkowo.</p>
+  <form method="dialog" class="album-delete-actions">
+    <button type="submit" value="cancel" class="album-delete-cancel">Anuluj</button>
+    <button type="submit" value="confirm" class="album-delete-approve">Usuń</button>
+  </form>
 </dialog>
 <div id="print-pages" aria-hidden="true"></div>
 <script src="./album-photos.js?v=photos-01"></script>
@@ -3320,6 +3352,19 @@ $('finish-design').addEventListener('click',() => {
 });
 // Wszystkie zdjęcia są prywatne i dostępne tylko z tego urządzenia.
 // Lokalna pamięć IndexedDB nie jest synchronizowana z kontem ani chmurą.
+// Modal zamiast window.confirm: działa w PWA i zawsze pokazuje dwie czytelne decyzje.
+function confirmAlbumDeletion(title,description) {
+  const dialog=$('album-delete-dialog');
+  if(typeof dialog.showModal!=='function') return Promise.resolve(window.confirm(title+'\n\n'+description));
+  if(dialog.open)return Promise.resolve(false);
+  $('album-delete-title').textContent=title;
+  $('album-delete-description').textContent=description;
+  dialog.returnValue='cancel';
+  return new Promise(resolve=>{
+    dialog.addEventListener('close',()=>resolve(dialog.returnValue==='confirm'),{once:true});
+    dialog.showModal();
+  });
+}
 function photoStatus(message) {
   if(view==='album') $('album-feedback').textContent=message;
   else if(view==='reader') $('finish-photo-message').textContent=message;
@@ -3436,7 +3481,7 @@ function renderAlbum() {
     const removePhoto=el('button','album-photo-remove','🗑️ Usuń zdjęcie');
     removePhoto.type='button';removePhoto.hidden=true;
     removePhoto.addEventListener('click',async()=>{
-      if(!window.confirm('Usunąć zdjęcie z tego obrazka? Sam wzór pozostanie w Kolekcji.'))return;
+      if(!await confirmAlbumDeletion('Usunąć to zdjęcie?', 'Zdjęcie zostanie usunięte z Kolekcji. Sam wzór pozostanie bez zmian.'))return;
       removePhoto.disabled=true;
       try{
         await PikselujPhotos.remove(key);
@@ -3464,7 +3509,7 @@ function renderAlbum() {
     remove.type='button';
     remove.setAttribute('aria-label','Usuń z albumu: '+item.name);
     remove.addEventListener('click',async()=>{
-      if(!window.confirm('Czy na pewno chcesz usunąć „'+item.name+'” z Kolekcji?\n\nJeśli dodano zdjęcie tej pracy, zostanie usunięte razem z nią.'))return;
+      if(!await confirmAlbumDeletion('Usunąć „'+item.name+'” z albumu?', 'Usunięta zostanie cała ukończona praca oraz dołączone do niej zdjęcie, jeśli zostało dodane.'))return;
       remove.disabled=true;
       try{
         const backup=PikselujPhotos.supported()?await PikselujPhotos.get(key):null;
