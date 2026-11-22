@@ -83,6 +83,9 @@ const MagicCuratedAnimals=(()=>{
       for(const [dx,dy] of [[-1,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[0,2]])
         pixel(x+dx,y+dy,'r',true);
     };
+    // Dekoracje zachowują czarny kontur sylwetki.
+    const trim=(x,y,v)=>{if(get(x,y)!=='k')pixel(x,y,v)};
+    const trimRect=(x,y,ww,hh,v)=>{for(let yy=y;yy<y+hh;yy++)for(let xx=x;xx<x+ww;xx++)trim(xx,yy,v)};
     const [left,right,eyeY]=spec.eyes;
     const [noseX,noseY]=spec.nose;
     const eyes=options.eyes||'sparkle';
@@ -133,20 +136,20 @@ const MagicCuratedAnimals=(()=>{
     }else if(extra==='bow'){
       const x=size==='easy'?11:size==='medium'?18:size==='hard'?24:30;
       const y=size==='easy'?3:size==='medium'?6:size==='hard'?9:11;
-      segment(x-2,y,2,2,'r');segment(x+1,y,2,2,'r');
-      pixel(x,y+1,'Y');
+      trimRect(x-2,y,2,2,'r');trimRect(x+1,y,2,2,'r');
+      trim(x,y+1,'Y');
     }else if(extra==='flower'){
       const x=size==='easy'?11:size==='medium'?18:size==='hard'?24:30;
       const y=size==='easy'?3:size==='medium'?5:size==='hard'?8:10;
       // Accessible flower, isolated from eyes by design.
-      for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]])pixel(x+dx,y+dy,'p');
-      pixel(x,y,'Y');
+      for(const [dx,dy] of [[-1,0],[1,0],[0,-1],[0,1]])trim(x+dx,y+dy,'p');
+      trim(x,y,'Y');
     }else if(extra==='crown'){
       const x=Math.round(w/2),y=spec.top;
       const radius=size==='easy'?1:size==='medium'?2:3;
-      segment(x-radius,y+1,2*radius+1,2,'Y');
-      pixel(x-radius,y,'Y');pixel(x,y-1,'Y');pixel(x+radius,y,'Y');
-      if(size!=='easy')pixel(x,y+2,'r');
+      trimRect(x-radius,y+1,2*radius+1,2,'Y');
+      trim(x-radius,y,'Y');trim(x,y-1,'Y');trim(x+radius,y,'Y');
+      if(size!=='easy')trim(x,y+2,'r');
     }else if(extra==='star'){
       const x=size==='easy'?12:size==='medium'?20:size==='hard'?28:35;
       const y=size==='easy'?3:size==='medium'?6:size==='hard'?10:12;
