@@ -172,6 +172,8 @@ const MagicPremiumArt=(()=>{
   const L=C.levels[level]||C.levels.medium;
   const g=C.board(L.w,L.h);
   const o={kind:'cat',eyes:'sparkle',extra:'bow',color:'natural',mouth:'smile',scene:'stars',...options};
+  if(category==='animals'&&o.kind==='fox'&&typeof MagicFoxPoses!=='undefined')
+   return MagicFoxPoses.render(o,level);
   if(category==='animals'&&typeof MagicCuratedAnimals!=='undefined'&&MagicCuratedData[o.kind])
    return MagicCuratedAnimals.render(o.kind,o,level);
   if(category==='animals')C.drawAnimal(g,L,o);
