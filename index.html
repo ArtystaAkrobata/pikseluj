@@ -294,6 +294,7 @@ h1, h2, h3, p { margin:0 }
 <link rel="stylesheet" href="./adventure-reference.css?v=adventure-16">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-06">
 <link rel="stylesheet" href="./magic-pixels.css?v=magic-03">
+<link rel="stylesheet" href="./album-photos.css?v=photos-01">
 
 <style>
 /* Cztery nowe, wypukłe przyciski w ilustracyjnej stylistyce Pikseluj. */
@@ -761,7 +762,7 @@ h1, h2, h3, p { margin:0 }
     <p class="instructions" id="album-count"></p>
     <div id="album-empty" class="studio-panel">
       <h2>Tu pojawi się Twój pierwszy rysunek</h2>
-      <p>Skończ wzór w zeszycie i stuknij <strong>Narysowane!</strong> pod siatką. W albumie zobaczysz miniaturę wzoru i datę ukończenia.</p>
+      <p>Skończ wzór w zeszycie i stuknij <strong>Narysowane!</strong> pod siatką. Możesz też zrobić zdjęcie papierowego rysunku lub wybrać je z telefonu. W Kolekcji zobaczysz wzór i swoją pracę obok siebie.</p>
     </div>
     <p class="studio-feedback" id="album-feedback" role="status"></p>
     <button id="album-restore" class="action album-restore" type="button" hidden>Cofnij usunięcie</button>
@@ -856,6 +857,15 @@ h1, h2, h3, p { margin:0 }
         <button type="button" class="action primary" id="finish-design">✓ Narysowane!</button>
         <a href="#album" id="reader-album" class="action" hidden>Mój album</a>
       </div>
+      <div id="finish-photo-options" class="finish-photo-options" hidden>
+        <span class="finish-photo-label">📷 Dodaj zdjęcie swojej pracy</span>
+        <div class="finish-photo-buttons">
+          <button type="button" id="finish-photo-camera">📷 Zrób zdjęcie</button>
+          <button type="button" id="finish-photo-gallery">🖼️ Wybierz z telefonu</button>
+        </div>
+        <span class="finish-photo-note">Zdjęcie pojawi się w Kolekcji obok wzoru. Zostanie tylko na tym urządzeniu.</span>
+        <span id="finish-photo-message" role="status"></span>
+      </div>
     </div>
     <div class="dock" id="dock">
       <div class="controls" aria-label="Zmiana wiersza">
@@ -868,7 +878,17 @@ h1, h2, h3, p { margin:0 }
   </section>
   <noscript><p class="wrap">Żeby wybrać wzór i podświetlać wiersze, włącz JavaScript w przeglądarce.</p></noscript>
 </main>
+<input id="album-camera-input" class="album-photo-picker" type="file" accept="image/*" capture="environment" aria-label="Zrób zdjęcie ukończonej pracy">
+<input id="album-gallery-input" class="album-photo-picker" type="file" accept="image/*" aria-label="Wybierz zdjęcie ukończonej pracy">
+<dialog id="album-photo-viewer" class="album-photo-viewer" aria-labelledby="album-photo-viewer-title">
+  <div class="album-photo-viewer-header">
+    <strong id="album-photo-viewer-title" class="album-photo-viewer-title">Zdjęcie ukończonego obrazka</strong>
+    <button type="button" class="album-photo-viewer-close" id="album-photo-viewer-close">Zamknij ✕</button>
+  </div>
+  <img id="album-photo-viewer-image" alt="Zdjęcie narysowanego wzoru">
+</dialog>
 <div id="print-pages" aria-hidden="true"></div>
+<script src="./album-photos.js?v=photos-01"></script>
 <script src="./magic-pixels.js?v=magic-04"></script>
 <script>
 'use strict';
@@ -3226,6 +3246,12 @@ function readJourney() {
 }
 const journey = readJourney();
 let trashEntry = null;
+let trashPhoto = null;
+let albumPhotoTargetKey = null;
+let albumPhotoLoading = false;
+let albumPhotoRenderToken = 0;
+const albumPhotoUrls = new Set();
+let albumViewerUrl = null;
 const albumDate = new Intl.DateTimeFormat('pl-PL',{day:'numeric',month:'long',year:'numeric'});
 function writeJourney() {
   try { localStorage.setItem(journeyKey,JSON.stringify(journey)); return true; }
@@ -3272,6 +3298,10 @@ function syncFinishStrip() {
   $('finish-design').disabled = saved;
   $('finish-design').textContent = saved ? '✓ W albumie' : '✓ Narysowane!';
   $('reader-album').hidden = !saved;
+  $('finish-photo-options').hidden = !saved;
+  $('finish-photo-camera').disabled = !PikselujPhotos.supported() || albumPhotoLoading;
+  $('finish-photo-gallery').disabled = !PikselujPhotos.supported() || albumPhotoLoading;
+  if (!saved) $('finish-photo-message').textContent = '';
   $('finish-status').textContent = saved ? 'Ten rysunek jest już w Twoim albumie.' : 'Dodaj ten wzór do swojego albumu.';
 }
 $('finish-design').addEventListener('click',() => {
@@ -3282,54 +3312,211 @@ $('finish-design').addEventListener('click',() => {
   });
   const ok = writeJourney();
   syncFinishStrip();
-  $('reader-album').focus({preventScroll:true});
+  $('finish-photo-camera').focus({preventScroll:true});
+  $('finish-photo-message').textContent = ok ? 'Możesz teraz sfotografować obrazek lub dodać zdjęcie później w Kolekcji.' :
+    'Nie udało się zapisać albumu w pamięci. ' + inheritedNotice;
   $('finish-status').textContent = ok ? 'Brawo! Rysunek trafił do albumu.' : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
   $('album-feedback').textContent = ok ? 'Dodano nowy rysunek.' : inheritedNotice;
 });
+// Wszystkie zdjęcia są prywatne i dostępne tylko z tego urządzenia.
+// Lokalna pamięć IndexedDB nie jest synchronizowana z kontem ani chmurą.
+function photoStatus(message) {
+  if(view==='album') $('album-feedback').textContent=message;
+  else if(view==='reader') $('finish-photo-message').textContent=message;
+}
+function photoKey(item){return journalStamp(item.id,item.revision);}
+function photoPick(key,kind){
+  if(albumPhotoLoading)return;
+  if(!PikselujPhotos.supported()){
+    photoStatus('Ta przeglądarka nie obsługuje zapisu zdjęć. Spróbuj w Chrome na telefonie.');
+    return;
+  }
+  if(!journey.completed.some(item=>photoKey(item)===key)){
+    photoStatus('Najpierw zaznacz obrazek jako narysowany.');
+    return;
+  }
+  albumPhotoTargetKey=key;
+  const input=$(kind==='camera'?'album-camera-input':'album-gallery-input');
+  input.value='';
+  input.click();
+}
+$('finish-photo-camera').addEventListener('click',()=>{
+  if(activePattern && inAlbum(activePattern)) photoPick(patternStamp(activePattern),'camera');
+});
+$('finish-photo-gallery').addEventListener('click',()=>{
+  if(activePattern && inAlbum(activePattern)) photoPick(patternStamp(activePattern),'gallery');
+});
+async function handlePhotoFile(input) {
+  const file=input.files?.[0];
+  const key=albumPhotoTargetKey;
+  input.value='';
+  if(!file||!key||albumPhotoLoading)return;
+  albumPhotoLoading=true;
+  if(view==='reader') syncFinishStrip();
+  photoStatus('Przygotowuję zdjęcie do albumu…');
+  try{
+    const picture=await PikselujPhotos.prepare(file);
+    if(!journey.completed.some(item=>photoKey(item)===key)){
+      throw new Error('Ten obrazek nie jest już w Kolekcji. Zdjęcie nie zostało zapisane.');
+    }
+    await PikselujPhotos.save(key,picture);
+    if(view==='album') renderAlbum();
+    photoStatus('📷 Zdjęcie zapisane! Znajdziesz je w Kolekcji i możesz je tam powiększyć lub wymienić.');
+  }catch(error){
+    photoStatus('Nie udało się zapisać zdjęcia: '+(error?.message||'brak miejsca lub problem z aparatem')+'.');
+  }finally{
+    albumPhotoLoading=false;
+    albumPhotoTargetKey=null;
+    if(view==='reader')syncFinishStrip();
+  }
+}
+for(const inputId of ['album-camera-input','album-gallery-input']){
+  $(inputId).addEventListener('change',event=>{void handlePhotoFile(event.target);});
+}
+function releaseAlbumThumbUrls() {
+  for(const url of albumPhotoUrls)URL.revokeObjectURL(url);
+  albumPhotoUrls.clear();
+}
+function closeAlbumPhotoViewer() {
+  if(albumViewerUrl){URL.revokeObjectURL(albumViewerUrl);albumViewerUrl=null;}
+  $('album-photo-viewer-image').removeAttribute('src');
+}
+$('album-photo-viewer').addEventListener('close',closeAlbumPhotoViewer);
+$('album-photo-viewer-close').addEventListener('click',()=>{
+  const dialog=$('album-photo-viewer');
+  if(dialog.open)dialog.close();
+});
+$('album-photo-viewer').addEventListener('click',event=>{
+  const dialog=$('album-photo-viewer');
+  if(event.target===dialog && dialog.open)dialog.close();
+});
+function openAlbumPhoto(blob,name){
+  const dialog=$('album-photo-viewer');
+  if(dialog.open)dialog.close();
+  closeAlbumPhotoViewer();
+  albumViewerUrl=URL.createObjectURL(blob);
+  $('album-photo-viewer-image').src=albumViewerUrl;
+  $('album-photo-viewer-image').alt='Zdjęcie narysowanego obrazka: '+name;
+  $('album-photo-viewer-title').textContent=name+' — zdjęcie z zeszytu';
+  dialog.showModal();
+}
 function renderAlbum() {
-  $('album-count').textContent = journey.completed.length ? albumCountText(journey.completed.length) + ' · tylko w tej przeglądarce' :
+  releaseAlbumThumbUrls();
+  const renderToken=++albumPhotoRenderToken;
+  $('album-count').textContent = journey.completed.length ?
+    albumCountText(journey.completed.length) + ' · zdjęcia i rysunki tylko na tym urządzeniu' :
     'Zbieraj piksele, które udało Ci się narysować na papierze.';
   $('album-empty').hidden = journey.completed.length > 0;
   $('album-restore').hidden = !trashEntry;
   $('album-items').replaceChildren();
-  for (const item of journey.completed) {
-    const p = readPattern({id:item.id,name:item.name,art:item.rows.join('\n')});
-    const card = el('article','studio-item');
-    const thumb = el('div','card-art');
+  for(const item of journey.completed){
+    const p=readPattern({id:item.id,name:item.name,art:item.rows.join('\n')});
+    const key=photoKey(item);
+    const card=el('article','studio-item album-work-card');
+    const media=el('div','album-photo-media');
+    const thumb=el('div','card-art');
     thumb.append(sprite(p,{paper:true}));
-    const date = el('time','album-date',albumDate.format(item.doneAt));
+    const picture=el('div','album-photo-preview');
+    picture.hidden=true;
+    const subtitle=el('span','album-photo-caption','📷 Twoje zdjęcie');
+    const zoom=el('button','album-photo-zoom');
+    zoom.type='button';zoom.setAttribute('aria-label','Powiększ zdjęcie: '+item.name);
+    const image=el('img');image.alt='Zdjęcie odrysowanego obrazka: '+item.name;image.loading='lazy';
+    zoom.append(image);picture.append(subtitle,zoom);media.append(thumb,picture);
+    const date=el('time','album-date',albumDate.format(item.doneAt));
     date.setAttribute('datetime',new Date(item.doneAt).toISOString());
-    const actions = el('div','studio-item-actions');
-    const published = findJournalPattern(item.id);
-    if (published && (published.revision || 0) === item.revision) {
-      const link = el('a','action','Zobacz wzór');
-      link.href = published === mystery ? '#zagadka' : '#wzor/' + item.id;
-      link.setAttribute('aria-label','Zobacz wzór: ' + item.name);
+    const paperTag=el('span','paper-tag',paperDescriptor(p));
+    const photoActions=el('div','album-photo-actions');
+    const camera=el('button','','📷 Zrób zdjęcie');
+    camera.type='button';
+    camera.addEventListener('click',()=>photoPick(key,'camera'));
+    const gallery=el('button','','🖼️ Z telefonu');
+    gallery.type='button';
+    gallery.addEventListener('click',()=>photoPick(key,'gallery'));
+    const removePhoto=el('button','album-photo-remove','🗑️ Usuń zdjęcie');
+    removePhoto.type='button';removePhoto.hidden=true;
+    removePhoto.addEventListener('click',async()=>{
+      if(!window.confirm('Usunąć zdjęcie z tego obrazka? Sam wzór pozostanie w Kolekcji.'))return;
+      removePhoto.disabled=true;
+      try{
+        await PikselujPhotos.remove(key);
+        renderAlbum();
+        $('album-feedback').textContent='Usunięto zdjęcie. Wzór nadal jest w Kolekcji.';
+      }catch(error){
+        removePhoto.disabled=false;
+        $('album-feedback').textContent='Nie udało się usunąć zdjęcia: '+(error?.message||'błąd pamięci');
+      }
+    });
+    photoActions.append(camera,gallery,removePhoto);
+    if(!PikselujPhotos.supported()){
+      camera.disabled=true;gallery.disabled=true;
+      camera.title=gallery.title='Przeglądarka nie obsługuje lokalnego przechowywania zdjęć.';
+    }
+    const actions=el('div','studio-item-actions');
+    const published=findJournalPattern(item.id);
+    if(published&&(published.revision||0)===item.revision){
+      const link=el('a','action','Zobacz wzór');
+      link.href=published===mystery?'#zagadka':'#wzor/'+item.id;
+      link.setAttribute('aria-label','Zobacz wzór: '+item.name);
       actions.append(link);
     }
-    const remove = el('button','action','Usuń z albumu');
-    remove.type = 'button';
-    remove.setAttribute('aria-label','Usuń z albumu: ' + item.name);
-    remove.addEventListener('click',() => {
-      trashEntry = item;
-      journey.completed = journey.completed.filter(p => p !== item);
-      const ok = writeJourney();
-      $('album-feedback').textContent = ok ? 'Usunięto z albumu. Sam wzór pozostał bez zmian.' : inheritedNotice;
-      renderAlbum();
-      $('album-restore').focus({preventScroll:true});
+    const remove=el('button','action','Usuń z albumu');
+    remove.type='button';
+    remove.setAttribute('aria-label','Usuń z albumu: '+item.name);
+    remove.addEventListener('click',async()=>{
+      remove.disabled=true;
+      try{
+        const backup=PikselujPhotos.supported()?await PikselujPhotos.get(key):null;
+        if(backup)await PikselujPhotos.remove(key);
+        trashPhoto=backup||null;trashEntry=item;
+        journey.completed=journey.completed.filter(entry=>entry!==item);
+        const ok=writeJourney();
+        $('album-feedback').textContent=ok?'Usunięto z Kolekcji. Możesz cofnąć usunięcie.' :
+          'Usunięto z widoku, ale nie udało się zapisać zmiany w pamięci.';
+        renderAlbum();
+      }catch(error){
+        remove.disabled=false;
+        $('album-feedback').textContent='Nie udało się usunąć pracy: '+(error?.message||'błąd pamięci')+'.';
+      }
     });
     actions.append(remove);
-    const formatTag=el('span','paper-tag',paperDescriptor(p));
-    card.append(thumb,el('h3','',item.name),date,formatTag,actions);
+    card.append(media,el('h3','',item.name),date,paperTag,photoActions,actions);
     $('album-items').append(card);
+    if(PikselujPhotos.supported()){
+      void PikselujPhotos.get(key).then(blob=>{
+        if(!blob||renderToken!==albumPhotoRenderToken||!card.isConnected)return;
+        const url=URL.createObjectURL(blob);
+        albumPhotoUrls.add(url);
+        image.src=url;
+        picture.hidden=false;
+        removePhoto.hidden=false;
+        media.classList.add('with-photo');
+        camera.textContent='📷 Zmień zdjęcie';
+        gallery.textContent='🖼️ Inne zdjęcie';
+        zoom.addEventListener('click',()=>openAlbumPhoto(blob,item.name));
+      }).catch(()=>{
+        // Bez zdjęcia praca nadal jest widoczna jako wzór pikselowy.
+      });
+    }
   }
 }
-$('album-restore').addEventListener('click',() => {
-  if (!trashEntry) return;
-  journey.completed = [...journey.completed,trashEntry].sort((a,b) => b.doneAt - a.doneAt);
-  trashEntry = null;
-  $('album-feedback').textContent = writeJourney() ? 'Przywrócono rysunek w albumie.' : inheritedNotice;
+$('album-restore').addEventListener('click',async() => {
+  if(!trashEntry)return;
+  const item=trashEntry,photo=trashPhoto;
+  $('album-restore').disabled=true;
+  let photoError=false;
+  if(photo){
+    try{await PikselujPhotos.save(photoKey(item),photo)}
+    catch{photoError=true}
+  }
+  journey.completed=[...journey.completed,item].sort((a,b)=>b.doneAt-a.doneAt);
+  const ok=writeJourney();
+  trashEntry=null;trashPhoto=null;
   renderAlbum();
+  $('album-restore').disabled=false;
+  $('album-feedback').textContent=!ok?inheritedNotice:photoError?
+    'Przywrócono wzór, ale nie udało się przywrócić zdjęcia.':
+    'Przywrócono ukończoną pracę'+(photo?' razem ze zdjęciem.':'.');
   $('album-title').focus({preventScroll:true});
 });
 function plainLink(event) {
