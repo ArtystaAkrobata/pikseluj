@@ -3639,6 +3639,11 @@ $('monster-save').addEventListener('click',() => {
 
 let view = 'gallery';
 function showScreen(next) {
+  if (view === 'album' && next !== 'album') {
+    // Zwolnij pamięć zajmowaną przez zdjęcia, gdy użytkownik opuszcza Kolekcję.
+    ++albumPhotoRenderToken;
+    releaseAlbumThumbUrls();
+  }
   if (view === 'gallery' && next !== 'gallery') lastGalleryY = window.scrollY;
   view = next;
   $('gallery').hidden = next !== 'gallery';
