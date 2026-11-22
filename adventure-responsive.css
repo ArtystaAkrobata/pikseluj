@@ -1,0 +1,371 @@
+/* Pikseluj Adventure — poprawny responsywny ekran główny.
+   Orientacja decyduje o układzie, nie sama szerokość urządzenia.
+   Telefon pionowy = projekt 1:1; tablet pionowy = ten sam pełny obraz;
+   tablet poziomy = jedna szeroka, połączona kraina (bez dwóch kolumn). */
+
+/* Pionowe tablety: taki sam pojedynczy ekran jak na telefonie. */
+@media (min-width:700px) and (orientation:portrait) {
+  html:has(body.reference-ready #gallery:not([hidden])) {
+    background:#8e5837;
+  }
+  body.reference-ready:has(#gallery:not([hidden])) {
+    background:#8e5837;
+    min-height:100dvh;
+    overflow-x:hidden;
+  }
+  #gallery:has(.reference-stage.loaded) {
+    display:block;
+    width:100%;
+    max-width:none;
+    min-height:100dvh;
+    margin:0;
+    padding:0;
+  }
+  #gallery .reference-stage.loaded {
+    display:block;
+    position:relative;
+    width:100vw;
+    max-width:none;
+    min-height:100dvh;
+    height:100dvh;
+    margin:0;
+    padding:0;
+    aspect-ratio:auto;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+    overflow:hidden;
+  }
+  #gallery .reference-stage .reference-canvas {
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    aspect-ratio:auto;
+    transform:none;
+  }
+  #gallery .reference-stage .reference-canvas>img {
+    object-fit:fill;
+    width:100%;
+    height:100%;
+  }
+  #gallery:has(.reference-stage.loaded)>.hero,
+  #gallery:has(.reference-stage.loaded)>.adventure-nav,
+  #gallery:has(.reference-stage.loaded)>.site-footer {
+    display:none!important;
+  }
+  #gallery:has(.reference-stage.loaded)>.adventure-panel {
+    display:none!important;
+  }
+  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel {
+    display:block!important;
+    width:min(94vw,760px);
+    max-width:100%;
+    margin:16px auto 30px!important;
+  }
+  #gallery.adventure-explore:has(.reference-stage.loaded)>.site-footer{
+    display:block!important;
+  }
+}
+
+/* Krajobraz tabletów: JEDEN szeroki świat, a nie dwa osobne okna. */
+@media (min-width:700px) and (orientation:landscape) {
+  html:has(body.reference-ready #gallery:not([hidden])) {
+    background:#4fae77;
+  }
+  body.reference-ready:has(#gallery:not([hidden])) {
+    min-height:100dvh;
+    overflow-x:hidden;
+    background:
+      linear-gradient(180deg,#87d9ff10 0%,#2d884b1d 60%,#386d2a28 100%),
+      url("./assets/adventure-premium-world.svg") center center / cover fixed no-repeat,
+      #69bb7c;
+  }
+  body.reference-ready:has(#gallery:not([hidden])) .site-header {
+    display:block!important;
+    position:relative;
+    z-index:8;
+    background:transparent!important;
+    margin:0;
+  }
+  body.reference-ready .topbar {
+    height:clamp(67px,15dvh,96px);
+    min-height:0;
+    padding-top:clamp(6px,2dvh,12px);
+  }
+  body.reference-ready .brand {
+    font-size:clamp(1.65rem,3.9vw,2.8rem);
+    padding:3px 22px 9px;
+    border-width:5px;
+  }
+  body.reference-ready .brand:before,
+  body.reference-ready .brand:after {
+    top:-47px;
+    height:48px;
+    width:7px;
+  }
+  body.reference-ready .brand-mark {
+    width:30px;
+    height:30px;
+    grid-template-columns:repeat(2,6px);
+    gap:3px;
+    border-width:2px;
+  }
+  body.reference-ready .brand-mark i { width:6px;height:6px; }
+
+  #gallery:has(.reference-stage.loaded) {
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:flex-start;
+    width:100%;
+    max-width:none;
+    min-height:calc(100dvh - 74px);
+    padding:0 0 max(10px,env(safe-area-inset-bottom));
+    margin:0;
+    overflow:visible;
+    gap:0;
+  }
+  #gallery .reference-stage.loaded {
+    display:none!important;
+  }
+  /* Mapa jest jednym panoramicznym tłem. */
+  #gallery:has(.reference-stage.loaded)>.hero {
+    display:block!important;
+    width:100%;
+    max-width:none;
+    flex:0 0 auto;
+    height:clamp(155px,29dvh,280px);
+    min-height:0;
+    margin:0!important;
+    border:0;
+    border-radius:0;
+    background:transparent!important;
+    box-shadow:none;
+    overflow:visible;
+  }
+  #gallery>.hero:before,
+  #gallery>.hero:after {display:none!important;}
+  #gallery>.hero .hero-copy,
+  #gallery>.hero .hero-art {display:none!important;}
+  #gallery>.hero .adventure-magic {z-index:1;}
+  #gallery>.hero .adventure-landmarks {
+    z-index:4;
+    position:absolute;
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:clamp(7px,1.4vw,20px);
+    align-content:center;
+    align-items:center;
+    left:50%;
+    top:30%;
+    bottom:auto;
+    right:auto;
+    width:min(96%,1040px);
+    height:58%;
+    transform:translateX(-50%);
+    pointer-events:none;
+  }
+  #gallery>.hero .adventure-landmark {
+    position:relative;
+    top:auto;
+    right:auto;
+    bottom:auto;
+    left:auto;
+    min-width:0;
+    width:100%;
+    min-height:clamp(44px,9dvh,62px);
+    padding:5px 5px;
+    border-width:3px;
+    border-radius:13px;
+    font-size:clamp(.85rem,2vw,1.22rem);
+    transform:rotate(0deg);
+    box-shadow:0 4px 0 #6b351b,0 7px 10px #23482175,inset 0 2px #f4d29b;
+    pointer-events:auto;
+  }
+  #gallery>.hero .adventure-landmark:before {
+    bottom:-19px;height:18px;width:8px;
+  }
+  #gallery>.hero .adventure-landmark .zone-emoji {
+    font-size:clamp(1.05rem,2.5vw,1.5rem);
+  }
+
+  /* Pergamin tworzy centrum JEDNEJ sceny, rozciągnięte na poziomy ekran. */
+  #gallery:has(.reference-stage.loaded)>.adventure-panel,
+  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel {
+    display:block!important;
+    position:relative;
+    z-index:5;
+    flex:0 0 auto;
+    width:min(96%,1120px);
+    max-width:1120px;
+    margin:-28px auto 5px!important;
+    padding:clamp(12px,1.7vw,22px);
+    border:6px solid #b7783d;
+    border-radius:33px;
+    background-color:#f7dfa9;
+    background-image:
+      radial-gradient(#a56e3028 .7px,transparent 1px),
+      linear-gradient(165deg,#fffbe6 0%,#ffe7b0 65%,#edc788 100%);
+    background-size:12px 12px,auto;
+    box-shadow:0 7px 0 #80502e,0 13px 23px #16493455,inset 0 0 0 3px #ffebbf;
+  }
+  #gallery>.adventure-panel:before,
+  #gallery>.adventure-panel:after {
+    top:-13px;
+    width:clamp(48px,9vw,100px);
+    height:29px;
+    border-width:4px;
+  }
+  #gallery>.adventure-panel .section-head {
+    justify-content:center;
+    margin:3px 0 9px;
+    gap:5px 12px;
+    padding:0;
+  }
+  #gallery>.adventure-panel .section-head h2 {
+    font-size:clamp(1.45rem,3.2vw,2.3rem);
+  }
+  #gallery>.adventure-panel .section-kicker {
+    font-size:.61rem;
+  }
+  #gallery>.adventure-panel .gallery-tools {
+    margin:0 0 8px;
+  }
+  #gallery>.adventure-panel .adventure-filter-menu {
+    margin:0;
+  }
+  #gallery>.adventure-panel .adventure-filter-menu summary {
+    min-height:30px;
+    padding:3px 10px;
+    font-size:.72rem;
+  }
+  #gallery>.adventure-panel .cards {
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:clamp(5px,.85vw,12px);
+  }
+  #gallery>.adventure-panel .card {
+    padding:4px;
+    border-width:2px;
+    border-radius:10px;
+    box-shadow:0 3px 0 #a98782;
+  }
+  #gallery>.adventure-panel .card-art {
+    height:clamp(68px,13dvh,120px);
+    border-radius:7px;
+  }
+  #gallery>.adventure-panel .card-caption {
+    padding:4px 2px 2px;
+  }
+  #gallery>.adventure-panel .card-caption h3 {
+    font-size:clamp(.62rem,1.12vw,.9rem);
+  }
+  #gallery>.adventure-panel .card-meta {
+    margin-top:1px;
+  }
+  #gallery>.adventure-panel .card-meta .size {
+    font-size:.59rem;
+  }
+  #gallery>.adventure-panel .gallery-more {
+    min-height:34px;
+    margin:10px auto 5px;
+    padding:4px 18px;
+    font-size:.7rem;
+    border-width:2px;
+    border-radius:12px;
+  }
+
+  /* Dolna linia narzędzi jest częścią tego samego pergaminu. */
+  #gallery>.adventure-panel .adventure-create {
+    width:min(100%,560px);
+    min-height:45px;
+    margin:9px auto 10px;
+    padding:5px 14px;
+    border-width:3px;
+    font-size:clamp(.95rem,2.2vw,1.35rem);
+    box-shadow:0 3px 0 #226e19,0 0 0 2px #f4dd53,inset 0 3px #f9ffdd;
+  }
+  #gallery>.adventure-panel .adventure-shortcuts {
+    display:grid!important;
+    width:min(100%,670px);
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:8px;
+    margin:9px auto 6px;
+  }
+  #gallery>.adventure-panel .adventure-shortcut {
+    min-height:47px;
+    display:flex;
+    flex-direction:row;
+    border-width:3px;
+    border-radius:13px;
+    gap:5px;
+    padding:3px 5px;
+    box-shadow:0 3px 0 #7a3f7d,inset 0 2px #fce6ff;
+  }
+  #gallery>.adventure-panel .adventure-shortcut .mystery-icon,
+  #gallery>.adventure-panel .adventure-shortcut .shortcut-icon {
+    width:25px;height:25px;
+    font-size:1.4rem;
+  }
+  #gallery>.adventure-panel .adventure-shortcut .mystery-icon svg{
+    width:24px;height:24px;
+  }
+  #gallery>.adventure-panel .adventure-shortcut .mystery-copy strong {
+    font-size:clamp(.68rem,1.3vw,.9rem);
+  }
+  #gallery>.adventure-panel .adventure-tip{font-size:.68rem;margin:0}
+  /* Pozostałe funkcje są dostępne w aplikacji, nie dublujemy dodatkowych kart pod ekranem. */
+  #gallery>.adventure-panel .adventure-bonus {display:none!important;}
+
+  #gallery:has(.reference-stage.loaded)>.adventure-nav {
+    display:grid!important;
+    position:sticky;
+    z-index:7;
+    bottom:4px;
+    width:min(95%,900px);
+    max-width:900px;
+    min-height:57px;
+    margin:8px auto 10px;
+    border-width:4px;
+    border-radius:18px;
+    padding:3px 7px;
+    gap:3px;
+    grid-template-columns:repeat(4,1fr);
+  }
+  #gallery>.adventure-nav a {
+    min-height:48px;
+    flex-direction:row;
+    gap:5px;
+    padding:3px;
+    border-radius:11px;
+    font-size:clamp(.69rem,1.32vw,.9rem);
+  }
+  #gallery>.adventure-nav .nav-pict {
+    font-size:clamp(1.15rem,2vw,1.55rem);
+  }
+  #gallery:has(.reference-stage.loaded)>.site-footer {
+    display:block!important;
+    width:100%;
+    max-width:900px;
+    margin:2px auto 0;
+    padding:5px 15px 14px;
+    text-align:center;
+    font-size:.72rem;
+    color:#34583d;
+  }
+}
+
+/* Na ekranach poziomych o małej wysokości nadal można przewijać
+   bez nachodzenia elementów ani ukrywania przycisków. */
+@media (min-width:700px) and (orientation:landscape) and (max-height:530px) {
+  body.reference-ready .topbar{height:54px}
+  #gallery:has(.reference-stage.loaded)>.hero{height:140px}
+  #gallery>.hero .adventure-landmarks{top:22%}
+  #gallery>.adventure-panel .card-art{height:62px}
+  #gallery>.adventure-panel .card-meta{display:none}
+  #gallery>.adventure-panel .adventure-create{min-height:40px}
+  #gallery:has(.reference-stage.loaded)>.adventure-nav{position:relative;bottom:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #gallery .reference-canvas{transition:none!important}
+}
