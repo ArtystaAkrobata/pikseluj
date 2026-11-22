@@ -10,6 +10,7 @@ const MAGIC_VARIANTS={
 const magicDefs={
  animals:{title:'Zwierzątka',emoji:'🐱',desc:'Słodcy bohaterowie z charakterem',fields:[
   {key:'kind',title:'Wybierz zwierzaka',options:[['cat','Kotek','🐱'],['bear','Miś','🐻'],['bunny','Króliczek','🐰'],['fox','Lisek','🦊']]},
+  {key:'pose',title:'Jak wygląda Twój lisek?',options:[['sitting','Siedzący','🦊'],['head','Główka','😊'],['sleeping','Śpiący','💤'],['profile','Z profilu','🌿']]},
   {key:'eyes',title:'Jakie oczy?',options:[['sparkle','Błyszczące','✨'],['round','Duże','👀'],['happy','Wesołe','😊'],['wink','Mrugające','😉']]},
   {key:'mouth',title:'Jaka minka?',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😋'],['surprised','Zdziwiona','😮']]},
   {key:'extra',title:'Magiczny dodatek',options:[['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣'],['none','Bez ozdoby','🌟']]},
@@ -66,6 +67,10 @@ function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
  const d=magicDefs[magicState.category],o=magicState.values[magicState.category];
  const chosen=d.fields[0].options.find(item=>item[0]===o.kind);
+ if(magicState.category==='animals'&&o.kind==='fox'){
+  const pose={sitting:'siedzący',head:'główka',sleeping:'śpiący',profile:'z profilu'}[o.pose]||'siedzący';
+  return 'Mój lisek – '+pose;
+ }
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
 let magicShowGrid=false;
@@ -116,7 +121,10 @@ function magicRender(){
  }
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
  const variant=MAGIC_VARIANTS[magicState.size];
- document.getElementById('magic-category-name').textContent=def.emoji+' '+def.title;
+ document.getElementById('magic-category-name').textContent=
+   magicState.category==='animals'&&values.kind==='fox'
+     ?'🦊 Lisek · '+({sitting:'Siedzący',head:'Główka',sleeping:'Śpiący',profile:'Z profilu'}[values.pose]||'Siedzący')
+     :def.emoji+' '+def.title;
  const scene=document.getElementById('magic-art-scene');
  scene.dataset.category=magicState.category;
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
@@ -140,6 +148,10 @@ function magicRender(){
  const fields=document.getElementById('magic-fields');
  fields.replaceChildren();
  for(const field of def.fields){
+  if(magicState.category==='animals'){
+   if(values.kind==='fox'&&['eyes','mouth','extra'].includes(field.key))continue;
+   if(values.kind!=='fox'&&field.key==='pose')continue;
+  }
   const group=document.createElement('fieldset');group.className='magic-trait-group';
   const legend=document.createElement('legend');legend.textContent=field.title;
   const choices=document.createElement('div');choices.className='magic-trait-choices';
@@ -198,7 +210,15 @@ function magicRandomize(){
  magicHistory();
  const d=magicDefs[magicState.category],v=magicState.values[magicState.category],before=JSON.stringify(v);
  let tries=0;
- do{for(const f of d.fields)v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];tries++}
+ do{
+  for(const f of d.fields){
+   // Wybrany zwierzak pozostaje ten sam; losujemy jego wersję.
+   if(magicState.category==='animals'&&f.key==='kind')continue;
+   if(magicState.category==='animals'&&v.kind==='fox'&&['eyes','mouth','extra'].includes(f.key))continue;
+   v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
+  }
+  tries++;
+ }
  while(JSON.stringify(v)===before&&tries<6);
  magicState.name='';magicPersist();magicRender();magicMessage('✨ Nowa magiczna kombinacja!');magicCelebrate();
 }
@@ -277,7 +297,10 @@ const magicBestSets={
  animals:[
   {kind:'cat',eyes:'sparkle',mouth:'smile',extra:'flower',scene:'stars',color:'natural'},
   {kind:'bunny',eyes:'sparkle',mouth:'smile',extra:'bow',scene:'flowers',color:'w'},
-  {kind:'fox',eyes:'round',mouth:'smile',extra:'scarf',scene:'stars',color:'O'},
+  {kind:'fox',pose:'sitting',scene:'stars',color:'natural'},
+  {kind:'fox',pose:'head',scene:'hearts',color:'natural'},
+  {kind:'fox',pose:'sleeping',scene:'stars',color:'natural'},
+  {kind:'fox',pose:'profile',scene:'flowers',color:'natural'},
   {kind:'bear',eyes:'happy',mouth:'smile',extra:'crown',scene:'hearts',color:'n'},
   {kind:'cat',eyes:'wink',mouth:'tongue',extra:'bow',scene:'hearts',color:'p'},
   {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
@@ -303,7 +326,7 @@ function magicSuper(){
  if(!magicState.category)return;
  const category=magicState.category;
  magicHistory();
- const presets=magicBestSets[category];
+ const presets=category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
  const previous=JSON.stringify(magicState.values[category]);
  const picks=presets.filter(preset=>JSON.stringify({...magicState.values[category],...preset})!==previous);
  const selected=picks[Math.floor(Math.random()*picks.length)]||presets[0];
