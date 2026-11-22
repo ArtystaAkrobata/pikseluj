@@ -3139,6 +3139,11 @@ document.addEventListener('visibilitychange',() => {
 window.addEventListener('pagehide',stopWake);
 window.addEventListener('popstate',route);
 window.addEventListener('hashchange',route);
+const pikselujPortrait = matchMedia('(orientation: portrait)');
+if (pikselujPortrait.addEventListener) pikselujPortrait.addEventListener('change',() => {
+  // Po obróceniu tabletu wróć na początek jednej spójnej sceny Adventure.
+  if (!$('gallery').hidden) requestAnimationFrame(() => window.scrollTo(0,0));
+});
 route();
 </script>
 </body>
