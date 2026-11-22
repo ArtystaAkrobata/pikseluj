@@ -163,26 +163,56 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   filter:drop-shadow(0 2px 1px #592d4670);
 }
 
-.reference-stage .reference-mystery-label {
+/* Jeden, identyczny styl napisów dla 3 kafelków.
+   Pozostałe dwa tytuły były wcześniej nadrukiem w ilustracji —
+   delikatne maski zasłaniają nadruk, dzięki czemu nie dubluje się
+   z rzeczywistym tekstem HTML i wszystkie trzy można dalej edytować. */
+.reference-stage .reference-titled-tile {
+  overflow:hidden;
+  isolation:isolate;
+}
+.reference-stage .reference-titled-tile::before {
+  content:"";
   position:absolute;
   z-index:1;
+  left:3.5%;
+  right:3.5%;
+  top:60%;
+  bottom:8.5%;
+  border-radius:7px;
+  pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 23%,#000 83%,transparent);
+  mask-image:linear-gradient(to bottom,transparent,#000 23%,#000 83%,transparent);
+}
+.reference-stage .r-projects.reference-titled-tile::before {
+  background:linear-gradient(180deg,#b54de9 0%,#a741df 52%,#953bd2 100%);
+}
+.reference-stage .r-editor.reference-titled-tile::before {
+  background:linear-gradient(180deg,#269ff1 0%,#1a90e8 52%,#1178d1 100%);
+}
+.reference-stage .reference-tile-label {
+  position:absolute;
+  z-index:2;
   display:flex;
   align-items:center;
   justify-content:center;
-  inset:66% 1% 9%;
+  inset:63.5% 1.5% 10%;
   width:auto;
   margin:0;
   padding:0;
   white-space:nowrap;
-  font-family:ui-rounded,"Arial Rounded MT Bold",system-ui,"Trebuchet MS",sans-serif;
-  font-size:clamp(17px,4.4vw,34px);
-  line-height:1;
-  letter-spacing:-.055em;
-  font-weight:950;
-  color:#fff9f3;
-  -webkit-text-stroke:1.1px #60304b;
+  font-family:ui-rounded,system-ui,"Arial Rounded MT Bold",sans-serif;
+  font-size:clamp(11px,3.5vw,27px);
+  line-height:1.04;
+  letter-spacing:-.032em;
+  font-weight:800;
+  color:#fffdf9;
+  -webkit-text-stroke:.4px #68425e;
   paint-order:stroke fill;
-  text-shadow:0 3px 0 #6e3044,2px 2px 1px #58263d,-2px 2px 1px #58263d,0 4px 3px #462344a6;
+  text-shadow:0 2px 1px #57354e,0 3px 3px #3f2d568f;
+}
+.reference-stage .reference-mystery-tile .reference-tile-label {
+  inset:63.5% 1.5% 10%;
 }
 .reference-stage .reference-mystery-tile:active {
   transform:translateY(2px);
@@ -199,6 +229,6 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   filter:drop-shadow(0 2px 1px #502e6f70);
 }
 @media(max-width:360px) {
-  .reference-stage .reference-mystery-label {font-size:clamp(14px,4.1vw,17px)}
+  .reference-stage .reference-tile-label {font-size:clamp(10px,3.35vw,14px)}
   .reference-stage .reference-mystery-tile .mystery-lock-icon{top:8%;height:58%}
 }
