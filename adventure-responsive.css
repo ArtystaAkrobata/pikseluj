@@ -369,3 +369,19 @@
 @media(prefers-reduced-motion:reduce){
   #gallery .reference-canvas{transition:none!important}
 }
+
+/* W stanie filtrowania nadal zachowaj jeden spójny ekran i narzędzia. */
+@media (min-width:700px) and (orientation:landscape) {
+ #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-create{
+   display:flex!important;
+ }
+ #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-shortcuts{
+   display:grid!important;
+ }
+ #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-bonus{
+   display:none!important;
+ }
+ #gallery.adventure-explore:has(.reference-stage.loaded)>.site-footer{
+   display:block!important;
+ }
+}
