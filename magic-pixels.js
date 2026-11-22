@@ -128,7 +128,7 @@ function magicRender(){
  const scene=document.getElementById('magic-art-scene');
  scene.dataset.category=magicState.category;
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
- document.getElementById('magic-size-hint').textContent='📄 Zalecana kartka: '+variant.sheet+' · 1 kratka = 5 mm';
+ document.getElementById('magic-size-hint').textContent='📄 Zalecana kartka: '+variant.sheet+' · 1 kratka = 5 mm'+(magicState.category==='animals'&&values.kind==='fox'&&magicState.size==='easy'?' · Prosty wzór bez dekoracji':'');
  const levelSelect=document.getElementById('magic-size');
  levelSelect.value=magicState.size;
  const levels=document.getElementById('magic-levels');
@@ -150,6 +150,7 @@ function magicRender(){
  for(const field of def.fields){
   if(magicState.category==='animals'){
    if(values.kind==='fox'&&['eyes','mouth','extra'].includes(field.key))continue;
+   if(values.kind==='fox'&&magicState.size==='easy'&&field.key==='scene')continue;
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
   const group=document.createElement('fieldset');group.className='magic-trait-group';
