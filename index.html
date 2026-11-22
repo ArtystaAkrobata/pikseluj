@@ -3464,6 +3464,7 @@ function renderAlbum() {
     remove.type='button';
     remove.setAttribute('aria-label','Usuń z albumu: '+item.name);
     remove.addEventListener('click',async()=>{
+      if(!window.confirm('Czy na pewno chcesz usunąć „'+item.name+'” z Kolekcji?\n\nJeśli dodano zdjęcie tej pracy, zostanie usunięte razem z nią.'))return;
       remove.disabled=true;
       try{
         const backup=PikselujPhotos.supported()?await PikselujPhotos.get(key):null;
