@@ -255,3 +255,34 @@ body.reference-ready:has(#gallery:not([hidden])) {
     margin:-3px auto 6px!important;
   }
 }
+
+/* Niespodzianka jest dostępna również na tablecie/telefonie w poziomie.
+   Przy krótkim ekranie nie rozpycha pergaminu. */
+@media(min-width:700px) and (orientation:landscape){
+  #gallery>.adventure-panel .adventure-surprise-ribbon{
+    display:flex!important;
+    width:min(100%,560px);
+    min-height:41px;
+    margin:5px auto 9px;
+    padding:5px 9px;
+    border-width:2px;
+    border-radius:13px;
+    gap:8px;
+    box-shadow:0 2px 0 #8d5629,inset 0 2px #fff9d7;
+  }
+  #gallery>.adventure-panel .adventure-surprise-ribbon .mystery-icon{
+    width:29px;height:29px;border-radius:9px;
+  }
+  #gallery>.adventure-panel .adventure-surprise-ribbon .mystery-icon svg{
+    width:20px;height:20px;
+  }
+  #gallery>.adventure-panel .adventure-surprise-ribbon .mystery-copy strong{
+    font-size:clamp(.76rem,1.5vw,.94rem);
+  }
+  #gallery>.adventure-panel .adventure-surprise-ribbon .mystery-copy small{
+    font-size:clamp(.58rem,1.05vw,.7rem);
+  }
+  #gallery>.adventure-panel .adventure-surprise-ribbon .mystery-call{
+    font-size:.68rem;padding:4px 8px;
+  }
+}
