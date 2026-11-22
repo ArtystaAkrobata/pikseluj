@@ -223,3 +223,35 @@ body.reference-ready:has(#gallery:not([hidden])) {
 @media(prefers-reduced-motion:reduce){
   #gallery .reference-canvas{transition:none!important}
 }
+
+/* Telefon w poziomie (bardzo szeroki i niski ekran).
+   Wcześniejsze max-height:530px zmniejszało baner do ~145px,
+   przez co drogowskazy zakrywały dolną połowę napisu Pikseluj.
+   Tabletów w poziomie nie zmieniamy. */
+@media (min-width:700px) and (orientation:landscape)
+       and (max-height:530px) and (min-aspect-ratio:17/9) {
+  #gallery:has(.reference-stage.loaded)>.hero {
+    height:clamp(290px,82dvh,355px);
+    min-height:290px;
+    background-position:center top!important;
+    background-size:100% 100%,100% auto!important;
+  }
+  #gallery>.hero .adventure-landmarks {
+    top:auto;
+    bottom:12px;
+    height:auto;
+    align-items:end;
+  }
+  #gallery>.hero .adventure-landmark {
+    min-height:44px;
+    padding:6px 4px;
+    font-size:clamp(.72rem,1.6vw,1rem);
+  }
+  #gallery>.hero .adventure-landmark:before {
+    height:12px;
+    bottom:-14px;
+  }
+  #gallery:has(.reference-stage.loaded)>.adventure-panel {
+    margin:-3px auto 6px!important;
+  }
+}
