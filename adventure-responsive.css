@@ -290,11 +290,11 @@ body.reference-ready:has(#gallery:not([hidden])) {
 /* Wspólna typografia również w poziomym układzie (galeria na pergaminie). */
 #gallery .adventure-shortcuts .adventure-shortcut strong,
 #gallery .adventure-shortcuts .adventure-shortcut .mystery-copy strong {
-  font-family:ui-rounded,system-ui,"Arial Rounded MT Bold",sans-serif;
+  font-family:"DynaPuff",ui-rounded,"Trebuchet MS",system-ui,sans-serif;
   font-weight:800;
-  font-size:clamp(.73rem,1.45vw,1rem);
-  line-height:1.04;
-  letter-spacing:-.032em;
+  font-size:clamp(.73rem,1.35vw,1rem);
+  line-height:1.05;
+  letter-spacing:-.045em;
   color:#fffdf9;
   -webkit-text-stroke:.3px #68425e;
   paint-order:stroke fill;
