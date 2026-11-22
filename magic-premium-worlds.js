@@ -41,6 +41,11 @@ const MagicPremiumArt=(()=>{
    for(let xx=x-1;xx<=x+ww;xx+=Math.max(2,Math.floor(ww/3)))
     g.rect(xx,top-4,Math.min(2,ww),2,'n');
    if(d>=1)g.rect(x+Math.floor(ww/2),top+Math.max(3,Math.floor((bottom-top)*.3)),1,Math.max(2,sc),'Y');
+   if(d>=2){
+    g.poly([[x-2,top-2],[x+ww/2,top-Math.max(5,Math.round(h*.12))],[x+ww+2,top-2]],'k');
+    g.poly([[x,top-2],[x+ww/2,top-Math.max(3,Math.round(h*.1))],[x+ww,top-2]],'r');
+    g.set(x+Math.floor(ww/2),top-3,'Y');
+   }
   }
   if(kind==='castle'){
    const left=Math.round(w*.22),right=Math.round(w*.78);
@@ -84,7 +89,7 @@ const MagicPremiumArt=(()=>{
    tree(Math.round(w*.76),Math.round(h*.2),Math.round(h*.47));
    const x=Math.round(w*.5),y=horizon+2;
    g.rect(x-1,y,2,Math.max(3,Math.round(h*.11)),'c');
-   g.ring(x,y,Math.max(3,w*.115),Math.max(2,w*.09),'r');
+   g.ring(x,y,Math.max(3,w*.115),Math.max(2,w*.09),theme.base);
    g.set(x-2,y-1,'w');g.set(x+2,y,'w');
    if(d>=1){
     g.set(x,y,'H');g.set(x+1,y+1,'w');
@@ -96,7 +101,7 @@ const MagicPremiumArt=(()=>{
    const roof=Math.round(h*.41),floor=horizon+2;
    g.roundedRing(xx,roof+Math.max(3,Math.round(h*.1)),ww,Math.max(3,floor-roof),2,'c');
    g.poly([[xx-2,roof+Math.round(h*.15)],[w/2,roof-3],[xx+ww+2,roof+Math.round(h*.15)]],'k');
-   g.poly([[xx+1,roof+Math.round(h*.12)],[w/2,roof],[xx+ww-1,roof+Math.round(h*.12)]],'r');
+   g.poly([[xx+1,roof+Math.round(h*.12)],[w/2,roof],[xx+ww-1,roof+Math.round(h*.12)]],theme.base);
    const dx=Math.round(w*.47),dy=floor-Math.round(h*.13);
    g.roundedRing(dx,dy,Math.max(3,Math.round(w*.12)),Math.max(4,Math.round(h*.12)),2,'n');
    if(d>=1)for(const x of [xx+2,xx+ww-4]){
@@ -115,9 +120,9 @@ const MagicPremiumArt=(()=>{
    const ww=Math.max(5,Math.round(w*.26)),hh=horizon-y+Math.round(h*.12);
    g.roundedRing(x,y,ww,hh,Math.max(1,sc),'w');
    const band=Math.max(2,Math.round(hh*.13));
-   g.rect(x+1,y+Math.round(hh*.38),ww-2,band,'r');
-   if(d>=2)g.rect(x+1,y+Math.round(hh*.68),ww-2,band,'r');
-   g.rect(x-2,y-3,ww+4,4,'k');g.rect(x-1,y-2,ww+2,2,'r');
+   g.rect(x+1,y+Math.round(hh*.38),ww-2,band,theme.base);
+   if(d>=2)g.rect(x+1,y+Math.round(hh*.68),ww-2,band,theme.base);
+   g.rect(x-2,y-3,ww+4,4,'k');g.rect(x-1,y-2,ww+2,2,theme.base);
    g.rect(x+Math.round(ww*.28),y-8,Math.max(2,Math.round(ww*.45)),6,'k');
    g.rect(x+Math.round(ww*.28)+1,y-7,Math.max(1,Math.round(ww*.45)-2),4,'Y');
    g.rect(x+Math.round(ww*.49),y-11,1,3,'n');
@@ -129,6 +134,30 @@ const MagicPremiumArt=(()=>{
   if(kind!=='sea'&&d>=1){
    flower(Math.round(w*.08),h-3);
    flower(Math.round(w*.9),h-3);
+  }
+  if(d>=3){
+   // Dodatki zależne od krainy: powtarzalne i dopracowane, bez przypadkowych plamek.
+   if(kind==='castle'){
+    g.rect(Math.round(w*.15),Math.round(h*.43),2,5,'n');
+    g.poly([[w*.13,h*.43],[w*.15,h*.38],[w*.19,h*.43]],'r');
+    g.rect(Math.round(w*.84),Math.round(h*.44),2,5,'n');
+    g.poly([[w*.81,h*.44],[w*.85,h*.39],[w*.89,h*.44]],'r');
+   }else if(kind==='forest'){
+    for(const x of [Math.round(w*.28),Math.round(w*.55)]){
+     const y=horizon+Math.round((h-horizon)*.33);
+     g.rect(x,y,2,4,'c');g.oval(x+1,y,3,2,theme.base);
+     g.set(x-1,y-1,'w');g.set(x+2,y,'w');
+    }
+   }else if(kind==='garden'){
+    g.rect(Math.round(w*.2),horizon+3,Math.round(w*.18),1,'w');
+    g.rect(Math.round(w*.65),horizon+3,Math.round(w*.16),1,'w');
+    g.poly([[w*.43,horizon+2],[w*.57,horizon+2],[w*.68,h],[w*.32,h]],'e');
+   }else{
+    g.line(Math.round(w*.64),Math.round(h*.27),Math.round(w*.68),Math.round(h*.25),'k');
+    g.line(Math.round(w*.68),Math.round(h*.25),Math.round(w*.72),Math.round(h*.27),'k');
+    g.line(Math.round(w*.74),Math.round(h*.32),Math.round(w*.78),Math.round(h*.3),'k');
+    g.line(Math.round(w*.78),Math.round(h*.3),Math.round(w*.82),Math.round(h*.32),'k');
+   }
   }
   if(o.extra==='stars'){
    g.sparkle(Math.max(3,Math.round(w*.17)),Math.max(3,Math.round(h*.17)),'H');
