@@ -288,7 +288,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
-<link rel="stylesheet" href="./adventure-reference.css?v=adventure-07">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-08">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-04">
 </head>
 <body>
@@ -307,7 +307,6 @@ h1, h2, h3, p { margin:0 }
       <button type="button" class="reference-hit r-sport" data-adventure-group="sport" aria-label="Sport — zobacz obrazki"></button>
       <button type="button" class="reference-hit r-food" data-adventure-group="slodkosci" aria-label="Jedzenie — zobacz obrazki"></button>
       <button type="button" class="reference-hit r-fantasy" data-adventure-group="fantazja" aria-label="Fantazja — zobacz obrazki"></button>
-      <a class="reference-surprise" href="#zagadka" aria-label="Rysunek niespodzianka — dotknij magicznej chorągiewki z sercem" title="Rysunek niespodzianka"><span class="surprise-present" aria-hidden="true">✦</span><span class="surprise-label">Niespodzianka</span></a>
       <a class="reference-hit r-tile1" href="#wzor/piksel-kotek" aria-label="Otwórz wzór Kotek"></a>
       <a class="reference-hit r-tile2" href="#wzor/piksel-motyl" aria-label="Otwórz wzór Motyl"></a>
       <a class="reference-hit r-tile3" href="#wzor/piksel-lody" aria-label="Otwórz wzór Lody w rożku"></a>
@@ -317,7 +316,23 @@ h1, h2, h3, p { margin:0 }
       <a class="reference-hit r-create" href="#kreator" aria-label="Stwórz własny projekt"></a>
       <a class="reference-hit r-projects" href="#moje" aria-label="Moje projekty"></a>
       <a class="reference-hit r-editor" href="#kreator" aria-label="Kreator obrazków"></a>
-      <button type="button" class="reference-hit r-print" id="reference-print" aria-label="Wybierz obrazek do drukowania"></button>
+      <a class="reference-hit r-print reference-mystery-tile" id="reference-mystery" href="#zagadka" aria-label="Tajemnica — odkryj ukryty rysunek">
+         <svg class="mystery-treasure-icon" viewBox="0 0 112 100" aria-hidden="true">
+           <defs>
+             <linearGradient id="mystery-purple" x1="0" x2="0.85" y1="0" y2="1"><stop stop-color="#ecbeff"/><stop offset=".4" stop-color="#a65be0"/><stop offset="1" stop-color="#6c34a7"/></linearGradient>
+             <linearGradient id="mystery-gold" x1="0" x2="0.6" y1="0" y2="1"><stop stop-color="#fff9ba"/><stop offset="1" stop-color="#f1af30"/></linearGradient>
+           </defs>
+           <path d="M23 40V26Q56 5 89 26V40" fill="#b66de9" stroke="#4d276f" stroke-width="7" stroke-linejoin="round"/>
+           <rect x="16" y="37" width="80" height="49" rx="10" fill="url(#mystery-purple)" stroke="#42245f" stroke-width="7"/>
+           <path d="M21 57H91" stroke="#e8a0ff" stroke-width="6"/>
+           <path d="M44 37H68V66H44Z" fill="url(#mystery-gold)" stroke="#884414" stroke-width="5"/>
+           <text x="56" y="62" font-size="23" font-weight="1000" font-family="sans-serif" text-anchor="middle" fill="#72335e">?</text>
+           <path d="M13 13 16 22 25 25 16 28 13 37 10 28 1 25 10 22Z" fill="#fff2a0" stroke="#f0bc50" stroke-width="2"/>
+           <path d="M98 6 101 16 111 19 101 22 98 32 95 22 85 19 95 16Z" fill="#fff2a0" stroke="#f0bc50" stroke-width="2"/>
+           <path d="M100 66 102 73 109 75 102 77 100 84 98 77 91 75 98 73Z" fill="#fff6be"/>
+         </svg>
+         <span class="reference-mystery-label">Tajemnica</span>
+       </a>
       <a class="reference-hit r-start reference-home" href="#galeria" aria-label="Start"></a>
       <a class="reference-hit r-map reference-home" href="#galeria" aria-label="Mapa"></a>
       <a class="reference-hit r-achievements" href="#album" aria-label="Osiągnięcia i ukończone obrazki"></a>
@@ -347,11 +362,6 @@ h1, h2, h3, p { margin:0 }
         <div><span class="section-kicker">📜 Twoja kolekcja przygód</span><h2 id="gallery-heading">Wybierz obrazek</h2></div>
         <span class="count" id="count" role="status"></span>
       </div>
-      <a href="#zagadka" id="mystery-card" class="mystery-card adventure-surprise-ribbon" aria-labelledby="mystery-card-title" aria-describedby="mystery-card-subtitle">
-        <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#ffcf7d" d="M5 2h6v2h2v4h-2v2H9v2H7V8h2V6h2v2H7z"/></svg></span>
-        <span class="mystery-copy"><strong id="mystery-card-title">🎁 Rysunek niespodzianka</strong><small id="mystery-card-subtitle">Odkryj tajemniczy obrazek kratka po kratce</small></span>
-        <span class="mystery-call" aria-hidden="true">Odkryj</span>
-      </a>
       <a href="#galeria" class="studio-launch resume-card" id="resume-card" aria-labelledby="resume-title" aria-describedby="resume-line" hidden>
         <span class="mystery-icon" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h10M4 8h7M4 12h5m-5 4h3m6-7 5 4-5 4z"/></svg></span>
         <span class="mystery-copy"><strong id="resume-title">Dokończ rysunek</strong><small id="resume-line"></small></span>
@@ -371,7 +381,7 @@ h1, h2, h3, p { margin:0 }
         <span class="mystery-call" aria-hidden="true">Otwórz</span>
       </a>
         <a href="#kreator" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🪄</span><strong>Kreator</strong></a>
-        <button type="button" id="adventure-print" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🖨️</span><strong>Drukuj</strong></button>
+        <a href="#zagadka" id="adventure-mystery" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🔮</span><strong>Tajemnica</strong></a>
       </div>
       <p id="adventure-print-hint" class="adventure-tip" role="status" hidden>Wybierz obrazek. Opcja drukowania znajduje się w jego podglądzie.</p>
       <div class="adventure-bonus">
@@ -1861,10 +1871,6 @@ for (const sign of document.querySelectorAll('[data-adventure-group]')) {
     }));
   });
 }
-$('adventure-print').addEventListener('click', () => {
-  navigateGalleryMode('all',{print:true});
-  $('cards').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
-});
 
 // Wierne Adventure: grafika referencyjna i interaktywne strefy.
 const adventureReference = $('adventure-reference');
@@ -1877,11 +1883,6 @@ const activateAdventureReference = () => {
 };
 adventureReferenceImage.addEventListener('load',activateAdventureReference);
 if (adventureReferenceImage.complete) activateAdventureReference();
-$('reference-print').addEventListener('click',() => {
-  navigateGalleryMode('all',{print:true});
-  $('adventure-filter-menu').open = true;
-  requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:'smooth',block:'start'}));
-});
 for (const link of document.querySelectorAll('.reference-home')) link.addEventListener('click',(event) => {
   if (!plainLink(event)) return;
   event.preventDefault();
@@ -3125,7 +3126,7 @@ function route() {
   renderJourneyHome();
   document.title = 'Pikseluj — Kraina pikselowych przygód';
   if (previous !== 'gallery') {
-    const card = !old || old.own ? $('studio-launch') : old === mystery ? $('mystery-card') : $('card-title-' + old.id)?.closest('a');
+    const card = !old || old.own ? $('studio-launch') : old === mystery ? (matchMedia('(min-width:700px) and (orientation:landscape)').matches ? $('adventure-mystery') : $('reference-mystery')) : $('card-title-' + old.id)?.closest('a');
     window.scrollTo(0,lastGalleryY);
     card?.focus({preventScroll:true});
   }
