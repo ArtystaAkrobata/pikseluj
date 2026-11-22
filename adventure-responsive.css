@@ -1,387 +1,225 @@
-/* Pikseluj Adventure — poprawny responsywny ekran główny.
-   Orientacja decyduje o układzie, nie sama szerokość urządzenia.
-   Telefon pionowy = projekt 1:1; tablet pionowy = ten sam pełny obraz;
-   tablet poziomy = jedna szeroka, połączona kraina (bez dwóch kolumn). */
+/* PIKSELUJ Adventure — spójny responsywny świat, bez wymuszonego przeskoku.
+   Pion: oryginalna interaktywna ilustracja. Poziom: ten sam rysunek jako
+   panoramiczna sceneria i jedna pergaminowa galeria; żadnych dwóch paneli. */
+:root{--adventure-art:url("https://d2ol7oe51mr4n9.cloudfront.net/user_387mp2dEwLb25gJ3bfC9Ndvt4r4/563156ba-3093-42dc-9cdb-39e7bf1b92a5.png")}
+html:has(body.reference-ready #gallery:not([hidden])) {
+  overflow-anchor:none;
+  scroll-behavior:auto;
+}
+body.reference-ready:has(#gallery:not([hidden])) {
+  overflow-x:hidden;
+}
 
-/* Pionowe tablety: taki sam pojedynczy ekran jak na telefonie. */
+/* Tablet pionowo: identyczny, pełny projekt co na telefonie. */
 @media (min-width:700px) and (orientation:portrait) {
-  html:has(body.reference-ready #gallery:not([hidden])) {
-    background:#8e5837;
+  html:has(body.reference-ready #gallery:not([hidden])),
+  body.reference-ready:has(#gallery:not([hidden])){background:#8e5837}
+  #gallery:has(.reference-stage.loaded){
+    display:block;width:100%;max-width:none;min-height:100dvh;
+    margin:0;padding:0;overflow:visible;
   }
-  body.reference-ready:has(#gallery:not([hidden])) {
-    background:#8e5837;
-    min-height:100dvh;
-    overflow-x:hidden;
+  #gallery .reference-stage.loaded{
+    display:block;position:relative;inset:auto;
+    width:100vw;max-width:none;height:100dvh;min-height:100dvh;
+    margin:0;padding:0;aspect-ratio:auto;border:0;border-radius:0;
+    box-shadow:none;overflow:hidden;
   }
-  #gallery:has(.reference-stage.loaded) {
-    display:block;
-    width:100%;
-    max-width:none;
-    min-height:100dvh;
-    margin:0;
-    padding:0;
+  #gallery .reference-stage .reference-canvas{
+    position:absolute;inset:0;top:0;left:0;transform:none;
+    width:100%;height:100%;aspect-ratio:auto;
   }
-  #gallery .reference-stage.loaded {
-    display:block;
-    position:relative;
-    width:100vw;
-    max-width:none;
-    min-height:100dvh;
-    height:100dvh;
-    margin:0;
-    padding:0;
-    aspect-ratio:auto;
-    border:0;
-    border-radius:0;
-    box-shadow:none;
-    overflow:hidden;
-  }
-  #gallery .reference-stage .reference-canvas {
-    position:absolute;
-    inset:0;
-    width:100%;
-    height:100%;
-    aspect-ratio:auto;
-    transform:none;
-  }
-  #gallery .reference-stage .reference-canvas>img {
-    object-fit:fill;
-    width:100%;
-    height:100%;
+  #gallery .reference-stage .reference-canvas>img{
+    width:100%;height:100%;object-fit:fill;
   }
   #gallery:has(.reference-stage.loaded)>.hero,
   #gallery:has(.reference-stage.loaded)>.adventure-nav,
-  #gallery:has(.reference-stage.loaded)>.site-footer {
-    display:none!important;
-  }
-  #gallery:has(.reference-stage.loaded)>.adventure-panel {
-    display:none!important;
-  }
-  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel {
-    display:block!important;
-    width:min(94vw,760px);
-    max-width:100%;
-    margin:16px auto 30px!important;
+  #gallery:has(.reference-stage.loaded)>.site-footer{display:none!important}
+  #gallery:has(.reference-stage.loaded)>.adventure-panel{display:none!important}
+  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel{
+    display:block!important;width:min(94vw,760px);
+    max-width:100%;margin:14px auto 28px!important;
   }
   #gallery.adventure-explore:has(.reference-stage.loaded)>.site-footer{
     display:block!important;
   }
 }
 
-/* Krajobraz tabletów: JEDEN szeroki świat, a nie dwa osobne okna. */
+/* Tablet poziomo: JEDEN ekran z tym samym obrazem bazowym.
+   Przełącza się rozłożenie komponentów, nie ilustracja i marka. */
 @media (min-width:700px) and (orientation:landscape) {
-  html:has(body.reference-ready #gallery:not([hidden])) {
-    background:#4fae77;
+  html:has(body.reference-ready #gallery:not([hidden])){
+    background:#357e55;
   }
-  body.reference-ready:has(#gallery:not([hidden])) {
+  body.reference-ready:has(#gallery:not([hidden])){
     min-height:100dvh;
-    overflow-x:hidden;
     background:
-      linear-gradient(180deg,#87d9ff10 0%,#2d884b1d 60%,#386d2a28 100%),
-      url("./assets/adventure-premium-world.svg") center center / cover fixed no-repeat,
-      #69bb7c;
+      linear-gradient(180deg,#2f79462e 0%,#27623b69 100%),
+      var(--adventure-art) center top / cover fixed no-repeat,
+      #438c61;
   }
-  body.reference-ready:has(#gallery:not([hidden])) .site-header {
-    display:block!important;
-    position:relative;
-    z-index:8;
-    background:transparent!important;
-    margin:0;
-  }
-  body.reference-ready .topbar {
-    height:clamp(67px,15dvh,96px);
-    min-height:0;
-    padding-top:clamp(6px,2dvh,12px);
-  }
-  body.reference-ready .brand {
-    font-size:clamp(1.65rem,3.9vw,2.8rem);
-    padding:3px 22px 9px;
-    border-width:5px;
-  }
-  body.reference-ready .brand:before,
-  body.reference-ready .brand:after {
-    top:-47px;
-    height:48px;
-    width:7px;
-  }
-  body.reference-ready .brand-mark {
-    width:30px;
-    height:30px;
-    grid-template-columns:repeat(2,6px);
-    gap:3px;
-    border-width:2px;
-  }
-  body.reference-ready .brand-mark i { width:6px;height:6px; }
-
-  #gallery:has(.reference-stage.loaded) {
-    display:flex;
-    flex-direction:column;
-    align-items:stretch;
-    justify-content:flex-start;
-    width:100%;
-    max-width:none;
-    min-height:calc(100dvh - 74px);
-    padding:0 0 max(10px,env(safe-area-inset-bottom));
-    margin:0;
-    overflow:visible;
-    gap:0;
-  }
-  #gallery .reference-stage.loaded {
+  body.reference-ready:has(#gallery:not([hidden])) .site-header{
     display:none!important;
   }
-  /* Mapa jest jednym panoramicznym tłem. */
-  #gallery:has(.reference-stage.loaded)>.hero {
-    display:block!important;
-    width:100%;
-    max-width:none;
-    flex:0 0 auto;
-    height:clamp(155px,29dvh,280px);
-    min-height:0;
-    margin:0!important;
-    border:0;
-    border-radius:0;
-    background:transparent!important;
-    box-shadow:none;
-    overflow:visible;
+  #gallery:has(.reference-stage.loaded){
+    display:flex;flex-direction:column;align-items:center;
+    justify-content:flex-start;width:100%;max-width:none;
+    min-height:100dvh;margin:0;padding:0 0 max(9px,env(safe-area-inset-bottom));
+    overflow:visible;gap:0;
   }
-  #gallery>.hero:before,
-  #gallery>.hero:after {display:none!important;}
-  #gallery>.hero .hero-copy,
-  #gallery>.hero .hero-art {display:none!important;}
-  #gallery>.hero .adventure-magic {z-index:1;}
-  #gallery>.hero .adventure-landmarks {
-    z-index:4;
-    position:absolute;
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:clamp(7px,1.4vw,20px);
-    align-content:center;
-    align-items:center;
-    left:50%;
-    top:30%;
-    bottom:auto;
-    right:auto;
-    width:min(96%,1040px);
-    height:58%;
-    transform:translateX(-50%);
-    pointer-events:none;
-  }
-  #gallery>.hero .adventure-landmark {
-    position:relative;
-    top:auto;
-    right:auto;
-    bottom:auto;
-    left:auto;
-    min-width:0;
-    width:100%;
-    min-height:clamp(44px,9dvh,62px);
-    padding:5px 5px;
-    border-width:3px;
-    border-radius:13px;
-    font-size:clamp(.85rem,2vw,1.22rem);
-    transform:rotate(0deg);
-    box-shadow:0 4px 0 #6b351b,0 7px 10px #23482175,inset 0 2px #f4d29b;
-    pointer-events:auto;
-  }
-  #gallery>.hero .adventure-landmark:before {
-    bottom:-19px;height:18px;width:8px;
-  }
-  #gallery>.hero .adventure-landmark .zone-emoji {
-    font-size:clamp(1.05rem,2.5vw,1.5rem);
-  }
-
-  /* Pergamin tworzy centrum JEDNEJ sceny, rozciągnięte na poziomy ekran. */
-  #gallery:has(.reference-stage.loaded)>.adventure-panel,
-  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel {
-    display:block!important;
-    position:relative;
-    z-index:5;
-    flex:0 0 auto;
-    width:min(96%,1120px);
-    max-width:1120px;
-    margin:-28px auto 5px!important;
-    padding:clamp(12px,1.7vw,22px);
-    border:6px solid #b7783d;
-    border-radius:33px;
-    background-color:#f7dfa9;
+  #gallery .reference-stage.loaded{display:none!important}
+  /* To jest ORYGINALNY obrazek z telefonu, jego górna część. */
+  #gallery:has(.reference-stage.loaded)>.hero{
+    display:block!important;position:relative;width:100%;max-width:none;
+    height:clamp(190px,40dvh,370px);min-height:0;
+    flex:0 0 auto;margin:0!important;border:0;border-radius:0;
+    overflow:visible;box-shadow:none;
+    background-color:#79ccff!important;
     background-image:
-      radial-gradient(#a56e3028 .7px,transparent 1px),
-      linear-gradient(165deg,#fffbe6 0%,#ffe7b0 65%,#edc788 100%);
-    background-size:12px 12px,auto;
-    box-shadow:0 7px 0 #80502e,0 13px 23px #16493455,inset 0 0 0 3px #ffebbf;
+      linear-gradient(180deg,transparent 65%,#50a45a25 100%),
+      var(--adventure-art)!important;
+    background-position:center top!important;
+    background-size:100% 100%,100% auto!important;
+    background-repeat:no-repeat!important;
   }
-  #gallery>.adventure-panel:before,
-  #gallery>.adventure-panel:after {
-    top:-13px;
-    width:clamp(48px,9vw,100px);
-    height:29px;
-    border-width:4px;
+  #gallery>.hero:before,#gallery>.hero:after,
+  #gallery>.hero .hero-copy,
+  #gallery>.hero .hero-art{display:none!important}
+  #gallery>.hero .adventure-magic{z-index:1}
+  #gallery>.hero .adventure-landmarks{
+    position:absolute;z-index:5;pointer-events:none;
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:clamp(7px,1.5vw,22px);align-items:center;
+    inset:auto auto 9% 50%;transform:translateX(-50%);
+    width:min(96%,1080px);height:auto;
   }
-  #gallery>.adventure-panel .section-head {
-    justify-content:center;
-    margin:3px 0 9px;
-    gap:5px 12px;
-    padding:0;
+  #gallery>.hero .adventure-landmark{
+    position:relative;inset:auto;display:flex;flex-direction:row;
+    width:100%;min-width:0;min-height:clamp(43px,8dvh,60px);
+    padding:5px 6px;border-width:3px;border-radius:13px;
+    font-size:clamp(.8rem,1.7vw,1.2rem);gap:4px;
+    transform:none!important;pointer-events:auto;
+    box-shadow:0 4px 0 #744119,0 8px 12px #24492b8c,inset 0 2px #f3cf95;
   }
-  #gallery>.adventure-panel .section-head h2 {
-    font-size:clamp(1.45rem,3.2vw,2.3rem);
+  #gallery>.hero .adventure-landmark:before{
+    bottom:-20px;height:19px;width:8px;
   }
-  #gallery>.adventure-panel .section-kicker {
-    font-size:.61rem;
-  }
-  #gallery>.adventure-panel .gallery-tools {
-    margin:0 0 8px;
-  }
-  #gallery>.adventure-panel .adventure-filter-menu {
-    margin:0;
-  }
-  #gallery>.adventure-panel .adventure-filter-menu summary {
-    min-height:30px;
-    padding:3px 10px;
-    font-size:.72rem;
-  }
-  #gallery>.adventure-panel .cards {
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    gap:clamp(5px,.85vw,12px);
-  }
-  #gallery>.adventure-panel .card {
-    padding:4px;
-    border-width:2px;
-    border-radius:10px;
-    box-shadow:0 3px 0 #a98782;
-  }
-  #gallery>.adventure-panel .card-art {
-    height:clamp(68px,13dvh,120px);
-    border-radius:7px;
-  }
-  #gallery>.adventure-panel .card-caption {
-    padding:4px 2px 2px;
-  }
-  #gallery>.adventure-panel .card-caption h3 {
-    font-size:clamp(.62rem,1.12vw,.9rem);
-  }
-  #gallery>.adventure-panel .card-meta {
-    margin-top:1px;
-  }
-  #gallery>.adventure-panel .card-meta .size {
-    font-size:.59rem;
-  }
-  #gallery>.adventure-panel .gallery-more {
-    min-height:34px;
-    margin:10px auto 5px;
-    padding:4px 18px;
-    font-size:.7rem;
-    border-width:2px;
-    border-radius:12px;
+  #gallery>.hero .adventure-landmark .zone-emoji{
+    font-size:clamp(1.05rem,2.25vw,1.6rem);
   }
 
-  /* Dolna linia narzędzi jest częścią tego samego pergaminu. */
-  #gallery>.adventure-panel .adventure-create {
-    width:min(100%,560px);
-    min-height:45px;
-    margin:9px auto 10px;
-    padding:5px 14px;
-    border-width:3px;
-    font-size:clamp(.95rem,2.2vw,1.35rem);
+  /* Pergamin zachodzi na krainę, nie jest drugim oknem. */
+  #gallery:has(.reference-stage.loaded)>.adventure-panel,
+  #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel{
+    display:block!important;position:relative;z-index:6;
+    flex:0 0 auto;width:min(96%,1160px);max-width:1160px;
+    margin:-9px auto 4px!important;
+    padding:clamp(10px,1.8vw,23px);
+    border:6px solid #bb803d;border-radius:30px;
+    box-shadow:0 5px 0 #855026,0 12px 20px #2551306e,inset 0 0 0 3px #ffebad;
+    background:
+      radial-gradient(#bb814527 .75px,transparent 1px),
+      linear-gradient(165deg,#fff9e5 0%,#ffe8bc 65%,#edc98c 100%);
+    background-size:12px 12px,auto;
+  }
+  #gallery>.adventure-panel:before,#gallery>.adventure-panel:after{
+    top:-12px;width:clamp(44px,8vw,94px);height:29px;border-width:4px;
+  }
+  #gallery>.adventure-panel .section-head{
+    justify-content:center;gap:4px 12px;
+    margin:2px 0 7px;padding:0;
+  }
+  #gallery>.adventure-panel .section-head h2{
+    font-size:clamp(1.4rem,3.1vw,2.2rem);
+  }
+  #gallery>.adventure-panel .section-kicker{font-size:.6rem}
+  #gallery>.adventure-panel .gallery-tools{margin:0 0 7px}
+  #gallery>.adventure-panel .adventure-filter-menu{margin:0}
+  #gallery>.adventure-panel .adventure-filter-menu summary{
+    min-height:30px;padding:4px 10px;font-size:.72rem;
+  }
+  #gallery>.adventure-panel .cards{
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:clamp(5px,1vw,13px);
+  }
+  #gallery>.adventure-panel .card{
+    padding:4px;border-width:2px;border-radius:10px;
+    box-shadow:0 3px 0 #ad8c8b;
+  }
+  #gallery>.adventure-panel .card-art{
+    height:clamp(65px,13dvh,130px);border-radius:7px;
+  }
+  #gallery>.adventure-panel .card-caption{padding:4px 1px 2px}
+  #gallery>.adventure-panel .card-caption h3{
+    font-size:clamp(.63rem,1.15vw,.95rem);
+  }
+  #gallery>.adventure-panel .card-meta{margin-top:1px}
+  #gallery>.adventure-panel .size{font-size:.59rem}
+  #gallery>.adventure-panel .gallery-more{
+    min-height:33px;margin:8px auto 3px;
+    padding:4px 16px;font-size:.7rem;border-width:2px;
+  }
+  #gallery>.adventure-panel .adventure-create,
+  #gallery.adventure-explore>.adventure-panel .adventure-create{
+    display:flex!important;width:min(100%,570px);min-height:44px;
+    margin:8px auto 9px;padding:4px 12px;border-width:3px;
+    font-size:clamp(.94rem,2.2vw,1.4rem);
     box-shadow:0 3px 0 #226e19,0 0 0 2px #f4dd53,inset 0 3px #f9ffdd;
   }
-  #gallery>.adventure-panel .adventure-shortcuts {
-    display:grid!important;
-    width:min(100%,670px);
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:8px;
-    margin:9px auto 6px;
+  #gallery>.adventure-panel .adventure-shortcuts,
+  #gallery.adventure-explore>.adventure-panel .adventure-shortcuts{
+    display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;width:min(100%,690px);margin:6px auto 3px;
   }
-  #gallery>.adventure-panel .adventure-shortcut {
-    min-height:47px;
-    display:flex;
-    flex-direction:row;
-    border-width:3px;
-    border-radius:13px;
-    gap:5px;
-    padding:3px 5px;
-    box-shadow:0 3px 0 #7a3f7d,inset 0 2px #fce6ff;
+  #gallery>.adventure-panel .adventure-shortcut{
+    display:flex;flex-direction:row;gap:5px;min-width:0;
+    min-height:45px;padding:3px 5px;border-width:3px;border-radius:12px;
   }
   #gallery>.adventure-panel .adventure-shortcut .mystery-icon,
-  #gallery>.adventure-panel .adventure-shortcut .shortcut-icon {
-    width:25px;height:25px;
-    font-size:1.4rem;
+  #gallery>.adventure-panel .adventure-shortcut .shortcut-icon{
+    width:24px;height:24px;font-size:1.3rem;
   }
   #gallery>.adventure-panel .adventure-shortcut .mystery-icon svg{
-    width:24px;height:24px;
+    width:23px;height:23px;
   }
-  #gallery>.adventure-panel .adventure-shortcut .mystery-copy strong {
-    font-size:clamp(.68rem,1.3vw,.9rem);
+  #gallery>.adventure-panel .adventure-shortcut .mystery-copy strong{
+    font-size:clamp(.69rem,1.25vw,.92rem);
   }
-  #gallery>.adventure-panel .adventure-tip{font-size:.68rem;margin:0}
-  /* Pozostałe funkcje są dostępne w aplikacji, nie dublujemy dodatkowych kart pod ekranem. */
-  #gallery>.adventure-panel .adventure-bonus {display:none!important;}
-
-  #gallery:has(.reference-stage.loaded)>.adventure-nav {
-    display:grid!important;
-    position:sticky;
-    z-index:7;
-    bottom:4px;
-    width:min(95%,900px);
-    max-width:900px;
-    min-height:57px;
-    margin:8px auto 10px;
-    border-width:4px;
-    border-radius:18px;
-    padding:3px 7px;
-    gap:3px;
-    grid-template-columns:repeat(4,1fr);
+  #gallery>.adventure-panel .adventure-bonus{display:none!important}
+  #gallery:has(.reference-stage.loaded)>.adventure-nav{
+    display:grid!important;position:sticky;z-index:8;bottom:3px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:3px;width:min(92%,940px);max-width:940px;
+    min-height:57px;margin:8px auto 8px;
+    padding:3px 6px;border-width:4px;border-radius:19px;
   }
-  #gallery>.adventure-nav a {
-    min-height:48px;
-    flex-direction:row;
-    gap:5px;
-    padding:3px;
-    border-radius:11px;
-    font-size:clamp(.69rem,1.32vw,.9rem);
+  #gallery>.adventure-nav a{
+    min-height:46px;display:flex;flex-direction:row;
+    justify-content:center;gap:5px;padding:3px 4px;
+    border-radius:11px;font-size:clamp(.7rem,1.33vw,.94rem);
   }
-  #gallery>.adventure-nav .nav-pict {
-    font-size:clamp(1.15rem,2vw,1.55rem);
+  #gallery>.adventure-nav .nav-pict{
+    font-size:clamp(1.15rem,2vw,1.6rem);
   }
-  #gallery:has(.reference-stage.loaded)>.site-footer {
-    display:block!important;
-    width:100%;
-    max-width:900px;
-    margin:2px auto 0;
-    padding:5px 15px 14px;
-    text-align:center;
-    font-size:.72rem;
-    color:#34583d;
+  #gallery:has(.reference-stage.loaded)>.site-footer{
+    display:block!important;width:100%;max-width:910px;
+    margin:3px auto 0;padding:5px 16px 13px;
+    color:#f5ffdf;text-shadow:0 1px #2b512e;
+    font-size:.7rem;text-align:center;
   }
 }
 
-/* Na ekranach poziomych o małej wysokości nadal można przewijać
-   bez nachodzenia elementów ani ukrywania przycisków. */
-@media (min-width:700px) and (orientation:landscape) and (max-height:530px) {
-  body.reference-ready .topbar{height:54px}
-  #gallery:has(.reference-stage.loaded)>.hero{height:140px}
-  #gallery>.hero .adventure-landmarks{top:22%}
-  #gallery>.adventure-panel .card-art{height:62px}
+/* Na ekranach o małej wysokości: lekko mniejsze elementy,
+   ale bez ukrywania funkcji i bez nagłego przewijania. */
+@media (min-width:700px) and (orientation:landscape) and (max-height:530px){
+  #gallery:has(.reference-stage.loaded)>.hero{
+    height:clamp(145px,34dvh,190px);
+  }
+  #gallery>.hero .adventure-landmarks{bottom:7%}
+  #gallery>.adventure-panel .card-art{height:60px}
   #gallery>.adventure-panel .card-meta{display:none}
-  #gallery>.adventure-panel .adventure-create{min-height:40px}
-  #gallery:has(.reference-stage.loaded)>.adventure-nav{position:relative;bottom:0}
+  #gallery>.adventure-panel .adventure-create{min-height:39px}
+  #gallery:has(.reference-stage.loaded)>.adventure-nav{position:relative;bottom:auto}
 }
 @media(prefers-reduced-motion:reduce){
   #gallery .reference-canvas{transition:none!important}
-}
-
-/* W stanie filtrowania nadal zachowaj jeden spójny ekran i narzędzia. */
-@media (min-width:700px) and (orientation:landscape) {
- #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-create{
-   display:flex!important;
- }
- #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-shortcuts{
-   display:grid!important;
- }
- #gallery.adventure-explore:has(.reference-stage.loaded)>.adventure-panel .adventure-bonus{
-   display:none!important;
- }
- #gallery.adventure-explore:has(.reference-stage.loaded)>.site-footer{
-   display:block!important;
- }
 }
