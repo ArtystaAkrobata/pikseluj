@@ -289,6 +289,7 @@ h1, h2, h3, p { margin:0 }
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
 <link rel="stylesheet" href="./adventure-reference.css?v=adventure-04">
+<link rel="stylesheet" href="./adventure-tablet.css?v=tablet-01">
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1812,7 +1813,10 @@ for (const sign of document.querySelectorAll('[data-adventure-group]')) {
   sign.addEventListener('click', () => {
     if ($('adventure-reference').classList.contains('loaded')) $('gallery').classList.add('adventure-explore');
     filterGallery(sign.dataset.adventureGroup);
-    requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'}));
+    // Tablet: galeria jest już widoczna po prawej; nie przewijaj całej strony.
+    if (!matchMedia('(min-width:700px)').matches) {
+      requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'}));
+    }
   });
 }
 $('adventure-print').addEventListener('click', () => {
