@@ -291,7 +291,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
-<link rel="stylesheet" href="./adventure-reference.css?v=adventure-15">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-16">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-06">
 </head>
 <body>
@@ -3168,7 +3168,10 @@ function route() {
   document.title = 'Pikseluj — Kraina pikselowych przygód';
   if (previous !== 'gallery') {
     const card = !old || old.own ? $('studio-launch') : old === mystery ? (matchMedia('(min-width:700px) and (orientation:landscape)').matches ? $('adventure-mystery') : $('reference-mystery')) : $('card-title-' + old.id)?.closest('a');
-    window.scrollTo(0,lastGalleryY);
+    // Ekran startowy zawsze zaczyna się od góry i mieści w jednym widoku.
+    // Po wejściu w pełną galerię zachowujemy jej ostatnią pozycję.
+    const returningToAllPatterns = $('gallery').classList.contains('adventure-explore');
+    window.scrollTo(0, returningToAllPatterns ? lastGalleryY : 0);
     card?.focus({preventScroll:true});
   }
 }
