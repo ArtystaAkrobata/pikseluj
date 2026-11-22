@@ -201,15 +201,15 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   margin:0;
   padding:0;
   white-space:nowrap;
-  font-family:ui-rounded,system-ui,"Arial Rounded MT Bold",sans-serif;
-  font-size:clamp(11px,3.75vw,30px);
-  line-height:1.04;
-  letter-spacing:-.032em;
+  font-family:"DynaPuff",ui-rounded,"Trebuchet MS",system-ui,sans-serif;
+  font-size:clamp(11px,3.35vw,27px);
+  line-height:1.02;
+  letter-spacing:-.045em;
   font-weight:800;
   color:#fffdf9;
-  -webkit-text-stroke:.4px #68425e;
+  -webkit-text-stroke:.55px #693c59;
   paint-order:stroke fill;
-  text-shadow:0 2px 1px #57354e,0 3px 3px #3f2d568f;
+  text-shadow:0 2px 1px #59324d,0 3px 3px #3d295697;
 }
 .reference-stage .reference-mystery-tile .reference-tile-label {
   inset:63.5% 1.5% 10%;
@@ -229,6 +229,6 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   filter:drop-shadow(0 2px 1px #502e6f70);
 }
 @media(max-width:360px) {
-  .reference-stage .reference-tile-label {font-size:clamp(10px,3.5vw,14px)}
+  .reference-stage .reference-tile-label {font-size:clamp(10px,3.35vw,13px)}
   .reference-stage .reference-mystery-tile .mystery-lock-icon{top:8%;height:58%}
 }
