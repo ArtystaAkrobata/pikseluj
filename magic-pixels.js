@@ -8,26 +8,36 @@ const MAGIC_VARIANTS={
  expert:{width:40,height:56,label:'Ekspert',sheet:'A4'}
 };
 const magicDefs={
- animals:{title:'Zwierzątka',emoji:'🐱',desc:'Kotki, króliczki, liski i misie',fields:[
-  {key:'kind',title:'Zwierzątko',options:[['cat','Kotek'],['bunny','Króliczek'],['fox','Lisek'],['bear','Miś']]},
-  {key:'eyes',title:'Oczy',options:[['round','Duże'],['happy','Wesołe'],['wink','Mrugające']]},
-  {key:'extra',title:'Ozdoba',options:[['none','Bez dodatku'],['bow','Kokardka'],['star','Gwiazdka'],['heart','Serduszko']]},
-  {key:'color',title:'Kolor',options:[['p','Różowy'],['v','Fioletowy'],['b','Błękitny'],['l','Zielony'],['O','Pomarańczowy']]}]},
- monsters:{title:'Potworki',emoji:'👾',desc:'Śmieszne buźki, rogi i czułki',fields:[
-  {key:'kind',title:'Kształt',options:[['round','Okrągły'],['square','Kwadratowy'],['jelly','Galaretek']]},
-  {key:'eyes',title:'Oczy',options:[['one','Jedno oko'],['two','Dwoje oczu'],['three','Troje oczu']]},
-  {key:'extra',title:'Ozdoba',options:[['horns','Rogi'],['antenna','Czułki'],['none','Bez dodatku']]},
-  {key:'color',title:'Kolor',options:[['v','Fioletowy'],['g','Zielony'],['b','Błękitny'],['p','Różowy'],['O','Pomarańczowy']]}]},
- robots:{title:'Roboty',emoji:'🤖',desc:'Roboty z różnymi głowami i oczami',fields:[
-  {key:'kind',title:'Głowa',options:[['square','Kwadratowa'],['round','Okrągła'],['tall','Wysoka']]},
-  {key:'eyes',title:'Oczy',options:[['dots','Okrągłe'],['visor','Wyświetlacz'],['sleepy','Śpiące']]},
-  {key:'extra',title:'Antena',options:[['one','Jedna'],['two','Dwie'],['none','Bez anteny']]},
-  {key:'color',title:'Kolor',options:[['b','Błękitny'],['v','Fioletowy'],['l','Zielony'],['p','Różowy'],['O','Pomarańczowy']]}]},
- worlds:{title:'Bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, ogrody i morze',fields:[
-  {key:'kind',title:'Kraina',options:[['castle','Zamek'],['forest','Las'],['garden','Ogród'],['sea','Morze']]},
-  {key:'eyes',title:'Niebo',options:[['day','Dzień'],['evening','Zachód słońca'],['night','Noc']]},
-  {key:'extra',title:'Dekoracje',options:[['cloud','Chmurki'],['stars','Gwiazdki'],['hearts','Serduszka'],['none','Bez dodatku']]},
-  {key:'color',title:'Kolor krainy',options:[['v','Fioletowy'],['b','Błękitny'],['l','Zielony'],['p','Różowy'],['O','Pomarańczowy']]}]}
+ animals:{title:'Zwierzątka',emoji:'🐱',desc:'Słodcy bohaterowie z charakterem',fields:[
+  {key:'kind',title:'Wybierz zwierzaka',options:[['cat','Kotek','🐱'],['bear','Miś','🐻'],['bunny','Króliczek','🐰'],['fox','Lisek','🦊']]},
+  {key:'eyes',title:'Jakie oczy?',options:[['sparkle','Błyszczące','✨'],['round','Duże','👀'],['happy','Wesołe','😊'],['wink','Mrugające','😉']]},
+  {key:'mouth',title:'Jaka minka?',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😋'],['surprised','Zdziwiona','😮']]},
+  {key:'extra',title:'Magiczny dodatek',options:[['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣'],['none','Bez ozdoby','🌟']]},
+  {key:'scene',title:'Małe ozdoby wokół',options:[['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
+  {key:'color',title:'Kolor bohatera',options:[['natural','Naturalny','🎨'],['w','Biały','🤍'],['n','Brązowy','🤎'],['p','Różowy','🩷'],['v','Fioletowy','💜'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
+ ]},
+ monsters:{title:'Potworki',emoji:'👾',desc:'Śmieszne stworki, których nie da się nie polubić',fields:[
+  {key:'kind',title:'Kształt stworka',options:[['round','Puchatek','🟣'],['square','Kwadratek','🧊'],['jelly','Galaretek','🍮']]},
+  {key:'eyes',title:'Ile oczu?',options:[['two','Dwoje','👀'],['one','Jedno','👁️'],['three','Troje','👾']]},
+  {key:'mouth',title:'Minka',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😛'],['surprised','Zdziwiona','😲']]},
+  {key:'extra',title:'Co na głowie?',options:[['horns','Różki','😈'],['antenna','Czułki','📡'],['crown','Korona','👑'],['none','Bez dodatku','✨']]},
+  {key:'scene',title:'Magiczne tło',options:[['stars','Iskry','✨'],['hearts','Serduszka','💕'],['flowers','Kwiatki','🌸'],['none','Bez tła','☁️']]},
+  {key:'color',title:'Kolor stworka',options:[['v','Fioletowy','💜'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
+ ]},
+ robots:{title:'Roboty',emoji:'🤖',desc:'Superroboty z własną osobowością',fields:[
+  {key:'kind',title:'Głowa robota',options:[['square','Klasyczna','▣'],['round','Okrągła','⚙️'],['tall','Wysoka','🗼']]},
+  {key:'eyes',title:'Oczy i wyświetlacz',options:[['dots','Świecące oczy','🤖'],['visor','Wizjer','🥽'],['sleepy','Senne oczka','😴']]},
+  {key:'mouth',title:'Znak na panelu',options:[['heart','Serce','❤️'],['star','Gwiazdka','⭐'],['lights','Lampki','🚥']]},
+  {key:'extra',title:'Antena',options:[['one','Jedna','📡'],['two','Dwie','✨'],['none','Bez anteny','🚫']]},
+  {key:'scene',title:'Otoczenie',options:[['stars','Energia','⚡'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
+  {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
+ ]},
+ worlds:{title:'Bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
+  {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
+  {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Zachód słońca','🌅'],['night','Noc z gwiazdami','🌙']]},
+  {key:'extra',title:'Niebo i dekoracje',options:[['cloud','Chmurki','☁️'],['stars','Gwiazdy','✨'],['hearts','Serduszka','💕'],['none','Bez ozdób','🌤️']]},
+  {key:'color',title:'Kolor głównego obiektu',options:[['v','Fioletowy','💜'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
+ ]}
 };
 const magicFresh=()=>Object.fromEntries(Object.entries(magicDefs).map(([id,def])=>[id,Object.fromEntries(def.fields.map(f=>[f.key,f.options[0][0]]))]));
 const magicState={category:null,name:'',size:'medium',values:magicFresh()},magicUndo=[];
@@ -151,64 +161,7 @@ function magicWorld(g,o){
 }
 function magicRows(){
  if(!magicState.category)return Array(24).fill('.'.repeat(24));
- const g=magicCanvas(),o=magicState.values[magicState.category];
- if(magicState.category==='animals')magicAnimal(g,o);
- else if(magicState.category==='monsters')magicMonster(g,o);
- else if(magicState.category==='robots')magicRobot(g,o);
- else magicWorld(g,o);
- const source=g.rows(),level=MAGIC_VARIANTS[magicState.size]||MAGIC_VARIANTS.medium;
- if(magicState.size==='medium')return source;
- const w=level.width,h=level.height,isLarge=magicState.size!=='easy';
- const square=isLarge?(magicState.size==='expert'?38:30):16;
- const offX=Math.floor((w-square)/2),offY=Math.floor((h-square)/2);
- const output=Array.from({length:h},()=>Array(w).fill('.'));
- if(magicState.category==='worlds'){
-  const sky=o.eyes==='night'?'u':o.eyes==='evening'?'p':'b';
-  const ground=o.kind==='sea'?'b':'g';
-  const horizon=offY+Math.round(square*15/24);
-  for(let y=0;y<h;y++)output[y].fill(y<horizon?sky:ground);
- }
- for(let y=0;y<square;y++)for(let x=0;x<square;x++){
-  const sx=Math.min(23,Math.floor((x+.5)*24/square));
-  const sy=Math.min(23,Math.floor((y+.5)*24/square));
-  output[y+offY][x+offX]=source[sy][sx];
- }
- if(!isLarge){
-  // Na małej latarni kolor dachu musi pozostać widoczny także po zmniejszeniu do 16 × 16.
-  if(magicState.category==='worlds'&&o.kind==='sea'){
-   output[4][5]=o.color;output[4][6]=o.color;
-  }
-  return output.map(row=>row.join(''));
- }
- // Im większa siatka, tym więcej nowych, drobnych elementów.
- const base=output.map(row=>row.slice()),body=o.color;
- const detailColor={p:'t',v:'p',b:'w',l:'g',O:'e',g:'d'}[body]||'c';
- for(let y=offY+3;y<offY+square-3;y++)for(let x=offX+3;x<offX+square-3;x++){
-  if(base[y][x]!==body)continue;
-  if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>base[y+dy]?.[x+dx]!==body))continue;
-  if((x*19+y*37+(magicState.size==='expert'?3:0))%23===0)output[y][x]=detailColor;
- }
- const put=(x,y,c,overwrite=false)=>{if(x>=0&&y>=0&&x<w&&y<h&&(overwrite||output[y][x]==='.'))output[y][x]=c};
- const star=(x,y,c='H')=>{put(x,y-2,c);put(x,y-1,c);put(x,y,c);put(x-1,y,c);put(x+1,y,c);put(x,y+1,c);put(x,y+2,c)};
- const heart=(x,y,c='r')=>{put(x,y,c);put(x+2,y,c);for(let i=-1;i<=3;i++)put(x+i,y+1,c);put(x,y+2,c);put(x+1,y+2,c)};
- const flower=(x,y)=>{
-  for(const [dx,dy] of [[0,-1],[-1,0],[1,0],[0,1]])put(x+dx,y+dy,'p');
-  put(x,y,'H');put(x,y+2,'d');
- };
- if(magicState.category==='worlds'){
-  const shine=o.eyes==='night'?'w':'H';
-  star(3,3,shine);star(w-5,7,shine);
-  if(magicState.size==='expert'){star(8,5,shine);star(w-8,3,shine);}
-  if(o.kind!=='sea'){flower(4,h-4);flower(w-5,h-5);if(magicState.size==='expert')flower(9,h-4)}
-  else{put(5,h-4,'w',true);put(w-7,h-3,'w',true)}
- }else{
-  star(4,3,'H');star(w-5,5,'H');heart(3,h-6,'r');
-  if(magicState.size==='expert'){
-   star(10,5,'w');star(w-10,3,'H');star(w-5,h-7,'w');
-   heart(w-8,h-5,'p');flower(5,h-4);flower(w-5,h-3);
-  }else flower(w-4,h-4);
- }
- return output.map(row=>row.join(''));
+ return MagicPremiumArt.render(magicState.category,magicState.values[magicState.category],magicState.size);
 }
 function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
@@ -216,42 +169,109 @@ function magicDefaultName(){
  const chosen=d.fields[0].options.find(item=>item[0]===o.kind);
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
+let magicShowGrid=false;
+function magicOptionIcon(field,key,emoji){
+ return emoji||({none:'✦',natural:'🎨',stars:'✨'}[key]||'✦');
+}
+function magicCreateButton(className,label){
+ const button=document.createElement('button');
+ button.type='button';button.className=className;
+ if(label!==undefined)button.textContent=label;
+ return button;
+}
+function magicCategoryPreview(cat,def){
+ const first=Object.fromEntries(def.fields.map(field=>[field.key,field.options[0][0]]));
+ const rows=MagicPremiumArt.render(cat,first,'medium');
+ return sprite(readPattern({id:'mini-'+cat,art:rows.join('\n')}));
+}
 function magicRender(){
- const choosing=document.getElementById('magic-start'),work=document.getElementById('magic-workbench');
+ const choosing=document.getElementById('magic-start');
+ const work=document.getElementById('magic-workbench');
  if(!choosing||!work)return;
  const selected=Boolean(magicState.category);
  choosing.hidden=selected;work.hidden=!selected;
- document.getElementById('magic-back').textContent=selected?'← Wybierz kategorię':'← Wróć do galerii';
+ const back=document.getElementById('magic-back');
+ back.textContent=selected?'← Wybierz inną przygodę':'← Strona główna';
  if(!selected){
-  const items=document.getElementById('magic-categories');items.replaceChildren();
-  for(const [id,d] of Object.entries(magicDefs)){
-   const button=document.createElement('button');button.type='button';button.className='magic-category';button.dataset.category=id;
-   const pic=document.createElement('span');pic.className='magic-category-icon';pic.textContent=d.emoji;
-   const title=document.createElement('strong');title.textContent=d.title;
-   const desc=document.createElement('small');desc.textContent=d.desc;
-   button.append(pic,title,desc);items.append(button);
+  const container=document.getElementById('magic-categories');
+  container.replaceChildren();
+  for(const [cat,def] of Object.entries(magicDefs)){
+   const button=magicCreateButton('magic-category-card magic-category-'+cat);
+   button.dataset.category=cat;
+   button.setAttribute('aria-label',def.title+'. '+def.desc);
+   const art=document.createElement('span');art.className='magic-category-art';
+   art.append(magicCategoryPreview(cat,def));
+   const title=document.createElement('strong');title.textContent=def.emoji+' '+def.title;
+   const desc=document.createElement('small');desc.textContent=def.desc;
+   const hint=document.createElement('span');hint.className='magic-category-arrow';hint.textContent='Twórz ✨';
+   button.append(art,title,desc,hint);container.append(button);
   }
   return;
  }
- const d=magicDefs[magicState.category],values=magicState.values[magicState.category];
- document.getElementById('magic-category-name').textContent=d.emoji+' '+d.title;
- document.getElementById('magic-size').value=magicState.size;
+ const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
  const variant=MAGIC_VARIANTS[magicState.size];
- document.getElementById('magic-size-hint').textContent=variant.width+' × '+variant.height+' kratek · zalecana kartka: '+variant.sheet+' · '+variant.label+' · kratka 5 mm';
+ document.getElementById('magic-category-name').textContent=def.emoji+' '+def.title;
+ const scene=document.getElementById('magic-art-scene');
+ scene.dataset.category=magicState.category;
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
- const fields=document.getElementById('magic-fields');fields.replaceChildren();
- for(const field of d.fields){
-  const label=document.createElement('label');label.className='field-label';label.textContent=field.title;
-  const select=document.createElement('select');select.className='magic-select';select.dataset.field=field.key;
-  for(const [id,name] of field.options){const opt=document.createElement('option');opt.value=id;opt.textContent=name;select.append(opt)}
-  select.value=values[field.key];label.append(select);fields.append(label);
+ document.getElementById('magic-size-hint').textContent='📄 Zalecana kartka: '+variant.sheet+' · 1 kratka = 5 mm';
+ const levelSelect=document.getElementById('magic-size');
+ levelSelect.value=magicState.size;
+ const levels=document.getElementById('magic-levels');
+ levels.replaceChildren();
+ const levelIcons={easy:'🌱',medium:'🌈',hard:'🔥',expert:'👑'};
+ const levelNotes={easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
+ for(const [key,item] of Object.entries(MAGIC_VARIANTS)){
+  const selected=key===magicState.size;
+  const button=magicCreateButton('magic-level-card'+(selected?' is-selected':''));button.dataset.level=key;
+  button.setAttribute('aria-pressed',String(selected));
+  const emoji=document.createElement('span');emoji.className='magic-level-icon';emoji.textContent=levelIcons[key];
+  const label=document.createElement('strong');label.textContent=item.label;
+  const dimensions=document.createElement('small');dimensions.textContent=item.width+' × '+item.height;
+  const note=document.createElement('span');note.className='magic-level-note';note.textContent=levelNotes[key];
+  button.append(emoji,label,dimensions,note);levels.append(button);
  }
- const name=document.getElementById('magic-name');name.value=magicState.name;name.placeholder=magicDefaultName();
- document.getElementById('magic-undo').disabled=!magicUndo.length;
- const rows=magicRows(),pattern=readPattern({id:'magiczne-podglad',art:rows.join('\n')});
+ const fields=document.getElementById('magic-fields');
+ fields.replaceChildren();
+ for(const field of def.fields){
+  const group=document.createElement('fieldset');group.className='magic-trait-group';
+  const legend=document.createElement('legend');legend.textContent=field.title;
+  const choices=document.createElement('div');choices.className='magic-trait-choices';
+  const isColor=field.key==='color';
+  if(isColor)choices.classList.add('magic-color-choices');
+  for(const [key,label,emoji] of field.options){
+   const selected=values[field.key]===key;
+   const button=magicCreateButton('magic-choice'+(isColor?' magic-color-choice':'')+(selected?' is-selected':''),undefined);
+   button.dataset.field=field.key;button.dataset.option=key;
+   button.setAttribute('aria-pressed',String(selected));
+   button.setAttribute('aria-label',label);
+   if(isColor){
+    const circle=document.createElement('i');circle.className='magic-color-dot';
+    const colorMap={natural:'#db9c6e',w:'#ffffff',n:'#9c6b4c',p:'#f59cc9',v:'#ad85e9',b:'#7cc9f7',l:'#8bd283',O:'#ffae51'};
+    circle.style.setProperty('--magic-dot',colorMap[key]||'#ffd95b');
+    button.append(circle);
+   }else{
+    const icon=document.createElement('span');icon.className='magic-choice-icon';
+    icon.textContent=magicOptionIcon(field.key,key,emoji);button.append(icon);
+   }
+   const words=document.createElement('span');words.textContent=label;button.append(words);
+   if(selected){const check=document.createElement('span');check.className='magic-choice-check';check.textContent='✓';button.append(check)}
+   choices.append(button);
+  }
+  group.append(legend,choices);fields.append(group);
+ }
+ const name=document.getElementById('magic-name');
+ if(name.value!==magicState.name)name.value=magicState.name;
+ name.placeholder=magicDefaultName();
+ document.getElementById('magic-undo').disabled=magicUndo.length===0;
+ const rows=magicRows();
+ const pattern=readPattern({id:'magic-premium-preview',art:rows.join('\n')});
  const art=document.getElementById('magic-art');
- art.replaceChildren(sprite(pattern,{paper:true}));
- art.setAttribute('aria-label','Podgląd '+d.title.toLowerCase()+', '+variant.width+' na '+variant.height+' kratek');
+ art.replaceChildren(sprite(pattern,{paper:magicShowGrid}));
+ art.setAttribute('aria-label',def.title+'. '+variant.width+' na '+variant.height+' kratek.');
+ const gridToggle=document.getElementById('magic-grid-toggle');
+ gridToggle.setAttribute('aria-pressed',String(magicShowGrid));
+ gridToggle.textContent=magicShowGrid?'✨ Ukryj kratki':'▦ Pokaż kratki';
 }
 function magicOpen(){magicRender();magicMessage('')}
 function magicChoose(category){
@@ -304,6 +324,28 @@ function magicEdit(){
 document.getElementById('magic-categories').addEventListener('click',event=>{
  const btn=event.target.closest('[data-category]');if(btn)magicChoose(btn.dataset.category);
 });
+document.getElementById('magic-fields').addEventListener('click',event=>{
+ const button=event.target.closest('button[data-field][data-option]');
+ if(!button||!magicState.category)return;
+ const field=magicDefs[magicState.category].fields.find(field=>field.key===button.dataset.field);
+ if(!field||!field.options.some(option=>option[0]===button.dataset.option))return;
+ if(magicState.values[magicState.category][field.key]===button.dataset.option)return;
+ magicHistory();
+ magicState.values[magicState.category][field.key]=button.dataset.option;
+ magicState.name='';
+ magicPersist();magicRender();magicMessage('');
+});
+document.getElementById('magic-levels').addEventListener('click',event=>{
+ const button=event.target.closest('button[data-level]');
+ if(!button||!Object.hasOwn(MAGIC_VARIANTS,button.dataset.level))return;
+ if(button.dataset.level===magicState.size)return;
+ magicHistory();magicState.size=button.dataset.level;
+ magicPersist();magicRender();magicMessage('');
+});
+document.getElementById('magic-grid-toggle').addEventListener('click',()=>{
+ magicShowGrid=!magicShowGrid;
+ magicRender();
+});
 document.getElementById('magic-fields').addEventListener('change',event=>{
  const key=event.target.dataset.field;
  if(!magicState.category||!key)return;
@@ -321,6 +363,49 @@ document.getElementById('magic-size').addEventListener('change',event=>{
  magicHistory();magicState.size=size;
  magicPersist();magicRender();magicMessage('Wybrano: '+MAGIC_VARIANTS[size].label+'.');
 });
+const magicBestSets={
+ animals:[
+  {kind:'cat',eyes:'sparkle',mouth:'smile',extra:'flower',scene:'stars',color:'natural'},
+  {kind:'bunny',eyes:'sparkle',mouth:'smile',extra:'bow',scene:'flowers',color:'w'},
+  {kind:'fox',eyes:'round',mouth:'smile',extra:'scarf',scene:'stars',color:'O'},
+  {kind:'bear',eyes:'happy',mouth:'smile',extra:'crown',scene:'hearts',color:'n'},
+  {kind:'cat',eyes:'wink',mouth:'tongue',extra:'bow',scene:'hearts',color:'p'},
+  {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
+ ],
+ monsters:[
+  {kind:'round',eyes:'two',mouth:'tongue',extra:'horns',scene:'stars',color:'v'},
+  {kind:'jelly',eyes:'one',mouth:'smile',extra:'antenna',scene:'hearts',color:'p'},
+  {kind:'square',eyes:'three',mouth:'smile',extra:'crown',scene:'stars',color:'b'}
+ ],
+ robots:[
+  {kind:'square',eyes:'visor',mouth:'heart',extra:'one',scene:'stars',color:'b'},
+  {kind:'round',eyes:'dots',mouth:'star',extra:'two',scene:'stars',color:'v'},
+  {kind:'tall',eyes:'visor',mouth:'lights',extra:'two',scene:'hearts',color:'l'}
+ ],
+ worlds:[
+  {kind:'castle',eyes:'night',extra:'stars',color:'v'},
+  {kind:'forest',eyes:'evening',extra:'cloud',color:'l'},
+  {kind:'garden',eyes:'day',extra:'hearts',color:'p'},
+  {kind:'sea',eyes:'night',extra:'stars',color:'b'}
+ ]
+};
+function magicSuper(){
+ if(!magicState.category)return;
+ const category=magicState.category;
+ magicHistory();
+ const presets=magicBestSets[category];
+ const previous=JSON.stringify(magicState.values[category]);
+ const picks=presets.filter(preset=>JSON.stringify({...magicState.values[category],...preset})!==previous);
+ const selected=picks[Math.floor(Math.random()*picks.length)]||presets[0];
+ const def=magicDefs[category];
+ for(const [field,value] of Object.entries(selected)){
+  const entry=def.fields.find(row=>row.key===field);
+  if(entry&&entry.options.some(option=>option[0]===value))magicState.values[category][field]=value;
+ }
+ magicState.name='';
+ magicPersist();magicRender();magicMessage('✨ Super wersja gotowa! Możesz ją jeszcze zmieniać.');
+}
+document.getElementById('magic-super').addEventListener('click',magicSuper);
 document.getElementById('magic-shuffle').addEventListener('click',magicRandomize);
 document.getElementById('magic-undo').addEventListener('click',magicUndoLast);
 document.getElementById('magic-save').addEventListener('click',magicSave);
