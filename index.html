@@ -288,7 +288,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
-<link rel="stylesheet" href="./adventure-reference.css?v=adventure-09">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-10">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-04">
 </head>
 <body>
@@ -317,26 +317,26 @@ h1, h2, h3, p { margin:0 }
       <a class="reference-hit r-projects" href="#moje" aria-label="Moje projekty"></a>
       <a class="reference-hit r-editor" href="#kreator" aria-label="Kreator obrazków"></a>
       <a class="reference-hit r-print reference-mystery-tile" id="reference-mystery" href="#zagadka" aria-label="Tajemnica — odkryj ukryty rysunek">
-         <svg class="mystery-key-icon" viewBox="0 0 120 104" aria-hidden="true" focusable="false">
-           <defs>
-             <linearGradient id="gold-key-home" x1="0" y1="0" x2=".8" y2="1">
-               <stop offset="0" stop-color="#fffac4"/>
-               <stop offset=".35" stop-color="#ffdf58"/>
-               <stop offset=".7" stop-color="#ffb529"/>
-               <stop offset="1" stop-color="#df8024"/>
-             </linearGradient>
-           </defs>
-           <g transform="rotate(29 57 52)" stroke-linejoin="round" stroke-linecap="round">
-             <path d="M45 40V64H33V77H43V87H55V41Z" fill="url(#gold-key-home)" stroke="#4a2869" stroke-width="8"/>
-             <path d="M49 49V79" fill="none" stroke="#fff3a1" stroke-width="4"/>
-             <circle cx="52" cy="27" r="22" fill="url(#gold-key-home)" stroke="#4a2869" stroke-width="8"/>
-             <circle cx="52" cy="27" r="10" fill="#8853ac" stroke="#ffed9c" stroke-width="4"/>
-             <path d="M38 13Q43 7 50 7" fill="none" stroke="#fffac9" stroke-width="4"/>
-           </g>
-           <path d="M18 18 22 28 32 32 22 36 18 46 14 36 4 32 14 28Z" fill="#fff6ba" stroke="#e8a833" stroke-width="2"/>
-           <path d="M96 47 99 55 107 58 99 61 96 69 93 61 85 58 93 55Z" fill="#ffe684" stroke="#ebad42" stroke-width="2"/>
-           <path d="M95 8 97 13 102 15 97 17 95 22 93 17 88 15 93 13Z" fill="#fff6be"/>
-         </svg>
+         <svg class="mystery-lock-icon" viewBox="0 0 120 105" aria-hidden="true" focusable="false">
+ <defs>
+  <linearGradient id="lock-body-portrait" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#edb3ff"/><stop offset=".27" stop-color="#c37bf1"/><stop offset=".65" stop-color="#9146d7"/><stop offset="1" stop-color="#5e269d"/></linearGradient>
+  <linearGradient id="lock-shackle-portrait" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4ff"/><stop offset=".5" stop-color="#bcb0ea"/><stop offset="1" stop-color="#6860a4"/></linearGradient>
+  <linearGradient id="lock-gold-portrait" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#fffccc"/><stop offset=".7" stop-color="#ffce50"/><stop offset="1" stop-color="#ed9430"/></linearGradient>
+ </defs>
+ <g stroke-linejoin="round" stroke-linecap="round">
+  <path d="M36 47V33C36 16 46 8 61 8S86 17 86 33V47H72V33C72 25 68 21 61 21S50 25 50 33V47Z" fill="url(#lock-shackle-portrait)" stroke="#42245e" stroke-width="6"/>
+  <path d="M42 29Q44 15 58 14" fill="none" stroke="#ffffff" stroke-width="4" opacity=".8"/>
+  <rect x="23" y="40" width="76" height="57" rx="12" fill="#542b88" stroke="#40205e" stroke-width="6"/>
+  <rect x="27" y="43" width="68" height="48" rx="9" fill="url(#lock-body-portrait)" stroke="#e7b0ff" stroke-width="2"/>
+  <path d="M33 51Q60 42 89 51" fill="none" stroke="#f4d5ff" stroke-width="4" opacity=".75"/>
+  <path d="M61 53L65 63L76 64L68 71L71 82L61 76L51 82L54 71L46 64L57 63Z" fill="url(#lock-gold-portrait)" stroke="#60316f" stroke-width="3"/>
+  <circle cx="61" cy="68" r="2.5" fill="#fff9da"/>
+  <circle cx="33" cy="47" r="2.2" fill="#ffe2ff"/><circle cx="89" cy="47" r="2.2" fill="#ffe2ff"/>
+ </g>
+ <path d="M14 12L17 20L25 23L17 26L14 34L11 26L3 23L11 20Z" fill="#fff7c3" stroke="#eaa83e" stroke-width="2"/>
+ <path d="M105 24L108 31L115 34L108 37L105 44L102 37L95 34L102 31Z" fill="#fff4bd" stroke="#e7b548" stroke-width="1.8"/>
+ <path d="M104 4L106 9L111 11L106 13L104 18L102 13L97 11L102 9Z" fill="#fffad9"/>
+</svg>
          <span class="reference-mystery-label">Tajemnica</span>
        </a>
       <a class="reference-hit r-start reference-home" href="#galeria" aria-label="Start"></a>
@@ -387,26 +387,26 @@ h1, h2, h3, p { margin:0 }
         <span class="mystery-call" aria-hidden="true">Otwórz</span>
       </a>
         <a href="#kreator" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🪄</span><strong>Kreator</strong></a>
-        <a href="#zagadka" id="adventure-mystery" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true"><svg class="mystery-key-icon" viewBox="0 0 120 104" aria-hidden="true" focusable="false">
-           <defs>
-             <linearGradient id="gold-key-wide" x1="0" y1="0" x2=".8" y2="1">
-               <stop offset="0" stop-color="#fffac4"/>
-               <stop offset=".35" stop-color="#ffdf58"/>
-               <stop offset=".7" stop-color="#ffb529"/>
-               <stop offset="1" stop-color="#df8024"/>
-             </linearGradient>
-           </defs>
-           <g transform="rotate(29 57 52)" stroke-linejoin="round" stroke-linecap="round">
-             <path d="M45 40V64H33V77H43V87H55V41Z" fill="url(#gold-key-wide)" stroke="#4a2869" stroke-width="8"/>
-             <path d="M49 49V79" fill="none" stroke="#fff3a1" stroke-width="4"/>
-             <circle cx="52" cy="27" r="22" fill="url(#gold-key-wide)" stroke="#4a2869" stroke-width="8"/>
-             <circle cx="52" cy="27" r="10" fill="#8853ac" stroke="#ffed9c" stroke-width="4"/>
-             <path d="M38 13Q43 7 50 7" fill="none" stroke="#fffac9" stroke-width="4"/>
-           </g>
-           <path d="M18 18 22 28 32 32 22 36 18 46 14 36 4 32 14 28Z" fill="#fff6ba" stroke="#e8a833" stroke-width="2"/>
-           <path d="M96 47 99 55 107 58 99 61 96 69 93 61 85 58 93 55Z" fill="#ffe684" stroke="#ebad42" stroke-width="2"/>
-           <path d="M95 8 97 13 102 15 97 17 95 22 93 17 88 15 93 13Z" fill="#fff6be"/>
-         </svg></span><strong>Tajemnica</strong></a>
+        <a href="#zagadka" id="adventure-mystery" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true"><svg class="mystery-lock-icon" viewBox="0 0 120 105" aria-hidden="true" focusable="false">
+ <defs>
+  <linearGradient id="lock-body-landscape" x1="0" y1="0" x2=".9" y2="1"><stop offset="0" stop-color="#edb3ff"/><stop offset=".27" stop-color="#c37bf1"/><stop offset=".65" stop-color="#9146d7"/><stop offset="1" stop-color="#5e269d"/></linearGradient>
+  <linearGradient id="lock-shackle-landscape" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff4ff"/><stop offset=".5" stop-color="#bcb0ea"/><stop offset="1" stop-color="#6860a4"/></linearGradient>
+  <linearGradient id="lock-gold-landscape" x1="0" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#fffccc"/><stop offset=".7" stop-color="#ffce50"/><stop offset="1" stop-color="#ed9430"/></linearGradient>
+ </defs>
+ <g stroke-linejoin="round" stroke-linecap="round">
+  <path d="M36 47V33C36 16 46 8 61 8S86 17 86 33V47H72V33C72 25 68 21 61 21S50 25 50 33V47Z" fill="url(#lock-shackle-landscape)" stroke="#42245e" stroke-width="6"/>
+  <path d="M42 29Q44 15 58 14" fill="none" stroke="#ffffff" stroke-width="4" opacity=".8"/>
+  <rect x="23" y="40" width="76" height="57" rx="12" fill="#542b88" stroke="#40205e" stroke-width="6"/>
+  <rect x="27" y="43" width="68" height="48" rx="9" fill="url(#lock-body-landscape)" stroke="#e7b0ff" stroke-width="2"/>
+  <path d="M33 51Q60 42 89 51" fill="none" stroke="#f4d5ff" stroke-width="4" opacity=".75"/>
+  <path d="M61 53L65 63L76 64L68 71L71 82L61 76L51 82L54 71L46 64L57 63Z" fill="url(#lock-gold-landscape)" stroke="#60316f" stroke-width="3"/>
+  <circle cx="61" cy="68" r="2.5" fill="#fff9da"/>
+  <circle cx="33" cy="47" r="2.2" fill="#ffe2ff"/><circle cx="89" cy="47" r="2.2" fill="#ffe2ff"/>
+ </g>
+ <path d="M14 12L17 20L25 23L17 26L14 34L11 26L3 23L11 20Z" fill="#fff7c3" stroke="#eaa83e" stroke-width="2"/>
+ <path d="M105 24L108 31L115 34L108 37L105 44L102 37L95 34L102 31Z" fill="#fff4bd" stroke="#e7b548" stroke-width="1.8"/>
+ <path d="M104 4L106 9L111 11L106 13L104 18L102 13L97 11L102 9Z" fill="#fffad9"/>
+</svg></span><strong>Tajemnica</strong></a>
       </div>
       <p id="adventure-print-hint" class="adventure-tip" role="status" hidden>Wybierz obrazek. Opcja drukowania znajduje się w jego podglądzie.</p>
       <div class="adventure-bonus">
