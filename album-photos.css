@@ -1,0 +1,47 @@
+/* Zdjęcia ukończonych prac — lekkie elementy, dobrze działające na telefonie. */
+.finish-strip .finish-photo-options{width:100%;flex:1 1 100%;border-top:1px solid #cfe0d2;padding-top:9px;margin-top:4px;display:grid;gap:6px}
+.finish-strip .finish-photo-options[hidden]{display:none!important}
+.finish-photo-label{font-family:"DynaPuff",ui-rounded,system-ui,sans-serif;color:#315b45;font-weight:800;font-size:.88rem}
+.finish-photo-buttons{display:flex;flex-wrap:wrap;gap:8px}
+.finish-photo-buttons button,.album-photo-actions button{
+ min-height:42px;min-width:0;cursor:pointer;border:2px solid #bc9fdc;border-radius:13px;
+ background:linear-gradient(#fff9ff,#e9d8ff);color:#583b80;font-weight:850;
+ padding:7px 10px;box-shadow:0 2px 0 #bfa9d9;font-family:inherit;font-size:.83rem
+}
+.finish-photo-buttons button:first-child,.album-photo-actions button:first-child{
+ background:linear-gradient(#d4f4ff,#9ce0fa);border-color:#68aac7;color:#295a77;box-shadow:0 2px 0 #80b8d1
+}
+.finish-photo-buttons button:active,.album-photo-actions button:active{transform:translateY(1px);box-shadow:none}
+.finish-photo-buttons button:disabled,.album-photo-actions button:disabled{opacity:.55;cursor:wait}
+.finish-photo-note{font-size:.73rem!important;color:#517565!important;line-height:1.35}
+#finish-photo-message:empty{display:none}
+#finish-photo-message{font-size:.77rem;color:#255c49;font-weight:800;line-height:1.4}
+.album-photo-picker{display:none!important}
+.album-photo-media{min-width:0;display:grid;gap:6px}
+.album-photo-media.with-photo{grid-template-columns:1fr 1fr;align-items:stretch}
+#album .album-photo-media.with-photo .card-art{min-width:0;height:auto;min-height:125px}
+#album .album-photo-media .card-art svg{max-width:100%;max-height:100%}
+.album-photo-preview{display:grid;grid-template-rows:auto 1fr;min-width:0;border:2px solid #b89cd1;border-radius:12px;background:#f7f1ff;overflow:hidden}
+.album-photo-preview[hidden]{display:none!important}
+.album-photo-caption{display:block;padding:4px 5px;color:#6c4e8b;font-size:.65rem;font-weight:850;text-align:center;line-height:1.3}
+.album-photo-zoom{appearance:none;display:block;border:none;min-width:0;width:100%;min-height:95px;position:relative;margin:0;padding:0;background:#f6eefa;cursor:zoom-in;overflow:hidden}
+.album-photo-zoom img{display:block;width:100%;height:100%;min-height:95px;max-height:180px;object-fit:contain}
+.album-photo-zoom::after{content:"⤢";position:absolute;bottom:5px;right:5px;color:#583b80;background:#ffffffe0;padding:2px 5px;border-radius:7px;font-size:.8rem}
+.album-photo-actions{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.album-photo-actions button{font-size:.72rem;line-height:1.18;flex:1 1 45%;padding:7px 5px}
+.album-photo-actions .album-photo-remove{background:#fff8f7;border-color:#e5b4aa;color:#a34c41;box-shadow:0 2px 0 #dfbbb2}
+#album .album-photo-media.with-photo .card-art{height:clamp(110px,26vw,155px)}
+.album-photo-viewer{position:fixed;inset:0;box-sizing:border-box;max-width:min(96vw,1000px);max-height:95dvh;margin:auto;padding:12px;border:3px solid #8d65ac;border-radius:18px;background:#fff9ed;color:#52376a;box-shadow:0 15px 55px #16082b99}
+.album-photo-viewer::backdrop{background:#15072ed9}
+.album-photo-viewer-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.album-photo-viewer-title{font-size:.95rem;font-weight:850;overflow-wrap:anywhere}
+.album-photo-viewer-close{min-height:40px;padding:8px 12px;border:2px solid #bb9fd3;border-radius:10px;background:#f1e2ff;color:#533878;font-weight:850}
+.album-photo-viewer img{display:block;margin:auto;max-width:100%;max-height:calc(95dvh - 120px);object-fit:contain;border-radius:7px}
+.album-photo-viewer:focus-visible{outline:3px solid #a86ad0}
+@media(min-width:780px){#album .album-photo-media.with-photo .card-art{min-height:145px}}
+@media(max-width:390px){
+ .finish-photo-buttons button{flex:1 1 42%;font-size:.73rem;padding:8px 4px}
+ .album-photo-actions button{font-size:.69rem}
+ .album-photo-caption{font-size:.61rem}
+}
+@media(prefers-reduced-motion:reduce){.finish-photo-buttons button,.album-photo-actions button{transition:none}}
