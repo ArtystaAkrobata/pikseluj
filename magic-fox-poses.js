@@ -86,8 +86,8 @@ const MagicFoxPoses=(()=>{
   // jedynie do dotąd pustych kratek.
  }
  const palettes={
-  natural:{main:'O',light:'L',shade:'D'},
-  O:{main:'O',light:'L',shade:'D'},
+  natural:{main:'O',light:'H',shade:'n'},
+  O:{main:'O',light:'H',shade:'n'},
   p:{main:'p',light:'t',shade:'X'},
   v:{main:'v',light:'p',shade:'u'},
   b:{main:'b',light:'w',shade:'a'},
