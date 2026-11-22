@@ -293,7 +293,7 @@ h1, h2, h3, p { margin:0 }
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
 <link rel="stylesheet" href="./adventure-reference.css?v=adventure-16">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-06">
-<link rel="stylesheet" href="./magic-pixels.css?v=magic-01">
+<link rel="stylesheet" href="./magic-pixels.css?v=magic-03">
 
 <style>
 /* Cztery nowe, wypukłe przyciski w ilustracyjnej stylistyce Pikseluj. */
@@ -708,7 +708,9 @@ h1, h2, h3, p { margin:0 }
         <label class="field-label">Wielkość wzoru
           <select id="editor-paper-preset">
             <option value="custom">Własny rozmiar</option>
-            <option value="easy">Mały · 16 × 16</option>
+            <option value="easy">Łatwy · 16 × 16</option>
+            <option value="medium">Średni · 24 × 24</option>
+            <option value="hard">Trudny · 32 × 40</option>
             <option value="A6">A6 · 19 × 27</option>
             <option value="A5">A5 · 28 × 40</option>
             <option value="A4">A4 · 40 × 56</option>
@@ -867,7 +869,7 @@ h1, h2, h3, p { margin:0 }
   <noscript><p class="wrap">Żeby wybrać wzór i podświetlać wiersze, włącz JavaScript w przeglądarce.</p></noscript>
 </main>
 <div id="print-pages" aria-hidden="true"></div>
-<script src="./magic-pixels.js?v=magic-01"></script>
+<script src="./magic-pixels.js?v=magic-03"></script>
 <script>
 'use strict';
 
@@ -880,7 +882,7 @@ const PAPER_FORMATS = Object.freeze({
 });
 const paperFits = (w,h,id='A4') => {
   const sheet=PAPER_FORMATS[id];
-  return !!sheet && Number.isInteger(w) && Number.isInteger(h) &&
+  return !!sheet && Number.isInteger(w) && Number.isInteger(h) && w>=1 && h>=1 &&
     ((w<=sheet.w&&h<=sheet.h)||(h<=sheet.w&&w<=sheet.h));
 };
 const paperRecommended = (w,h) =>
@@ -2913,7 +2915,7 @@ function syncEditor() {
   $('editor-current-size').textContent = `Na planszy ${w} × ${h} kratek`;
   $('editor-paper-info').textContent = '📄 '+paperDescriptor({width:w,height:h,used:[...new Set(editor.rows.join('').replace(/\./g,''))]})+' · '+paperDimension(w,h)+' · 1 kratka = 5 mm';
   $('editor-orientation').value = w>h ? 'landscape' : 'portrait';
-  const presets={A6:[19,27],A5:[28,40],A4:[40,56],easy:[16,16]};
+  const presets={easy:[16,16],medium:[24,24],hard:[32,40],A6:[19,27],A5:[28,40],A4:[40,56]};
   const isPreset=Object.entries(presets).find(([,dims])=>
     (w===dims[0]&&h===dims[1])||(w===dims[1]&&h===dims[0]));
   $('editor-paper-preset').value=isPreset?.[0] || 'custom';
@@ -3094,7 +3096,7 @@ $('editor-name').addEventListener('input',event => {
   editor.name = event.target.value;
   cacheDraft();
 });
-const paperPresetValues = {easy:[16,16],A6:[19,27],A5:[28,40],A4:[40,56]};
+const paperPresetValues = {easy:[16,16],medium:[24,24],hard:[32,40],A6:[19,27],A5:[28,40],A4:[40,56]};
 function setPaperInputs() {
   const value=$('editor-paper-preset').value;
   if(value==='custom')return;
@@ -3104,7 +3106,16 @@ function setPaperInputs() {
   $('editor-paper-info').textContent='Wybrano '+value+' · '+paperDimension(Number($('editor-width').value),Number($('editor-height').value))+' · naciśnij Ustaw kratki.';
 }
 $('editor-paper-preset').addEventListener('change',setPaperInputs);
-$('editor-orientation').addEventListener('change',setPaperInputs);
+$('editor-orientation').addEventListener('change',() => {
+ if($('editor-paper-preset').value!=='custom'){setPaperInputs();return;}
+ const w=Number($('editor-width').value),h=Number($('editor-height').value);
+ if(Number.isInteger(w)&&Number.isInteger(h)&&w>0&&h>0){
+  $('editor-width').value=h;$('editor-height').value=w;
+  $('editor-paper-info').textContent=paperFits(h,w)
+    ? 'Po obróceniu: '+h+' × '+w+' · '+paperDimension(h,w)+' · naciśnij Ustaw kratki.'
+    : 'Ten format po obróceniu nie mieści się na A4.';
+ }
+});
 for (const id of ['editor-width','editor-height']) $(id).addEventListener('input',() => {
   $('editor-paper-preset').value='custom';
   const w=Number($('editor-width').value),h=Number($('editor-height').value);
