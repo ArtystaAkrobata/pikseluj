@@ -3179,11 +3179,13 @@ function navigateBack() {
     route();
   }
 }
+let scrollHomeAfterHistory = false;
 function navigateHome() {
   // Przejście Start nie dopisuje zbędnego kroku, który Wstecz musiałby cofać.
   lastGalleryY = 0;
   const distance = navState()?.pikselujIndex ?? 0;
   if (distance > 0) {
+    scrollHomeAfterHistory = true;
     history.go(-distance);
   } else {
     if (appHash() !== '#galeria') {
@@ -3264,8 +3266,18 @@ document.addEventListener('visibilitychange',() => {
   if (document.visibilityState === 'visible') void requestWake();
 });
 window.addEventListener('pagehide',stopWake);
-window.addEventListener('popstate',route);
-window.addEventListener('hashchange',route);
+function restoreAppHistory() {
+  const expandedBefore = $('gallery').classList.contains('adventure-explore');
+  route();
+  const justReturnedHome = expandedBefore &&
+    !$('gallery').classList.contains('adventure-explore') && view === 'gallery';
+  if (scrollHomeAfterHistory || justReturnedHome) {
+    scrollHomeAfterHistory = false;
+    window.scrollTo(0,0);
+  }
+}
+window.addEventListener('popstate',restoreAppHistory);
+window.addEventListener('hashchange',restoreAppHistory);
 initialAppHistory();
 route();
 </script>
