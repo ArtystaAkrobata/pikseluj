@@ -454,6 +454,19 @@ h1, h2, h3, p { margin:0 }
  background:linear-gradient(155deg,#b4ecff,#56adf2);border-color:#358ac2;color:#1d5b86
 }
 </style>
+<style>
+/* Metadane papieru i edycja dużych siatek A4. */
+.paper-guide{font-size:.8rem;font-weight:740;line-height:1.4;color:#694a89;margin:8px 0;overflow-wrap:anywhere}
+.paper-tag{display:inline-block;border:1px solid #bdabdf;border-radius:999px;padding:3px 7px;background:#f5eaff;color:#67409b;font-size:.7rem;font-weight:850;line-height:1.25;white-space:normal}
+.paper-presets{display:grid;grid-template-columns:1.15fr .85fr;gap:9px;margin:11px 0 10px}
+.paper-presets .field-label{min-width:0}
+.paper-presets select{width:100%;min-width:0;background:#fff;border:1px solid #bda5d6;border-radius:9px;min-height:43px;padding:7px 5px;font:inherit;font-size:.85rem;color:#463470}
+#editor-box.scaled{max-height:min(70dvh,650px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#editor-box.scaled #editor-grid{max-width:none;min-width:var(--large-width);width:var(--large-width);height:auto}
+#editor-box.scaled.pan{touch-action:pan-x pan-y}
+@media(max-width:410px){.paper-presets{gap:6px}.paper-presets select{font-size:.75rem}.paper-tag{font-size:.65rem}}
+@media print{.paper-guide,.paper-presets{display:none!important}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -540,7 +553,7 @@ h1, h2, h3, p { margin:0 }
       </a>
       <div class="gallery-tools">
         <details class="adventure-filter-menu" id="adventure-filter-menu"><summary>Wszystkie krainy i kategorie</summary><div id="filters" class="filters" role="group" aria-label="Kategorie wzorów"></div></details>
-        <p class="gallery-note">Największe wzory zajmują do 29 × 30 kratek (14,5 × 15 cm przy kratce 5 mm). Przed rysowaniem sprawdź, ile miejsca masz obok marginesu.</p>
+        <p class="gallery-note">Wzory do A4: maksymalnie 40 × 56 kratek w pionie lub 56 × 40 w poziomie. Jedna kratka to 5 mm. Przy każdym obrazku podajemy zalecany format kartki.</p>
       </div>
       <div id="cards" class="cards"></div>
       <button type="button" class="gallery-more" id="adventure-more">✨ Pokaż wszystkie obrazki</button>
@@ -676,12 +689,31 @@ h1, h2, h3, p { margin:0 }
     <h1 class="studio-title" id="editor-title" tabindex="-1">Zrób własne piksele</h1>
     <div class="studio-panel">
       <label class="field-label">Nazwa wzoru<input id="editor-name" type="text" maxlength="42" placeholder="Np. Kot w kosmosie" autocomplete="off"></label>
+      <div class="paper-presets" aria-label="Wybierz rozmiar kratkowanej kartki">
+        <label class="field-label">Wielkość wzoru
+          <select id="editor-paper-preset">
+            <option value="custom">Własny rozmiar</option>
+            <option value="easy">Mały · 16 × 16</option>
+            <option value="A6">A6 · 19 × 27</option>
+            <option value="A5">A5 · 28 × 40</option>
+            <option value="A4">A4 · 40 × 56</option>
+          </select>
+        </label>
+        <label class="field-label">Ułożenie
+          <select id="editor-orientation">
+            <option value="portrait">Pionowo</option>
+            <option value="landscape">Poziomo</option>
+          </select>
+        </label>
+      </div>
       <form id="editor-size" class="studio-dims">
-        <label class="field-label">Szerokość<input id="editor-width" type="number" min="5" max="29" value="16" required inputmode="numeric"></label>
-        <label class="field-label">Wysokość<input id="editor-height" type="number" min="5" max="30" value="16" required inputmode="numeric"></label>
+        <label class="field-label">Szerokość<input id="editor-width" type="number" min="5" max="56" value="16" required inputmode="numeric"></label>
+        <label class="field-label">Wysokość<input id="editor-height" type="number" min="5" max="56" value="16" required inputmode="numeric"></label>
         <button class="action" type="submit">Ustaw kratki</button>
       </form>
       <p class="studio-small" id="editor-current-size">Na planszy 16 × 16 kratek</p>
+      <p class="paper-guide" id="editor-paper-info" role="status">1 kratka = 5 mm. Rozmiar maksymalny: A4.</p>
+      <p class="studio-small">Po zmianie formatu naciśnij „Ustaw kratki”. Zmniejszenie może przyciąć rysunek; możesz je cofnąć.</p>
     </div>
     <div class="studio-panel">
       <h2 id="editor-colors-title">Wybierz kredkę</h2>
@@ -755,6 +787,7 @@ h1, h2, h3, p { margin:0 }
     <a href="#galeria" id="back" class="back"><svg aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m9 4-6 6 6 6m-6-6h14"/></svg>Wróć do wzorów</a>
     <div class="reader-head"><h1 id="pattern-title" tabindex="-1"></h1><span id="pattern-size" class="size"></span></div>
     <p class="instructions" id="instructions">Dotknij wiersza, żeby go podświetlić. Niezamalowane kratki zostaw bez koloru.</p>
+    <p class="paper-guide" id="pattern-paper" role="note"></p>
     <div class="reader-tools">
       <button id="count-toggle" type="button" class="tool-toggle" aria-controls="row-guide" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 3h14v12H2zM2 7h14M2 11h14M7 3v12M11 3v12"/></svg>Policz kratki</button>
       <button id="wake-toggle" type="button" class="tool-toggle" aria-describedby="wake-status" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="1.5" width="8" height="15" rx="1.4"/><path d="M8 13.8h2M1.5 6l1 1M16.5 6l-1 1"/></svg>Nie wygaszaj ekranu</button>
@@ -824,6 +857,32 @@ h1, h2, h3, p { margin:0 }
 'use strict';
 
 // Każdy znak to jedna kratka. Kropka oznacza puste pole.
+// Fizyczna kratka 5 mm; bezpieczne pola z marginesem, dla A4 pionowo lub poziomo.
+const PAPER_FORMATS = Object.freeze({
+  A6:{name:'A6',w:19,h:27,mmW:105,mmH:148},
+  A5:{name:'A5',w:28,h:40,mmW:148,mmH:210},
+  A4:{name:'A4',w:40,h:56,mmW:210,mmH:297}
+});
+const paperFits = (w,h,id='A4') => {
+  const sheet=PAPER_FORMATS[id];
+  return !!sheet && Number.isInteger(w) && Number.isInteger(h) &&
+    ((w<=sheet.w&&h<=sheet.h)||(h<=sheet.w&&w<=sheet.h));
+};
+const paperRecommended = (w,h) =>
+  ['A6','A5','A4'].find(key=>paperFits(w,h,key)) || null;
+function paperDifficulty(pattern) {
+  const area=pattern.width*pattern.height,colorsUsed=pattern.used?.length || 0;
+  let tier=area<=325 ? 0 : area<=750 ? 1 : area<=1550 ? 2 : 3;
+  if(colorsUsed>12 && tier<3)tier++;
+  return ['Łatwy','Średni','Trudny','Ekspert'][tier];
+}
+function paperDescriptor(pattern) {
+  const sheet=paperRecommended(pattern.width,pattern.height);
+  return sheet ? 'Od '+sheet+' · '+paperDifficulty(pattern) :
+    'Większy niż A4 · '+paperDifficulty(pattern);
+}
+const paperDimension = (w,h) => ((w*0.5).toLocaleString('pl-PL',{maximumFractionDigits:1})+' × '+(h*0.5).toLocaleString('pl-PL',{maximumFractionDigits:1})+' cm');
+
 const colors = {
   k:["#1a1a1c","czarny"],
   o:["#f6a449","pomarańczowy"],
@@ -2014,6 +2073,7 @@ function swatch(color, withTitle = false) {
   return item;
 }
 function sizeText(pattern) { return `${pattern.width} × ${pattern.height} kratek`; }
+const patternPaperInfo = pattern => `${paperDescriptor(pattern)} · ${paperDimension(pattern.width,pattern.height)}`;
 function sizeLabel(pattern) { return `${pattern.width} kratek w poziomie, ${pattern.height} w pionie`; }
 
 $('sticker').append(sprite(patterns.find(pattern => pattern.id === 'pusheen')));
@@ -2050,7 +2110,9 @@ for (const pattern of patterns) {
   mini.setAttribute('role','img');
   mini.setAttribute('aria-label','Kolory: ' + pattern.used.map(color => colors[color][1]).join(', '));
   for (const color of pattern.used) mini.append(swatch(color,true));
-  meta.append(size,mini);
+  const paperTag=el('span','paper-tag',paperDescriptor(pattern));
+  paperTag.setAttribute('aria-label','Zalecany format kartki i poziom: '+paperDescriptor(pattern));
+  meta.append(size,paperTag,mini);
   caption.append(title,meta);
   card.append(thumb,caption);
   $('cards').append(card);
@@ -2376,6 +2438,7 @@ function openPattern(pattern) {
   $('back').href = history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
   $('reader-edit').href = pattern.own ? '#kreator/' + pattern.id : '#moje';
   $('pattern-size').textContent = sizeText(pattern);
+  $('pattern-paper').textContent = '📄 '+patternPaperInfo(pattern)+' · kratka 5 mm';
   $('pattern-size').setAttribute('aria-label',sizeLabel(pattern));
   $('board').style.setProperty('--cols',pattern.width);
   $('columns').replaceChildren(el('span'));
@@ -2672,10 +2735,10 @@ window.addEventListener('afterprint',finishPrint);
 const studioKey = 'pikseluj/projekty/v1';
 const ownId = /^moj-[a-z0-9-]{8,64}$/;
 const editorKeys = ['k','w','s','n','e','c','r','O','Y','H','l','g','d','b','a','u','v','p','X','t'];
-const layout = {defaultSize:16,min:5,maxX:29,maxY:30};
+const layout = {defaultSize:16,min:5,maxX:56,maxY:56};
 const cleanName = name => [...String(name ?? '').replace(/[\u0000-\u001f\u007f]/g,' ').trim()].slice(0,42).join('') || 'Mój wzór';
 const validRows = rows => Array.isArray(rows) && rows.length >= layout.min && rows.length <= layout.maxY &&
-  typeof rows[0] === 'string' && rows[0].length >= layout.min && rows[0].length <= layout.maxX &&
+  typeof rows[0] === 'string' && rows[0].length >= layout.min && rows[0].length <= layout.maxX && paperFits(rows[0].length,rows.length) &&
   rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || editorKeys.includes(c)));
 const filled = rows => rows.some(row => /[^.]/.test(row));
 function loadStudio() {
@@ -2728,7 +2791,7 @@ function renderStudio() {
     const pic = el('div','card-art');
     pic.append(sprite(pattern,{paper:true}));
     const name = el('h3','',entry.name);
-    const info = el('span','size',sizeText(pattern));
+    const info = el('span','size',sizeText(pattern)+' · '+paperDescriptor(pattern));
     const actions = el('div','studio-item-actions');
     const trace = el('a','action','Odrysuj');
     trace.href = '#wzor/' + entry.id;
@@ -2766,6 +2829,7 @@ function setEditorZoom(value) {
   $('editor-zoom').setAttribute('aria-pressed',String(value));
   $('editor-zoom').textContent = value ? 'Zmniejsz' : 'Powiększ';
   $('editor-pan').hidden = !value;
+  if(value && editor && (editor.rows[0].length>28||editor.rows.length>40))setEditorPan(true);
   if (!value) {
     setEditorPan(false);
     $('editor-box').scrollLeft = 0;
@@ -2776,8 +2840,8 @@ function setEditorPan(value) {
   $('editor-box').classList.toggle('pan',editorPan);
   $('editor-pan').setAttribute('aria-pressed',String(editorPan));
   $('editor-pan').textContent = editorPan ? 'Wróć do rysowania' : 'Przesuwaj';
-  $('editor-help').textContent = editorPan ? 'Przesuń planszę palcem, a potem wróć do rysowania.' :
-    'Dotknij kratki lub przeciągnij palcem. Na klawiaturze użyj strzałek i spacji.';
+  $('editor-help').textContent = editorPan ? 'Przesuń planszę palcem w obu kierunkach. Potem naciśnij Wróć do rysowania.' :
+    'Dotknij kratki lub przeciągnij palcem. Przy dużych wzorach naciśnij Powiększ, a następnie przełączaj Rysuj/Przesuwaj.';
 }
 function openEditor(id) {
   const entry = studio.projects.find(p => p.id === id);
@@ -2804,7 +2868,14 @@ function syncEditor() {
   $('editor-width').value = w;
   $('editor-height').value = h;
   $('editor-current-size').textContent = `Na planszy ${w} × ${h} kratek`;
-  $('editor-box').style.setProperty('--large-width',w * 23 + 'px');
+  $('editor-paper-info').textContent = '📄 '+paperDescriptor({width:w,height:h,used:[...new Set(editor.rows.join('').replace(/\./g,''))]})+' · '+paperDimension(w,h)+' · 1 kratka = 5 mm';
+  $('editor-orientation').value = w>h ? 'landscape' : 'portrait';
+  const presets={A6:[19,27],A5:[28,40],A4:[40,56],easy:[16,16]};
+  const isPreset=Object.entries(presets).find(([,dims])=>
+    (w===dims[0]&&h===dims[1])||(w===dims[1]&&h===dims[0]));
+  $('editor-paper-preset').value=isPreset?.[0] || 'custom';
+  $('editor-box').style.setProperty('--large-width',w * 24 + 'px');
+  $('editor-box').classList.toggle('large-pattern',w>28||h>40);
   canvas.setAttribute('aria-label',`Siatka do rysowania. ${w} kratek w poziomie, ${h} w pionie.`);
   showEditorCursor();
   drawEditor();
@@ -2980,12 +3051,34 @@ $('editor-name').addEventListener('input',event => {
   editor.name = event.target.value;
   cacheDraft();
 });
+const paperPresetValues = {easy:[16,16],A6:[19,27],A5:[28,40],A4:[40,56]};
+function setPaperInputs() {
+  const value=$('editor-paper-preset').value;
+  if(value==='custom')return;
+  const dims=paperPresetValues[value],landscape=$('editor-orientation').value==='landscape';
+  $('editor-width').value=landscape?dims[1]:dims[0];
+  $('editor-height').value=landscape?dims[0]:dims[1];
+  $('editor-paper-info').textContent='Wybrano '+value+' · '+paperDimension(Number($('editor-width').value),Number($('editor-height').value))+' · naciśnij Ustaw kratki.';
+}
+$('editor-paper-preset').addEventListener('change',setPaperInputs);
+$('editor-orientation').addEventListener('change',setPaperInputs);
+for (const id of ['editor-width','editor-height']) $(id).addEventListener('input',() => {
+  $('editor-paper-preset').value='custom';
+  const w=Number($('editor-width').value),h=Number($('editor-height').value);
+  $('editor-paper-info').textContent=paperFits(w,h)
+    ? 'Wybrano '+w+' × '+h+' · od '+paperRecommended(w,h)+' · '+paperDimension(w,h)
+    : 'Ten rozmiar nie mieści się na jednej kartce A4 w kratkę 5 mm.';
+});
 $('editor-size').addEventListener('submit',event => {
   event.preventDefault();
   if (!editor) return;
   finishStroke();
   const w = Number($('editor-width').value), h = Number($('editor-height').value);
-  if (!Number.isInteger(w) || !Number.isInteger(h) || w < layout.min || h < layout.min || w > layout.maxX || h > layout.maxY) return;
+  if (!Number.isInteger(w) || !Number.isInteger(h) || w < layout.min || h < layout.min ||
+      w > layout.maxX || h > layout.maxY || !paperFits(w,h)) {
+    $('editor-feedback').textContent='Wzór musi mieścić się na A4: maks. 40 × 56 kratek (lub 56 × 40 poziomo).';
+    return;
+  }
   const old = snapshotEditor();
   const lost = old.some((row,y) => /[^.]/.test(y >= h ? row : row.slice(w)));
   editor.rows = Array.from({length:h},(_,y) => (old[y] || '').slice(0,w).padEnd(w,'.'));
@@ -2993,6 +3086,7 @@ $('editor-size').addEventListener('submit',event => {
   syncEditor();
   recordEdit(old);
   if (lost) $('editor-feedback').textContent = 'Przycięto część rysunku. Przycisk Cofnij przywróci poprzedni rozmiar.';
+  else $('editor-feedback').textContent='Ustawiono '+w+' × '+h+' kratek. '+paperDescriptor({width:w,height:h,used:[]})+'.';
 });
 $('editor-eraser').addEventListener('click',() => selectPen('.'));
 $('editor-undo').addEventListener('click',() => { if (editor) { finishStroke(); restoreEdit(editor.undo,editor.redo); } });
@@ -3051,8 +3145,8 @@ function navigateStudio(hash) {
 
 // Album zachowuje kopię rysunku z dnia ukończenia. Zmiana własnego wzoru jej nie nadpisuje.
 const journeyKey = 'pikseluj/zeszyt/v1';
-const journalRows = rows => Array.isArray(rows) && rows.length >= 1 && rows.length <= 30 &&
-  typeof rows[0] === 'string' && rows[0].length >= 1 && rows[0].length <= 29 &&
+const journalRows = rows => Array.isArray(rows) && rows.length >= 1 && rows.length <= 56 &&
+  typeof rows[0] === 'string' && rows[0].length >= 1 && rows[0].length <= 56 && paperFits(rows[0].length,rows.length) &&
   rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || Object.hasOwn(colors,c)));
 const validJournalId = id => typeof id === 'string' && /^[a-z0-9-]{1,72}$/.test(id);
 const validRevision = n => Number.isSafeInteger(n) && n >= 0;
@@ -3062,7 +3156,7 @@ function readJourney() {
   try {
     const record = JSON.parse(localStorage.getItem(journeyKey) || '{}');
     const recent = (Array.isArray(record?.recent) ? record.recent : []).filter(p => p && validJournalId(p.id) &&
-      validRevision(p.revision) && Number.isInteger(p.row) && p.row >= 0 && p.row < 30);
+      validRevision(p.revision) && Number.isInteger(p.row) && p.row >= 0 && p.row < 56);
     const completed = (Array.isArray(record?.completed) ? record.completed : []).filter(p => p && validJournalId(p.id) &&
       validRevision(p.revision) && journalRows(p.rows) && typeof p.doneAt === 'number' && !Number.isNaN(new Date(p.doneAt).getTime())).map(p => ({
       id:p.id,revision:p.revision,name:cleanName(p.name),rows:p.rows,doneAt:p.doneAt
