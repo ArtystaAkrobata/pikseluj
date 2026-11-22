@@ -182,7 +182,7 @@ function magicRender(){
 function magicOpen(){magicRender();magicMessage('')}
 function magicChoose(category){
  if(!Object.hasOwn(magicDefs,category))return;
- magicHistory();magicState.category=category;magicState.name='';
+ magicHistory();magicState.category=category;magicState.name='';magicShowGrid=false;
  magicPersist();magicRender();magicMessage('');
  window.scrollTo(0,0);
  document.getElementById('magic-title').focus({preventScroll:true});
@@ -238,7 +238,7 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
  if(magicState.values[magicState.category][field.key]===button.dataset.option)return;
  magicHistory();
  magicState.values[magicState.category][field.key]=button.dataset.option;
- magicState.name='';
+ // Zmiana oczu/koloru nie kasuje nazwy wpisanej przez dziecko.
  magicPersist();magicRender();magicMessage('');magicCelebrate();
  const matching=document.querySelector('#magic-fields button[data-field="'+field.key+'"][data-option="'+button.dataset.option+'"]');
  matching?.focus({preventScroll:true});
