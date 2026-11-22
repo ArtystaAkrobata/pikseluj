@@ -497,6 +497,7 @@ h1, h2, h3, p { margin:0 }
 .album-delete-actions button:focus-visible{outline:3px solid #8f4cb6;outline-offset:2px}
 .album-delete-actions button:active{transform:translateY(2px);box-shadow:none}
 </style>
+<link rel="stylesheet" href="./magic-premium-ui.css?v=premium-v2a">
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -666,48 +667,75 @@ h1, h2, h3, p { margin:0 }
       <a href="#minigry" class="action primary">Zobacz minigry</a>
     </div>
   </section>
-  <section id="magic-screen" class="studio" aria-labelledby="magic-title" hidden>
-    <a href="#galeria" id="magic-back" class="back">← Wróć do galerii</a>
-    <p class="magic-kicker">✦ Panel kreatora ✦</p>
-    <h1 class="studio-title" id="magic-title" tabindex="-1">🪄 Magiczne piksele</h1>
-    <p class="magic-intro">Wybierz kategorię, połącz elementy i dobierz wielkość: od prostych obrazków po szczegółowe A4. Wzór możesz zapisać lub dopracować w Kreatorze.</p>
+  <section id="magic-screen" class="studio magic-v2" aria-labelledby="magic-title" hidden>
+    <a href="#galeria" id="magic-back" class="back magic-back">← Strona główna</a>
+    <div class="magic-hero-head">
+      <span class="magic-v2-eyebrow">✦ Twoja mała pracownia magii ✦</span>
+      <h1 class="studio-title" id="magic-title" tabindex="-1">🪄 Magiczne piksele</h1>
+      <p class="magic-tagline">Wymyśl bohatera. Zmieniaj jego świat. Zobacz, co wyczarujesz! ✨</p>
+    </div>
     <div id="magic-start">
-      <div class="magic-categories" id="magic-categories" aria-label="Wybierz kategorię"></div>
-      <p class="magic-hint">Obrazki powstają na siatkach od 16 × 16 do 40 × 56 kratek, mieszczą się na kartce do A4 i działają bez internetu.</p>
+      <h2 class="magic-step-heading">Wybierz swoją przygodę</h2>
+      <p class="magic-step-sub">Każda kraina ma swoich bohaterów. Kogo dziś stworzysz?</p>
+      <div id="magic-categories" class="magic-v2-categories" aria-label="Wybierz kategorię Magicznych pikseli"></div>
+      <p class="magic-start-tip">🌟 Każdy obrazek możesz zapisać, odrysować w zeszycie i wydrukować.</p>
     </div>
     <div id="magic-workbench" hidden>
-      <div class="magic-work-grid">
-        <div class="magic-preview">
-          <div class="magic-preview-top"><span id="magic-category-name">Wybrana kraina</span><span id="magic-preview-size">24 × 24 kratek</span></div>
-          <div id="magic-art" class="magic-art" role="img" aria-label="Podgląd pikselowego obrazka"></div>
-          <p class="magic-preview-caption">Każdy kwadracik to jedna kratka w zeszycie.</p>
-        </div>
-        <div class="magic-options">
-          <h2 class="magic-options-title">✨ Wymyśl swój obrazek</h2>
-          <label class="field-label magic-size-label" for="magic-size">Rozmiar i poziom szczegółowości
-            <select id="magic-size" class="magic-select">
-              <option value="easy">🟢 Łatwy · 16 × 16</option>
-              <option value="medium" selected>🔵 Średni · 24 × 24</option>
-              <option value="hard">🟠 Trudny · 32 × 40</option>
-              <option value="expert">🔴 Ekspert · 40 × 56 (A4)</option>
-            </select>
-          </label>
-          <p id="magic-size-hint" class="paper-guide">24 × 24 kratek · zalecana kartka: A5 · kratka 5 mm</p>
-          <div id="magic-fields" class="magic-fields"></div>
-          <label class="magic-name-wrap" for="magic-name">Nazwa Twojego dzieła
-            <input class="magic-name" id="magic-name" type="text" maxlength="42" autocomplete="off" placeholder="Mój magiczny wzór">
-          </label>
-          <div class="magic-actions">
-            <button id="magic-shuffle" type="button">🎲 Zaskocz mnie</button>
-            <button id="magic-undo" type="button">↶ Cofnij</button>
-            <button id="magic-edit" class="magic-edit" type="button">✏️ Popraw w Kreatorze</button>
-            <button id="magic-save" class="magic-save" type="button">💾 Zapisz projekt</button>
+      <div class="magic-v2-workspace">
+        <div class="magic-showcase">
+          <div class="magic-showcase-heading">
+            <span class="magic-showcase-label" id="magic-category-name">🐱 Zwierzątka</span>
+            <button id="magic-grid-toggle" class="magic-grid-toggle" type="button" aria-pressed="false">▦ Pokaż kratki</button>
           </div>
-          <p class="magic-hint">Zapisane wzory znajdziesz w „Moich projektach”. Możesz je później odrysować lub wydrukować.</p>
+          <div id="magic-art-scene" class="magic-art-scene" data-category="animals">
+            <span class="magic-scene-twinkle magic-twinkle-a" aria-hidden="true">✦</span>
+            <span class="magic-scene-twinkle magic-twinkle-b" aria-hidden="true">✧</span>
+            <span class="magic-scene-twinkle magic-twinkle-c" aria-hidden="true">✦</span>
+            <div id="magic-art" class="magic-v2-art" role="img" aria-label="Podgląd tworzonego obrazka"></div>
+          </div>
+          <div class="magic-showcase-info">
+            <strong>✨ Twoje dzieło</strong>
+            <span id="magic-preview-size">24 × 24 kratki</span>
+          </div>
+          <div class="magic-v2-quick-actions">
+            <button id="magic-shuffle" class="magic-shuffle" type="button">🎲 Zaskocz mnie!</button>
+            <button id="magic-super" class="magic-super" type="button">✨ Super wersja</button>
+            <button id="magic-undo" class="magic-undo" type="button" disabled>↶ Cofnij</button>
+          </div>
+        </div>
+        <div class="magic-v2-controls">
+          <div class="magic-control-heading">
+            <span aria-hidden="true">🎨</span>
+            <div><h2>Twój magiczny warsztat</h2><p>Dotykaj przycisków, a obrazek zmieni się od razu.</p></div>
+          </div>
+          <div class="magic-v2-level-section">
+            <h3>1. Wybierz wyzwanie</h3>
+            <div id="magic-levels" class="magic-levels" role="group" aria-label="Poziom trudności i rozmiar"></div>
+            <p id="magic-size-hint" class="magic-v2-paper-info">📄 Zalecana kartka: A5 · kratka 5 mm</p>
+            <select id="magic-size" class="magic-visually-hidden" tabindex="-1" aria-hidden="true">
+              <option value="easy">Łatwy · 16 × 16</option>
+              <option value="medium" selected>Średni · 24 × 24</option>
+              <option value="hard">Trudny · 32 × 40</option>
+              <option value="expert">Ekspert · 40 × 56</option>
+            </select>
+          </div>
+          <div class="magic-v2-traits-heading">
+            <h3>2. Wyczaruj swój obrazek</h3>
+            <p>Łącz pomysły — wszystkie części pasują do siebie!</p>
+          </div>
+          <div id="magic-fields" class="magic-v2-traits"></div>
+          <label class="magic-v2-name-label" for="magic-name">🏷️ Nazwij swoje dzieło
+            <input id="magic-name" class="magic-name" type="text" maxlength="42" autocomplete="off" placeholder="Mój magiczny obrazek">
+          </label>
+          <div class="magic-v2-final-actions">
+            <button id="magic-save" class="magic-v2-save" type="button">💾 Zapisz do Moich projektów</button>
+            <button id="magic-edit" class="magic-v2-edit" type="button">✏️ Popraw w Kreatorze</button>
+          </div>
+          <p class="magic-v2-note">🌈 Gotowy wzór można odrysować, wydrukować i zachować w Kolekcji.</p>
         </div>
       </div>
     </div>
-    <p id="magic-feedback" role="status"></p>
+    <p id="magic-feedback" class="magic-v2-feedback" role="status"></p>
   </section>
   <section id="my-studio" class="studio" aria-labelledby="my-title" hidden>
     <a href="#galeria" class="back">← Wróć do galerii</a>
@@ -921,7 +949,9 @@ h1, h2, h3, p { margin:0 }
 </dialog>
 <div id="print-pages" aria-hidden="true"></div>
 <script src="./album-photos.js?v=photos-01"></script>
-<script src="./magic-pixels.js?v=magic-04"></script>
+<script src="./magic-premium-core.js?v=premium-v2a"></script>
+<script src="./magic-premium-worlds.js?v=premium-v2a"></script>
+<script src="./magic-pixels.js?v=premium-v2a"></script>
 <script>
 'use strict';
 
