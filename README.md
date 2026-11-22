@@ -26,19 +26,40 @@ Nie zwiększać limitów bez jednoczesnego sprawdzenia edytora, zapisu projektó
 - Potwierdzenie przed zmianą, która obcina istniejące piksele.
 - Projekty i szkice zapisywane w pamięci przeglądarki (`pikseluj/projekty/v1`); istniejące dane zachowują dawny format.
 
-## Magiczne piksele
+## Magiczne piksele PREMIUM v2
 
-Pliki: `magic-pixels.js` i `magic-pixels.css`. Moduł nie wymaga serwera generującego obrazki.
+Generator służy do zabawy w tworzenie postaci i scen na papierze w kratkę 5 mm. Nie korzysta z płatnych API ani serwerów generujących obrazy.
 
-- Cztery kategorie: zwierzątka, potworki, roboty, bajkowe światy.
-- Cztery poziomy: łatwy 16 × 16, średni 24 × 24, trudny 32 × 40, ekspert 40 × 56.
-- Dla większych wzorów tworzone są dodatkowe pikselowe detale i dekoracje.
-- Wybór części, wariantów i kolorów, losowanie, cofanie zmian.
-- Zapis bezpośrednio do Moich projektów i przenoszenie jako szkicu do ręcznego Kreatora.
+**Pliki modułu:**
+- `magic-premium-core.js`: pikselowe prymitywy i kompozycje Zwierzątek, Potworków i Robotów
+- `magic-premium-worlds.js`: zamki, magiczne lasy, bajkowe domki i latarnie morskie, publiczne API `MagicPremiumArt.render(category,options,level)`
+- `magic-pixels.js`: stan, opcje, historia cofania, wybór poziomów, zapis, losowanie, przyciski i podgląd
+- `magic-premium-ui.css`: responsywna stylistyka premium, animacje i przyciski
+- `magic-pixels.css`: historyczne style (zachowane dla kompatybilności; nowszy CSS ładuje się później)
+
+**Zasady jakości grafik:**
+- Każdy wzór powstaje bezpośrednio na siatce docelowego rozmiaru: 16 × 16, 24 × 24, 32 × 40 lub 40 × 56.
+- **Nie wolno rozciągać gotowego obrazka 24 × 24**, ponieważ deformuje to kontury, uszy i pyszczki.
+- Sylwetki i detale są tworzone przez autorskie moduły: połączenia elementów, kontrolowany ciemny kontur, twarze, dodatki, dekoracje i odrębne bajkowe scenerie.
+- Spójne piksele i kolory zgodne z ręcznym Kreatorem; bez rozmycia i półpiksela.
+- W większych formatach pojawiają się dodatkowe elementy, a kompozycja jest rysowana od nowa.
+
+**Nowy interfejs:**
+- Ekran startowy kategorii z pikselowymi podglądami postaci/scen.
+- Duży artystyczny podgląd, bez widocznej kratki na start; przycisk „Pokaż kratki” pokazuje prawdziwą siatkę.
+- Cztery czytelne kafelki rozmiarów i poziomów trudności wraz z zalecaną kartką.
+- Wybór zwierzaka, oczu, miny, dodatków, sceny i koloru przez klikalne ikony/kafelki (różne dla każdej kategorii).
+- „🎲 Zaskocz mnie!” losuje wariant, „✨ Super wersja” wybiera z przygotowanych spójnych zestawów, jest też „↶ Cofnij”.
+- Możliwość nadania nazwy, zapisu w Moich projektach i przeniesienia do ręcznego Kreatora.
 - Ochrona przed przypadkowym nadpisaniem istniejącego szkicu.
-- Opcje Magicznych pikseli zapisywane w `pikseluj/magiczne/v1`.
+- Zgodność ze starszą pamięcią ustawień `pikseluj/magiczne/v1` (nowe pola dostają wartości domyślne).
 
-Przy zmianie JavaScript/CSS zwiększyć oznaczenie `?v=...` w `index.html`, aby przeglądarki pobrały aktualizację.
+**Kontrola jakości:**
+- Sprawdzić w Chrome/PWA na Androidzie wybór kategorii, klikane cechy i poziomy, „Super wersję”, aparat/galerię (osobna funkcja), cofanie, przewijanie, zapis i ręczną edycję.
+- Kontrolować wizualnie przykłady wszystkich czterech poziomów, zwłaszcza wielkość konturów, umieszczenie uszu i oczu oraz czytelność gotowej sceny.
+- W testach automatycznych weryfikować wymiar siatki, zgodność kolorów i brak pustych obrazów dla kombinacji opcji.
+
+**Uwaga:** po zmianie plików aktualizować oznaczenie `?v=...` w `index.html`, aby zainstalowane aplikacje pobrały najnowszą wersję.
 
 ## Wzory i album
 
