@@ -668,7 +668,7 @@ h1, h2, h3, p { margin:0 }
               <option value="expert">🔴 Ekspert · 40 × 56 (A4)</option>
             </select>
           </label>
-          <p id="magic-size-hint" class="paper-guide">Od A5 · 24 × 24 kratek · kratka 5 mm</p>
+          <p id="magic-size-hint" class="paper-guide">24 × 24 kratek · zalecana kartka: A5 · kratka 5 mm</p>
           <div id="magic-fields" class="magic-fields"></div>
           <label class="magic-name-wrap" for="magic-name">Nazwa Twojego dzieła
             <input class="magic-name" id="magic-name" type="text" maxlength="42" autocomplete="off" placeholder="Mój magiczny wzór">
@@ -895,7 +895,7 @@ function paperDifficulty(pattern) {
 }
 function paperDescriptor(pattern) {
   const sheet=paperRecommended(pattern.width,pattern.height);
-  return sheet ? 'Od '+sheet+' · '+paperDifficulty(pattern) :
+  return sheet ? 'Zalecana kartka: '+sheet+' · '+paperDifficulty(pattern) :
     'Większy niż A4 · '+paperDifficulty(pattern);
 }
 const paperDimension = (w,h) => ((w*0.5).toLocaleString('pl-PL',{maximumFractionDigits:1})+' × '+(h*0.5).toLocaleString('pl-PL',{maximumFractionDigits:1})+' cm');
@@ -3120,7 +3120,7 @@ for (const id of ['editor-width','editor-height']) $(id).addEventListener('input
   $('editor-paper-preset').value='custom';
   const w=Number($('editor-width').value),h=Number($('editor-height').value);
   $('editor-paper-info').textContent=paperFits(w,h)
-    ? 'Wybrano '+w+' × '+h+' · od '+paperRecommended(w,h)+' · '+paperDimension(w,h)
+    ? 'Wybrano '+w+' × '+h+' · zalecana kartka: '+paperRecommended(w,h)+' · '+paperDimension(w,h)
     : 'Ten rozmiar nie mieści się na jednej kartce A4 w kratkę 5 mm.';
 });
 $('editor-size').addEventListener('submit',event => {
