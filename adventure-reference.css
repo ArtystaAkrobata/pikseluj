@@ -155,10 +155,10 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
 .reference-stage .reference-mystery-tile .mystery-key-icon {
   position:absolute;
   z-index:1;
-  top:8%;
-  left:26%;
-  width:48%;
-  height:60%;
+  top:5%;
+  left:23.5%;
+  width:53%;
+  height:67%;
   overflow:visible;
   filter:drop-shadow(0 2px 1px #592d4670);
 }
@@ -169,18 +169,18 @@ body.reference-ready:has(#gallery:not([hidden])) .site-header{display:none!impor
   display:flex;
   align-items:center;
   justify-content:center;
-  inset:68% 2% 7%;
+  inset:64% 2% 11%;
   width:auto;
   margin:0;
   padding:0;
   white-space:nowrap;
   font-family:"Arial Rounded MT Bold","Trebuchet MS",ui-rounded,system-ui,sans-serif;
-  font-size:clamp(14px,3.7vw,28px);
+  font-size:clamp(15px,3.9vw,29px);
   line-height:1;
   letter-spacing:-.055em;
   font-weight:1000;
   color:#fff9f3;
-  -webkit-text-stroke:.45px #593148;
+  -webkit-text-stroke:.65px #593148;
   text-shadow:0 2px 0 #753b37,1px 2px 1px #6a2e38,-1px 1px 1px #6a2e38,0 3px 3px #46234498;
 }
 .reference-stage .reference-mystery-tile:active {
