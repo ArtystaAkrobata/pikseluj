@@ -176,7 +176,7 @@ function magicRows(){
  if(!isLarge)return output.map(row=>row.join(''));
  // Im większa siatka, tym więcej nowych, drobnych elementów.
  const base=output.map(row=>row.slice()),body=o.color;
- const detailColor={p:'t',v:'j',b:'m',l:'g',O:'e',g:'d'}[body]||'c';
+ const detailColor={p:'t',v:'p',b:'w',l:'g',O:'e',g:'d'}[body]||'c';
  for(let y=offY+3;y<offY+square-3;y++)for(let x=offX+3;x<offX+square-3;x++){
   if(base[y][x]!==body)continue;
   if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>base[y+dy]?.[x+dx]!==body))continue;
