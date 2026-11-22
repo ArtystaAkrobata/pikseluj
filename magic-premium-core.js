@@ -138,9 +138,9 @@ const MagicPremiumCore=(()=>{
   }else{
    for(const sign of [-1,1]){
     const pos=cx+sign*Math.round(rx*.6);
-    const span=Math.max(2,Math.round(rx*.33));
-    const bottom=top+Math.max(4,Math.round(ry*.67));
-    const tip=top-Math.max(3,Math.round(ry*.42));
+    const span=Math.max(2,Math.round(rx*(k==='cat'?.39:.35)));
+    const bottom=top+Math.max(4,Math.round(ry*(k==='cat'?.51:.66)));
+    const tip=top-Math.max(3,Math.round(ry*(k==='cat'?.3:.47)));
     g.poly([[pos-span,bottom],[pos,tip],[pos+span,bottom]],'k');
     g.poly([[pos-span+1,bottom-1],[pos,tip+2],[pos+span-1,bottom-1]],p.base);
     if(L.d>0)g.poly([[pos-span+2,bottom-2],[pos,tip+4],[pos+span-2,bottom-2]],'t');
@@ -242,8 +242,20 @@ const MagicPremiumCore=(()=>{
   }
  }
  function drawMonster(g,L,o){
-  const p=palette(o,'monster'),[cx,cy,rx,ry]=L.head,d=L.d;
+  const p=palette(o,'monster'),[cx,cy,rx,ry]=L.head,[bx,by,brx,bry]=L.body,d=L.d;
   accents(g,L,o);
+  // Cała postać, nie sama głowa: pełny brzuszek, rączki i nóżki na A4.
+  for(const sign of [-1,1]){
+    const ax=bx+sign*Math.round(brx*.9);
+    if(d>=1)g.ring(ax,by-1,Math.max(2,brx*.4),Math.max(2,bry*.49),p.base);
+    g.ring(bx+sign*Math.round(brx*.57),Math.min(L.h-2,by+bry-1),Math.max(2,brx*.34),Math.max(1.5,bry*.26),p.base);
+  }
+  g.ring(bx,by,brx,bry,p.base);
+  if(d>=1)g.oval(bx,by+Math.round(bry*.16),Math.max(2,brx*.55),Math.max(2,bry*.52),p.shine);
+  if(d>=2)for(const sign of [-1,1]){
+    const px=bx+sign*Math.round(brx*.37);
+    g.set(px,by+Math.round(bry*.17),'p');
+  }
   if(o.kind==='square')g.roundedRing(cx-rx,cy-ry,rx*2+1,ry*2+1,Math.max(2,rx*.27),p.base);
   else if(o.kind==='jelly'){
    g.ring(cx,cy+ry*.2,rx,ry*.92,p.base);
@@ -331,9 +343,18 @@ const MagicPremiumCore=(()=>{
    const cw=Math.max(5,Math.round(brx*1.18)),ch=Math.max(4,Math.round(bry*.75));
    const left=bx-Math.round(cw/2),topChest=by-Math.round(bry*.55);
    g.roundedRing(left,topChest,cw,ch,2,'w');
-   if(o.mouth==='heart')g.heart(bx,topChest+Math.round(ch*.24),'r');
-   else if(o.mouth==='star')g.sparkle(bx,topChest+Math.round(ch*.36),'Y');
-   else {g.set(bx-2,topChest+2,'r');g.set(bx,topChest+2,'Y');g.set(bx+2,topChest+2,'l')}
+   // Symbole na panelu muszą nadpisywać białe wypełnienie, a nie znikać pod nim.
+   const sy=topChest+Math.max(2,Math.round(ch*.3));
+   if(o.mouth==='heart'){
+    g.set(bx-1,sy,'r');g.set(bx+1,sy,'r');
+    g.rect(bx-2,sy+1,5,1,'r');
+    g.rect(bx-1,sy+2,3,1,'r');g.set(bx,sy+3,'r');
+   }else if(o.mouth==='star'){
+    g.set(bx,sy-1,'Y');g.rect(bx-2,sy,5,1,'Y');g.set(bx,sy+1,'Y');g.set(bx,sy+2,'Y');
+   }else{
+    g.set(bx-2,sy,'r');g.set(bx,sy,'Y');g.set(bx+2,sy,'l');
+    if(d>=2)g.rect(bx-2,sy+2,5,1,'a');
+   }
    if(d>=3){
     for(const px of [bx-brx+2,bx+brx-2]){g.set(px,by+2,'s');g.set(px,by+4,'k')}
     g.rect(bx-2,by+bry*.54,5,1,'s');
