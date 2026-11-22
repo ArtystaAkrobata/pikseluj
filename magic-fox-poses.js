@@ -10,7 +10,7 @@ const MagicFoxPoses=(()=>{
  function decode(pose,level){
   const id=pose+'/'+level;if(decodedCache.has(id))return decodedCache.get(id);
   const input=MagicFoxPoseData[pose]?.[level];
-  const expected=level==='easy'?16:24;
+  const expected=sizeTable[level];
   if(!input)throw new Error('Brak wzoru: '+id);
   const rows=input.split('/').map(line=>{
    if(line.length%2!==0)throw new Error('Uszkodzony wzór: '+id);
@@ -22,13 +22,13 @@ const MagicFoxPoses=(()=>{
    }
    return expanded;
   });
-  if(rows.length!==expected||rows.some(row=>row.length!==expected))throw new Error('Błędne wymiary: '+id);
+  if(rows.length!==expected[1]||rows.some(row=>row.length!==expected[0]))throw new Error('Błędne wymiary: '+id);
   const mat=rows.map(row=>row.split(''));
   decodedCache.set(id,mat);
   return mat;
  }
  function enlarged(pose,level){
-  if(level==='easy'||level==='medium')return decode(pose,level).map(row=>row.slice());
+  if(level==='easy'||level==='medium'||(pose==='sitting'&&MagicFoxPoseData.sitting[level]))return decode(pose,level).map(row=>row.slice());
   const [w,h]=sizeTable[level];
   const src=decode(pose,'medium');
   const side=level==='hard'?30:36;
