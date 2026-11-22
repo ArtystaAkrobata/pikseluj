@@ -288,7 +288,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
-<link rel="stylesheet" href="./adventure-reference.css?v=adventure-04">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-05">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-03">
 </head>
 <body>
@@ -1804,6 +1804,23 @@ for (const pattern of patterns) {
 }
 // Sześć prawdziwych wzorów na ekranie startowym; pozostałe pozostają dostępne.
 const adventureFeatured = ['piksel-kotek','piksel-motyl','piksel-lody','rakieta','piksel-panda','piksel-kwiat'];
+// W galerii (także na narysowanym ekranie głównym) nie ma już
+// osobnych, ilustracyjnych miniaturek. Jedynym źródłem obrazu jest
+// macierz pattern.rows — ta sama, z której powstają kratki do rysowania.
+const masterScreen = document.querySelector('#adventure-reference .reference-canvas');
+if (masterScreen) {
+  const firstClickTarget = masterScreen.querySelector('.reference-hit');
+  for (const [index,id] of adventureFeatured.entries()) {
+    const pattern = patterns.find(item => item.id === id);
+    if (!pattern) throw new Error('Brak wzoru dla miniatury startowej: ' + id);
+    const preview = el('div','reference-master-art r-master' + (index + 1));
+    preview.setAttribute('aria-hidden','true');
+    preview.dataset.patternId = pattern.id;
+    preview.append(sprite(pattern,{paper:true}));
+    masterScreen.insertBefore(preview,firstClickTarget);
+  }
+}
+
 for (const id of [...adventureFeatured].reverse()) {
   const card = galleryCards.get(id);
   if (card) $('cards').prepend(card);
