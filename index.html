@@ -293,6 +293,7 @@ h1, h2, h3, p { margin:0 }
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
 <link rel="stylesheet" href="./adventure-reference.css?v=adventure-16">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-06">
+<link rel="stylesheet" href="./magic-pixels.css?v=magic-01">
 
 <style>
 /* Cztery nowe, wypukłe przyciski w ilustracyjnej stylistyce Pikseluj. */
@@ -437,6 +438,22 @@ h1, h2, h3, p { margin:0 }
   #gallery .reference-stage .creative-tile svg{max-height:60%}
 }
 </style>
+<style>
+/* Zatwierdzony układ: Magiczne piksele po lewej (fiolet), Moje projekty po prawej (niebieski). */
+#gallery .reference-stage .creative-tile.creative-magic{
+ --tile-top:#efb6ff;--tile-mid:#bb6bf3;--tile-bottom:#803bd3;--tile-dark:#522675;border-color:#643b72
+}
+#gallery .reference-stage .creative-tile.creative-projects{
+ --tile-top:#b5efff;--tile-mid:#36b9f4;--tile-bottom:#0a82dc;--tile-dark:#17558d;border-color:#22649e
+}
+#gallery .reference-stage .creative-tile strong{font-size:clamp(10px,2.95vw,18px)}
+#gallery .creator-shortcuts .creator-magic-shortcut{
+ background:linear-gradient(155deg,#e7b8fc,#9f62e6);border-color:#7c3fa1;color:#4c2675
+}
+#gallery .creator-shortcuts .creator-projects-shortcut{
+ background:linear-gradient(155deg,#b4ecff,#56adf2);border-color:#358ac2;color:#1d5b86
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -465,6 +482,15 @@ h1, h2, h3, p { margin:0 }
       <div class="reference-creative-panel" role="group" aria-label="Panel kreatora">
         <span class="creative-panel-title">✦ Panel kreatora ✦</span>
         <div class="creative-panel-tiles">
+          <a href="#magiczne" class="creative-tile creative-magic" aria-label="Magiczne piksele — generator obrazków"><svg viewBox="0 0 100 95" aria-hidden="true" focusable="false">
+ <path d="m28 71 44-50q5-5 10 0l3 3q5 5 0 10L39 82q-5 5-10 0l-2-2q-4-5 1-9Z" fill="#ffdc74" stroke="#57347a" stroke-width="6"/>
+ <path d="m32 70 10 10m30-58 11 10" stroke="#fff8c3" stroke-width="5"/>
+ <path d="m36 8 4 11 12 3-12 3-4 11-4-11-12-3 12-3Z" fill="#fff7a8" stroke="#ae651f" stroke-width="2.5"/>
+ <path d="m75 50 3 7 8 3-8 2-3 9-3-9-8-2 8-3Z" fill="#e4fdff" stroke="#7747b7" stroke-width="2"/>
+ <path d="m15 40 3 6 6 2-6 2-3 7-3-7-6-2 6-2Z" fill="#ffabde" stroke="#b4498e" stroke-width="2"/>
+ <rect x="55" y="5" width="10" height="10" fill="#c4f5ff" stroke="#6943a4" stroke-width="2"/>
+ <rect x="6" y="65" width="9" height="9" fill="#fbdc58" stroke="#ae7134" stroke-width="2"/>
+</svg><strong>Magiczne piksele</strong></a>
           <a href="#moje" class="creative-tile creative-projects" aria-label="Moje projekty — zapisane obrazki"><svg viewBox="0 0 100 95" aria-hidden="true" focusable="false">
   <path d="M10 24q0-9 10-9h24l9 11h28q9 0 9 9v43q0 9-9 9H19q-9 0-9-9Z" fill="#ffcc7d" stroke="#59316b" stroke-width="6" stroke-linejoin="round"/>
   <path d="M13 39q0-6 7-6h62q7 0 7 8L83 78q-1 7-9 7H22q-8 0-9-7Z" fill="#fff0ba" stroke="#6b4081" stroke-width="5"/>
@@ -474,20 +500,6 @@ h1, h2, h3, p { margin:0 }
   <path d="M41 45h7v7h-7z" fill="#f27bc4"/>
   <path d="M55 58h8v8h-8z" fill="#ffc34f"/>
 </svg><strong>Moje projekty</strong></a>
-          <a href="#kreator" class="creative-tile creative-editor" aria-label="Kreator — stwórz własny obrazek"><svg viewBox="0 0 100 95" aria-hidden="true" focusable="false">
-  <rect x="10" y="17" width="58" height="61" rx="8" fill="#e2faff" stroke="#1d548e" stroke-width="6"/>
-  <rect x="17" y="24" width="44" height="47" rx="3" fill="#fff" stroke="#80bfdc" stroke-width="2"/>
-  <path d="M27 25v46M36 25v46M45 25v46M54 25v46M18 35h42M18 44h42M18 53h42M18 62h42" stroke="#d2e7ef" stroke-width="1.4"/>
-  <path d="M27 44h9v-9h9v9h9v9H27Z" fill="#f59ad5"/>
-  <path d="M36 53h18v9H36Z" fill="#ffcd50"/>
-  <g transform="translate(59 10) rotate(29 13 32)">
-    <path d="M5 12h18v53l-9 16-9-16Z" fill="#ffd85f" stroke="#6a357b" stroke-width="5" stroke-linejoin="round"/>
-    <path d="M5 12h18v10H5Z" fill="#fe8cbd" stroke="#6a357b" stroke-width="4"/>
-    <path d="m5 65 9 16 9-16Z" fill="#fff1cf" stroke="#6a357b" stroke-width="3"/>
-    <path d="m11 76 3 5 3-5Z" fill="#2c2755"/>
-  </g>
-  <path d="m81 13 2 4 5 1-5 2-2 5-2-5-5-2 5-1Z" fill="#fff79e" stroke="#b56730" stroke-width="1.5"/>
-</svg><strong>Kreator</strong></a>
         </div>
       </div>
       <nav class="reference-bottom-nav" aria-label="Nawigacja Pikseluj">
@@ -534,13 +546,13 @@ h1, h2, h3, p { margin:0 }
       <button type="button" class="gallery-more" id="adventure-more">✨ Pokaż wszystkie obrazki</button>
       <a href="#kreator" class="adventure-create" aria-label="Stwórz własny obrazek w kreatorze"><span aria-hidden="true">✏️</span> + Stwórz własny</a>
       <div class="adventure-shortcuts creator-shortcuts" aria-label="Panel kreatora">
-        <a href="#moje" id="studio-launch" class="studio-launch adventure-shortcut" aria-labelledby="studio-link-title">
-          <span class="shortcut-icon" aria-hidden="true">🖼️</span>
-          <strong id="studio-link-title">Moje projekty</strong>
+        <a href="#magiczne" class="adventure-shortcut creator-magic-shortcut">
+          <span class="shortcut-icon" aria-hidden="true">🪄</span>
+          <strong>Magiczne piksele</strong>
         </a>
-        <a href="#kreator" class="adventure-shortcut">
-          <span class="shortcut-icon" aria-hidden="true">🎨</span>
-          <strong>Kreator</strong>
+        <a href="#moje" id="studio-launch" class="studio-launch adventure-shortcut creator-projects-shortcut" aria-labelledby="studio-link-title">
+          <span class="shortcut-icon" aria-hidden="true">📒</span>
+          <strong id="studio-link-title">Moje projekty</strong>
         </a>
       </div>
       <p id="adventure-print-hint" class="adventure-tip" role="status" hidden>Wybierz obrazek. Opcja drukowania znajduje się w jego podglądzie.</p>
@@ -610,6 +622,40 @@ h1, h2, h3, p { margin:0 }
       <p>Nagrody będzie można zdobywać za przechodzenie mapy i ukończenie minigier. System osiągnięć zbudujemy wraz z tymi funkcjami.</p>
       <a href="#minigry" class="action primary">Zobacz minigry</a>
     </div>
+  </section>
+  <section id="magic-screen" class="studio" aria-labelledby="magic-title" hidden>
+    <a href="#galeria" id="magic-back" class="back">← Wróć do galerii</a>
+    <p class="magic-kicker">✦ Panel kreatora ✦</p>
+    <h1 class="studio-title" id="magic-title" tabindex="-1">🪄 Magiczne piksele</h1>
+    <p class="magic-intro">Wybierz krainę, połącz elementy i stwórz własny wzór do zeszytu. Możesz go wylosować, zapisać lub poprawić w Kreatorze.</p>
+    <div id="magic-start">
+      <div class="magic-categories" id="magic-categories" aria-label="Wybierz kategorię"></div>
+      <p class="magic-hint">Obrazki powstają na siatce 24 × 24 kratek i działają również bez internetu.</p>
+    </div>
+    <div id="magic-workbench" hidden>
+      <div class="magic-work-grid">
+        <div class="magic-preview">
+          <div class="magic-preview-top"><span id="magic-category-name">Wybrana kraina</span><span>24 × 24 kratki</span></div>
+          <div id="magic-art" class="magic-art" role="img" aria-label="Podgląd pikselowego obrazka"></div>
+          <p class="magic-preview-caption">Każdy kwadracik to jedna kratka w zeszycie.</p>
+        </div>
+        <div class="magic-options">
+          <h2 class="magic-options-title">✨ Wymyśl swój obrazek</h2>
+          <div id="magic-fields" class="magic-fields"></div>
+          <label class="magic-name-wrap" for="magic-name">Nazwa Twojego dzieła
+            <input class="magic-name" id="magic-name" type="text" maxlength="42" autocomplete="off" placeholder="Mój magiczny wzór">
+          </label>
+          <div class="magic-actions">
+            <button id="magic-shuffle" type="button">🎲 Zaskocz mnie</button>
+            <button id="magic-undo" type="button">↶ Cofnij</button>
+            <button id="magic-edit" class="magic-edit" type="button">✏️ Popraw w Kreatorze</button>
+            <button id="magic-save" class="magic-save" type="button">💾 Zapisz projekt</button>
+          </div>
+          <p class="magic-hint">Zapisane wzory znajdziesz w „Moich projektach”. Możesz je później odrysować lub wydrukować.</p>
+        </div>
+      </div>
+    </div>
+    <p id="magic-feedback" role="status"></p>
   </section>
   <section id="my-studio" class="studio" aria-labelledby="my-title" hidden>
     <a href="#galeria" class="back">← Wróć do galerii</a>
@@ -773,6 +819,7 @@ h1, h2, h3, p { margin:0 }
   <noscript><p class="wrap">Żeby wybrać wzór i podświetlać wiersze, włącz JavaScript w przeglądarce.</p></noscript>
 </main>
 <div id="print-pages" aria-hidden="true"></div>
+<script src="./magic-pixels.js?v=magic-01"></script>
 <script>
 'use strict';
 
@@ -3260,6 +3307,7 @@ function showScreen(next) {
   $('editor').hidden = next !== 'editor';
   $('album').hidden = next !== 'album';
   $('monster').hidden = next !== 'monster';
+  $('magic-screen').hidden = next !== 'magic';
   $('world-map').hidden = next !== 'map';
   $('mini-games').hidden = next !== 'games';
   $('achievements-screen').hidden = next !== 'achievements';
@@ -3301,12 +3349,14 @@ function route() {
   const newSections = {
     '#mapa':{screen:'map',title:'map-title',documentTitle:'Mapa'},
     '#minigry':{screen:'games',title:'games-title',documentTitle:'Minigry'},
-    '#osiagniecia':{screen:'achievements',title:'achievements-title',documentTitle:'Osiągnięcia'}
+    '#osiagniecia':{screen:'achievements',title:'achievements-title',documentTitle:'Osiągnięcia'},
+    '#magiczne':{screen:'magic',title:'magic-title',documentTitle:'Magiczne piksele'}
   };
   if (Object.hasOwn(newSections,hash)) {
     const target = newSections[hash];
     const previous = view;
     showScreen(target.screen);
+    if(target.screen==='magic')magicOpen();
     document.title = target.documentTitle + ' — Pikseluj';
     if (previous !== target.screen) {
       window.scrollTo(0,0);
