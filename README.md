@@ -45,12 +45,20 @@ Generator służy do zabawy w tworzenie postaci i scen na papierze w kratkę 5 m
 
 Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obrazu**. Każdy nowy sprite przed publikacją musi przejść przegląd wizualny 16×16, 24×24, 32×40 i 40×56, w tym kontrolę czytelności sylwetki, konsekwentnych proporcji, ciągłości ciemnego obrysu, skali detali oraz typowego wydruku 5 mm. Nowe style zatwierdzać w galerii jakości.
 
+**Biblioteka póz liska (aktualna wersja):**
+- `magic-fox-poses-data.js` przechowuje **8 odrębnych bazowych rysunków** (główka, siedzący, śpiący, z profilu × 16×16 i 24×24), w bezstratnym zapisie pikseli.
+- `magic-fox-poses.js` dekoduje piksele, kontroluje kolory i dekoracje oraz przygotowuje formaty 32×40 i 40×56 przez **proporcjonalne powiększenie** baz 24×24 z ponownym obrysem i detalami tła. Są to nadal adaptacje do dalszego dopracowania graficznego — nie należy przedstawiać ich jako ręcznie narysowanych wzorów od zera na tych formatach.
+- U liska opcje dostępne dla dziecka to poza, kolor i drobne dodatki tła; edycja oczu i miny jest celowo wyłączona, by chronić projekt postaci.
+- „Zaskocz mnie” i „Super wersja” w kategorii Zwierzątka zachowują wybrany gatunek; „Super wersja” dla liska ma cztery zestawy póz.
+- Wybór pozy i rozmiaru zapisuje się w dotychczasowym stanie `pikseluj/magiczne/v1`; projekty i ręczny Kreator pozostają bez zmian.
+- Kolejny etap jakości to odrębne, ręcznie zaprojektowane kompozycje 32×40 i 40×56. Nie należy opisywać aktualnego wyniku jako finalnego premium bez oceny wizualnej na telefonie.
+
 **Zasady jakości grafik:**
 - Każdy wzór powstaje bezpośrednio na siatce docelowego rozmiaru: 16 × 16, 24 × 24, 32 × 40 lub 40 × 56.
 - **Nie wolno rozciągać gotowego obrazka 24 × 24**, ponieważ deformuje to kontury, uszy i pyszczki.
 - Sylwetki i detale są tworzone przez autorskie moduły: połączenia elementów, kontrolowany ciemny kontur, twarze, dodatki, dekoracje i odrębne bajkowe scenerie.
 - Spójne piksele i kolory zgodne z ręcznym Kreatorem; bez rozmycia i półpiksela.
-- W większych formatach pojawiają się dodatkowe elementy, a kompozycja jest rysowana od nowa.
+- Dla starszych grafik i nowych póz liska różny jest stopień ręcznego opracowania. **Wersje liska 32×40 i 40×56 są na razie adaptacjami**, a ich następne poprawki należy wykonywać bez zniekształcania proporcji.
 
 **Nowy interfejs:**
 - Ekran startowy kategorii z pikselowymi podglądami postaci/scen.
