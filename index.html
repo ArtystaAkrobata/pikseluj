@@ -3135,6 +3135,10 @@ $('editor-size').addEventListener('submit',event => {
   }
   const old = snapshotEditor();
   const lost = old.some((row,y) => /[^.]/.test(y >= h ? row : row.slice(w)));
+  if (lost && !window.confirm('Zmniejszenie formatu przytnie część obrazka. Kontynuować? (Możesz potem użyć Cofnij)')) {
+    $('editor-feedback').textContent='Pozostawiono poprzedni rozmiar i cały rysunek.';
+    return;
+  }
   editor.rows = Array.from({length:h},(_,y) => (old[y] || '').slice(0,w).padEnd(w,'.'));
   editorCursor = null;
   syncEditor();
