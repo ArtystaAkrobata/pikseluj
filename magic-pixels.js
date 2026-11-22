@@ -237,7 +237,7 @@ function magicRender(){
  document.getElementById('magic-category-name').textContent=d.emoji+' '+d.title;
  document.getElementById('magic-size').value=magicState.size;
  const variant=MAGIC_VARIANTS[magicState.size];
- document.getElementById('magic-size-hint').textContent=variant.width+' × '+variant.height+' kratek · kartka od '+variant.sheet+' · '+variant.label+' · kratka 5 mm';
+ document.getElementById('magic-size-hint').textContent=variant.width+' × '+variant.height+' kratek · zalecana kartka: '+variant.sheet+' · '+variant.label+' · kratka 5 mm';
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
  const fields=document.getElementById('magic-fields');fields.replaceChildren();
  for(const field of d.fields){
