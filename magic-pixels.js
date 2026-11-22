@@ -170,6 +170,13 @@ function magicDefaultName(){
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
 let magicShowGrid=false;
+function magicCelebrate(){
+ const art=document.getElementById('magic-art');
+ if(!art||magicState.category===null)return;
+ art.classList.remove('magic-animate');
+ void art.offsetWidth;
+ art.classList.add('magic-animate');
+}
 function magicOptionIcon(field,key,emoji){
  return emoji||({none:'✦',natural:'🎨',stars:'✨'}[key]||'✦');
 }
@@ -294,7 +301,7 @@ function magicRandomize(){
  let tries=0;
  do{for(const f of d.fields)v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];tries++}
  while(JSON.stringify(v)===before&&tries<6);
- magicState.name='';magicPersist();magicRender();magicMessage('✨ Nowa magiczna kombinacja!');
+ magicState.name='';magicPersist();magicRender();magicMessage('✨ Nowa magiczna kombinacja!');magicCelebrate();
 }
 function magicSave(){
  if(!magicState.category)return;
@@ -333,14 +340,18 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
  magicHistory();
  magicState.values[magicState.category][field.key]=button.dataset.option;
  magicState.name='';
- magicPersist();magicRender();magicMessage('');
+ magicPersist();magicRender();magicMessage('');magicCelebrate();
+ const matching=document.querySelector('#magic-fields button[data-field="'+field.key+'"][data-option="'+button.dataset.option+'"]');
+ matching?.focus({preventScroll:true});
 });
 document.getElementById('magic-levels').addEventListener('click',event=>{
  const button=event.target.closest('button[data-level]');
  if(!button||!Object.hasOwn(MAGIC_VARIANTS,button.dataset.level))return;
  if(button.dataset.level===magicState.size)return;
  magicHistory();magicState.size=button.dataset.level;
- magicPersist();magicRender();magicMessage('');
+ magicPersist();magicRender();magicMessage('');magicCelebrate();
+ const matching=document.querySelector('#magic-levels button[data-level="'+button.dataset.level+'"]');
+ matching?.focus({preventScroll:true});
 });
 document.getElementById('magic-grid-toggle').addEventListener('click',()=>{
  magicShowGrid=!magicShowGrid;
@@ -403,7 +414,7 @@ function magicSuper(){
   if(entry&&entry.options.some(option=>option[0]===value))magicState.values[category][field]=value;
  }
  magicState.name='';
- magicPersist();magicRender();magicMessage('✨ Super wersja gotowa! Możesz ją jeszcze zmieniać.');
+ magicPersist();magicRender();magicMessage('✨ Super wersja gotowa! Możesz ją jeszcze zmieniać.');magicCelebrate();
 }
 document.getElementById('magic-super').addEventListener('click',magicSuper);
 document.getElementById('magic-shuffle').addEventListener('click',magicRandomize);
