@@ -1773,7 +1773,7 @@ for (const [group,label] of Object.entries(groupNames)) {
   const button = el('button','filter',label);
   button.type = 'button';
   button.setAttribute('aria-controls','cards');
-  button.addEventListener('click',() => { if (group === 'all') adventureExpanded = true; filterGallery(group); });
+  button.addEventListener('click',() => navigateGalleryMode(group));
   filterButtons.set(group,button);
   $('filters').append(button);
 }
@@ -1847,18 +1847,12 @@ function filterGallery(group) {
   $('count').textContent = featured ? visible + ' z ' + total + ' wzorów' : visible + ' ' + words;
   $('adventure-more').hidden = !featured;
 }
-$('adventure-more').addEventListener('click', () => {
-  adventureExpanded = true;
-  filterGallery('all');
-});
+$('adventure-more').addEventListener('click', () => navigateGalleryMode('all'));
 filterGallery('all');
 // Adventure: mapa filtruje istniejące wzory; bez zmiany mechaniki aplikacji.
 for (const sign of document.querySelectorAll('[data-adventure-group]')) {
   sign.addEventListener('click', () => {
-    if ($('adventure-reference').classList.contains('loaded')) $('gallery').classList.add('adventure-explore');
-    filterGallery(sign.dataset.adventureGroup);
-    // Po wyborze krainy przejdź do galerii. W pionie i w poziomie
-    // wzory należą do tego samego ekranu, nigdy do bocznej kolumny.
+    navigateGalleryMode(sign.dataset.adventureGroup);
     requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({
       behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
       block:'start'
@@ -1866,7 +1860,7 @@ for (const sign of document.querySelectorAll('[data-adventure-group]')) {
   });
 }
 $('adventure-print').addEventListener('click', () => {
-  $('adventure-print-hint').hidden = false;
+  navigateGalleryMode('all',{print:true});
   $('cards').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',block:'start'});
 });
 
@@ -1882,18 +1876,14 @@ const activateAdventureReference = () => {
 adventureReferenceImage.addEventListener('load',activateAdventureReference);
 if (adventureReferenceImage.complete) activateAdventureReference();
 $('reference-print').addEventListener('click',() => {
-  $('gallery').classList.add('adventure-explore');
-  adventureExpanded = true;
-  filterGallery('all');
-  $('adventure-print-hint').hidden = false;
+  navigateGalleryMode('all',{print:true});
   $('adventure-filter-menu').open = true;
   requestAnimationFrame(() => $('galeria-wzory').scrollIntoView({behavior:'smooth',block:'start'}));
 });
 for (const link of document.querySelectorAll('.reference-home')) link.addEventListener('click',(event) => {
+  if (!plainLink(event)) return;
   event.preventDefault();
-  $('gallery').classList.remove('adventure-explore');
-  history.replaceState(history.state,'','#galeria');
-  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  navigateHome();
 });
 
 let activePattern = null;
@@ -2373,10 +2363,12 @@ function resetPrintPanel() {
   $('print-message').textContent = '';
 }
 $('print-toggle').addEventListener('click',() => {
-  $('print-panel').hidden = !$('print-panel').hidden;
-  $('print-toggle').setAttribute('aria-expanded',String(!$('print-panel').hidden));
-  $('print-message').textContent = '';
-  updatePrintSummary();
+  if (history.state?.pikselujPanel === 'print') {
+    history.back();
+  } else {
+    pushAppState(location.hash || '#galeria',{pikselujPanel:'print'});
+    syncPrintPanelState();
+  }
 });
 $('print-kind').addEventListener('change',() => {
   $('print-message').textContent = '';
@@ -2791,12 +2783,13 @@ $('editor-delete').addEventListener('click',() => {
 window.addEventListener('pagehide',() => finishStroke());
 
 function navigateStudio(hash) {
-  if (history.state?.pikselujFromStudio) {
+  // Zapis nie tworzy pustego kroku historii: Wstecz nie powinno
+  // wracać do formularza sprzed zapisu.
+  if (history.state?.pikselujFromHash === hash && history.state?.pikselujIndex > 0) {
     history.back();
     return;
   }
-  if (location.hash !== hash) history.replaceState(null,'',hash);
-  route();
+  navigateTo(hash,{replace:true});
 }
 
 // Album zachowuje kopię rysunku z dnia ukończenia. Zmiana własnego wzoru jej nie nadpisuje.
@@ -2903,12 +2896,6 @@ function renderAlbum() {
       const link = el('a','action','Zobacz wzór');
       link.href = published === mystery ? '#zagadka' : '#wzor/' + item.id;
       link.setAttribute('aria-label','Zobacz wzór: ' + item.name);
-      link.addEventListener('click',event => {
-        if (!plainLink(event)) return;
-        event.preventDefault();
-        history.pushState({pikselujFromAlbum:true},'',link.hash);
-        route();
-      });
       actions.append(link);
     }
     const remove = el('button','action','Usuń z albumu');
@@ -2942,8 +2929,7 @@ $('resume-card').addEventListener('click',event => {
   const next = resumeJourney();
   if (!next || !plainLink(event)) return;
   event.preventDefault();
-  history.pushState({pikselujFromGallery:true,pikselujResume:true},'',$('resume-card').hash);
-  route();
+  navigateTo($('resume-card').hash,{resume:true});
 });
 
 // Moduły potworka są nakładane na siatkę 21 × 22, bez skalowania i półpikseli.
@@ -3051,8 +3037,7 @@ $('monster-save').addEventListener('click',() => {
   studio.projects.unshift({id,name,rows:monsterRows(monster),revision:1});
   const ok = persistStudio();
   $('studio-feedback').textContent = ok ? 'Zapisano „' + name + '”. Wybierz Odrysuj albo Edytuj.' : 'Potworek jest widoczny w tej karcie. ' + inheritedNotice;
-  history.pushState(null,'','#moje');
-  route();
+  navigateStudio('#moje');
 });
 
 let view = 'gallery';
@@ -3068,17 +3053,22 @@ function showScreen(next) {
 }
 function route() {
   const hash = location.hash;
+  if (!hash || hash === '#galeria' || hash === '#mapa') syncGalleryMode();
   const projectId = hash.startsWith('#wzor/') ? hash.slice(6) : '';
   const editId = hash.startsWith('#kreator/') ? hash.slice(9) : '';
   const project = studio.projects.find(p => p.id === projectId);
   const editing = studio.projects.some(p => p.id === editId);
   const target = hash === '#zagadka' ? mystery : patterns.find(item => item.id === projectId) || (project && projectPattern(project));
   if (target) {
-    if (view === 'reader' && target.id === activePattern?.id && target.revision === activePattern.revision) return;
+    if (view === 'reader' && target.id === activePattern?.id && target.revision === activePattern.revision) {
+      syncPrintPanelState();
+      return;
+    }
     if (editor) { finishStroke(); editor = null; }
     if (activePattern && activePattern !== target) stopWake();
     showScreen('reader');
     openPattern(target);
+    syncPrintPanelState();
     return;
   }
   const old = activePattern;
@@ -3138,27 +3128,120 @@ function route() {
     card?.focus({preventScroll:true});
   }
 }
-for (const id of ['back']) $(id).addEventListener('click',event => {
-  const cameFromList = history.state?.pikselujFromAlbum || history.state?.pikselujFromGallery || (activePattern?.own && history.state?.pikselujFromStudio);
-  if (!cameFromList || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  event.preventDefault();
-  history.back();
-});
-function followCard(event,card,fromStudio = false) {
-  if (!card || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-  event.preventDefault();
-  history.pushState(fromStudio ? {pikselujFromStudio:true} : {pikselujFromGallery:true},'',card.hash);
+// Jedna historia dla wszystkich ekranów. Obsługuje także systemowy Wstecz Androida.
+const APP_NAV = 'pikselujApp';
+function navState() {
+  const state = history.state;
+  return state && state[APP_NAV] === true ? state : null;
+}
+function appHash() { return location.hash || '#galeria'; }
+function initialAppHistory() {
+  if (navState()) return; // odświeżenie istniejącego kroku historii
+  const currentHash = location.hash;
+  const baseUrl = location.pathname + location.search;
+  const current = history.state && typeof history.state === 'object' ? history.state : {};
+  const root = {...current,[APP_NAV]:true,pikselujIndex:0};
+  // Głęboki link też ma bezpieczne Wstecz do ekranu startowego.
+  if (currentHash && currentHash !== '#galeria' && currentHash !== '#mapa') {
+    history.replaceState(root,'',baseUrl + '#galeria');
+    history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',
+      pikselujFromGallery:true},'',baseUrl + currentHash);
+  } else {
+    history.replaceState(root,'',baseUrl + (currentHash || '#galeria'));
+  }
+}
+function pushAppState(hash,details = {},replace = false) {
+  const previous = navState();
+  const index = (previous?.pikselujIndex ?? 0) + (replace ? 0 : 1);
+  const state = {
+    [APP_NAV]:true,
+    pikselujIndex:index,
+    pikselujFromHash:appHash(),
+    pikselujFromGallery:view === 'gallery',
+    pikselujFromStudio:view === 'studio',
+    pikselujFromAlbum:view === 'album',
+    ...details
+  };
+  history[replace ? 'replaceState' : 'pushState'](state,'',hash);
+}
+function navigateTo(hash,{replace = false,resume = false} = {}) {
+  if (hash === appHash() && !replace) return;
+  pushAppState(hash,{pikselujResume:resume},replace);
   route();
 }
-$('cards').addEventListener('click',event => followCard(event,event.target.closest('a')));
-$('mystery-card').addEventListener('click',event => followCard(event,$('mystery-card')));
-$('my-designs').addEventListener('click',event => followCard(event,event.target.closest('a'),true));
-$('new-design').addEventListener('click',event => followCard(event,$('new-design'),true));
-$('editor-back').addEventListener('click',event => {
-  if (!history.state?.pikselujFromStudio || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+function navigateBack() {
+  if ((navState()?.pikselujIndex ?? 0) > 0) {
+    history.back();
+    return;
+  }
+  if (appHash() !== '#galeria') {
+    history.replaceState({[APP_NAV]:true,pikselujIndex:0},'','#galeria');
+    route();
+  }
+}
+function navigateHome() {
+  // Przejście Start nie dopisuje zbędnego kroku, który Wstecz musiałby cofać.
+  lastGalleryY = 0;
+  const distance = navState()?.pikselujIndex ?? 0;
+  if (distance > 0) {
+    history.go(-distance);
+  } else {
+    if (appHash() !== '#galeria') {
+      history.replaceState({[APP_NAV]:true,pikselujIndex:0},'','#galeria');
+    }
+    syncGalleryMode();
+    route();
+    window.scrollTo(0,0);
+  }
+}
+function navigateGalleryMode(group,{print = false} = {}) {
+  const current = navState();
+  const replacing = !!current?.pikselujGalleryMode;
+  pushAppState('#galeria',{
+    pikselujGalleryMode:'explore',
+    pikselujGroup:group,
+    pikselujPrintHint:print
+  },replacing);
+  syncGalleryMode();
+}
+function syncGalleryMode() {
+  const state = navState();
+  const expanded = state?.pikselujGalleryMode === 'explore';
+  $('gallery').classList.toggle('adventure-explore',expanded);
+  adventureExpanded = expanded;
+  filterGallery(expanded ? (state.pikselujGroup || 'all') : 'all');
+  $('adventure-print-hint').hidden = !expanded || !state?.pikselujPrintHint;
+  if (!expanded) $('adventure-filter-menu').open = false;
+}
+function syncPrintPanelState() {
+  if (view !== 'reader') return;
+  const open = navState()?.pikselujPanel === 'print';
+  $('print-panel').hidden = !open;
+  $('print-toggle').setAttribute('aria-expanded',String(open));
+  if (!open) $('print-message').textContent = '';
+  updatePrintSummary();
+}
+function plainAppLink(event,anchor) {
+  return plainLink(event) && !!anchor && !anchor.hasAttribute('download') &&
+    anchor.getAttribute('href')?.startsWith('#');
+}
+// Wszystkie linki z Pikseluj (również dopisywane JS) korzystają z tych samych zasad.
+document.addEventListener('click',event => {
+  if (event.defaultPrevented) return;
+  const anchor = event.target.closest('a[href^="#"]');
+  if (!plainAppLink(event,anchor)) return;
+  const target = anchor.getAttribute('href');
+  if (!target || target === '#') return;
   event.preventDefault();
-  history.back();
+  if (anchor.classList.contains('back')) {
+    navigateBack();
+  } else if (target === '#galeria' || target === '#mapa') {
+    navigateHome();
+  } else {
+    navigateTo(target);
+  }
 });
+
 $('count-toggle').addEventListener('click',() => {
   showCount = !showCount;
   $('count-toggle').setAttribute('aria-pressed',String(showCount));
@@ -3183,6 +3266,7 @@ document.addEventListener('visibilitychange',() => {
 window.addEventListener('pagehide',stopWake);
 window.addEventListener('popstate',route);
 window.addEventListener('hashchange',route);
+initialAppHistory();
 route();
 </script>
 </body>
