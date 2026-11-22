@@ -467,6 +467,12 @@ h1, h2, h3, p { margin:0 }
 @media(max-width:410px){.paper-presets{gap:6px}.paper-presets select{font-size:.75rem}.paper-tag{font-size:.65rem}}
 @media print{.paper-guide,.paper-presets{display:none!important}}
 </style>
+<style>
+#magic-screen .magic-size-label{display:flex;flex-direction:column;gap:7px;font-size:.86rem;font-weight:850;color:#6a459a;margin:1px 0 6px}
+#magic-screen .magic-size-label select{display:block;width:100%;min-height:46px;padding:9px 12px;border:2px solid #b99bcf;border-radius:12px;background:#f4eaff;color:#513474;font:inherit;font-size:.92rem}
+#magic-screen #magic-size-hint{margin:5px 0 13px;font-size:.79rem}
+#magic-screen .magic-art svg{max-width:100%;max-height:100%;object-fit:contain}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -640,20 +646,29 @@ h1, h2, h3, p { margin:0 }
     <a href="#galeria" id="magic-back" class="back">← Wróć do galerii</a>
     <p class="magic-kicker">✦ Panel kreatora ✦</p>
     <h1 class="studio-title" id="magic-title" tabindex="-1">🪄 Magiczne piksele</h1>
-    <p class="magic-intro">Wybierz krainę, połącz elementy i stwórz własny wzór do zeszytu. Możesz go wylosować, zapisać lub poprawić w Kreatorze.</p>
+    <p class="magic-intro">Wybierz kategorię, połącz elementy i dobierz wielkość: od prostych obrazków po szczegółowe A4. Wzór możesz zapisać lub dopracować w Kreatorze.</p>
     <div id="magic-start">
       <div class="magic-categories" id="magic-categories" aria-label="Wybierz kategorię"></div>
-      <p class="magic-hint">Obrazki powstają na siatce 24 × 24 kratek i działają również bez internetu.</p>
+      <p class="magic-hint">Obrazki powstają na siatkach od 16 × 16 do 40 × 56 kratek, mieszczą się na kartce do A4 i działają bez internetu.</p>
     </div>
     <div id="magic-workbench" hidden>
       <div class="magic-work-grid">
         <div class="magic-preview">
-          <div class="magic-preview-top"><span id="magic-category-name">Wybrana kraina</span><span>24 × 24 kratki</span></div>
+          <div class="magic-preview-top"><span id="magic-category-name">Wybrana kraina</span><span id="magic-preview-size">24 × 24 kratek</span></div>
           <div id="magic-art" class="magic-art" role="img" aria-label="Podgląd pikselowego obrazka"></div>
           <p class="magic-preview-caption">Każdy kwadracik to jedna kratka w zeszycie.</p>
         </div>
         <div class="magic-options">
           <h2 class="magic-options-title">✨ Wymyśl swój obrazek</h2>
+          <label class="field-label magic-size-label" for="magic-size">Rozmiar i poziom szczegółowości
+            <select id="magic-size" class="magic-select">
+              <option value="easy">🟢 Łatwy · 16 × 16</option>
+              <option value="medium" selected>🔵 Średni · 24 × 24</option>
+              <option value="hard">🟠 Trudny · 32 × 40</option>
+              <option value="expert">🔴 Ekspert · 40 × 56 (A4)</option>
+            </select>
+          </label>
+          <p id="magic-size-hint" class="paper-guide">Od A5 · 24 × 24 kratek · kratka 5 mm</p>
           <div id="magic-fields" class="magic-fields"></div>
           <label class="magic-name-wrap" for="magic-name">Nazwa Twojego dzieła
             <input class="magic-name" id="magic-name" type="text" maxlength="42" autocomplete="off" placeholder="Mój magiczny wzór">
