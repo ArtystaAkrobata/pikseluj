@@ -809,7 +809,7 @@ h1, h2, h3, p { margin:0 }
         <button id="print-now" class="action" type="button">Drukuj</button>
       </div>
       <p id="print-summary" role="status"></p>
-      <p class="studio-small">A4 · kratki 5 mm. W ustawieniach drukarki wybierz skalę 100%, żeby zachować rozmiar kratek.</p>
+      <p class="studio-small">Arkusz PDF jest w formacie A4. Każda kratka ma rzeczywiste 5 × 5 mm; ustaw skalę 100% i wyłącz „Dopasuj do strony”. Duże wzory mogą drukować się na osobnych kartkach (wzór, pusta siatka i legenda kolorów).</p>
       <p id="print-message" class="studio-feedback" role="status"></p>
     </section>
     <p id="wake-status" class="wake-status" role="status" hidden></p>
@@ -2501,85 +2501,113 @@ function openPattern(pattern) {
 }
 // Arkusz powstaje w milimetrach. Ten sam układ zasila PDF i druk w przeglądarce.
 const paper = {width:210,height:297,cell:5};
+// Wydruk zawsze na fizycznej A4. Kratka jest dokładnie 5 x 5 mm.
+// Szerokie wzory są obracane na arkuszu, aby uniknąć skalowania.
+function orientForPrint(pattern) {
+  if (pattern.width <= PAPER_FORMATS.A4.w) return {data:pattern,rotated:false};
+  const rows=Array.from({length:pattern.width},(_,y)=>
+    Array.from({length:pattern.height},(_,x)=>pattern.rows[pattern.height-1-x][y]).join(''));
+  return {data:{...pattern,rows,width:pattern.height,height:pattern.width},rotated:true};
+}
 function printLayout(pattern,kind) {
-  const selected = kind === 'pattern' ? [true] : kind === 'blank' ? [false] : [true,false];
-  const w = pattern.width * paper.cell;
-  const h = pattern.height * paper.cell;
-  const legendH = pattern.used.length ? 11 + Math.ceil(pattern.used.length / 3) * 6 : 0;
-  const together = selected.length === 2;
-  const horizontal = together && w <= 80;
-  const stacked = together && !horizontal && 57 + 2 * h + 24 + legendH <= 264;
-  const pages = horizontal || stacked ? [selected] : selected.map(part => [part]);
-  const ink = '#28213f', grey = '#5d5670', accent = '#5742bb';
-  return pages.map((page,index) => {
-    const ops = [];
-    const text = (x,y,s,pt,color = ink,bold = false,align = 'start') => ops.push({tag:'text',x,y,s:String(s),pt,color,bold,align});
-    const line = (x,y,x1,y1,color,weight) => ops.push({tag:'line',x,y,x1,y1,color,weight});
-    const rect = (x,y,w,h,color) => ops.push({tag:'rect',x,y,w,h,color});
-    const grid = (x,y,colored) => {
-      text(x,y - 9,colored ? 'Wzór do odrysowania' : 'Pusta kratka',12,ink,true);
-      if (colored) {
-        for (let row = 0; row < pattern.height; row++) {
-          let col = 0;
-          for (const {color,count} of runsFor(pattern.rows[row])) {
-            if (color !== '.') rect(x + col * 5,y + row * 5,count * 5,5,colors[color][0]);
-            col += count;
-          }
+  if (!paperFits(pattern.width,pattern.height)) throw new Error('Wzór przekracza A4 przy kratce 5 mm.');
+  const {data:p,rotated}=orientForPrint(pattern);
+  const chosen=kind==='blank'?[false]:kind==='pattern'?[true]:[true,false];
+  const mmW=p.width*paper.cell,mmH=p.height*paper.cell;
+  const ink='#28213f', grey='#625b76', accent='#5742bb';
+  const compact=mmH>225;
+  const pages=[];
+  function newPage(isCompact=false) {
+    const ops=[];
+    const text=(x,y,s,pt=9,color=ink,bold=false,align='start')=>
+      ops.push({tag:'text',x,y,s:String(s),pt,color,bold,align});
+    const line=(x,y,x1,y1,color='#b9b5c5',weight=.15)=>
+      ops.push({tag:'line',x,y,x1,y1,color,weight});
+    const rect=(x,y,w,h,color)=>
+      ops.push({tag:'rect',x,y,w,h,color});
+    if(isCompact) {
+      text(5,5.7,(pattern.name.length>22?pattern.name.slice(0,21)+'…':pattern.name)+' · '+pattern.width+' × '+pattern.height,7.5,ink,true);
+      text(205,5.7,rotated?'Obrócony · 5 mm':'Pikseluj · 5 mm',7.4,grey,false,'end');
+    } else {
+      rect(14,13,4,4,accent);
+      text(20.5,16.65,'PIKSELUJ  /  ARKUSZ DO ZESZYTU',10,accent,true);
+      text(14,30,pattern.name.length>38?pattern.name.slice(0,37)+'…':pattern.name,19,ink,true);
+      text(14,38,pattern.width+' × '+pattern.height+' kratek · 1 kratka = 5 mm'+(rotated?' · obrócony do druku':''),9.3,grey);
+      line(14,43,196,43,'#d5cfe2',.24);
+    }
+    text(5,294,'Kratki 5 × 5 mm · drukuj w skali 100% (bez dopasowania do strony)',7,grey);
+    pages.push({ops,text,line,rect,compact:isCompact,bottom:0,colored:false});
+    return pages[pages.length-1];
+  }
+  function drawGrid(page,x,y,colored) {
+    const {rect,line,text}=page;
+    const dense=page.compact;
+    if(!dense) text(x,y-9,colored?'Wzór do odrysowania':'Pusta kratka',11,ink,true);
+    if(colored) {
+      for(let row=0;row<p.height;row++){
+        let col=0;
+        for(const {color,count} of runsFor(p.rows[row])) {
+          if(color!=='.') rect(x+col*5,y+row*5,count*5,5,colors[color][0]);
+          col+=count;
         }
       }
-      for (let col = 0; col <= pattern.width; col++) {
-        const at = x + col * 5;
-        const major = col % 5 === 0 || col === pattern.width;
-        line(at,y,at,y + h,major ? '#827c91' : '#b9b5c5',major ? .23 : .14);
-        if (col < pattern.width && (col === 0 || (col + 1) % 5 === 0 || col === pattern.width - 1)) text(at + 2.5,y - 2,col + 1,7.5,grey,false,'middle');
-      }
-      for (let row = 0; row <= pattern.height; row++) {
-        const at = y + row * 5;
-        const major = row % 5 === 0 || row === pattern.height;
-        line(x,at,x + w,at,major ? '#827c91' : '#b9b5c5',major ? .23 : .14);
-        if (row < pattern.height && (row === 0 || (row + 1) % 5 === 0 || row === pattern.height - 1)) text(x - 2.7,at + 3.45,row + 1,7.5,grey,false,'end');
-      }
-    };
-    rect(14,13,4,4,accent);
-    text(20.5,16.65,'PIKSELUJ   /   ARKUSZ DO ZESZYTU',10,accent,true);
-    const titleUnits = [...pattern.name].reduce((sum,ch) => sum + (/[MW@%]/.test(ch) ? 1 : /[iIl., ]/.test(ch) ? .35 : .75),0);
-    const titlePt = Math.min(24,Math.max(10,510 / Math.max(1,titleUnits)));
-    text(14,30,pattern.name,titlePt,ink,true);
-    text(14,38,`${pattern.width} × ${pattern.height} kratek   ·   1 kratka = 5 mm`,10.5,grey);
-    line(14,43,196,43,'#d5cfe2',.28);
-    let bottom;
-    if (horizontal && page.length === 2) {
-      grid(61 - w / 2,57,true);
-      grid(151 - w / 2,57,false);
-      bottom = 57 + h;
-    } else if (stacked && page.length === 2) {
-      grid((210 - w) / 2,57,true);
-      grid((210 - w) / 2,81 + h,false);
-      bottom = 81 + 2 * h;
-    } else {
-      grid((210 - w) / 2,57,page[0]);
-      bottom = 57 + h;
     }
-    if (page.includes(true) && pattern.used.length) {
-      text(14,bottom + 10,'Przygotuj kredki',10.5,ink,true);
-      pattern.used.forEach((key,i) => {
-        const [hex,label] = colors[key];
-        const x = 14 + (i % 3) * 61, y = bottom + 14 + Math.floor(i / 3) * 6;
-        rect(x,y - 2.6,4,4,'#8e85a0');
-        rect(x + .23,y - 2.37,3.54,3.54,hex);
-        text(x + 6,y + .4,label,8.5,grey);
-      });
+    for(let col=0;col<=p.width;col++){
+      const at=x+col*5,major=col%5===0||col===p.width;
+      line(at,y,at,y+mmH,major?'#817990':'#c5c0cf',major?.24:.13);
+      if(!dense&&col<p.width&&(col===0||(col+1)%5===0||col===p.width-1))
+        text(at+2.5,y-2,col+1,7,grey,false,'middle');
     }
-    line(14,274,196,274,'#d5cfe2',.22);
-    if (pattern.credit && !pattern.own) {
-      const credit = pattern.credit + (pattern.licence ? ' · ' + pattern.licence : '');
-      text(14,279,credit,7.2,grey);
-      if (pattern.sourceUrl) text(14,283,pattern.sourceUrl,7,grey);
+    for(let row=0;row<=p.height;row++){
+      const at=y+row*5,major=row%5===0||row===p.height;
+      line(x,at,x+mmW,at,major?'#817990':'#c5c0cf',major?.24:.13);
+      if(!dense&&row<p.height&&(row===0||(row+1)%5===0||row===p.height-1))
+        text(x-2.4,at+3.45,row+1,7,grey,false,'end');
     }
-    text(14,289,'Drukuj w skali 100% (rozmiar rzeczywisty).',8,grey);
-    text(196,289,`${index + 1} / ${pages.length}`,8,grey,false,'end');
-    return ops;
-  });
+    page.bottom=Math.max(page.bottom,y+mmH);
+    page.colored=page.colored||colored;
+  }
+  if(chosen.length===2&&mmW<=80&&mmH<=197){
+    const page=newPage();
+    const x=(210-(2*mmW+18))/2;
+    drawGrid(page,x,57,true);
+    drawGrid(page,x+mmW+18,57,false);
+  }else if(chosen.length===2 && 2*mmH+24+57<=265){
+    const page=newPage();
+    drawGrid(page,(210-mmW)/2,57,true);
+    drawGrid(page,(210-mmW)/2,57+mmH+24,false);
+  }else{
+    for(const colored of chosen) {
+      const page=newPage(compact);
+      const top=compact?9:57;
+      drawGrid(page,(210-mmW)/2,top,colored);
+    }
+  }
+  function printColors(page,startAt) {
+    page.text(14,startAt,'Przygotuj kredki',10,ink,true);
+    for(let i=0;i<pattern.used.length;i++){
+      const key=pattern.used[i],value=colors[key];
+      const x=14+(i%3)*61,y=startAt+7+Math.floor(i/3)*6.5;
+      page.rect(x,y-3,4,4,'#8e85a0');
+      page.rect(x+.28,y-2.72,3.44,3.44,value[0]);
+      page.text(x+6,y+.3,value[1],8.4,grey);
+    }
+  }
+  if(chosen.includes(true)&&pattern.used.length){
+    const coloredPage=pages.find(page=>page.colored);
+    const paletteHeight=13+Math.ceil(pattern.used.length/3)*6.5;
+    const proposedTop=coloredPage.bottom+12;
+    if(!coloredPage.compact && proposedTop+paletteHeight<=287)printColors(coloredPage,proposedTop);
+    else{
+      const listPage=newPage();
+      listPage.text(14,58,'Kolory użyte we wzorze',13,ink,true);
+      listPage.text(14,66,'Możesz odhaczać kredki, gdy je przygotujesz.',9,grey);
+      printColors(listPage,83);
+    }
+  }
+  const total=pages.length;
+  for(let i=0;i<total;i++)pages[i].text(205,294,(i+1)+' / '+total,7,grey,false,'end');
+  return pages.map(page=>page.ops);
 }
 
 // Bazowe fonty PDF z polskimi znakami pod osobnymi kodami oraz mapą do kopiowania tekstu.
@@ -2675,7 +2703,7 @@ function pageSvg(ops) {
 function updatePrintSummary() {
   if (!activePattern || $('print-panel').hidden) return;
   const pages = printLayout(activePattern,$('print-kind').value).length;
-  $('print-summary').textContent = pages === 1 ? 'Wszystko zmieści się na jednej stronie.' : 'Duży wzór i pusta kratka będą na osobnych stronach.';
+  $('print-summary').textContent = 'PDF / wydruk A4: '+pages+' '+(pages===1?'strona':'strony')+'. Kratka 5 × 5 mm, bez skalowania. '+(activePattern.width>40?'Szeroki wzór zostanie obrócony na arkuszu.':'')+' Zalecana kartka do zeszytu: '+paperRecommended(activePattern.width,activePattern.height)+'.';
 }
 function resetPrintPanel() {
   $('print-panel').hidden = true;
