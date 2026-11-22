@@ -27,7 +27,9 @@ button[aria-pressed="true"]{background:#dbc4f5}h2{font-size:1.15rem;margin:25px 
 <script src="./magic-premium-core.js?v=premium-v2c"></script>
 <script src="./magic-curated-data.js?v=animals-v3b"></script>
 <script src="./magic-curated-animals.js?v=animals-v3b"></script>
-<script src="./magic-premium-worlds.js?v=animals-v3b"></script>
+<script src="./magic-fox-poses-data.js?v=fox-poses-02"></script>
+<script src="./magic-fox-poses.js?v=fox-poses-02"></script>
+<script src="./magic-premium-worlds.js?v=fox-poses-02"></script>
 <script>
 'use strict';
 const palette={k:'#1a1a1c',w:'#ffffff',s:'#94949a',n:'#98674f',e:'#ce934f',c:'#f7dfac',r:'#ed343b',O:'#eb831e',Y:'#f4a929',H:'#f8de67',l:'#a9cf75',g:'#5bbb79',d:'#2e855e',b:'#53bfde',a:'#4a75c9',u:'#334478',v:'#9670e6',p:'#f58cb1',X:'#dc537c',t:'#ffa9ab'};
@@ -46,6 +48,22 @@ function artSVG(rows){
  for(let y=0;y<=h;y++)line.push('M0 '+y+'h'+w);
  grid.setAttribute('d',line.join(''));grid.setAttribute('stroke','#38204b');grid.setAttribute('stroke-opacity','.22');grid.setAttribute('stroke-width','.035');grid.setAttribute('fill','none');svg.append(grid);
  return svg;
+}
+const foxTitle=document.createElement('h2');
+foxTitle.textContent='🦊 Nowe liski · cztery pozy';
+gallery.append(foxTitle);
+for(const [pose,label] of [['sitting','Siedzący'],['head','Główka'],['sleeping','Śpiący'],['profile','Z profilu']]){
+ const title=document.createElement('h2');title.textContent='Lisek – '+label;
+ gallery.append(title);
+ const group=document.createElement('div');group.className='grid';
+ for(const [level,levelLabel] of levels){
+  const rows=MagicPremiumArt.render('animals',{kind:'fox',pose,color:'natural',scene:'none'},level);
+  const card=document.createElement('article');card.className='card';
+  const h3=document.createElement('h3');h3.textContent=levelLabel+' · '+rows[0].length+'×'+rows.length;
+  const art=document.createElement('div');art.className='art';art.append(artSVG(rows));
+  card.append(h3,art);group.append(card);
+ }
+ gallery.append(group);
 }
 for(const [kind,label] of kinds){
  const title=document.createElement('h2');title.textContent=label;gallery.append(title);
