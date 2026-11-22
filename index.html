@@ -288,7 +288,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <link rel="stylesheet" href="./adventure.css?v=adventure-01">
 <link rel="stylesheet" href="./adventure-premium.css?v=adventure-02">
-<link rel="stylesheet" href="./adventure-reference.css?v=adventure-08">
+<link rel="stylesheet" href="./adventure-reference.css?v=adventure-09">
 <link rel="stylesheet" href="./adventure-responsive.css?v=responsive-04">
 </head>
 <body>
@@ -317,19 +317,25 @@ h1, h2, h3, p { margin:0 }
       <a class="reference-hit r-projects" href="#moje" aria-label="Moje projekty"></a>
       <a class="reference-hit r-editor" href="#kreator" aria-label="Kreator obrazków"></a>
       <a class="reference-hit r-print reference-mystery-tile" id="reference-mystery" href="#zagadka" aria-label="Tajemnica — odkryj ukryty rysunek">
-         <svg class="mystery-treasure-icon" viewBox="0 0 112 100" aria-hidden="true">
+         <svg class="mystery-key-icon" viewBox="0 0 120 104" aria-hidden="true" focusable="false">
            <defs>
-             <linearGradient id="mystery-purple" x1="0" x2="0.85" y1="0" y2="1"><stop stop-color="#ecbeff"/><stop offset=".4" stop-color="#a65be0"/><stop offset="1" stop-color="#6c34a7"/></linearGradient>
-             <linearGradient id="mystery-gold" x1="0" x2="0.6" y1="0" y2="1"><stop stop-color="#fff9ba"/><stop offset="1" stop-color="#f1af30"/></linearGradient>
+             <linearGradient id="gold-key-home" x1="0" y1="0" x2=".8" y2="1">
+               <stop offset="0" stop-color="#fffac4"/>
+               <stop offset=".35" stop-color="#ffdf58"/>
+               <stop offset=".7" stop-color="#ffb529"/>
+               <stop offset="1" stop-color="#df8024"/>
+             </linearGradient>
            </defs>
-           <path d="M23 40V26Q56 5 89 26V40" fill="#b66de9" stroke="#4d276f" stroke-width="7" stroke-linejoin="round"/>
-           <rect x="16" y="37" width="80" height="49" rx="10" fill="url(#mystery-purple)" stroke="#42245f" stroke-width="7"/>
-           <path d="M21 57H91" stroke="#e8a0ff" stroke-width="6"/>
-           <path d="M44 37H68V66H44Z" fill="url(#mystery-gold)" stroke="#884414" stroke-width="5"/>
-           <text x="56" y="62" font-size="23" font-weight="1000" font-family="sans-serif" text-anchor="middle" fill="#72335e">?</text>
-           <path d="M13 13 16 22 25 25 16 28 13 37 10 28 1 25 10 22Z" fill="#fff2a0" stroke="#f0bc50" stroke-width="2"/>
-           <path d="M98 6 101 16 111 19 101 22 98 32 95 22 85 19 95 16Z" fill="#fff2a0" stroke="#f0bc50" stroke-width="2"/>
-           <path d="M100 66 102 73 109 75 102 77 100 84 98 77 91 75 98 73Z" fill="#fff6be"/>
+           <g transform="rotate(29 57 52)" stroke-linejoin="round" stroke-linecap="round">
+             <path d="M45 40V64H33V77H43V87H55V41Z" fill="url(#gold-key-home)" stroke="#4a2869" stroke-width="8"/>
+             <path d="M49 49V79" fill="none" stroke="#fff3a1" stroke-width="4"/>
+             <circle cx="52" cy="27" r="22" fill="url(#gold-key-home)" stroke="#4a2869" stroke-width="8"/>
+             <circle cx="52" cy="27" r="10" fill="#8853ac" stroke="#ffed9c" stroke-width="4"/>
+             <path d="M38 13Q43 7 50 7" fill="none" stroke="#fffac9" stroke-width="4"/>
+           </g>
+           <path d="M18 18 22 28 32 32 22 36 18 46 14 36 4 32 14 28Z" fill="#fff6ba" stroke="#e8a833" stroke-width="2"/>
+           <path d="M96 47 99 55 107 58 99 61 96 69 93 61 85 58 93 55Z" fill="#ffe684" stroke="#ebad42" stroke-width="2"/>
+           <path d="M95 8 97 13 102 15 97 17 95 22 93 17 88 15 93 13Z" fill="#fff6be"/>
          </svg>
          <span class="reference-mystery-label">Tajemnica</span>
        </a>
@@ -381,7 +387,26 @@ h1, h2, h3, p { margin:0 }
         <span class="mystery-call" aria-hidden="true">Otwórz</span>
       </a>
         <a href="#kreator" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🪄</span><strong>Kreator</strong></a>
-        <a href="#zagadka" id="adventure-mystery" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true">🔮</span><strong>Tajemnica</strong></a>
+        <a href="#zagadka" id="adventure-mystery" class="adventure-shortcut"><span class="shortcut-icon" aria-hidden="true"><svg class="mystery-key-icon" viewBox="0 0 120 104" aria-hidden="true" focusable="false">
+           <defs>
+             <linearGradient id="gold-key-wide" x1="0" y1="0" x2=".8" y2="1">
+               <stop offset="0" stop-color="#fffac4"/>
+               <stop offset=".35" stop-color="#ffdf58"/>
+               <stop offset=".7" stop-color="#ffb529"/>
+               <stop offset="1" stop-color="#df8024"/>
+             </linearGradient>
+           </defs>
+           <g transform="rotate(29 57 52)" stroke-linejoin="round" stroke-linecap="round">
+             <path d="M45 40V64H33V77H43V87H55V41Z" fill="url(#gold-key-wide)" stroke="#4a2869" stroke-width="8"/>
+             <path d="M49 49V79" fill="none" stroke="#fff3a1" stroke-width="4"/>
+             <circle cx="52" cy="27" r="22" fill="url(#gold-key-wide)" stroke="#4a2869" stroke-width="8"/>
+             <circle cx="52" cy="27" r="10" fill="#8853ac" stroke="#ffed9c" stroke-width="4"/>
+             <path d="M38 13Q43 7 50 7" fill="none" stroke="#fffac9" stroke-width="4"/>
+           </g>
+           <path d="M18 18 22 28 32 32 22 36 18 46 14 36 4 32 14 28Z" fill="#fff6ba" stroke="#e8a833" stroke-width="2"/>
+           <path d="M96 47 99 55 107 58 99 61 96 69 93 61 85 58 93 55Z" fill="#ffe684" stroke="#ebad42" stroke-width="2"/>
+           <path d="M95 8 97 13 102 15 97 17 95 22 93 17 88 15 93 13Z" fill="#fff6be"/>
+         </svg></span><strong>Tajemnica</strong></a>
       </div>
       <p id="adventure-print-hint" class="adventure-tip" role="status" hidden>Wybierz obrazek. Opcja drukowania znajduje się w jego podglądzie.</p>
       <div class="adventure-bonus">
