@@ -3349,6 +3349,15 @@ $('finish-design').addEventListener('click',() => {
     'Nie udało się zapisać albumu w pamięci. ' + inheritedNotice;
   $('finish-status').textContent = ok ? 'Brawo! Rysunek trafił do albumu.' : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
   $('album-feedback').textContent = ok ? 'Dodano nowy rysunek.' : inheritedNotice;
+  // Po oznaczeniu pracy jako ukończonej pokaż od razu opcje aparatu.
+  // Następna klatka pozwala przeglądarce ułożyć nowo odsłonięte przyciski.
+  requestAnimationFrame(() => {
+    const photoOptions = $('finish-photo-options');
+    if (!photoOptions.hidden) photoOptions.scrollIntoView({
+      behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'center'
+    });
+  });
 });
 // Wszystkie zdjęcia są prywatne i dostępne tylko z tego urządzenia.
 // Lokalna pamięć IndexedDB nie jest synchronizowana z kontem ani chmurą.
