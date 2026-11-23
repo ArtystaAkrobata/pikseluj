@@ -56,6 +56,15 @@ try{
   }
  }
 }catch{/* przechowywanie opcjonalne */}
+// Migracja zapisanych ustawień ze starego generatora: nowe postacie startują w zatwierdzonych kolorach.
+try{
+ const migration='pikseluj/magiczne/potworki-approved-v1';
+ if(localStorage.getItem(migration)!=='done'){
+  magicState.values.monsters.color='original';
+  magicState.values.monsters.scene='none';
+  localStorage.setItem(migration,'done');
+ }
+}catch{magicState.values.monsters.color='original';magicState.values.monsters.scene='none';}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -412,7 +421,9 @@ function magicSuper(){
   return;
  }
  magicHistory();
- const presets=category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
+ const presets=category==='monsters'&&magicState.size==='easy'
+  ?magicBestSets.monsters.filter(p=>p.color!=='original'||p.scene==='none')
+  :category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
  const previous=JSON.stringify(magicState.values[category]);
  const picks=presets.filter(preset=>JSON.stringify({...magicState.values[category],...preset})!==previous);
  const selected=picks[Math.floor(Math.random()*picks.length)]||presets[0];
