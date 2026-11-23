@@ -213,7 +213,7 @@ function magicRender(){
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
   // Najmniejsze obrazy mają najmniej elementów; nie pokazuj opcji bez efektu.
-  if(magicState.size==='easy'&&field.key==='scene'&&magicState.category!=='monsters')continue;
+  if(magicState.size==='easy'&&field.key==='scene'&&!['monsters','animals'].includes(magicState.category))continue;
   if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
   const group=document.createElement('fieldset');group.className='magic-trait-group';
   const legend=document.createElement('legend');legend.textContent=field.title;
@@ -301,7 +301,7 @@ function magicRandomize(){
  do{
   for(const f of d.fields){
    if(magicState.category==='animals'&&f.key==='kind')continue;
-   if(magicState.size==='easy'&&f.key==='scene'&&magicState.category!=='monsters')continue;
+   if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals'].includes(magicState.category))continue;
    if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
    v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
   }
