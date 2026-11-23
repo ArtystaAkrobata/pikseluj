@@ -56,12 +56,22 @@ const MagicApprovedMonsters=(()=>{
    }
   }
   const scene=key==='easy'?'none':(opts.scene||'none');
+  // Ozdoby korzystają tylko z kolorów już obecnych w bazowym wzorze.
+  // Nie zwiększają liczby kredek nawet po wybraniu gwiazdek lub kwiatków.
   if(scene!=='none'){
+   const accent=key==='medium'?{star:'}',pink:'['}:key==='hard'?{star:':',pink:')'}:{star:':',pink:')'};
    for(const [x,y] of backgrounds[key]){
     if(!rows[y]||rows[y][x]!=='.')continue;
-    if(scene==='stars'){rows[y][x]='Y';if(rows[y-1]?.[x]==='.')rows[y-1][x]='H';}
-    else if(scene==='hearts'){rows[y][x]='p';if(rows[y]?.[x+1]==='.')rows[y][x+1]='p';}
-    else if(scene==='flowers'){rows[y][x]='Y';if(rows[y]?.[x+1]==='.')rows[y][x+1]='p';}
+    if(scene==='stars'){
+     rows[y][x]=accent.star;
+     if(rows[y-1]?.[x]==='.')rows[y-1][x]=accent.star;
+    }else if(scene==='hearts'){
+     rows[y][x]=accent.pink;
+     if(rows[y]?.[x+1]==='.')rows[y][x+1]=accent.pink;
+    }else if(scene==='flowers'){
+     rows[y][x]=accent.star;
+     if(rows[y]?.[x+1]==='.')rows[y][x+1]=accent.pink;
+    }
    }
   }
   return rows.map(row=>row.join(''));
