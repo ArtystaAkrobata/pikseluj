@@ -73,7 +73,7 @@ function magicDefaultName(){
  }
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
-let magicShowGrid=false;
+let magicShowGrid=true;
 function magicCelebrate(){
  const art=document.getElementById('magic-art');
  if(!art||magicState.category===null)return;
@@ -206,7 +206,7 @@ function magicRender(){
 function magicOpen(){magicRender();magicMessage('')}
 function magicChoose(category){
  if(!Object.hasOwn(magicDefs,category))return;
- magicHistory();magicState.category=category;magicState.name='';magicShowGrid=false;
+ magicHistory();magicState.category=category;magicState.name='';magicShowGrid=true;
  magicPersist();magicRender();magicMessage('');
  window.scrollTo(0,0);
  document.getElementById('magic-title').focus({preventScroll:true});
