@@ -23,9 +23,11 @@ const MagicStoryArt=(()=>{
   };
   const xy=(xx,yy,c)=>at(x(xx),y(yy),c);
   const rect=(ax,ay,bx,by,c)=>{
-   let xx=x(ax),yy=y(ay),xx2=x(bx),yy2=y(by);
-   for(let j=Math.max(0,yy);j<Math.min(h,Math.max(yy+1,yy2));j++)
-    for(let i=Math.max(0,xx);i<Math.min(w,Math.max(xx+1,xx2));i++)at(i,j,c);
+   const x1=x(ax),y1=y(ay),x2=x(bx),y2=y(by);
+   const left=Math.min(x1,x2),right=Math.max(x1,x2)+Number(x1===x2);
+   const top=Math.min(y1,y2),bottom=Math.max(y1,y2)+Number(y1===y2);
+   for(let j=Math.max(0,top);j<Math.min(h,bottom);j++)
+    for(let i=Math.max(0,left);i<Math.min(w,right);i++)at(i,j,c);
   };
   const oval=(cx,cy,rx,ry,c)=>{
    const xx=x(cx),yy=y(cy),rrx=Math.max(1,Math.round(rx*w/24)),rry=Math.max(1,Math.round(ry*h/24));
@@ -135,6 +137,11 @@ const MagicStoryArt=(()=>{
    },p.base);
    P.oval(12,18.8,3.4,3.6,'c');
    if(kind==='cat'||kind==='bunny')for(const sx of [-1,1])P.oval(12+sx*5,5.5,1.4,2.3,'p');
+   if(kind==='cat'){
+    // Biały czubek, odseparowany kontur ogona i łapki wyraźne przy wydruku.
+    P.oval(20.2,17.1,1.1,1.8,'w');
+    if(d>=1)P.line(17,19,19,20,'k');
+   }
    face(P,12,10.4,o.eyes==='wink'?'wink':o.eyes==='happy'?'happy':'round',o.mouth||'smile');
    P.oval(12,13.5,3,1.7,'w');P.xy(12,13,'k');
    if(d>=2){P.xy(5,13,'p');P.xy(19,13,'p');P.xy(9,5,p.light);P.xy(8,20,p.shade);P.xy(16,20,p.shade);}
@@ -264,6 +271,7 @@ const MagicStoryArt=(()=>{
     for(const xx of [4.6,7.5,16.1,19])P.rect(xx,5.2,xx+1.2,8,c);
     P.poly([[9.3,10.5],[12,7.5],[14.7,10.5]],c);
    },p.base);
+   P.poly([[9.5,10.2],[12,7.5],[14.4,10.2]],'r');
    P.rect(9.9,16.5,14.1,21,'k');
    P.rect(10.9,18,13.1,21,'n');
    P.xy(11.5,18.8,'Y');
@@ -311,12 +319,12 @@ const MagicStoryArt=(()=>{
   }else if(kind==='sea'){
    // Latarnia na skalistej wyspie; pasy i światło mają wyraźne obramowanie.
    P.solid(c=>{
-    P.poly([[9,20],[10.3,9],[13.7,9],[15,20]],c);
+    P.poly([[7.6,20],[9.8,9],[14.2,9],[16.4,20]],c);
     P.rect(9.5,8,14.5,10,c);
     P.rect(10.4,5,13.6,8,c);
     P.rect(8.5,7.5,15.5,9,c);
    },'w');
-   P.rect(10.2,12.5,13.8,14.2,'r');P.rect(9.9,17,14.1,18.6,'r');
+   P.rect(9.4,12.5,14.6,14.2,'r');P.rect(8.6,17,15.3,18.6,'r');
    P.rect(11,6,13,7.8,'Y');P.xy(12,4,'k');
    P.poly([[5,20.5],[9,18.5],[15,19],[20,21],[22,23],[3,23]],'s');
    P.line(2,22,8,22,'b');P.line(17,23,23,23,'b');
