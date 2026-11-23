@@ -9,12 +9,12 @@ const MAGIC_VARIANTS={
 };
 const magicDefs={
  animals:{title:'Zwierzątka',emoji:'🐱',desc:'Słodcy bohaterowie z charakterem',fields:[
-  {key:'kind',title:'Wybierz zwierzaka',options:[['cat','Kotek','🐱'],['bear','Miś','🐻'],['bunny','Króliczek','🐰'],['fox','Lisek','🦊']]},
+  {key:'kind',title:'Wybierz zwierzaka',options:[['cat','Kotek','🐱'],['dog','Piesek','🐶'],['bunny','Króliczek','🐰'],['owl','Sówka','🦉'],['fox','Lisek','🦊'],['bear','Miś','🐻']]},
   {key:'pose',title:'Jak wygląda Twój lisek?',options:[['sitting','Siedzący','🦊'],['head','Główka','😊'],['sleeping','Śpiący','💤'],['profile','Z profilu','🌿']]},
   {key:'eyes',title:'Jakie oczy?',options:[['sparkle','Błyszczące','✨'],['round','Duże','👀'],['happy','Wesołe','😊'],['wink','Mrugające','😉']]},
   {key:'mouth',title:'Jaka minka?',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😋'],['surprised','Zdziwiona','😮']]},
-  {key:'extra',title:'Magiczny dodatek',options:[['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣'],['none','Bez ozdoby','🌟']]},
-  {key:'scene',title:'Małe ozdoby wokół',options:[['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
+  {key:'extra',title:'Magiczny dodatek',options:[['none','Bez ozdoby','🌟'],['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣']]},
+  {key:'scene',title:'Małe ozdoby wokół',options:[['none','Bez tła','☁️'],['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕']]},
   {key:'color',title:'Kolor bohatera',options:[['natural','Naturalny','🎨'],['w','Biały','🤍'],['n','Brązowy','🤎'],['p','Różowy','🩷'],['v','Fioletowy','💜'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
  monsters:{title:'Potworki',emoji:'👾',desc:'Sam wybierasz oczy, minkę, dodatki i kolor!',fields:[
@@ -401,11 +401,21 @@ document.getElementById('magic-size').addEventListener('change',event=>{
 });
 const magicBestSets={
  animals:[
-  {kind:'cat',eyes:'sparkle',mouth:'smile',extra:'flower',scene:'stars',color:'natural'},
-  {kind:'bunny',eyes:'sparkle',mouth:'smile',extra:'bow',scene:'flowers',color:'w'},
-  {kind:'bear',eyes:'happy',mouth:'smile',extra:'crown',scene:'hearts',color:'n'},
+  {kind:'cat',eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'},
   {kind:'cat',eyes:'wink',mouth:'tongue',extra:'bow',scene:'hearts',color:'p'},
-  {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
+  {kind:'cat',eyes:'happy',mouth:'surprised',extra:'crown',scene:'stars',color:'O'},
+  {kind:'dog',eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'},
+  {kind:'dog',eyes:'wink',mouth:'tongue',extra:'scarf',scene:'hearts',color:'n'},
+  {kind:'dog',eyes:'happy',mouth:'smile',extra:'flower',scene:'flowers',color:'b'},
+  {kind:'bunny',eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'},
+  {kind:'bunny',eyes:'happy',mouth:'tongue',extra:'bow',scene:'flowers',color:'p'},
+  {kind:'bunny',eyes:'wink',mouth:'surprised',extra:'crown',scene:'stars',color:'l'},
+  {kind:'owl',eyes:'round',mouth:'smile',extra:'none',scene:'none',color:'natural'},
+  {kind:'owl',eyes:'wink',mouth:'surprised',extra:'star',scene:'stars',color:'v'},
+  {kind:'owl',eyes:'happy',mouth:'tongue',extra:'flower',scene:'flowers',color:'b'},
+  {kind:'bear',eyes:'happy',mouth:'smile',extra:'crown',scene:'hearts',color:'n'},
+  {kind:'bear',eyes:'round',mouth:'tongue',extra:'bow',scene:'stars',color:'p'},
+  {kind:'fox',eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'}
  ],
  monsters:[
   {eyes:'original',mouth:'original',accessory:'original',scene:'none',color:'original'},
