@@ -59,16 +59,23 @@ const MagicAnimalStudio=(()=>{
    hard:{head:[cx,13.8,9.2,7.2],body:[cx,28.2,8.6,9.8],eyeY:14.3,eyeDX:3.8,eyeRx:2.1,earY:8.0},
    expert:{head:[cx,17.7,10.5,8.2],body:[cx,36.6,10.6,13.0],eyeY:18.3,eyeDX:4.4,eyeRx:2.6,earY:11.5}
   }[level];
+  // Dłuższe uszy króliczka muszą być czytelne także na 24×24.
+  if(kind==='bunny'){
+   const lift=rank===0?.5:rank===1?1.5:rank===2?2:3;
+   geo.head[1]+=lift;geo.eyeY+=lift;geo.earY+=lift;
+  }
   const [hx,hy,hrx,hry]=geo.head,body=geo.body;
   // Ogon, skrzydła i łapy są oddzielone od korpusu czytelnym konturem.
   if(body){
    const [bx,by,brx,bry]=body;
    if(kind==='cat'){
-    const tx=bx+brx-1;
-    line(tx,by+4,tx+5,by+4,ink);line(tx+5,by+4,tx+6,by-5,ink);
-    line(tx+6,by-5,tx+4,by-7,ink);
-    line(tx+1,by+4,tx+4,by+4,fur);
-    if(rank>=2)line(tx+5,by+1,tx+5,by-4,fur);
+    const tx=bx+brx-2;
+    // Zwarty zakręcony ogon, bez oderwanych pojedynczych pikseli.
+    line(tx,by+3,tx+3,by+3,ink);
+    line(tx+3,by+3,tx+4,by-2,ink);
+    line(tx+4,by-2,tx+2,by-3,ink);
+    if(rank>=1)line(tx+1,by+2,tx+3,by+2,fur);
+    if(rank>=2)line(tx+3,by+1,tx+3,by-1,fur);
    }else if(kind==='dog'){
     oval(bx+brx+2,by+1,rank>=2?3:2,rank>=2?3:2,ink);
     oval(bx+brx+2,by,rank>=2?2:1.2,rank>=2?2:1.3,fur);
