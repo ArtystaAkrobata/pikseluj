@@ -91,6 +91,13 @@ const MagicStoryArt=(()=>{
   }else if(style==='wink'){
    P.oval(cx-sep,cy,1.5,big?2:1.4,'w');P.xy(cx-sep,cy+.3,'k');
    P.line(cx+sep-1,cy+.1,cx+sep,cy-1,'k');P.line(cx+sep,cy-1,cx+sep+1,cy+.1,'k');
+  }else if(style==='sparkle'){
+   for(const xx of [cx-sep,cx+sep]){
+    P.oval(xx,cy,1.5,big?2:1.4,'w');
+    P.xy(xx,cy+.3,'k');
+    P.xy(xx-.75,cy-.7,'w');
+    if(big)P.xy(xx+1.15,cy+.6,'w');
+   }
   }else if(style==='three'&&P.detail>=1){
    for(const xx of [cx-3.9,cx,cx+3.9]){P.oval(xx,cy,1.25,1.3,'w');P.xy(xx,cy,'k');}
   }else if(style==='happy'||style==='sleepy'){
@@ -121,8 +128,9 @@ const MagicStoryArt=(()=>{
     P.oval(12,13,8,8,c);
    },p.base);
    if(kind==='cat'||kind==='bunny')for(const sign of [-1,1])P.xy(12+sign*5,6,'p');
-   face(P,12,12,'round','smile');
-   P.oval(12,17,3,2,kind==='bunny'?'c':'w');P.xy(12,16,'k');
+   P.oval(12,17,3,2,kind==='bunny'?'c':'w');
+   face(P,12,12,o.eyes==='wink'?'wink':o.eyes==='happy'?'happy':o.eyes==='sparkle'?'sparkle':'round',o.mouth||'smile');
+   P.xy(12,16,'k');
   }else{
    P.solid(c=>{
     // Ogon i łapki należą do jednej kompletnej sylwetki z czystym obrysem.
@@ -142,8 +150,9 @@ const MagicStoryArt=(()=>{
     P.oval(20.2,17.1,1.1,1.8,'w');
     if(d>=1)P.line(17,19,19,20,'k');
    }
-   face(P,12,10.4,o.eyes==='wink'?'wink':o.eyes==='happy'?'happy':'round',o.mouth||'smile');
-   P.oval(12,13.5,3,1.7,'w');P.xy(12,13,'k');
+   P.oval(12,13.5,3,1.7,'w');
+   face(P,12,10.4,o.eyes==='wink'?'wink':o.eyes==='happy'?'happy':o.eyes==='sparkle'?'sparkle':'round',o.mouth||'smile');
+   P.xy(12,13,'k');
    if(d>=2){P.xy(5,13,'p');P.xy(19,13,'p');P.xy(9,5,p.light);P.xy(8,20,p.shade);P.xy(16,20,p.shade);}
    if(kind==='cat'&&d>=2)for(const sx of [-1,1])for(const yy of [14,15])P.line(12+sx*6,yy,12+sx*8,yy-.4,'k');
   }
@@ -168,7 +177,7 @@ const MagicStoryArt=(()=>{
  }
  function monster(P,kind,o){
   const p=colors(o,'monsters',kind),d=P.detail;
-  const one=o.eyes==='one'||(kind==='jelly'&&o.eyes!=='three');
+  const one=o.eyes==='one';
   P.solid(c=>{
    if(kind==='round'){
     if(o.extra==='horns')for(const sx of [-1,1])P.poly([[12+sx*5,9],[12+sx*6,2],[12+sx*2.8,8]],c);
@@ -324,7 +333,7 @@ const MagicStoryArt=(()=>{
     P.rect(10.4,5,13.6,8,c);
     P.rect(8.5,7.5,15.5,9,c);
    },'w');
-   P.rect(9.4,12.5,14.6,14.2,'r');P.rect(8.6,17,15.3,18.6,'r');
+   P.rect(9.4,12.5,14.6,14.2,p.base);P.rect(8.6,17,15.3,18.6,p.base);
    P.rect(11,6,13,7.8,'Y');P.xy(12,4,'k');
    P.poly([[5,20.5],[9,18.5],[15,19],[20,21],[22,23],[3,23]],'s');
    P.line(2,22,8,22,'b');P.line(17,23,23,23,'b');
@@ -343,6 +352,21 @@ const MagicStoryArt=(()=>{
   }
   return P;
  }
+ function decorate(P,cat,options){
+  if(P.detail===0||cat==='worlds')return;
+  const motif=options.scene||'none';
+  if(motif==='none')return;
+  const positions=P.detail>=2?[[2.5,4.2],[21,5.1],[3.4,19.8]]:[[2.5,4.2],[21,5.2]];
+  for(const [x,y] of positions){
+   if(motif==='stars'){P.sparkle(x,y,'Y');}
+   else if(motif==='hearts'){
+    P.safe(x-1,y,'r');P.safe(x+1,y,'r');P.safe(x,y+1,'r');
+   }else if(motif==='flowers'){
+    P.safe(x-1,y,'p');P.safe(x+1,y,'p');
+    P.safe(x,y,'Y');P.safe(x,y+1.5,'g');
+   }
+  }
+ }
  function render(cat,options={},level='medium'){
   const P=make(level),kind=options.kind||'round';
   if(cat==='animals'&&['cat','bear','bunny'].includes(kind))animal(P,kind,options);
@@ -350,6 +374,7 @@ const MagicStoryArt=(()=>{
   else if(cat==='robots')robot(P,kind,options);
   else if(cat==='worlds')world(P,kind,options);
   else return P.rows();
+  decorate(P,cat,options);
   return P.rows();
  }
  return Object.freeze({render,levels});
