@@ -40,8 +40,9 @@ Generator służy do zabawy w tworzenie postaci i scen na papierze w kratkę 5 m
 **Nowa biblioteka Zwierzątek (v3):**
 - `magic-curated-data.js`: 16 ręcznie zaprojektowanych bazowych obrazków (lisek, kotek, miś, króliczek × cztery poziomy), zapisanych bezstratnie w krótkich wierszach RLE (para: długość w base36 + znak koloru).
 - `magic-curated-animals.js`: dekoder i wyłącznie kontrolowane nakładanie oczu, uśmiechu, ozdób, dodatków oraz zmian koloru; zmiana cech nie rusza bazowej sylwetki.
-- `magic-premium-worlds.js`: wybiera bibliotekę kuratorowanych zwierzątek. Pozostałe trzy kategorie nadal działają na poprzednim silniku proceduralnym i wymagają analogicznej oceny artystycznej.
-- `magic-jakosc.html`: pomocnicza mobilna galeria 4 × 4 autorskich wzorów, z przełączaniem siatki, dla kontroli jakości na prawdziwym ekranie telefonu.
+- `magic-story-art.js`: aktualny moduł postaci innych niż lisek — trzy rodzaje zwierzątek, trzy potworki, trzy roboty oraz cztery Bajkowe światy. Każdy motyw ma własny układ elementów, czarny obrys i zestaw detali; na siatkach pionowych zachowuje proporcje dzięki jednolitej skali i wyśrodkowaniu.
+- `magic-premium-worlds.js`: kieruje do nowego modułu `MagicStoryArt`, a liska do `MagicFoxStages`; poprzednie procedury są zachowane jako awaryjna zgodność wsteczna.
+- `magic-jakosc.html`: mobilna galeria wszystkich 14 motywów na czterech poziomach (56 zestawień), z przełączaniem kratki do wizualnej oceny.
 
 Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obrazu**. Każdy nowy sprite przed publikacją musi przejść przegląd wizualny 16×16, 24×24, 32×40 i 40×56, w tym kontrolę czytelności sylwetki, konsekwentnych proporcji, ciągłości ciemnego obrysu, skali detali oraz typowego wydruku 5 mm. Nowe style zatwierdzać w galerii jakości.
 
@@ -53,7 +54,7 @@ Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obr
 - Dziecko wybiera poziom, kolor i (poza poziomem łatwym) dekoracje. Wybór pozy, oczu, miny i akcesoriów jest **ukryty tylko dla liska**, ponieważ wcześniej prowadził do deformowania sylwetki. Pozostałe zwierzęta zachowują własne opcje.
 - „Zaskocz mnie!” losuje tylko kombinacje koloru i ozdób; nie zmienia zwierzęcia, poziomu ani pozy. „Super wersja” przywraca z góry określoną autorską kolorystykę dla danego poziomu.
 - Po wyborze liska jego kolor wraca do **naturalnego pomarańczowego**. Istniejące projekty, ręczny Kreator i stan `pikseluj/magiczne/v1` działają tak jak wcześniej.
-- `magic-jakosc.html` pokazuje zestawienie nowych czterech etapów liska na prawdziwych siatkach oraz dotychczasowe grafiki innych zwierząt.
+- `magic-jakosc.html` pokazuje cztery autorskie etapy liska oraz nowe postacie i sceny pozostałych kategorii na ich docelowych siatkach.
 - Podgląd i testy w kodzie potwierdzają wymiary i kolory. **To nie zastępuje wizualnej oceny grafiki przez dziecko/rodzica na ekranie telefonu.**
 
 **Zasady jakości grafik:**
@@ -61,7 +62,7 @@ Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obr
 - **Nie wolno rozciągać gotowego obrazka 24 × 24**, ponieważ deformuje to kontury, uszy i pyszczki.
 - Sylwetki i detale są tworzone przez autorskie moduły: połączenia elementów, kontrolowany ciemny kontur, twarze, dodatki, dekoracje i odrębne bajkowe scenerie.
 - Spójne piksele i kolory zgodne z ręcznym Kreatorem; bez rozmycia i półpiksela.
-- Cztery aktualne etapy liska są narysowane osobno. Pozostałe zwierzęta/krainy mogą korzystać ze starszych metod i wymagają osobnego przeglądu jakości.
+- Cztery aktualne etapy liska są narysowane osobno. Pozostałe 13 motywów jest rysowanych algorytmami dopasowanymi do konkretnej postaci/krainy i docelowej kratki; **ich wygląd nadal wymaga oceny przez użytkownika**.
 
 **Nowy interfejs:**
 - Ekran startowy kategorii z pikselowymi podglądami postaci/scen.
