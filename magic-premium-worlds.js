@@ -172,6 +172,9 @@ const MagicPremiumArt=(()=>{
   const L=C.levels[level]||C.levels.medium;
   const g=C.board(L.w,L.h);
   const o={kind:'cat',eyes:'sparkle',extra:'bow',color:'natural',mouth:'smile',scene:'stars',...options};
+  // Zatwierdzone wzory potworków: osobny projekt dla każdego poziomu, bez skalowania. 
+  if(category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')
+   return MagicApprovedMonsters.render(level,o);
   // Cztery niezależne, zaakceptowane kompozycje liska — poziom decyduje o pozie.
   if(category==='animals'&&o.kind==='fox'&&typeof MagicFoxStages!=='undefined')
    return MagicFoxStages.render(o,level);
