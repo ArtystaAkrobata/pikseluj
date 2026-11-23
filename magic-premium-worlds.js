@@ -175,6 +175,9 @@ const MagicPremiumArt=(()=>{
   // Zatwierdzone wzory potworków: osobny projekt dla każdego poziomu, bez skalowania. 
   if(category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')
    return MagicApprovedMonsters.render(level,o);
+  // Kotek, piesek, króliczek i sówka — rysunki z natywnych kratek pod kreator.
+  if(category==='animals'&&typeof MagicAnimalStudio!=='undefined'&&Object.hasOwn(MagicAnimalStudio.names,o.kind))
+   return MagicAnimalStudio.render(o.kind,o,level);
   // Cztery niezależne, zaakceptowane kompozycje liska — poziom decyduje o pozie.
   if(category==='animals'&&o.kind==='fox'&&typeof MagicFoxStages!=='undefined')
    return MagicFoxStages.render(o,level);
