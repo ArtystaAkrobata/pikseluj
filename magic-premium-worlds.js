@@ -175,6 +175,13 @@ const MagicPremiumArt=(()=>{
   // Cztery niezależne, zaakceptowane kompozycje liska — poziom decyduje o pozie.
   if(category==='animals'&&o.kind==='fox'&&typeof MagicFoxStages!=='undefined')
    return MagicFoxStages.render(o,level);
+  // Nowe projekty pozostałych zwierząt i trzech kategorii: oddzielne sylwetki dla każdego motywu.
+  if(typeof MagicStoryArt!=='undefined'){
+   if(category==='animals'&&['cat','bear','bunny'].includes(o.kind))
+    return MagicStoryArt.render(category,o,level);
+   if(category==='monsters'||category==='robots'||category==='worlds')
+    return MagicStoryArt.render(category,o,level);
+  }
   if(category==='animals'&&o.kind==='fox'&&typeof MagicFoxPoses!=='undefined')
    return MagicFoxPoses.render(o,level);
   if(category==='animals'&&typeof MagicCuratedAnimals!=='undefined'&&MagicCuratedData[o.kind])
