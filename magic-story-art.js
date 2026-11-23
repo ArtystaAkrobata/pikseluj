@@ -16,7 +16,10 @@ const MagicStoryArt=(()=>{
  function make(level){
   const [w,h]=levels[level]||levels.medium,detail=['easy','medium','hard','expert'].indexOf(level);
   const cells=Array.from({length:h},()=>Array(w).fill('.'));
-  const x=v=>Math.round(v*w/24),y=v=>Math.round(v*h/24);
+  // Nie rozciągamy bohaterów na pionowych kartkach A4.
+  // Prawdziwy kwadrat jest centrowany, dodatkowe rzędy służą scenie.
+  const scale=w/24,offsetY=(h-w)/2;
+  const x=v=>Math.round(v*scale),y=v=>Math.round(v*scale+offsetY);
   const at=(xx,yy,c,onlyBlank=false)=>{
    xx=Math.round(xx); yy=Math.round(yy);
    if(xx>=0&&xx<w&&yy>=0&&yy<h&&(!onlyBlank||cells[yy][xx]==='.'))cells[yy][xx]=c;
@@ -30,7 +33,7 @@ const MagicStoryArt=(()=>{
     for(let i=Math.max(0,left);i<Math.min(w,right);i++)at(i,j,c);
   };
   const oval=(cx,cy,rx,ry,c)=>{
-   const xx=x(cx),yy=y(cy),rrx=Math.max(1,Math.round(rx*w/24)),rry=Math.max(1,Math.round(ry*h/24));
+   const xx=x(cx),yy=y(cy),rrx=Math.max(1,Math.round(rx*scale)),rry=Math.max(1,Math.round(ry*scale));
    for(let j=Math.max(0,yy-rry);j<=Math.min(h-1,yy+rry);j++)
     for(let i=Math.max(0,xx-rrx);i<=Math.min(w-1,xx+rrx);i++)
      if(((i-xx)/rrx)**2+((j-yy)/rry)**2<=1.04)at(i,j,c);
