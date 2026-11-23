@@ -859,7 +859,7 @@ h1, h2, h3, p { margin:0 }
     <p class="instructions" id="instructions">Dotknij wiersza, żeby go podświetlić. Niezamalowane kratki zostaw bez koloru.</p>
     <p class="paper-guide" id="pattern-paper" role="note"></p>
     <div class="reader-tools">
-      <button id="count-toggle" type="button" class="tool-toggle" aria-controls="row-guide" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 3h14v12H2zM2 7h14M2 11h14M7 3v12M11 3v12"/></svg>Policz kratki</button>
+      <button id="count-toggle" type="button" class="tool-toggle" aria-controls="row-guide palette" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M2 3h14v12H2zM2 7h14M2 11h14M7 3v12M11 3v12"/></svg>Policz kratki</button>
       <button id="wake-toggle" type="button" class="tool-toggle" aria-describedby="wake-status" aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="5" y="1.5" width="8" height="15" rx="1.4"/><path d="M8 13.8h2M1.5 6l1 1M16.5 6l-1 1"/></svg>Nie wygaszaj ekranu</button>
       <button id="zoom-toggle" type="button" class="tool-toggle" aria-controls="board" aria-pressed="false" hidden><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7.4" cy="7.4" r="4.9"/><path d="m11 11 4 4M7.4 5.3v4.2M5.3 7.4h4.2"/></svg>Powiększ kratki</button>
       <button id="print-toggle" type="button" class="tool-toggle" aria-expanded="false" aria-controls="print-panel"><svg aria-hidden="true" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M5 6V2h8v4m0 7h3V7H2v6h3m0-2h8v5H5zM13 9h1"/></svg>Drukuj / PDF</button>
@@ -957,7 +957,7 @@ h1, h2, h3, p { margin:0 }
 <script src="./magic-fox-poses.js?v=fox-poses-03"></script>
 <script src="./magic-fox-stages.js?v=fox-stages-03"></script>
 <script src="./magic-story-art.js?v=magic-art-20261123a"></script>
-<script src="./magic-approved-monsters.js?v=approved-monsters-01"></script>
+<script src="./magic-approved-monsters.js?v=crayons-10-20261123"></script>
 <script src="./magic-premium-worlds.js?v=approved-monsters-01"></script>
 <script src="./magic-pixels.js?v=approved-monsters-01"></script>
 <script>
@@ -2383,7 +2383,9 @@ function paintGuide() {
   $('runs').replaceChildren();
   for (const {color,count} of runsFor(activePattern.rows[activeRow])) {
     const plural = count === 1 ? 0 : count % 10 >= 2 && count % 10 <= 4 && !(count % 100 >= 12 && count % 100 <= 14) ? 1 : 2;
-    const word = runWords[color][plural];
+    const knownWord=runWords[color]?.[plural];
+    const pluralKratka= count===1?'kratka':plural===1?'kratki':'kratek';
+    const word=knownWord || (pluralKratka+' · '+(colors[color]?.[1]||'kolor'));
     const item = el('li');
     const chip = color === '.' ? el('i','empty') : swatch(color);
     chip.setAttribute('aria-hidden','true');
@@ -2542,6 +2544,27 @@ function showRow(index,{scroll = false, focus = false, remember = true} = {}) {
   }
 }
 
+function renderReaderColorCounts(){
+ if(!activePattern)return;
+ const counts=Object.create(null);
+ for(const row of activePattern.rows)for(const cell of row){
+  if(cell==='.')continue;
+  counts[cell]=(counts[cell]||0)+1;
+ }
+ $('palette').replaceChildren();
+ for(const color of activePattern.used){
+  const item=el('li');
+  const label=colors[color]?.[1]||'Kolor';
+  item.append(swatch(color),document.createTextNode(label));
+  if(showCount){
+   const n=counts[color]||0;
+   const form=n===1?'kratka':n%10>=2&&n%10<=4&&!(n%100>=12&&n%100<=14)?'kratki':'kratek';
+   item.append(document.createTextNode(' · '+n+' '+form));
+  }
+  $('palette').append(item);
+ }
+ $('legend-title').textContent=showCount?'Przygotuj kredki · liczba kratek':'Przygotuj kredki';
+}
 function openPattern(pattern) {
   activePattern = pattern;
   resetPrintPanel();
@@ -2596,11 +2619,7 @@ function openPattern(pattern) {
     $('rows').append(button);
     return button;
   });
-  for (const color of pattern.used) {
-    const item = el('li');
-    item.append(swatch(color),document.createTextNode(colors[color][1]));
-    $('palette').append(item);
-  }
+  renderReaderColorCounts();
   syncReaderMode();
   setZoom(false);
   window.scrollTo(0,0);
@@ -3971,6 +3990,7 @@ $('count-toggle').addEventListener('click',() => {
   showCount = !showCount;
   $('count-toggle').setAttribute('aria-pressed',String(showCount));
   paintGuide();
+  renderReaderColorCounts();
 });
 $('zoom-toggle').addEventListener('click',() => {
   if (!activePattern || $('zoom-toggle').hidden) return;
