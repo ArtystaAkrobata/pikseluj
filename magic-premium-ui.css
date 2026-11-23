@@ -427,8 +427,8 @@
   flex-direction:column;
   align-items:stretch;
   width:100%;
-  height:calc(100dvh - 12px);
   height:calc(100svh - 12px);
+  height:calc(100dvh - 12px);
   min-height:340px;
   overflow:hidden;
   gap:9px;
