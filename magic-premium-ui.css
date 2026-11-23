@@ -350,3 +350,42 @@
  #magic-screen.magic-v2 .magic-level-card,
  #magic-screen.magic-v2 .magic-category-card{transition:none}
 }
+
+/* 2026-11-23: czytelna zmiana krainy bez wychodzenia z pracowni. */
+#magic-screen.magic-v2 .magic-theme-switcher{
+ grid-column:1/-1;min-width:0;padding:10px 10px 12px;
+ border:2px solid #c7a7d9;border-radius:18px;
+ background:linear-gradient(160deg,#fffcf2,#f4e8ff);
+ box-shadow:0 3px 0 #d4bce0;
+}
+#magic-screen.magic-v2 .magic-theme-heading{
+ display:block;margin:0 2px 7px;
+ font:800 .8rem/1.2 "DynaPuff",ui-rounded,system-ui,sans-serif;
+ color:#754a95;
+}
+#magic-screen.magic-v2 .magic-theme-list{
+ display:flex;gap:7px;padding:2px 2px 5px;
+ max-width:100%;overflow-x:auto;scroll-snap-type:x proximity;
+ -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+}
+#magic-screen.magic-v2 .magic-theme-button{
+ flex:0 0 auto;scroll-snap-align:start;min-height:40px;
+ max-width:190px;padding:7px 11px;border:2px solid #c9a9d7;
+ border-radius:13px;background:#fff;color:#694382;
+ font:750 .72rem/1.25 "DynaPuff",ui-rounded,system-ui,sans-serif;
+ box-shadow:0 2px 0 #dcc8e4;cursor:pointer;touch-action:manipulation;
+}
+#magic-screen.magic-v2 .magic-theme-button.is-selected{
+ border-color:#8b50b8;background:linear-gradient(#f5e5ff,#ddc4fa);
+ color:#5f348e;box-shadow:inset 0 1px #fff,0 3px 0 #9c69bd;
+}
+#magic-screen.magic-v2 .magic-theme-button:focus-visible{
+ outline:3px solid #8556cc;outline-offset:2px;
+}
+#magic-screen.magic-v2 .magic-category-landscapes{
+ background:radial-gradient(circle at 60% 9%,#fff,transparent 40%),linear-gradient(160deg,#d8f9ff,#d4efdd);
+ border-color:#75b5a5;box-shadow:inset 0 3px #ffffffdd,0 5px 0 #76a995,0 11px 21px #5d3a773d;
+}
+@media(max-width:370px){
+ #magic-screen.magic-v2 .magic-theme-button{font-size:.66rem;padding:7px 9px}
+}
