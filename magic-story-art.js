@@ -182,51 +182,136 @@ const MagicStoryArt=(()=>{
   return P;
  }
  function monster(P,kind,o){
-  const p=colors(o,'monsters',kind),d=P.detail;
-  const one=o.eyes==='one';
-  P.solid(c=>{
+  // Cztery różne kompozycje zamiast powiększania jednej plamy:
+  // Łatwy = portret, Średni = siedzący pupil, Trudny = skrzydlaty bohater,
+  // Ekspert = stworek-czarodziej z własną sceną.
+  const d=P.detail,p=colors(o,'monsters',kind),hy=d===0?12.5:d===1?9.6:d===2?8.1:7.8;
+  const rx=d===0?8.3:d===1?6.7:6.4,ry=d===0?7.5:d===1?6.1:5.9;
+  const bodyColor=p.base;
+  if(d>=2){
+   // Skrzydła i zakręcony ogon są NA ZEWNĄTRZ tułowia, nie zlewają się w jednolitą bryłę.
    if(kind==='round'){
-    if(o.extra==='horns')for(const sx of [-1,1])P.poly([[12+sx*5,9],[12+sx*6,2],[12+sx*2.8,8]],c);
-    P.oval(12,12.5,7.1,8.3,c);
-    if(d>=1){
-     for(const sx of [-1,1]){P.oval(12+sx*7,17.5,2,2,c);P.oval(12+sx*4.3,21,2.7,2,c)}
-    }
+    P.poly([[7,13],[2,8],[3,15],[1,18],[8,20]],'k');
+    P.poly([[6.5,14],[3,11],[4,16],[7,18]],'b');
+    P.poly([[17,13],[22,8],[21,15],[23,18],[16,20]],'k');
+    P.poly([[17.5,14],[21,11],[20,16],[17,18]],'b');
+    P.poly([[17,19],[22,17],[23,13],[22,21],[18,23]],'k');
+    P.poly([[18,19],[21,18],[21,21],[19,22]],p.shade);
    }else if(kind==='square'){
-    P.rect(4.7,5.4,19.3,19.8,c);
-    for(const sx of [-1,1]){
-     P.rect(12+sx*6,17,12+sx*9.1,19.5,c);
-     P.rect(12+sx*5,19.1,12+sx*2.5,22.5,c);
-    }
-    if(d>=1)P.rect(10,3,14,6,c);
+    P.rect(2,14,8,17,'k');P.rect(16,14,22,17,'k');
+    P.rect(2,14.5,7,16.4,'s');P.rect(17,14.5,22,16.4,'s');
    }else{
-    P.oval(12,12.8,8.6,7.8,c);
-    for(const xx of [6,10,14,18])P.oval(xx,19,2.4,3.3,c);
-    if(d>=2)for(const xx of [8,16])P.oval(xx,21,1.7,2,c);
+    P.poly([[6,16],[2,13],[3,20],[8,19]],'k');
+    P.poly([[18,16],[22,13],[21,20],[16,19]],'k');
+    P.poly([[6,16],[3,15],[5,18]],p.light);
+    P.poly([[18,16],[21,15],[19,18]],p.light);
    }
-  },p.base);
-  if(kind==='round'){
-   if(o.extra==='horns')for(const sx of [-1,1])P.xy(12+sx*4.6,5.5,'Y');
-   if(d>=1)P.oval(12,18.5,4,2.6,p.light);
+  }
+  P.solid(c=>{
+   if(d>=1){
+    if(kind==='square')P.rect(7,13,17,20.7,c);
+    else P.oval(12,17,kind==='jelly'?6.4:5.2,5.2,c);
+    if(d>=2){
+     P.oval(5.2,16.8,2.4,2.8,c);P.oval(18.8,16.8,2.4,2.8,c);
+    }else{
+     P.oval(6.9,16.5,2.1,2.8,c);P.oval(17.1,16.5,2.1,2.8,c);
+    }
+    for(const xx of [8.1,15.9])P.oval(xx,21,2.7,1.8,c);
+   }
+   if(kind==='square'){
+    P.rect(d===0?3.5:5.5,hy-ry,d===0?20.5:18.5,hy+ry,c);
+    P.rect(4.2,hy-ry-2,7.5,hy-ry+2,c);
+    P.rect(16.5,hy-ry-2,19.8,hy-ry+2,c);
+   }else if(kind==='jelly'){
+    P.oval(12,hy,rx,ry,c);
+    for(const xx of d===0?[6,10,14,18]:[7,10,14,17])
+     P.oval(xx,hy+ry-1,1.8,2.5,c);
+   }else{
+    P.oval(12,hy,rx,ry,c);
+    // Dwa smocze uszy, rozpoznawalne również na siatce 16×16.
+    P.poly([[6.8,hy-3],[4.4,hy-ry-3],[10.1,hy-ry+1]],c);
+    P.poly([[17.2,hy-3],[19.6,hy-ry-3],[13.9,hy-ry+1]],c);
+   }
+  },bodyColor);
+  // Celowe grupy światła i cienia dają objętość bez przypadkowej pikselozy.
+  if(kind==='jelly'){
+   P.oval(8.3,hy-2.8,2.4,1.3,p.light);
+   P.oval(12,hy+ry-1.2,3,1,p.shade);
   }else if(kind==='square'){
-   P.oval(12,19,3.8,1.9,p.light);
-   if(d>=1){P.xy(6,7,p.shade);P.xy(17,7,p.light);}
+   P.rect(7,hy-ry+1.5,9.4,hy-ry+2.5,p.light);
+   P.rect(16.5,hy+ry-2,18,hy+ry-1,p.shade);
   }else{
-   P.oval(8.5,9,2,1.3,p.light);
-   P.oval(12,19.5,3,1.4,p.shade);
+   P.oval(8.1,hy-3.4,2.2,1.2,p.light);
+   P.xy(7.6,hy-2.3,p.light);
+   if(d>=2)P.oval(16,hy+3.8,1.6,1.1,p.shade);
   }
-  const eyes=o.eyes||'two';
-  if(one)face(P,12,11,'one',o.mouth||'smile');
-  else face(P,12,11,eyes==='three'?'three':'round',o.mouth||'smile','wide');
-  if(d>=1){P.xy(6,14,'p');P.xy(18,14,'p');}
-  if(o.extra==='crown'){P.rect(9,3.1,15,5,'Y');P.xy(9,2,'Y');P.xy(12,1.5,'Y');P.xy(15,2,'Y');}
-  else if(o.extra==='antenna'){P.line(12,5,12,2,'k');P.xy(12,1.5,'r');}
-  else if(o.extra==='horns'&&kind!=='round'){
-   for(const sx of [-1,1])P.poly([[12+sx*5.5,6],[12+sx*7.5,2],[12+sx*3.5,6]],'k');
-   for(const sx of [-1,1])P.xy(12+sx*5.2,5,'Y');
+  if(d>=1){
+   P.oval(12,18.2,3.5,2.8,p.light);
+   P.oval(12,19,2.3,1.6,'c');
+   for(const xx of [7.2,16.8]){
+    P.xy(xx,21,'k');P.xy(xx+0.8,21,'w');
+   }
   }
-  if(d>=2&&o.scene==='stars')P.sparkle(3,7,'Y');
-  if(d>=2&&o.scene==='flowers')P.safe(20,19,'p');
-  if(d>=2&&o.scene==='hearts')P.safe(4,15,'r');
+  // Oczy muszą być duże, błyszczące i naprawdę widoczne na papierze.
+  const eyeY=hy-.8,mode=o.eyes||'two';
+  const eye=(xx,yy,big=false)=>{
+   P.oval(xx,yy,big?2.7:1.9,big?2.6:2.1,'k');
+   P.oval(xx,yy-.15,big?2.1:1.5,big?2.1:1.6,'w');
+   P.oval(xx+.32,yy+.28,big?1.3:1,1.2,'u');
+   P.xy(xx-.6,yy-.7,'w');
+   if(d>=2)P.xy(xx+.9,yy+.9,'w');
+  };
+  if(mode==='one')eye(12,eyeY, true);
+  else if(mode==='three'){
+   eye(8.5,eyeY+1);eye(15.5,eyeY+1);eye(12,eyeY-2.4);
+  }else{eye(8.5,eyeY);eye(15.5,eyeY);}
+  // Usta nie mogą przecinać oczu ani wyglądać jak duży czarny krzyż.
+  const my=hy+3.3;
+  if(o.mouth==='surprised'){
+   P.oval(12,my,1.3,1.5,'k');P.xy(12,my+.5,'r');
+  }else if(o.mouth==='tongue'){
+   P.rect(9.8,my-0.2,14.2,my+1.4,'k');
+   P.rect(11,my+.3,13,my+2,'r');
+   P.xy(12,my+1.1,'p');
+  }else{
+   P.line(9.5,my-.2,10.6,my+.8,'k');
+   P.line(10.6,my+.8,13.4,my+.8,'k');
+   P.line(13.4,my+.8,14.5,my-.2,'k');
+   if(d>=1){P.xy(10.6,my+.9,'w');P.xy(13.4,my+.9,'w');}
+  }
+  for(const xx of [6.4,17.6])P.oval(xx,hy+2.8,1.1,.7,'p');
+  if(d>=1)for(const xx of [7.5,16.5])P.xy(xx,16.5,p.shade);
+  if(d>=2){
+   // Naramienniki, pazurki, kolorowy brzuszek i mikrowzory.
+   for(const xx of [4.9,19.1])P.xy(xx,17,'H');
+   for(const xx of [8,9.1,14.9,16])P.xy(xx,22,'w');
+   P.xy(11,18,'Y');P.xy(13,18,'Y');P.xy(12,19.7,'Y');
+   if(d===3){
+    P.rect(7.5,13.1,16.5,14.2,'r');P.rect(14.8,13.7,16.2,17.9,'r');
+    P.xy(15.4,16.1,'H');
+    // Laska z gwiazdą trzymana w łapce, osobna od sylwetki.
+    P.line(21,20,21,9,'n');
+    P.line(20.9,11,18.7,8,'Y');P.line(21,5.5,21,10,'Y');
+    P.line(18.8,8,23,8,'Y');P.xy(21,8,'w');
+    P.rect(19,16.7,21.4,18.2,p.base);
+    P.line(4,22,20,22,'g');
+    P.sparkle(3,4,'H');P.sparkle(22,3,'Y');
+   }
+  }
+  if(o.extra==='horns'){
+   for(const xx of [7.3,16.7]){
+    P.line(xx,hy-ry-1,xx+(xx<12?-1:1),hy-ry-3,'k');
+    P.xy(xx,hy-ry-1,'H');
+   }
+  }else if(o.extra==='antenna'){
+   P.line(12,hy-ry+1,12,hy-ry-3,'k');
+   P.xy(12,hy-ry-4,'r');
+   P.xy(11.5,hy-ry-4,'Y');
+  }else if(o.extra==='crown'){
+   P.rect(8.5,hy-ry-2,15.5,hy-ry,'Y');
+   for(const xx of [9,12,15])P.xy(xx,hy-ry-3,'H');
+   P.xy(12,hy-ry-1,'r');
+  }
   return P;
  }
  function robot(P,kind,o){
@@ -358,8 +443,83 @@ const MagicStoryArt=(()=>{
   }
   return P;
  }
+ function landscape(P,kind,o){
+  // Pełnoprawne pejzaże, nie przebrany za krajobraz zamek.
+  const d=P.detail,sky=o.eyes||'day',p=colors(o,'worlds',kind);
+  const line=(pts,c)=>pts.slice(1).forEach((v,i)=>P.line(...pts[i],...v,c));
+  if(sky==='night'){
+   P.oval(19,4,2.5,2.5,'H');P.oval(20,3.4,2.4,2.5,'w');
+   P.sparkle(3,3,'H');if(d>=1)P.sparkle(11,2,'w');
+  }else{
+   P.oval(kind==='sunset'?12:19,kind==='sunset'?10:4,
+    kind==='sunset'?3.4:2.3,kind==='sunset'?3.4:2.3,sky==='evening'?'O':'H');
+   if(kind==='sunset')P.oval(12,10,2.2,2.2,'Y');
+   if(d>=1&&o.extra==='cloud'){
+    P.oval(5,5,3,1.2,'I');P.oval(7,4,2,1.5,'w');
+    P.oval(18,7,2,1.2,'w');
+   }
+  }
+  if(kind==='mountains'||kind==='winter'){
+   // Trzy plany odległości i widoczne śnieżne szczyty.
+   P.poly([[0,17],[5,9],[9,13],[14,5],[23,16],[24,24],[0,24]],'u');
+   P.poly([[0,16],[5,10],[8,14],[13.8,6.5],[22,17],[24,24],[0,24]],kind==='winter'?'I':'a');
+   P.poly([[2,14],[5,10],[7.2,13],[5.2,12.5],[4.3,13.4]],'w');
+   P.poly([[10.8,11],[13.8,6.5],[17.2,12.2],[14.5,10.8],[13.5,11.5]],'w');
+   P.poly([[0,19],[4,16],[9,19],[16,14],[24,20],[24,24],[0,24]],kind==='winter'?'s':'d');
+   if(kind==='winter'){
+    P.poly([[0,20],[4,17.3],[9,20],[16,15.6],[24,21],[24,24],[0,24]],'w');
+    P.line(0,22,24,22,'I');
+   }else{
+    P.poly([[0,21],[5,18],[11,21],[17,19],[24,22],[24,24],[0,24]],'g');
+   }
+   line([[0,17],[5,9],[9,13],[14,5],[23,16]],'k');
+  }else if(kind==='lake'){
+   P.poly([[0,16],[5,9],[9,13],[14,8],[18,13],[24,10],[24,24],[0,24]],'d');
+   P.poly([[0,18],[4,15],[10,17],[16,15],[24,17],[24,24],[0,24]],'g');
+   P.rect(1,18,23,23,'b');P.rect(1,21,23,22,'a');
+   for(const [xx,yy,len] of [[5,19,4],[13,20,6],[17,22,4]])
+    if(d>=1)P.rect(xx,yy,xx+len,yy+.6,'w');
+   if(d>=1)for(const xx of [3.3,20]){
+    P.line(xx,16,xx,20,'n');
+    P.poly([[xx-2.5,18],[xx,10],[xx+2.5,18]],'d');
+    P.poly([[xx-1.8,15],[xx,9],[xx+1.8,15]],'l');
+   }
+   if(d>=2){P.oval(12,22,1,.7,'w');P.xy(13.5,22,'H');}
+  }else{
+   // Zachód słońca nad doliną i wijącą się rzeką.
+   P.rect(0,13,24,15,'t');
+   P.poly([[0,18],[6,12],[11,17],[16,12],[24,18],[24,24],[0,24]],'j');
+   P.poly([[0,20],[5,15.5],[9,20],[16,16.8],[24,20],[24,24],[0,24]],'v');
+   P.poly([[0,22],[6,19],[11,22],[16,19],[24,22],[24,24],[0,24]],'g');
+   P.poly([[10,24],[14,24],[12.5,20],[14,17],[12.8,17],[11,21]],'b');
+   if(d>=1)for(const xx of [3.4,20.5]){
+    P.line(xx,17,xx,22,'n');
+    P.oval(xx,16,2.3,3,'d');P.oval(xx-.5,15,1,1.5,'l');
+   }
+  }
+  if(d>=2){
+   for(const [xx,yy] of [[3,22],[19,22]]){
+    P.xy(xx,yy,'Y');P.xy(xx-1,yy,'p');P.xy(xx+1,yy,'p');P.xy(xx,yy+1,'g');
+   }
+   if(sky==='night'){P.sparkle(8,5,'H');P.sparkle(21,9,'Y');}
+  }
+  if(d===3){
+   // Dodatki eksperta pozostają czytelne w kratce 5 mm.
+   P.line(2,23,22,23,'n');
+   if(kind==='mountains'||kind==='winter'){
+    for(const xx of [4,21]){
+     P.line(xx,18,xx,22,'n');
+     P.poly([[xx-2,20],[xx,13],[xx+2,20]],'d');
+     P.poly([[xx-1.6,17],[xx,12],[xx+1.6,17]],'l');
+    }
+   }
+   P.sparkle(7,4,'H');
+  }
+  if(o.extra==='stars'&&sky!=='night'&&d>=1)P.sparkle(5,4,'H');
+  return P;
+ }
  function decorate(P,cat,options){
-  if(P.detail===0||cat==='worlds')return;
+  if(P.detail===0||cat==='worlds'||cat==='landscapes')return;
   const motif=options.scene||'none';
   if(motif==='none')return;
   const first=cat==='animals'?[[3,16],[21,3]]:cat==='robots'?[[3,6],[21,8]]:[[3,4],[21,5]];
@@ -380,6 +540,7 @@ const MagicStoryArt=(()=>{
   else if(cat==='monsters')monster(P,kind,options);
   else if(cat==='robots')robot(P,kind,options);
   else if(cat==='worlds')world(P,kind,options);
+  else if(cat==='landscapes')landscape(P,kind,options);
   else return P.rows();
   decorate(P,cat,options);
   return P.rows();
