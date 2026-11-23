@@ -30,7 +30,7 @@ const MagicApprovedMonsters=(()=>{
     if(order>=0)rows[y][x]=tint[Math.min(order,tint.length-1)];
    }
   }
-  const scene=opts.scene||'none';
+  const scene=key==='easy'?'none':(opts.scene||'none');
   if(scene!=='none'){
    for(const [x,y] of backgrounds[key]){
     if(!rows[y]||rows[y][x]!=='.')continue;
