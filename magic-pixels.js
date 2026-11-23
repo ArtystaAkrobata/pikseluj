@@ -114,6 +114,9 @@ function magicRender(){
  const choosing=document.getElementById('magic-start');
  const work=document.getElementById('magic-workbench');
  if(!choosing||!work)return;
+ // Zachowaj pozycję przewijanych opcji również po przebudowaniu przycisków.
+ const controls=work.querySelector('.magic-v2-controls');
+ const controlsScrollTop=controls?.scrollTop||0;
  const selected=Boolean(magicState.category);
  choosing.hidden=selected;work.hidden=!selected;
  const back=document.getElementById('magic-back');
@@ -146,6 +149,12 @@ function magicRender(){
   switcher.setAttribute('aria-label','Wybierz temat magicznych pikseli');
   workspace.prepend(switcher);
  }
+ // Telefon: tematy są częścią przewijanych opcji, a podgląd nie rusza się.
+ // Komputer: zachowaj dotychczasowy wybór tematów nad dwoma kolumnami.
+ const compactEditor=window.matchMedia('(max-width:859px)').matches;
+ if(compactEditor){
+  if(switcher.parentElement!==controls)controls.prepend(switcher);
+ }else if(switcher.parentElement!==workspace)workspace.prepend(switcher);
  switcher.replaceChildren();
  const switchTitle=document.createElement('strong');
  switchTitle.className='magic-theme-heading';switchTitle.textContent='🎨 Wybierz temat:';
@@ -244,14 +253,22 @@ function magicRender(){
  const gridToggle=document.getElementById('magic-grid-toggle');
  gridToggle.setAttribute('aria-pressed',String(magicShowGrid));
  gridToggle.textContent=magicShowGrid?'✨ Ukryj kratki':'▦ Pokaż kratki';
+ // Nie cofaj listy cech do początku po kliknięciu oczu, minki lub koloru.
+ if(controls)controls.scrollTop=controlsScrollTop;
 }
 function magicOpen(){magicRender();magicMessage('')}
 function magicChoose(category){
  if(!Object.hasOwn(magicDefs,category))return;
+ const firstEntry=!magicState.category;
  magicHistory();magicState.category=category;magicState.name='';magicShowGrid=true;
  magicPersist();magicRender();magicMessage('');
- window.scrollTo(0,0);
- document.getElementById('magic-title').focus({preventScroll:true});
+ if(firstEntry&&window.matchMedia('(max-width:859px)').matches){
+  // Po wybraniu przygody pokaż cały edytor, nie nagłówek daleko nad obrazkiem.
+  document.getElementById('magic-workbench').scrollIntoView({block:'start',behavior:'auto'});
+ }else if(firstEntry){
+  window.scrollTo(0,0);
+  document.getElementById('magic-title').focus({preventScroll:true});
+ }
 }
 function magicUndoLast(){
  if(!magicUndo.length)return;
@@ -323,6 +340,15 @@ document.getElementById('magic-categories').addEventListener('click',event=>{
 document.getElementById('magic-workbench').addEventListener('click',event=>{
  const button=event.target.closest('button[data-switch-category]');
  if(button&&button.dataset.switchCategory!==magicState.category)magicChoose(button.dataset.switchCategory);
+});
+// Przenoś przełącznik tematów także przy obrocie telefonu, bez resetowania formularza.
+window.addEventListener('resize',()=>{
+ const workspace=document.querySelector('#magic-workbench .magic-v2-workspace');
+ const controls=workspace?.querySelector('.magic-v2-controls');
+ const switcher=document.getElementById('magic-theme-switcher');
+ if(!workspace||!controls||!switcher)return;
+ const destination=window.matchMedia('(max-width:859px)').matches?controls:workspace;
+ if(switcher.parentElement!==destination)destination.prepend(switcher);
 });
 document.getElementById('magic-fields').addEventListener('click',event=>{
  const button=event.target.closest('button[data-field][data-option]');
