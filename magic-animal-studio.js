@@ -18,7 +18,7 @@ const MagicAnimalStudio=(()=>{
   const o={eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural',...options};
   const fur=allowedColor.includes(o.color)&&o.color!=='natural'?o.color:natural[kind];
   const ink='k',white='w',pink='p',yellow='Y',cream=rank===0?white:'c';
-  const shade=rank>=2?(fur==='O'?'n':fur==='n'?'e':fur==='w'?'s':fur==='c'?'e':fur==='b'?'a':fur==='l'?'d':fur==='p'?'X':'u'):fur;
+  const shade=rank>=2?(fur==='O'?'n':fur==='e'?'n':fur==='n'?'e':fur==='w'?'s':fur==='c'?'e':fur==='b'?'a':fur==='l'?'d':fur==='p'?'X':'u'):fur;
   const blue='a';
   const put=(x,y,color,blank=false)=>{
    x=Math.round(x);y=Math.round(y);
