@@ -42,9 +42,148 @@ const MagicApprovedMonsters=(()=>{
  const groups={easy:['#A76BE8'],medium:['#32CDBB'],hard:['#FB2430','#FF4B45','#D3102D','#8D0023'],expert:['#00B9F7','#0A97FA','#0D6EE7','#22DDFB','#0065B5']};
  const variants={p:['p','p','X','X','X'],b:['b','b','a','u','a'],l:['l','l','d','d','d'],v:['v','v','u','u','u'],O:['O','O','n','n','n']};
  const backgrounds={easy:[[1,1],[14,1]],medium:[[2,5],[21,5]],hard:[[4,7],[28,8]],expert:[[3,12],[36,14]]};
+
+ // Małe, ręcznie wyznaczone obszary twarzy i dodatków na NATYWNYCH siatkach.
+ // Nie interpolujemy obrazu i nie nakładamy grafiki na pół kratki.
+ const face={easy:{eye:[{x:5,y:8,w:2,h:2},{x:9,y:8,w:2,h:2}],skin:'&',ink:'6'},
+ medium:{eye:[{x:7,y:9,w:3,h:3},{x:14,y:9,w:3,h:3}],skin:'8',ink:'6'},
+ hard:{eye:[{x:9,y:13,w:3,h:3},{x:15,y:13,w:3,h:3}],skin:'^',ink:'2'},
+ expert:{eye:[{x:16,y:26,w:4,h:5},{x:24,y:26,w:4,h:5}],skin:'1',ink:'2'}};
+ const marks={easy:{ink:'6',yellow:'}',pink:'[',white:'|',skin:'&'},
+ medium:{ink:'6',yellow:'}',pink:'[',white:'|',skin:'8'},
+ hard:{ink:'2',yellow:':',pink:')',white:'|',skin:'^'},
+ expert:{ink:'2',yellow:':',pink:')',white:'|',skin:'#'}};
+ const sceneSpots={easy:[[2,3],[13,3]],medium:[[3,4],[20,4]],hard:[[3,6],[28,6]],expert:[[4,4],[13,4]]};
+ const put=(g,x,y,c)=>{
+  if(y>=0&&y<g.length&&x>=0&&x<g[0].length)g[y][x]=c;
+ };
+ function eyes(g,level,style){
+  if(!style||style==='original')return;
+  const {eye,skin,ink}=face[level];
+  for(let i=0;i<2;i++){
+   if(style==='wink'&&i===1)continue;
+   const a=eye[i];
+   for(let yy=a.y;yy<a.y+a.h;yy++)
+    for(let xx=a.x;xx<a.x+a.w;xx++)put(g,xx,yy,skin);
+   const middle=a.y+Math.floor(a.h/2);
+   for(let xx=a.x;xx<a.x+a.w;xx++)put(g,xx,middle,ink);
+   if(style==='happy'){
+    if(a.w>=3){
+     put(g,a.x,middle-1,ink);
+     put(g,a.x+a.w-1,middle-1,ink);
+    }
+   }else if(style==='wink'&&a.w>=3){
+    put(g,a.x+a.w-1,middle-1,ink);
+   }else if(style==='sleepy'){
+    // Opadające powieki zamiast wielkich otwartych oczu.
+    if(a.w>=3)put(g,a.x+a.w-1,middle+1,ink);
+   }
+  }
+ }
+ function mouth(g,level,style){
+  if(!style||style==='original')return;
+  const spec={easy:{x:7,y:11,w:2,h:2,base:'&',ink:'6',lip:'['},
+   medium:{x:10,y:17,w:4,h:2,base:';',ink:'6',lip:'['},
+   hard:{x:12,y:19,w:4,h:3,base:'^',ink:'2',lip:')'},
+   expert:{x:19,y:31,w:5,h:3,base:'1',ink:'2',lip:')'}}[level];
+  const {x,y,w,h,base,ink,lip}=spec;
+  for(let yy=y;yy<y+h;yy++)for(let xx=x;xx<x+w;xx++)put(g,xx,yy,base);
+  if(style==='smile'){
+   for(let xx=x;xx<x+w;xx++)put(g,xx,y+(h>2?1:0),ink);
+   if(h>2){put(g,x,y,ink);put(g,x+w-1,y,ink);}
+  }else if(style==='surprised'){
+   const mid=x+Math.floor(w/2);
+   put(g,mid,y,ink);put(g,mid,y+1,ink);
+   if(w>=4)put(g,mid-1,y+1,ink);
+   if(h>2)put(g,mid,y+h-1,lip);
+  }else if(style==='tongue'){
+   for(let xx=x+1;xx<x+w-1;xx++)put(g,xx,y,ink);
+   for(let xx=x+1;xx<x+w-1;xx++)put(g,xx,y+1,lip);
+   if(h>2)put(g,x+Math.floor(w/2),y+2,lip);
+  }
+ }
+ function insignia(g,cx,cy,kind,colors){
+  // Duże symbole 3-5 kratek, nie pojedynczy niemal niewidoczny piksel.
+  const {ink,yellow,pink,white}=colors;
+  if(kind==='star'){
+   for(const [dx,dy] of [[0,-2],[0,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[0,1],[0,2]])put(g,cx+dx,cy+dy,yellow);
+  }else if(kind==='heart'){
+   for(const [dx,dy] of [[-2,-1],[-1,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-1,1],[0,1],[1,1],[0,2]])put(g,cx+dx,cy+dy,pink);
+  }else if(kind==='flower'){
+   for(const [dx,dy] of [[0,-2],[-2,0],[2,0],[0,2]])put(g,cx+dx,cy+dy,pink);
+   put(g,cx,cy,yellow);put(g,cx-1,cy,pink);put(g,cx+1,cy,pink);
+  }else if(kind==='moon'){
+   for(const [dx,dy] of [[0,-2],[-1,-1],[-2,0],[-1,1],[0,2]])put(g,cx+dx,cy+dy,yellow);
+   put(g,cx,cy-1,white);
+  }
+ }
+ function accessory(g,level,kind){
+  if(!kind||kind==='original')return;
+  const p=marks[level];
+  if(level==='easy'||level==='medium'){
+   // Korona / różki zajmują ten sam obszar — podmieniamy go na prawdziwy dodatek.
+   const x0=level==='easy'?4:6, x1=level==='easy'?11:17;
+   const y0=level==='easy'?0:2,y1=5;
+   for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)put(g,x,y,'.');
+   const cx=level==='easy'?8:12;
+   if(kind==='bow'){
+    for(const [dx,dy] of [[-3,-1],[-2,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,1],[2,1]])
+     put(g,cx+dx,level==='easy'?3+dy:4+dy,p.pink);
+    put(g,cx,level==='easy'?3:4,p.yellow);
+    for(const dx of [-4,4])put(g,cx+dx,level==='easy'?3:4,p.ink);
+   }else if(kind==='star'){
+    insignia(g,cx,level==='easy'?3:4,'star',p);
+    put(g,cx-2,level==='easy'?5:6,p.ink);
+    put(g,cx+2,level==='easy'?5:6,p.ink);
+   }else if(kind==='heart'){
+    insignia(g,cx,level==='easy'?3:4,'heart',p);
+    put(g,cx-2,level==='easy'?5:6,p.ink);
+    put(g,cx+2,level==='easy'?5:6,p.ink);
+   }else if(kind==='none'){
+    // Sama główka bez nakrycia.
+   }
+  }else{
+   // Nie usuwamy rogów smoka ani kapelusza czarodzieja.
+   // Zmieniamy duży emblemat na czole lub kapeluszu.
+   const cx=level==='hard'?13:25,cy=level==='hard'?11:11;
+   const base=level==='hard'?'^':'#';
+   for(let y=cy-2;y<=cy+2;y++)for(let x=cx-2;x<=cx+2;x++)put(g,x,y,base);
+   if(kind==='bow'){
+    for(const [dx,dy] of [[-2,-1],[-1,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-1,1],[1,1]])
+     put(g,cx+dx,cy+dy,p.pink);
+    put(g,cx,cy,p.yellow);
+   }else if(kind==='star')insignia(g,cx,cy,'star',p);
+   else if(kind==='heart')insignia(g,cx,cy,'heart',p);
+  }
+ }
+ function sceneDraw(g,level,kind){
+  if(!kind||kind==='none')return;
+  const pal=marks[level];
+  const sprites={
+   stars:[[0,0,pal.yellow],[0,-1,pal.yellow],[0,1,pal.yellow],[-1,0,pal.yellow],[1,0,pal.yellow]],
+   hearts:[[-1,-1,pal.pink],[1,-1,pal.pink],[-1,0,pal.pink],[0,0,pal.pink],[1,0,pal.pink],[0,1,pal.pink]],
+   flowers:[[0,0,pal.yellow],[0,-1,pal.pink],[0,1,pal.pink],[-1,0,pal.pink],[1,0,pal.pink]]
+  };
+  for(const [cx,cy] of sceneSpots[level]){
+   // Dodatek do tła wolno rysować wyłącznie na pustych kratkach.
+   // Jeśli motyw zahacza o postać, przesuwamy go w pobliskie wolne miejsce.
+   let placed=false;
+   for(const [dx,dy] of [[0,0],[-1,0],[1,0],[0,-2],[0,2],[-2,0],[2,0]]){
+    const pts=sprites[kind]?.map(([ox,oy,c])=>[cx+dx+ox,cy+dy+oy,c]);
+    if(!pts?.every(([x,y])=>y>=0&&y<g.length&&x>=0&&x<g[0].length&&g[y][x]==='.'))continue;
+    pts.forEach(([x,y,c])=>put(g,x,y,c));
+    placed=true;break;
+   }
+   if(!placed)continue;
+  }
+ }
  function render(level='medium',opts={}){
   const key=Object.hasOwn(masters,level)?level:'medium';
   const rows=masters[key].map(row=>row.split(''));
+  eyes(rows,key,opts.eyes||'original');
+  mouth(rows,key,opts.mouth||'original');
+  accessory(rows,key,opts.accessory||'original');
+  sceneDraw(rows,key,opts.scene||'none');
   const tint=variants[opts.color];
   if(tint){
    const src=groups[key];
@@ -53,25 +192,6 @@ const MagicApprovedMonsters=(()=>{
     const shade=shades[id];
     const order=src.indexOf(shade);
     if(order>=0)rows[y][x]=tint[Math.min(order,tint.length-1)];
-   }
-  }
-  const scene=key==='easy'?'none':(opts.scene||'none');
-  // Ozdoby korzystają tylko z kolorów już obecnych w bazowym wzorze.
-  // Nie zwiększają liczby kredek nawet po wybraniu gwiazdek lub kwiatków.
-  if(scene!=='none'){
-   const accent=key==='medium'?{star:'}',pink:'['}:key==='hard'?{star:':',pink:')'}:{star:':',pink:')'};
-   for(const [x,y] of backgrounds[key]){
-    if(!rows[y]||rows[y][x]!=='.')continue;
-    if(scene==='stars'){
-     rows[y][x]=accent.star;
-     if(rows[y-1]?.[x]==='.')rows[y-1][x]=accent.star;
-    }else if(scene==='hearts'){
-     rows[y][x]=accent.pink;
-     if(rows[y]?.[x+1]==='.')rows[y][x+1]=accent.pink;
-    }else if(scene==='flowers'){
-     rows[y][x]=accent.star;
-     if(rows[y]?.[x+1]==='.')rows[y][x+1]=accent.pink;
-    }
    }
   }
   return rows.map(row=>row.join(''));
