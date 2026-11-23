@@ -45,26 +45,29 @@ Generator służy do zabawy w tworzenie postaci i scen na papierze w kratkę 5 m
 
 Zasada rozwoju: **nie traktować poprawności danych jako gwarancji jakości obrazu**. Każdy nowy sprite przed publikacją musi przejść przegląd wizualny 16×16, 24×24, 32×40 i 40×56, w tym kontrolę czytelności sylwetki, konsekwentnych proporcji, ciągłości ciemnego obrysu, skali detali oraz typowego wydruku 5 mm. Nowe style zatwierdzać w galerii jakości.
 
-**Biblioteka póz liska (aktualna wersja):**
-- `magic-fox-poses-data.js` przechowuje **8 odrębnych bazowych rysunków** (główka, siedzący, śpiący, z profilu × 16×16 i 24×24), w bezstratnym zapisie pikseli.
-- `magic-fox-poses.js` dekoduje piksele, kontroluje kolory i dekoracje oraz przygotowuje formaty 32×40 i 40×56 przez **proporcjonalne powiększenie** baz 24×24 z ponownym obrysem i detalami tła. Są to nadal adaptacje do dalszego dopracowania graficznego — nie należy przedstawiać ich jako ręcznie narysowanych wzorów od zera na tych formatach.
-- U liska opcje dostępne dla dziecka to poza, kolor i drobne dodatki tła; edycja oczu i miny jest celowo wyłączona, by chronić projekt postaci.
-- „Zaskocz mnie” i „Super wersja” w kategorii Zwierzątka zachowują wybrany gatunek; „Super wersja” dla liska ma cztery zestawy póz.
-- Wybór pozy i rozmiaru zapisuje się w dotychczasowym stanie `pikseluj/magiczne/v1`; projekty i ręczny Kreator pozostają bez zmian.
-- Kolejny etap jakości to odrębne, ręcznie zaprojektowane kompozycje 32×40 i 40×56. Nie należy opisywać aktualnego wyniku jako finalnego premium bez oceny wizualnej na telefonie.
+**Lisek — cztery autorskie poziomy (aktualne wdrożenie):**
+- `magic-fox-stages.js` jest **głównym silnikiem** wzorów liska w Magicznych pikselach. Zawiera cztery osobno narysowane siatki i bezstratny dekoder oraz dopuszcza wyłącznie bezpieczną zmianę koloru i dekoracji w pustym tle.
+- `magic-premium-worlds.js` kieruje liska do `MagicFoxStages.render()`. Starsze pliki `magic-fox-poses*.js` pozostawiono wyłącznie dla kompatybilności, ale **nie generują już aktualnego liska**.
+- Rozmiar i wygląd są nierozerwalnie powiązane: **Łatwy 16×16 — główka**, **Średni 24×24 — mały lisek przodem**, **Trudny 32×40 — pełna postać z dużym ogonem**, **Ekspert 40×56 — profil z motylkiem**.
+- Wersje 32×40 i 40×56 są osobnymi rysunkami, bez powiększania 24×24; wszystkie cztery rozmiary mieszczą się na papierze w kratkę 5 mm.
+- Dziecko wybiera poziom, kolor i (poza poziomem łatwym) dekoracje. Wybór pozy, oczu, miny i akcesoriów jest **ukryty tylko dla liska**, ponieważ wcześniej prowadził do deformowania sylwetki. Pozostałe zwierzęta zachowują własne opcje.
+- „Zaskocz mnie!” losuje tylko kombinacje koloru i ozdób; nie zmienia zwierzęcia, poziomu ani pozy. „Super wersja” przywraca z góry określoną autorską kolorystykę dla danego poziomu.
+- Po wyborze liska jego kolor wraca do **naturalnego pomarańczowego**. Istniejące projekty, ręczny Kreator i stan `pikseluj/magiczne/v1` działają tak jak wcześniej.
+- `magic-jakosc.html` pokazuje zestawienie nowych czterech etapów liska na prawdziwych siatkach oraz dotychczasowe grafiki innych zwierząt.
+- Podgląd i testy w kodzie potwierdzają wymiary i kolory. **To nie zastępuje wizualnej oceny grafiki przez dziecko/rodzica na ekranie telefonu.**
 
 **Zasady jakości grafik:**
 - Każdy wzór powstaje bezpośrednio na siatce docelowego rozmiaru: 16 × 16, 24 × 24, 32 × 40 lub 40 × 56.
 - **Nie wolno rozciągać gotowego obrazka 24 × 24**, ponieważ deformuje to kontury, uszy i pyszczki.
 - Sylwetki i detale są tworzone przez autorskie moduły: połączenia elementów, kontrolowany ciemny kontur, twarze, dodatki, dekoracje i odrębne bajkowe scenerie.
 - Spójne piksele i kolory zgodne z ręcznym Kreatorem; bez rozmycia i półpiksela.
-- Dla starszych grafik i nowych póz liska różny jest stopień ręcznego opracowania. **Wersje liska 32×40 i 40×56 są na razie adaptacjami**, a ich następne poprawki należy wykonywać bez zniekształcania proporcji.
+- Cztery aktualne etapy liska są narysowane osobno. Pozostałe zwierzęta/krainy mogą korzystać ze starszych metod i wymagają osobnego przeglądu jakości.
 
 **Nowy interfejs:**
 - Ekran startowy kategorii z pikselowymi podglądami postaci/scen.
 - Duży artystyczny podgląd, bez widocznej kratki na start; przycisk „Pokaż kratki” pokazuje prawdziwą siatkę.
 - Cztery czytelne kafelki rozmiarów i poziomów trudności wraz z zalecaną kartką.
-- Wybór zwierzaka, oczu, miny, dodatków, sceny i koloru przez klikalne ikony/kafelki (różne dla każdej kategorii).
+- Wybór zwierzaka i dozwolonych cech przez klikalne kafelki; u liska tylko poziom, kolor oraz bezpieczna dekoracja tła. U innych zwierząt nadal dostępne są wybrane oczy, minki i dodatki.
 - „🎲 Zaskocz mnie!” losuje wariant, „✨ Super wersja” wybiera z przygotowanych spójnych zestawów, jest też „↶ Cofnij”.
 - Możliwość nadania nazwy, zapisu w Moich projektach i przeniesienia do ręcznego Kreatora.
 - Ochrona przed przypadkowym nadpisaniem istniejącego szkicu.
