@@ -46,10 +46,18 @@ const MagicFoxStages=(()=>{
    if(x>=0&&x<w&&y>=0&&y<h&&rows[y][x]==='.')rows[y][x]=c;
   };
   const shape=(x,y,pixels,c)=>{
-   // Dekoracja pojawia się tylko wtedy, gdy cała figura ma odstęp od postaci.
    const coords=pixels.map(([dx,dy])=>[x+dx,y+dy]);
-   if(coords.some(([a,b])=>a<0||a>=w||b<0||b>=h||rows[b][a]!=='.'))return;
+   // Nie rysujemy połowy ozdoby. Potrzebna jest cała figurka
+   // i minimum jedna pusta kratka odstępu od sylwetki liska.
+   if(coords.some(([a,b])=>
+      a<1||a>=w-1||b<1||b>=h-1||rows[b][a]!=='.'
+      ||[[-1,0],[1,0],[0,-1],[0,1]].some(([dx,dy])=>{
+        const xx=a+dx,yy=b+dy;
+        return !coords.some(([px,py])=>px===xx&&py===yy) && rows[yy][xx]!=='.';
+      })
+   ))return false;
    for(const [a,b] of coords)set(a,b,c);
+   return true;
   };
   const cross=[[0,0],[-1,0],[1,0],[0,-1],[0,1]];
   const heart=[[-1,0],[1,0],[-2,1],[-1,1],[0,1],[1,1],[2,1],[0,2]];
@@ -59,8 +67,8 @@ const MagicFoxStages=(()=>{
    if(motif==='stars')shape(x,y,cross,'Y');
    if(motif==='hearts')shape(x,y,heart,'r');
    if(motif==='flowers'){
-    shape(x,y,flower,'p');
-    set(x,y,'Y');
+    // Płatki i środek dodajemy razem, inaczej powstają samotne żółte kropki.
+    shape(x,y,[...flower,[0,0]],'p') && (rows[y][x]='Y');
    }
   }
  }
