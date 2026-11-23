@@ -98,8 +98,11 @@ const MagicStoryArt=(()=>{
     P.xy(xx-.75,cy-.7,'w');
     if(big)P.xy(xx+1.15,cy+.6,'w');
    }
-  }else if(style==='three'&&P.detail>=1){
-   for(const xx of [cx-3.9,cx,cx+3.9]){P.oval(xx,cy,1.25,1.3,'w');P.xy(xx,cy,'k');}
+  }else if(style==='three'){
+   for(const xx of [cx-3.9,cx,cx+3.9]){
+    P.oval(xx,cy,1.25,1.3,'w');
+    P.xy(xx,cy,'k');
+   }
   }else if(style==='happy'||style==='sleepy'){
    P.line(cx-sep-1,cy,cx-sep,cy-1,'k');P.line(cx-sep,cy-1,cx-sep+1,cy,'k');
    P.line(cx+sep-1,cy,cx+sep,cy-1,'k');P.line(cx+sep,cy-1,cx+sep+1,cy,'k');
@@ -109,7 +112,7 @@ const MagicStoryArt=(()=>{
   }else{
    for(const xx of [cx-sep,cx+sep]){
     P.oval(xx,cy,1.5,big?2:1.4,'w');P.xy(xx,cy+.3,'k');
-    if(P.detail>=1)P.xy(xx-.5,cy-.6,'w');
+    if(P.detail>=1&&style!=='round')P.xy(xx-.5,cy-.6,'w');
    }
   }
   if(mouth==='tongue'){P.line(cx-1,cy+3,cx+1,cy+3,'k');P.xy(cx,cy+3.8,'r');}
@@ -356,7 +359,8 @@ const MagicStoryArt=(()=>{
   if(P.detail===0||cat==='worlds')return;
   const motif=options.scene||'none';
   if(motif==='none')return;
-  const positions=P.detail>=2?[[2.5,4.2],[21,5.1],[3.4,19.8]]:[[2.5,4.2],[21,5.2]];
+  const first=cat==='animals'?[[3,16],[21,3]]:cat==='robots'?[[3,6],[21,8]]:[[3,4],[21,5]];
+  const positions=P.detail>=2?[...first,[3,20]]:first;
   for(const [x,y] of positions){
    if(motif==='stars'){P.sparkle(x,y,'Y');}
    else if(motif==='hearts'){
