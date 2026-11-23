@@ -163,6 +163,8 @@ const MagicAnimalStudio=(()=>{
     oval(ex,ey,rx,rank===0?1.5:rank>=2?2.3:1.8,ink);
     if(rank>=1)oval(ex,ey+.2,Math.max(.8,rx-.8),rank>=2?1.4:1.1,white);
     if(eyes==='round'&&rank>=1)put(ex,ey,rank===1?ink:blue);
+    if(eyes==='round'&&rank===0)put(ex,ey,pink);
+    if(eyes==='sparkle'&&rank===0)put(ex,ey,white);
     if(eyes==='sparkle')put(ex-1,ey-1,white);
     if(rank===3&&eyes==='sparkle')put(ex+1,ey+1,white);
    }
@@ -226,6 +228,10 @@ const MagicAnimalStudio=(()=>{
    const sy=Math.max(2,ay+1),span=rank===0?1:2;
    for(const [dx,dy] of [[0,-span],[-span,0],[span,0],[0,span]])put(ax+dx,sy+dy,extra==='flower'?pink:yellow);
    put(ax,sy,extra==='flower'?yellow:white);
+  }else if(extra==='scarf'&&!body){
+   // Mała kolorowa apaszka także na poziomie 16×16.
+   line(Math.round(cx-2),h-3,Math.round(cx+2),h-3,yellow);
+   put(Math.round(cx+1),h-2,pink);
   }else if(extra==='scarf'&&body){
    const neck=Math.round((body[1]-body[3]+hy+hry)/2);
    line(Math.round(cx-hrx*.55),neck,Math.round(cx+hrx*.55),neck,yellow);
@@ -239,8 +245,14 @@ const MagicAnimalStudio=(()=>{
     const marks=o.scene==='stars'?[[0,0,yellow],[-1,0,yellow],[1,0,yellow],[0,-1,yellow],[0,1,yellow]]
      :o.scene==='hearts'?[[0,0,pink],[-1,-1,pink],[1,-1,pink],[0,1,pink]]
      :[[0,0,yellow],[-1,0,pink],[1,0,pink],[0,-1,pink],[0,1,pink]];
-    if(marks.every(([dx,dy])=>y+dy>=0&&y+dy<h&&x+dx>=0&&x+dx<w&&grid[y+dy][x+dx]==='.'))
-     marks.forEach(([dx,dy,c])=>put(x+dx,y+dy,c));
+    // Jeśli róg zasłaniają uszy, znajdź najbliższą wolną grupę kratek.
+    // Nie maluj dekoracji na twarzy, ogonie czy skrzydłach.
+    for(const [px,py] of [[x,y],[x,2],[x,h-3],[x,h-5],[x,Math.round(h*.45)]]){
+     if(marks.every(([dx,dy])=>py+dy>=0&&py+dy<h&&px+dx>=0&&px+dx<w&&grid[py+dy][px+dx]==='.')){
+      marks.forEach(([dx,dy,c])=>put(px+dx,py+dy,c));
+      return;
+     }
+    }
    };
    stamp(left,top);stamp(right,top);
    if(rank>=2){stamp(4,h-7);stamp(w-5,h-8)}
