@@ -58,7 +58,7 @@ try{
 }catch{/* przechowywanie opcjonalne */}
 // Migracja zapisanych ustawień ze starego generatora: nowe postacie startują w zatwierdzonych kolorach.
 try{
- const migration='pikseluj/magiczne/potworki-approved-v1';
+ const migration='pikseluj/magiczne/potworki-crayons-v2';
  if(localStorage.getItem(migration)!=='done'){
   magicState.values.monsters.color='original';
   magicState.values.monsters.scene='none';
