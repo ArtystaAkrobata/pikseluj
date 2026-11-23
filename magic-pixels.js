@@ -68,6 +68,15 @@ try{
   localStorage.setItem(migration,'done');
  }
 }catch{magicState.values.monsters.color='original';magicState.values.monsters.scene='none';}
+// Jednorazowo pokaż zatwierdzony wygląd kotka użytkownikom poprzedniej wersji.
+try{
+ const key='pikseluj/magiczne/approved-cats-20261123';
+ if(localStorage.getItem(key)!=='done'&&magicState.values.animals.kind==='cat'){
+  Object.assign(magicState.values.animals,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
+  magicState.name='';
+  localStorage.setItem(key,'done');
+ }
+}catch{}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -191,6 +200,8 @@ function magicRender(){
  const levelIcons={easy:'🌱',medium:'🌈',hard:'🔥',expert:'👑'};
  const levelNotes=magicState.category==='animals'&&values.kind==='fox'
   ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
+  :magicState.category==='animals'&&values.kind==='cat'
+  ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
   :magicState.category==='monsters'
    ?{easy:'Z koroną · 5 kolorów',medium:'Turkusowy smoczek · 6 kolorów',hard:'Czerwony smok',expert:'Magiczny czarodziej'}
    :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
@@ -359,6 +370,11 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
  if(magicState.values[magicState.category][field.key]===button.dataset.option)return;
  magicHistory();
  magicState.values[magicState.category][field.key]=button.dataset.option;
+ if(magicState.category==='animals'&&field.key==='kind'&&button.dataset.option==='cat'){
+  // Nowa postać zaczyna w zaakceptowanej wersji. Dalej można ją dowolnie edytować.
+  Object.assign(magicState.values.animals,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
+  magicState.name='';
+ }
  if(magicState.category==='animals'&&field.key==='kind'&&button.dataset.option==='fox'){
   magicState.values.animals.color='natural';
   magicState.values.animals.scene=magicState.size==='easy'?'none':'stars';
