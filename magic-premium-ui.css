@@ -226,6 +226,15 @@
  border-color:#8852b3;background:linear-gradient(#f6e8ff,#e7cffb);
  color:#623582;box-shadow:inset 0 0 0 2px #fff,0 4px 0 #9d77b8;
 }
+#magic-screen.magic-v2 .magic-fox-stage-info{
+ display:flex;align-items:center;gap:8px;min-height:43px;
+ margin:12px 0 8px;padding:9px 12px;
+ border:2px solid #d8b3e4;border-radius:13px;
+ background:linear-gradient(145deg,#fff7ff,#f3e5ff);
+ color:#714a85;font-size:.79rem;font-weight:800;line-height:1.35;
+ box-shadow:inset 0 2px #fff,0 2px #caa7dc;
+}
+#magic-screen.magic-v2 .magic-fox-stage-info[hidden]{display:none!important}
 #magic-screen.magic-v2 .magic-v2-paper-info{
  margin:10px 0 15px;padding:9px 11px;border-radius:12px;
  background:#e9f8e7;color:#3b7053;font-size:.76rem;font-weight:780;
