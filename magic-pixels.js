@@ -161,6 +161,9 @@ function magicRender(){
    if(values.kind==='fox'&&magicState.size==='easy'&&field.key==='scene')continue;
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
+  // Najmniejsze obrazy mają najmniej elementów; nie pokazuj opcji bez efektu.
+  if(magicState.size==='easy'&&field.key==='scene')continue;
+  if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
   const group=document.createElement('fieldset');group.className='magic-trait-group';
   const legend=document.createElement('legend');legend.textContent=field.title;
   const choices=document.createElement('div');choices.className='magic-trait-choices';
@@ -239,6 +242,8 @@ function magicRandomize(){
  do{
   for(const f of d.fields){
    if(magicState.category==='animals'&&f.key==='kind')continue;
+   if(magicState.size==='easy'&&f.key==='scene')continue;
+   if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
    v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
   }
   tries++;
