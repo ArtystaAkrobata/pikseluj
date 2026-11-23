@@ -12,7 +12,7 @@ const MagicApprovedMonsters=(()=>{
   ':':['#F5CD53','Żółty'], ']':['#F6A449','Pomarańczowy'],'>':['#F7DFAC','Kremowy'],
   '4':['#4A75C9','Niebieski'], ')':['#F58CB1','Różowy'],
   '#':['#61369B','Ciemnofioletowy'],'%':['#9670E6','Fioletowy'],
-  '+':['#C49AED','Jasnofioletowy'],'1':['#53BFDE','Błękitny'],
+  '+':['#A76BE8','Fioletowy'],'1':['#53BFDE','Błękitny'],
   '7':['#B2E5F2','Jasnobłękitny'],'=':['#CE934F','Brązowy']
  };
  // Zamiana odcieni w każdym poziomie odbywa się na danych, nie na grafice.
@@ -23,7 +23,7 @@ const MagicApprovedMonsters=(()=>{
    '<':'>','=':']','{':':'
   },
   expert:{
-   '0':'1','3':'1','4':'1','5':'2','9':'#','!':'%',
+   '0':'1','3':'1','4':'1','7':'1','5':'2','9':'#','!':'+','%':'+',
    '*':'=','$':')','{':':','<':'|','>':'|'
   }
  };
