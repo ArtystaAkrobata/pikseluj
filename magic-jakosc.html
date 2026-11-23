@@ -18,7 +18,7 @@ button[aria-pressed="true"]{background:#dbc4f5}h2{font-size:1.15rem;margin:25px 
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 </style></head><body><main>
 <a href="./#magiczne">← Wróć do Pikseluj</a><h1>🪄 Magia pikseli — kontrola jakości</h1>
-<p>Zestawienie autorskich zwierzątek. Każdy poziom ma własną, dopracowaną siatkę — nie jest powiększeniem ani rozmyciem poprzedniego.</p>
+<p>Porównanie wzorów ze wszystkich kategorii Pikseluj. Lisek ma osobno narysowane cztery etapy; pozostałe motywy są komponowane na docelowych siatkach z większą liczbą szczegółów na trudniejszych poziomach.</p>
 <div class="bar"><button id="grid" type="button" aria-pressed="false">▦ Pokaż kratki</button>
 <span>1 piksel = 1 kratka 5 mm</span></div>
 <div id="gallery" aria-live="polite"></div>
@@ -30,11 +30,17 @@ button[aria-pressed="true"]{background:#dbc4f5}h2{font-size:1.15rem;margin:25px 
 <script src="./magic-fox-poses-data.js?v=fox-poses-02"></script>
 <script src="./magic-fox-poses.js?v=fox-poses-02"></script>
 <script src="./magic-fox-stages.js?v=fox-stages-03"></script>
-<script src="./magic-premium-worlds.js?v=fox-stages-01"></script>
+<script src="./magic-story-art.js?v=story-premium-02"></script>
+<script src="./magic-premium-worlds.js?v=story-premium-02"></script>
 <script>
 'use strict';
 const palette={k:'#1a1a1c',w:'#ffffff',s:'#94949a',n:'#98674f',e:'#ce934f',c:'#f7dfac',r:'#ed343b',O:'#eb831e',Y:'#f4a929',H:'#f8de67',l:'#a9cf75',g:'#5bbb79',d:'#2e855e',b:'#53bfde',a:'#4a75c9',u:'#334478',v:'#9670e6',p:'#f58cb1',X:'#dc537c',t:'#ffa9ab'};
-const kinds=[['fox','🦊 Lisek'],['cat','🐱 Kotek'],['bear','🐻 Miś'],['bunny','🐰 Króliczek']];
+const categories=[
+  ['🐱 Zwierzątka','animals',[['cat','Kotek'],['bear','Miś'],['bunny','Króliczek']]],
+  ['👾 Potworki','monsters',[['round','Puchatek'],['square','Kwadratek'],['jelly','Galaretek']]],
+  ['🤖 Roboty','robots',[['square','Klasyczny'],['round','Okrągły'],['tall','Wysoki']]],
+  ['🏰 Bajkowe światy','worlds',[['castle','Zamek'],['forest','Leśna bajka'],['garden','Domek'],['sea','Latarnia morska']]]
+];
 const levels=[['easy','Łatwy'],['medium','Średni'],['hard','Trudny'],['expert','Ekspert']];
 const gallery=document.getElementById('gallery');
 function artSVG(rows){
@@ -63,19 +69,28 @@ for(const [level,levelLabel] of levels){
  card.append(h3,art);foxGrid.append(card);
 }
 gallery.append(foxGrid);
-const others=document.createElement('h2');others.textContent='Pozostałe zwierzątka (osobne wzory)';gallery.append(others);
-for(const [kind,label] of kinds){
- const title=document.createElement('h2');title.textContent=label;gallery.append(title);
- const section=document.createElement('div');section.className='grid';
- for(const [level,levelLabel] of levels){
-  const opts={kind,color:'natural',eyes:'sparkle',mouth:'smile',extra:'none',scene:'none'};
-  const rows=MagicPremiumArt.render('animals',opts,level);
-  const card=document.createElement('article');card.className='card';
-  const h3=document.createElement('h3');h3.textContent=levelLabel+' · '+rows[0].length+'×'+rows.length;
-  const art=document.createElement('div');art.className='art';art.append(artSVG(rows));
-  card.append(h3,art);section.append(card);
+for(const [heading,category,kinds] of categories){
+ const sectionTitle=document.createElement('h2');
+ sectionTitle.textContent=heading;gallery.append(sectionTitle);
+ for(const [kind,label] of kinds){
+  const title=document.createElement('h2');title.textContent=label;gallery.append(title);
+  const section=document.createElement('div');section.className='grid';
+  for(const [level,levelLabel] of levels){
+   const opts={
+    kind,color:category==='animals'?'natural':category==='robots'?'b':'v',
+    eyes:category==='monsters'?'two':category==='robots'?'dots':category==='worlds'?'day':'sparkle',
+    mouth:category==='robots'?'heart':'smile',
+    extra:category==='monsters'?'horns':category==='robots'?'one':'none',
+    scene:'none'
+   };
+   const rows=MagicPremiumArt.render(category,opts,level);
+   const card=document.createElement('article');card.className='card';
+   const h3=document.createElement('h3');h3.textContent=levelLabel+' · '+rows[0].length+' × '+rows.length;
+   const art=document.createElement('div');art.className='art';art.append(artSVG(rows));
+   card.append(h3,art);section.append(card);
+  }
+  gallery.append(section);
  }
- gallery.append(section);
 }
 document.getElementById('grid').addEventListener('click',()=>{
  const pressed=document.getElementById('grid').getAttribute('aria-pressed')==='true';
