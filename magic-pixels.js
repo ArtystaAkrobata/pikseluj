@@ -17,13 +17,9 @@ const magicDefs={
   {key:'scene',title:'Małe ozdoby wokół',options:[['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
   {key:'color',title:'Kolor bohatera',options:[['natural','Naturalny','🎨'],['w','Biały','🤍'],['n','Brązowy','🤎'],['p','Różowy','🩷'],['v','Fioletowy','💜'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
- monsters:{title:'Potworki',emoji:'👾',desc:'Śmieszne stworki, których nie da się nie polubić',fields:[
-  {key:'kind',title:'Kształt stworka',options:[['round','Puchatek','🟣'],['square','Kwadratek','🧊'],['jelly','Galaretek','🍮']]},
-  {key:'eyes',title:'Ile oczu?',options:[['two','Dwoje','👀'],['one','Jedno','👁️'],['three','Troje','👾']]},
-  {key:'mouth',title:'Minka',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😛'],['surprised','Zdziwiona','😲']]},
-  {key:'extra',title:'Co na głowie?',options:[['horns','Różki','😈'],['antenna','Czułki','📡'],['crown','Korona','👑'],['none','Bez dodatku','✨']]},
-  {key:'scene',title:'Magiczne tło',options:[['stars','Iskry','✨'],['hearts','Serduszka','💕'],['flowers','Kwiatki','🌸'],['none','Bez tła','☁️']]},
-  {key:'color',title:'Kolor stworka',options:[['v','Fioletowy','💜'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
+ monsters:{title:'Potworki',emoji:'👾',desc:'Cztery dopracowane postacie — każda ma własny poziom',fields:[
+  {key:'color',title:'Kolor bohatera',options:[['original','Oryginalny','🎨'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Pomarańczowy','🧡']]},
+  {key:'scene',title:'Ozdoby wokół bohatera',options:[['none','Bez ozdób','✨'],['stars','Gwiazdki','⭐'],['hearts','Serduszka','💕'],['flowers','Kwiatki','🌸']]}
  ]},
  robots:{title:'Roboty',emoji:'🤖',desc:'Superroboty z własną osobowością',fields:[
   {key:'kind',title:'Głowa robota',options:[['square','Klasyczna','▣'],['round','Okrągła','⚙️'],['tall','Wysoka','🗼']]},
@@ -72,6 +68,7 @@ function magicRows(){
 function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
  const d=magicDefs[magicState.category],o=magicState.values[magicState.category];
+ if(magicState.category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')return MagicApprovedMonsters.names[magicState.size];
  const chosen=d.fields[0].options.find(item=>item[0]===o.kind);
  if(magicState.category==='animals'&&o.kind==='fox'){
   const stage=MagicFoxStages.descriptions[magicState.size]||'Lisek';
@@ -172,7 +169,9 @@ function magicRender(){
  const levelIcons={easy:'🌱',medium:'🌈',hard:'🔥',expert:'👑'};
  const levelNotes=magicState.category==='animals'&&values.kind==='fox'
   ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
-  :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
+  :magicState.category==='monsters'
+   ?{easy:'Z koroną · 5 kolorów',medium:'Turkusowy smoczek · 6 kolorów',hard:'Czerwony smok',expert:'Magiczny czarodziej'}
+   :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
  for(const [key,item] of Object.entries(MAGIC_VARIANTS)){
   const selected=key===magicState.size;
   const button=magicCreateButton('magic-level-card'+(selected?' is-selected':''));button.dataset.level=key;
@@ -207,7 +206,7 @@ function magicRender(){
    button.setAttribute('aria-label',label);
    if(isColor){
     const circle=document.createElement('i');circle.className='magic-color-dot';
-    const colorMap={natural:'#db9c6e',w:'#ffffff',n:'#9c6b4c',p:'#f59cc9',v:'#ad85e9',b:'#7cc9f7',l:'#8bd283',O:'#ffae51'};
+    const colorMap={natural:'#db9c6e',original:magicState.size==='easy'?'#a76be8':magicState.size==='medium'?'#32cdbb':magicState.size==='hard'?'#fb2430':'#00b9f7',w:'#ffffff',n:'#9c6b4c',p:'#f59cc9',v:'#ad85e9',b:'#7cc9f7',l:'#8bd283',O:'#ffae51'};
     circle.style.setProperty('--magic-dot',colorMap[key]||'#ffd95b');
     button.append(circle);
    }else{
@@ -370,9 +369,11 @@ const magicBestSets={
   {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
  ],
  monsters:[
-  {kind:'round',eyes:'two',mouth:'tongue',extra:'horns',scene:'stars',color:'v'},
-  {kind:'jelly',eyes:'one',mouth:'smile',extra:'antenna',scene:'hearts',color:'p'},
-  {kind:'square',eyes:'three',mouth:'smile',extra:'crown',scene:'stars',color:'b'}
+  {color:'original',scene:'stars'},
+  {color:'p',scene:'hearts'},
+  {color:'b',scene:'stars'},
+  {color:'l',scene:'flowers'},
+  {color:'original',scene:'none'}
  ],
  robots:[
   {kind:'square',eyes:'visor',mouth:'heart',extra:'one',scene:'stars',color:'b'},
