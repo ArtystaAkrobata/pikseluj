@@ -364,9 +364,26 @@
  color:#754a95;
 }
 #magic-screen.magic-v2 .magic-theme-list{
- display:flex;gap:7px;padding:2px 2px 5px;
- max-width:100%;overflow-x:auto;scroll-snap-type:x proximity;
- -webkit-overflow-scrolling:touch;scrollbar-width:thin;
+ display:grid;
+ grid-template-columns:repeat(6,minmax(0,1fr));
+ align-items:stretch;gap:8px;
+ padding:2px 2px 5px;width:100%;
+ max-width:100%;overflow:visible;
+}
+#magic-screen.magic-v2 .magic-theme-button{
+ grid-column:span 2;
+}
+#magic-screen.magic-v2 .magic-theme-button:nth-child(n+4){
+ grid-column:span 3;
+}
+@media(min-width:760px){
+ #magic-screen.magic-v2 .magic-theme-list{
+  grid-template-columns:repeat(5,minmax(0,1fr));
+ }
+ #magic-screen.magic-v2 .magic-theme-button,
+ #magic-screen.magic-v2 .magic-theme-button:nth-child(n+4){
+  grid-column:auto;
+ }
 }
 #magic-screen.magic-v2 .magic-theme-button{
  flex:0 0 auto;scroll-snap-align:start;min-height:40px;
@@ -388,4 +405,16 @@
 }
 @media(max-width:370px){
  #magic-screen.magic-v2 .magic-theme-button{font-size:.66rem;padding:7px 9px}
+}
+
+/* Wszystkie 5 krain widoczne jednocześnie, bez poziomego przewijania. */
+#magic-screen.magic-v2 .magic-theme-button{
+ flex:none;max-width:none;min-width:0;width:100%;
+ min-height:46px;padding:7px 5px;white-space:normal;
+ text-wrap:balance;text-align:center;
+ line-height:1.2;font-size:clamp(.65rem,2.9vw,.76rem);
+}
+@media(max-width:370px){
+ #magic-screen.magic-v2 .magic-theme-list{gap:5px}
+ #magic-screen.magic-v2 .magic-theme-button{font-size:.64rem;padding:6px 3px}
 }
