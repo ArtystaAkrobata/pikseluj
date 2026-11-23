@@ -17,9 +17,12 @@ const magicDefs={
   {key:'scene',title:'Małe ozdoby wokół',options:[['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
   {key:'color',title:'Kolor bohatera',options:[['natural','Naturalny','🎨'],['w','Biały','🤍'],['n','Brązowy','🤎'],['p','Różowy','🩷'],['v','Fioletowy','💜'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
- monsters:{title:'Potworki',emoji:'👾',desc:'Cztery dopracowane postacie — każda ma własny poziom',fields:[
-  {key:'color',title:'Kolor bohatera',options:[['original','Oryginalny','🎨'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Pomarańczowy','🧡']]},
-  {key:'scene',title:'Ozdoby wokół bohatera',options:[['none','Bez ozdób','✨'],['stars','Gwiazdki','⭐'],['hearts','Serduszka','💕'],['flowers','Kwiatki','🌸']]}
+ monsters:{title:'Potworki',emoji:'👾',desc:'Sam wybierasz oczy, minkę, dodatki i kolor!',fields:[
+  {key:'eyes',title:'Jakie oczy ma Twój bohater?',options:[['original','Błyszczące','✨'],['happy','Wesołe','😊'],['wink','Mrugające','😉'],['sleepy','Przymknięte','😴']]},
+  {key:'mouth',title:'Jaka minka?',options:[['original','Oryginalna','😄'],['smile','Uśmiech','😊'],['tongue','Języczek','😋'],['surprised','Zdziwiona','😮']]},
+  {key:'accessory',title:'Co dodamy bohaterowi?',options:[['original','Oryginalna ozdoba','👑'],['bow','Kokarda','🎀'],['star','Gwiazdka','⭐'],['heart','Serduszko','💕'],['none','Bez ozdoby','✨']]},
+  {key:'scene',title:'Ozdoby wokół postaci',options:[['none','Bez tła','☁️'],['stars','Iskierki','✨'],['hearts','Serduszka','💕'],['flowers','Kwiatuszki','🌸']]},
+  {key:'color',title:'Kolor bohatera',options:[['original','Oryginalny','🎨'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Pomarańczowy','🧡']]}
  ]},
  robots:{title:'Roboty',emoji:'🤖',desc:'Superroboty z własną osobowością',fields:[
   {key:'kind',title:'Głowa robota',options:[['square','Klasyczna','▣'],['round','Okrągła','⚙️'],['tall','Wysoka','🗼']]},
@@ -158,7 +161,8 @@ function magicRender(){
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
  const variant=MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
-   magicState.category==='animals'&&values.kind==='fox'
+   magicState.category==='monsters' ? '👾 '+MagicApprovedMonsters.names[magicState.size]
+   :magicState.category==='animals'&&values.kind==='fox'
      ?'🦊 '+(MagicFoxStages.descriptions[magicState.size]||'Lisek')
      :def.emoji+' '+def.title;
  const scene=document.getElementById('magic-art-scene');
@@ -200,7 +204,7 @@ function magicRender(){
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
   // Najmniejsze obrazy mają najmniej elementów; nie pokazuj opcji bez efektu.
-  if(magicState.size==='easy'&&field.key==='scene')continue;
+  if(magicState.size==='easy'&&field.key==='scene'&&magicState.category!=='monsters')continue;
   if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
   const group=document.createElement('fieldset');group.className='magic-trait-group';
   const legend=document.createElement('legend');legend.textContent=field.title;
@@ -280,13 +284,13 @@ function magicRandomize(){
  do{
   for(const f of d.fields){
    if(magicState.category==='animals'&&f.key==='kind')continue;
-   if(magicState.size==='easy'&&f.key==='scene')continue;
+   if(magicState.size==='easy'&&f.key==='scene'&&magicState.category!=='monsters')continue;
    if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
    v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
   }
   tries++;
  }while(JSON.stringify(v)===before&&tries<6);
- magicState.name='';magicPersist();magicRender();magicMessage('✨ Nowa magiczna kombinacja!');magicCelebrate();
+ magicState.name='';magicPersist();magicRender();magicMessage(magicState.category==='monsters'?'✨ Nowy wygląd: oczy, minka, ozdoby i kolory!':'✨ Nowa magiczna kombinacja!');magicCelebrate();
 }
 function magicSave(){
  if(!magicState.category)return;
@@ -378,11 +382,12 @@ const magicBestSets={
   {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
  ],
  monsters:[
-  {color:'original',scene:'stars'},
-  {color:'p',scene:'hearts'},
-  {color:'b',scene:'stars'},
-  {color:'l',scene:'flowers'},
-  {color:'original',scene:'none'}
+  {eyes:'original',mouth:'original',accessory:'original',scene:'none',color:'original'},
+  {eyes:'wink',mouth:'smile',accessory:'bow',scene:'stars',color:'original'},
+  {eyes:'happy',mouth:'tongue',accessory:'star',scene:'hearts',color:'p'},
+  {eyes:'sleepy',mouth:'surprised',accessory:'heart',scene:'flowers',color:'b'},
+  {eyes:'original',mouth:'smile',accessory:'none',scene:'stars',color:'l'},
+  {eyes:'happy',mouth:'smile',accessory:'bow',scene:'flowers',color:'v'}
  ],
  robots:[
   {kind:'square',eyes:'visor',mouth:'heart',extra:'one',scene:'stars',color:'b'},
@@ -421,9 +426,7 @@ function magicSuper(){
   return;
  }
  magicHistory();
- const presets=category==='monsters'&&magicState.size==='easy'
-  ?magicBestSets.monsters.filter(p=>p.color!=='original'||p.scene==='none')
-  :category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
+ const presets=category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
  const previous=JSON.stringify(magicState.values[category]);
  const picks=presets.filter(preset=>JSON.stringify({...magicState.values[category],...preset})!==previous);
  const selected=picks[Math.floor(Math.random()*picks.length)]||presets[0];
