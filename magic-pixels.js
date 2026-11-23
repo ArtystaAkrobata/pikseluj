@@ -1,5 +1,5 @@
 'use strict';
-/* Magiczne piksele — 24x24, te same kolory i zapis co ręczny Kreator. */
+/* Magiczne piksele — cztery niezależne poziomy 16×16 / 24×24 / 32×40 / 40×56, z zachowaniem siatki papieru. */
 const MAGIC_SIZE=24, MAGIC_KEY='pikseluj/magiczne/v1';
 const MAGIC_VARIANTS={
  easy:{width:16,height:16,label:'Łatwy',sheet:'A6'},
@@ -33,7 +33,13 @@ const magicDefs={
   {key:'scene',title:'Otoczenie',options:[['stars','Energia','⚡'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
   {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
- worlds:{title:'Bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
+ landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Góry, jeziora, zachody słońca i zimowe doliny',fields:[
+  {key:'kind',title:'Wybierz krajobraz',options:[['mountains','Górskie szczyty','🏔️'],['lake','Jezioro w dolinie','🏞️'],['sunset','Zachód nad rzeką','🌄'],['winter','Zimowa kraina','❄️']]},
+  {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Złota godzina','🌅'],['night','Gwiaździsta noc','🌙']]},
+  {key:'extra',title:'Dekoracje nieba',options:[['cloud','Białe chmury','☁️'],['stars','Iskierki','✨'],['none','Czyste niebo','🩵']]},
+  {key:'color',title:'Nastrój kolorów',options:[['b','Błękitny','🩵'],['l','Zielony','💚'],['v','Bajkowy fiolet','💜'],['O','Ciepły zachód','🧡']]}
+ ]},
+ worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
   {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Zachód słońca','🌅'],['night','Noc z gwiazdami','🌙']]},
   {key:'extra',title:'Niebo i dekoracje',options:[['cloud','Chmurki','☁️'],['stars','Gwiazdy','✨'],['hearts','Serduszka','💕'],['none','Bez ozdób','🌤️']]},
@@ -61,7 +67,7 @@ function magicMessage(message=''){document.getElementById('magic-feedback').text
 // Dawny silnik rozciągania został zastąpiony MagicPremiumArt.
 function magicRows(){
  if(!magicState.category)return Array(24).fill('.'.repeat(24));
- return MagicPremiumArt.render(magicState.category,magicState.values[magicState.category],magicState.size);
+ return magicState.category==='landscapes' ? MagicStoryArt.render('landscapes',magicState.values.landscapes,magicState.size) : MagicPremiumArt.render(magicState.category,magicState.values[magicState.category],magicState.size);
 }
 function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
@@ -92,7 +98,7 @@ function magicCreateButton(className,label){
 }
 function magicCategoryPreview(cat,def){
  const first=Object.fromEntries(def.fields.map(field=>[field.key,field.options[0][0]]));
- const rows=MagicPremiumArt.render(cat,first,'medium');
+ const rows=cat==='landscapes' ? MagicStoryArt.render(cat,first,'medium') : MagicPremiumArt.render(cat,first,'medium');
  return sprite(readPattern({id:'mini-'+cat,art:rows.join('\n')}));
 }
 function magicRender(){
@@ -119,6 +125,30 @@ function magicRender(){
   }
   return;
  }
+
+ // Tematy zawsze pozostają dostępne także PO rozpoczęciu rysowania.
+ // Wcześniej przełącznik znikał i trzeba było wracać strzałką.
+ const workspace=work.querySelector('.magic-v2-workspace');
+ let switcher=document.getElementById('magic-theme-switcher');
+ if(!switcher){
+  switcher=document.createElement('nav');
+  switcher.id='magic-theme-switcher';
+  switcher.className='magic-theme-switcher';
+  switcher.setAttribute('aria-label','Wybierz temat magicznych pikseli');
+  workspace.prepend(switcher);
+ }
+ switcher.replaceChildren();
+ const switchTitle=document.createElement('strong');
+ switchTitle.className='magic-theme-heading';switchTitle.textContent='🎨 Wybierz temat:';
+ const switchList=document.createElement('div');switchList.className='magic-theme-list';
+ for(const [key,item] of Object.entries(magicDefs)){
+  const selectedTheme=key===magicState.category;
+  const switchButton=magicCreateButton('magic-theme-button'+(selectedTheme?' is-selected':''),item.emoji+' '+item.title);
+  switchButton.dataset.switchCategory=key;
+  switchButton.setAttribute('aria-pressed',String(selectedTheme));
+  switchList.append(switchButton);
+ }
+ switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
  const variant=MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
@@ -278,6 +308,10 @@ function magicEdit(){
 document.getElementById('magic-categories').addEventListener('click',event=>{
  const btn=event.target.closest('[data-category]');if(btn)magicChoose(btn.dataset.category);
 });
+document.getElementById('magic-workbench').addEventListener('click',event=>{
+ const button=event.target.closest('button[data-switch-category]');
+ if(button&&button.dataset.switchCategory!==magicState.category)magicChoose(button.dataset.switchCategory);
+});
 document.getElementById('magic-fields').addEventListener('click',event=>{
  const button=event.target.closest('button[data-field][data-option]');
  if(!button||!magicState.category)return;
@@ -344,6 +378,12 @@ const magicBestSets={
   {kind:'square',eyes:'visor',mouth:'heart',extra:'one',scene:'stars',color:'b'},
   {kind:'round',eyes:'dots',mouth:'star',extra:'two',scene:'stars',color:'v'},
   {kind:'tall',eyes:'visor',mouth:'lights',extra:'two',scene:'hearts',color:'l'}
+ ],
+ landscapes:[
+  {kind:'mountains',eyes:'day',extra:'cloud',color:'b'},
+  {kind:'lake',eyes:'evening',extra:'cloud',color:'l'},
+  {kind:'sunset',eyes:'evening',extra:'none',color:'O'},
+  {kind:'winter',eyes:'night',extra:'stars',color:'b'}
  ],
  worlds:[
   {kind:'castle',eyes:'night',extra:'stars',color:'v'},
