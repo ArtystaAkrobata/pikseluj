@@ -75,8 +75,9 @@ const MagicApprovedMonsters=(()=>{
    }else if(style==='wink'&&a.w>=3){
     put(g,a.x+a.w-1,middle-1,ink);
    }else if(style==='sleepy'){
-    // Opadające powieki zamiast wielkich otwartych oczu.
+    // Ukośna powieka: odróżnia się od wesołego uśmiechu także na 16×16.
     if(a.w>=3)put(g,a.x+a.w-1,middle+1,ink);
+    else put(g,a.x,middle-1,ink);
    }
   }
  }
