@@ -162,7 +162,7 @@ const MagicAnimalStudio=(()=>{
    }else{
     oval(ex,ey,rx,rank===0?1.5:rank>=2?2.3:1.8,ink);
     if(rank>=1)oval(ex,ey+.2,Math.max(.8,rx-.8),rank>=2?1.4:1.1,white);
-    if(eyes==='round'&&rank>=1)put(ex,ey,blue);
+    if(eyes==='round'&&rank>=1)put(ex,ey,rank===1?ink:blue);
     if(eyes==='sparkle')put(ex-1,ey-1,white);
     if(rank===3&&eyes==='sparkle')put(ex+1,ey+1,white);
    }
@@ -174,6 +174,8 @@ const MagicAnimalStudio=(()=>{
   if(kind==='owl'){
    poly([[mx,my-1],[mx-1,my],[mx+1,my],[mx,my+2]],yellow);
    if(o.mouth==='surprised')put(mx,my+2,ink);
+   else if(o.mouth==='tongue'){put(mx,my+2,pink);if(rank>=1)put(mx-1,my+1,pink);}
+   else{put(mx,my+2,yellow);if(rank>=1)put(mx-1,my+1,ink);}
   }else{
    // Nos pozostaje widoczny nawet przy uśmiechu i języczku.
    put(mx,my-1,ink);
@@ -232,7 +234,7 @@ const MagicAnimalStudio=(()=>{
   }
   // Niewielkie dekoracje umieszczamy wyłącznie na PUSTYCH kratkach.
   if(o.scene&&o.scene!=='none'){
-   const left=rank<=1?2:4,right=w-1-left,top=rank===0?2:rank===1?4:7;
+   const left=rank===0?1:rank===1?2:4,right=w-1-left,top=rank===0?11:rank===1?4:7;
    const stamp=(x,y)=>{
     const marks=o.scene==='stars'?[[0,0,yellow],[-1,0,yellow],[1,0,yellow],[0,-1,yellow],[0,1,yellow]]
      :o.scene==='hearts'?[[0,0,pink],[-1,-1,pink],[1,-1,pink],[0,1,pink]]
