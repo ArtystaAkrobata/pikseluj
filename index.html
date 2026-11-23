@@ -957,8 +957,9 @@ h1, h2, h3, p { margin:0 }
 <script src="./magic-fox-poses.js?v=fox-poses-03"></script>
 <script src="./magic-fox-stages.js?v=fox-stages-03"></script>
 <script src="./magic-story-art.js?v=magic-art-20261123a"></script>
-<script src="./magic-premium-worlds.js?v=story-premium-03"></script>
-<script src="./magic-pixels.js?v=magic-art-20261123a"></script>
+<script src="./magic-approved-monsters.js?v=approved-monsters-01"></script>
+<script src="./magic-premium-worlds.js?v=approved-monsters-01"></script>
+<script src="./magic-pixels.js?v=approved-monsters-01"></script>
 <script>
 'use strict';
 
@@ -1033,6 +1034,9 @@ const colors = {
   H:["#f8de67","żółty"],
   X:["#dc537c","ciemnoróżowy"],
 };
+
+// Kolory zatwierdzonych projektów: każda kratka używa dokładnie jednego kodu palety.
+Object.assign(colors,MagicApprovedMonsters.palette);
 
 const patterns = [
   { id:"piksel-kotek", name:"Kotek", group:"zwierzaki", bg:"#fef3e7", revision:6, credit:"Autorski wzór Pikseluj", art:`
@@ -2873,7 +2877,7 @@ const layout = {defaultSize:16,min:5,maxX:56,maxY:56};
 const cleanName = name => [...String(name ?? '').replace(/[\u0000-\u001f\u007f]/g,' ').trim()].slice(0,42).join('') || 'Mój wzór';
 const validRows = rows => Array.isArray(rows) && rows.length >= layout.min && rows.length <= layout.maxY &&
   typeof rows[0] === 'string' && rows[0].length >= layout.min && rows[0].length <= layout.maxX && paperFits(rows[0].length,rows.length) &&
-  rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || editorKeys.includes(c)));
+  rows.every(row => typeof row === 'string' && row.length === rows[0].length && [...row].every(c => c === '.' || Object.hasOwn(colors,c)));
 const filled = rows => rows.some(row => /[^.]/.test(row));
 function loadStudio() {
   try {
