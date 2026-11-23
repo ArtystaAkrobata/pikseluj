@@ -68,8 +68,8 @@ function magicDefaultName(){
  const d=magicDefs[magicState.category],o=magicState.values[magicState.category];
  const chosen=d.fields[0].options.find(item=>item[0]===o.kind);
  if(magicState.category==='animals'&&o.kind==='fox'){
-  const pose={sitting:'siedzący',head:'główka',sleeping:'śpiący',profile:'z profilu'}[o.pose]||'siedzący';
-  return 'Mój lisek – '+pose;
+  const stage=MagicFoxStages.descriptions[magicState.size]||'Lisek';
+  return stage;
  }
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
@@ -123,18 +123,26 @@ function magicRender(){
  const variant=MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
    magicState.category==='animals'&&values.kind==='fox'
-     ?'🦊 Lisek · '+({sitting:'Siedzący',head:'Główka',sleeping:'Śpiący',profile:'Z profilu'}[values.pose]||'Siedzący')
+     ?'🦊 '+(MagicFoxStages.descriptions[magicState.size]||'Lisek')
      :def.emoji+' '+def.title;
  const scene=document.getElementById('magic-art-scene');
  scene.dataset.category=magicState.category;
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
- document.getElementById('magic-size-hint').textContent='📄 Zalecana kartka: '+variant.sheet+' · 1 kratka = 5 mm'+(magicState.category==='animals'&&values.kind==='fox'&&magicState.size==='easy'?' · Prosty wzór bez dekoracji':'');
+ document.getElementById('magic-size-hint').textContent='📄 Zalecana kartka: '+variant.sheet+' · 1 kratka = 5 mm';
+ const stageInfo=document.getElementById('magic-stage-info');
+ const fox=magicState.category==='animals'&&values.kind==='fox';
+ if(stageInfo){
+  stageInfo.hidden=!fox;
+  stageInfo.textContent=fox?'🦊 '+(MagicFoxStages.descriptions[magicState.size]||'Lisek')+' · Każdy poziom ma osobny, dopracowany wzór.':'';
+ }
  const levelSelect=document.getElementById('magic-size');
  levelSelect.value=magicState.size;
  const levels=document.getElementById('magic-levels');
  levels.replaceChildren();
  const levelIcons={easy:'🌱',medium:'🌈',hard:'🔥',expert:'👑'};
- const levelNotes={easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
+ const levelNotes=magicState.category==='animals'&&values.kind==='fox'
+  ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
+  :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
  for(const [key,item] of Object.entries(MAGIC_VARIANTS)){
   const selected=key===magicState.size;
   const button=magicCreateButton('magic-level-card'+(selected?' is-selected':''));button.dataset.level=key;
@@ -149,7 +157,7 @@ function magicRender(){
  fields.replaceChildren();
  for(const field of def.fields){
   if(magicState.category==='animals'){
-   if(values.kind==='fox'&&['eyes','mouth','extra'].includes(field.key))continue;
+   if(values.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))continue;
    if(values.kind==='fox'&&magicState.size==='easy'&&field.key==='scene')continue;
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
@@ -208,19 +216,33 @@ function magicUndoLast(){
 }
 function magicRandomize(){
  if(!magicState.category)return;
+ const fox=magicState.category==='animals'&&magicState.values.animals.kind==='fox';
+ if(fox){
+  // Bezpieczne warianty: nie zmieniamy poziomu ani pozy przypisanej do siatki.
+  const o=magicState.values.animals;
+  const colors=['natural','O','p','v','b','l','n'];
+  const scenes=magicState.size==='easy'?['none']:['none','stars','hearts','flowers'];
+  const current=o.color+'|'+(magicState.size==='easy'?'none':o.scene);
+  const combos=colors.flatMap(color=>scenes.map(scene=>({color,scene})))
+    .filter(pair=>pair.color+'|'+pair.scene!==current);
+  if(!combos.length)return;
+  const selected=combos[Math.floor(Math.random()*combos.length)];
+  magicHistory();
+  o.color=selected.color;o.scene=selected.scene;
+  magicState.name='';magicPersist();magicRender();
+  magicMessage('🎲 Nowa kolorystyka liska. Kontur i sylwetka pozostają bez zmian.');
+  magicCelebrate();return;
+ }
  magicHistory();
  const d=magicDefs[magicState.category],v=magicState.values[magicState.category],before=JSON.stringify(v);
  let tries=0;
  do{
   for(const f of d.fields){
-   // Wybrany zwierzak pozostaje ten sam; losujemy jego wersję.
    if(magicState.category==='animals'&&f.key==='kind')continue;
-   if(magicState.category==='animals'&&v.kind==='fox'&&['eyes','mouth','extra'].includes(f.key))continue;
    v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
   }
   tries++;
- }
- while(JSON.stringify(v)===before&&tries<6);
+ }while(JSON.stringify(v)===before&&tries<6);
  magicState.name='';magicPersist();magicRender();magicMessage('✨ Nowa magiczna kombinacja!');magicCelebrate();
 }
 function magicSave(){
@@ -256,9 +278,15 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
  if(!button||!magicState.category)return;
  const field=magicDefs[magicState.category].fields.find(field=>field.key===button.dataset.field);
  if(!field||!field.options.some(option=>option[0]===button.dataset.option))return;
+ if(magicState.category==='animals'&&magicState.values.animals.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))return;
  if(magicState.values[magicState.category][field.key]===button.dataset.option)return;
  magicHistory();
  magicState.values[magicState.category][field.key]=button.dataset.option;
+ if(magicState.category==='animals'&&field.key==='kind'&&button.dataset.option==='fox'){
+  magicState.values.animals.color='natural';
+  magicState.values.animals.scene=magicState.size==='easy'?'none':'stars';
+  magicState.name='';
+ }
  // Zmiana oczu/koloru nie kasuje nazwy wpisanej przez dziecko.
  magicPersist();magicRender();magicMessage('');magicCelebrate();
  const matching=document.querySelector('#magic-fields button[data-field="'+field.key+'"][data-option="'+button.dataset.option+'"]');
@@ -298,10 +326,6 @@ const magicBestSets={
  animals:[
   {kind:'cat',eyes:'sparkle',mouth:'smile',extra:'flower',scene:'stars',color:'natural'},
   {kind:'bunny',eyes:'sparkle',mouth:'smile',extra:'bow',scene:'flowers',color:'w'},
-  {kind:'fox',pose:'sitting',scene:'stars',color:'natural'},
-  {kind:'fox',pose:'head',scene:'hearts',color:'natural'},
-  {kind:'fox',pose:'sleeping',scene:'stars',color:'natural'},
-  {kind:'fox',pose:'profile',scene:'flowers',color:'natural'},
   {kind:'bear',eyes:'happy',mouth:'smile',extra:'crown',scene:'hearts',color:'n'},
   {kind:'cat',eyes:'wink',mouth:'tongue',extra:'bow',scene:'hearts',color:'p'},
   {kind:'bunny',eyes:'round',mouth:'smile',extra:'star',scene:'flowers',color:'l'}
@@ -326,6 +350,21 @@ const magicBestSets={
 function magicSuper(){
  if(!magicState.category)return;
  const category=magicState.category;
+ if(category==='animals'&&magicState.values.animals.kind==='fox'){
+  const o=magicState.values.animals;
+  const curated={
+   easy:{color:'natural',scene:'none'},
+   medium:{color:'natural',scene:'none'},
+   hard:{color:'natural',scene:'flowers'},
+   expert:{color:'natural',scene:'none'}
+  }[magicState.size];
+  if(o.color!==curated.color||o.scene!==curated.scene){
+   magicHistory();o.color=curated.color;o.scene=curated.scene;
+   magicState.name='';magicPersist();magicRender();magicCelebrate();
+  }
+  magicMessage('✨ Autorska wersja liska na ten poziom — gotowa do zapisania!');
+  return;
+ }
  magicHistory();
  const presets=category==='animals' ? magicBestSets.animals.filter(x=>x.kind===magicState.values.animals.kind) : magicBestSets[category];
  const previous=JSON.stringify(magicState.values[category]);
