@@ -86,6 +86,9 @@ const MagicStoryArt=(()=>{
   const sep=wide?3.5:2.3;
   if(style==='one'){
    P.oval(cx,cy,2,big?2.4:2,'w');P.oval(cx,cy+.3,1.15,1.2,'k');P.xy(cx-.4,cy-.7,'w');
+  }else if(style==='wink'){
+   P.oval(cx-sep,cy,1.5,big?2:1.4,'w');P.xy(cx-sep,cy+.3,'k');
+   P.line(cx+sep-1,cy+.1,cx+sep,cy-1,'k');P.line(cx+sep,cy-1,cx+sep+1,cy+.1,'k');
   }else if(style==='three'&&P.detail>=1){
    for(const xx of [cx-3.9,cx,cx+3.9]){P.oval(xx,cy,1.25,1.3,'w');P.xy(xx,cy,'k');}
   }else if(style==='happy'||style==='sleepy'){
@@ -132,11 +135,28 @@ const MagicStoryArt=(()=>{
    },p.base);
    P.oval(12,18.8,3.4,3.6,'c');
    if(kind==='cat'||kind==='bunny')for(const sx of [-1,1])P.oval(12+sx*5,5.5,1.4,2.3,'p');
-   face(P,12,10.4,o.eyes==='wink'?'happy':o.eyes==='happy'?'happy':'round',o.mouth||'smile');
+   face(P,12,10.4,o.eyes==='wink'?'wink':o.eyes==='happy'?'happy':'round',o.mouth||'smile');
    P.oval(12,13.5,3,1.7,'w');P.xy(12,13,'k');
    if(d>=2){P.xy(5,13,'p');P.xy(19,13,'p');P.xy(9,5,p.light);P.xy(8,20,p.shade);P.xy(16,20,p.shade);}
    if(kind==='cat'&&d>=2)for(const sx of [-1,1])for(const yy of [14,15])P.line(12+sx*6,yy,12+sx*8,yy-.4,'k');
   }
+  if(o.extra==='bow'){
+   P.xy(18,5,'r');P.xy(20,5,'r');P.xy(19,6,'Y');
+  }else if(o.extra==='flower'){
+   for(const [xx,yy] of [[18,5],[20,5],[19,4],[19,6]])P.xy(xx,yy,'p');
+   P.xy(19,5,'Y');
+  }else if(o.extra==='star')P.sparkle(20,4,'Y');
+  else if(o.extra==='crown'){
+   P.rect(9,2.2,15,4,'Y');
+   for(const xx of [9,12,15])P.xy(xx,1.8,'Y');
+  }else if(o.extra==='scarf'&&d>0){
+   P.rect(8.5,15.1,15.5,16.7,'r');
+   P.rect(14,15.2,16,19.1,'r');
+   if(d>=2)P.xy(14.5,17,'Y');
+  }
+  if(d>=2 && o.scene==='stars')P.sparkle(3,8,'Y');
+  if(d>=2 && o.scene==='flowers')P.safe(3,20,'p');
+  if(d>=2 && o.scene==='hearts')P.safe(20,18,'p');
   return P;
  }
  function monster(P,kind,o){
@@ -144,7 +164,7 @@ const MagicStoryArt=(()=>{
   const one=o.eyes==='one'||(kind==='jelly'&&o.eyes!=='three');
   P.solid(c=>{
    if(kind==='round'){
-    for(const sx of [-1,1])P.poly([[12+sx*5,9],[12+sx*6,2],[12+sx*2.8,8]],c);
+    if(o.extra==='horns')for(const sx of [-1,1])P.poly([[12+sx*5,9],[12+sx*6,2],[12+sx*2.8,8]],c);
     P.oval(12,12.5,7.1,8.3,c);
     if(d>=1){
      for(const sx of [-1,1]){P.oval(12+sx*7,17.5,2,2,c);P.oval(12+sx*4.3,21,2.7,2,c)}
@@ -163,7 +183,7 @@ const MagicStoryArt=(()=>{
    }
   },p.base);
   if(kind==='round'){
-   for(const sx of [-1,1])P.xy(12+sx*4.6,5.5,'Y');
+   if(o.extra==='horns')for(const sx of [-1,1])P.xy(12+sx*4.6,5.5,'Y');
    if(d>=1)P.oval(12,18.5,4,2.6,p.light);
   }else if(kind==='square'){
    P.oval(12,19,3.8,1.9,p.light);
@@ -177,8 +197,14 @@ const MagicStoryArt=(()=>{
   else face(P,12,11,eyes==='three'?'three':'round',o.mouth||'smile','wide');
   if(d>=1){P.xy(6,14,'p');P.xy(18,14,'p');}
   if(o.extra==='crown'){P.rect(9,3.1,15,5,'Y');P.xy(9,2,'Y');P.xy(12,1.5,'Y');P.xy(15,2,'Y');}
-  else if(o.extra==='antenna'&&d>=1){P.line(12,5,12,2,'k');P.xy(12,1.5,'r');}
-  // Różki są już integralną częścią okrągłego potworka. Brak ozdoby nie wymazuje konturów.
+  else if(o.extra==='antenna'){P.line(12,5,12,2,'k');P.xy(12,1.5,'r');}
+  else if(o.extra==='horns'&&kind!=='round'){
+   for(const sx of [-1,1])P.poly([[12+sx*5.5,6],[12+sx*7.5,2],[12+sx*3.5,6]],'k');
+   for(const sx of [-1,1])P.xy(12+sx*5.2,5,'Y');
+  }
+  if(d>=2&&o.scene==='stars')P.sparkle(3,7,'Y');
+  if(d>=2&&o.scene==='flowers')P.safe(20,19,'p');
+  if(d>=2&&o.scene==='hearts')P.safe(4,15,'r');
   return P;
  }
  function robot(P,kind,o){
@@ -224,6 +250,8 @@ const MagicStoryArt=(()=>{
    for(const sx of [-1,1]){P.xy(12+sx*7.6,17,'Y');P.xy(12+sx*3.7,22,'u')}
    P.rect(10,20,14,21,'s');
   }
+  if(o.scene==='stars'&&d>=1)P.sparkle(3,5,'Y');
+  if(o.scene==='hearts'&&d>=2)P.safe(3,6,'r');
   return P;
  }
  function world(P,kind,o){
@@ -254,6 +282,8 @@ const MagicStoryArt=(()=>{
    P.rect(10,15,14,21,'c');
    P.rect(11,18,13,21,'n');
    P.xy(12,18.5,'Y');
+   // Charakterystyczny czerwony kapelusz i białe kropki.
+   P.poly([[6,12],[8,9],[12,7.7],[16,9],[18.5,12.5],[18,13.5],[6,13.5]],'r');
    for(const xx of [8.7,12.2,16])P.oval(xx,11,1.15,.8,'w');
    if(d>=1){
     for(const xx of [3,21]){
@@ -300,6 +330,9 @@ const MagicStoryArt=(()=>{
   }
   if(o.extra==='stars'&&d>=2)P.sparkle(3,4,'H');
   else if(o.extra==='hearts')P.safe(3,5,'p');
+  else if(o.extra==='cloud'&&d>=1){
+   P.rect(2.5,4.3,7,5.3,'w');P.oval(4.3,3.7,1.8,1.2,'w');
+  }
   return P;
  }
  function render(cat,options={},level='medium'){
