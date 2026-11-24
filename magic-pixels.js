@@ -32,11 +32,10 @@ const magicDefs={
   {key:'scene',title:'Dekoracje wokół robota',options:[['none','Bez dekoracji','☁️'],['stars','Energia','⚡'],['hearts','Serduszka','💕']]},
   {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
- landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Góry, jeziora, zachody słońca i zimowe doliny',fields:[
-  {key:'kind',title:'Wybierz krajobraz',options:[['mountains','Górskie szczyty','🏔️'],['lake','Jezioro w dolinie','🏞️'],['sunset','Zachód nad rzeką','🌄'],['winter','Zimowa kraina','❄️']]},
-  {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Złota godzina','🌅'],['night','Gwiaździsta noc','🌙']]},
-  {key:'extra',title:'Dekoracje nieba',options:[['cloud','Białe chmury','☁️'],['stars','Iskierki','✨'],['none','Czyste niebo','🩵']]},
-  {key:'color',title:'Nastrój kolorów',options:[['b','Błękitny','🩵'],['l','Zielony','💚'],['v','Bajkowy fiolet','💜'],['O','Ciepły zachód','🧡']]}
+ landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Cztery dopracowane krajobrazy, po jednym na poziom',fields:[
+  {key:'eyes',title:'Pora dnia',options:[['day','Oryginalna sceneria','☀️'],['evening','Ciepłe światło','🌅'],['night','Wieczorny klimat','🌙']]},
+  {key:'extra',title:'Dodatkowe iskierki',options:[['none','Bez dodatkowych iskierek','🌤️'],['stars','Dodaj iskierki','✨']]},
+  {key:'color',title:'Wariant kolorystyczny',options:[['b','Oryginalne kolory','🎨'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Ciepły','🧡']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
@@ -96,6 +95,7 @@ function magicRows(){
 }
 function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
+ if(magicState.category==='landscapes')return MagicApprovedLandscapes.names[magicState.size]||'Krajobraz';
  const d=magicDefs[magicState.category],o=magicState.values[magicState.category];
  if(magicState.category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')return MagicApprovedMonsters.names[magicState.size];
  const chosen=d.fields[0].options.find(item=>item[0]===o.kind);
@@ -190,7 +190,8 @@ function magicRender(){
    magicState.category==='monsters' ? '👾 '+MagicApprovedMonsters.names[magicState.size]
    :magicState.category==='animals'&&values.kind==='fox'
      ?'🦊 '+(MagicFoxStages.descriptions[magicState.size]||'Lisek')
-     :def.emoji+' '+def.title;
+     :magicState.category==='landscapes' ? '🏞️ '+MagicApprovedLandscapes.names[magicState.size]
+   :def.emoji+' '+def.title;
  const scene=document.getElementById('magic-art-scene');
  scene.dataset.category=magicState.category;
  document.getElementById('magic-preview-size').textContent=variant.width+' × '+variant.height+' kratek';
@@ -212,6 +213,8 @@ function magicRender(){
   ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
   :magicState.category==='robots'
   ?{easy:'Błękitek',medium:'Błękitek 2.0',hard:'TurboBot',expert:'MECHA NOVA'}
+  :magicState.category==='landscapes'
+  ?{easy:'Drzewo z jabłkami',medium:'Wodospad',hard:'Górska dolina',expert:'Tropikalna zatoka'}
   :magicState.category==='monsters'
    ?{easy:'Z koroną · 5 kolorów',medium:'Turkusowy smoczek · 6 kolorów',hard:'Czerwony smok',expert:'Magiczny czarodziej'}
    :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
@@ -228,6 +231,7 @@ function magicRender(){
  const fields=document.getElementById('magic-fields');
  fields.replaceChildren();
  for(const field of def.fields){
+  if(magicState.category==='landscapes'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
   if(magicState.category==='animals'){
    if(values.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))continue;
    if(values.kind==='fox'&&magicState.size==='easy'&&field.key==='scene')continue;
