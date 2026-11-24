@@ -586,7 +586,7 @@ const MagicApprovedLandscapes=(()=>{
     rows[y][23]=left===right?left:(['b','c'].includes(left)?left:(['b','c'].includes(right)?right:left));
    }
    // Podobny ślad po lewej przebiegał przez trawę i koryto rzeki.
-   for(let y=20;y<=36;y++)if(['s','n'].includes(pick(8,y))){
+   for(let y=17;y<=36;y++)if(['s','n'].includes(pick(8,y))){
     const left=pick(7,y),right=pick(9,y);
     rows[y][8]=left===right?left:(['l','d','b'].includes(right)?right:left);
    }
