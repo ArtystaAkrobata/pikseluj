@@ -100,6 +100,7 @@ const MagicApprovedRobots=(()=>{
      paint(x0,y,'.');paint(x1,y,'.');
     }
     if(level!=='easy'){paint(x0+1,y0,'.');paint(x1-1,y0,'.')}
+    if(level==='expert'){paint(cx-4,y0+4,'B');paint(cx+4,y0+4,'B')}
    }else{
     // Wyższy grzebień z odrębnym podświetleniem, nie zniekształca oczu.
     const y=Math.max(1,y0-1);
