@@ -84,6 +84,15 @@ try{
   localStorage.setItem(version,'done');
  }
 }catch{}
+// Jednorazowe ustawienie oryginalnych, zatwierdzonych krajobrazów na wszystkich poziomach.
+try{
+ const version='pikseluj/magiczne/landscapes-approved-v1';
+ if(localStorage.getItem(version)!=='done'){
+  Object.assign(magicState.values.landscapes,{eyes:'day',extra:'none',color:'b'});
+  if(magicState.category==='landscapes')magicState.name='';
+  localStorage.setItem(version,'done');
+ }
+}catch{}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -461,10 +470,11 @@ const magicBestSets={
   {kind:'tall',eyes:'visor',mouth:'lights',extra:'two',scene:'hearts',color:'l'}
  ],
  landscapes:[
-  {kind:'mountains',eyes:'day',extra:'cloud',color:'b'},
-  {kind:'lake',eyes:'evening',extra:'cloud',color:'l'},
-  {kind:'sunset',eyes:'evening',extra:'none',color:'O'},
-  {kind:'winter',eyes:'night',extra:'stars',color:'b'}
+  {eyes:'day',extra:'none',color:'b'},
+  {eyes:'evening',extra:'stars',color:'b'},
+  {eyes:'night',extra:'none',color:'b'},
+  {eyes:'day',extra:'stars',color:'l'},
+  {eyes:'day',extra:'none',color:'v'}
  ],
  worlds:[
   {kind:'castle',eyes:'night',extra:'stars',color:'v'},
