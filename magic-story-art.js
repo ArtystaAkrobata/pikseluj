@@ -573,6 +573,9 @@ const MagicApprovedLandscapes=(()=>{
     if(rows[y][x]==='s'||rows[y][x]==='n')rows[y][x]='c';
    for(const x of [6,7,8,24,25,26,27,28])
     if(['s','n'].includes(rows[8][x]))rows[8][x]='c';
+   // Jeden pionowy szary pasek przecinał rzekę w dolnej części obrazu.
+   // Przywracamy kolor sąsiedniego fragmentu wody na tych samych polach.
+   for(let y=28;y<h;y++)if(rows[y][23]==='s')rows[y][23]=rows[y][22];
   }
   return rows.map(row=>row.join(''));
  }
