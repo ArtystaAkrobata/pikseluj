@@ -638,8 +638,8 @@ const MagicApprovedLandscapes=(()=>{
    if(extra==='stars')for(const [x,y] of (level==='medium'?[[2,1],[21,2]]:level==='hard'?[[3,2],[28,3],[22,6]]:[[4,2],[35,3],[30,8]]))
     skyCell(x,y,'y');
    if(extra==='cloud'){
-    const y=level==='medium'?3:level==='hard'?5:7;
-    const x=level==='medium'?3:5;
+    const y=level==='medium'?2:level==='hard'?5:7;
+    const x=level==='medium'?16:5;
     for(const [dx,dy] of [[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1]])
      skyCell(x+dx,y+dy,level==='medium'?'s':'w');
    }
