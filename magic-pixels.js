@@ -29,7 +29,7 @@ const magicDefs={
   {key:'eyes',title:'Oczy i wyświetlacz',options:[['dots','Świecące oczy','🤖'],['visor','Wizjer','🥽'],['sleepy','Senne oczka','😴']]},
   {key:'mouth',title:'Znak na panelu',options:[['heart','Serce','❤️'],['star','Gwiazdka','⭐'],['lights','Lampki','🚥']]},
   {key:'extra',title:'Antena',options:[['one','Jedna','📡'],['two','Dwie','✨'],['none','Bez anteny','🚫']]},
-  {key:'scene',title:'Otoczenie',options:[['stars','Energia','⚡'],['hearts','Serduszka','💕'],['none','Bez tła','☁️']]},
+  {key:'scene',title:'Dekoracje wokół robota',options:[['none','Bez dekoracji','☁️'],['stars','Energia','⚡'],['hearts','Serduszka','💕']]},
   {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
  landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Góry, jeziora, zachody słońca i zimowe doliny',fields:[
@@ -75,6 +75,14 @@ try{
   Object.assign(magicState.values.animals,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
   magicState.name='';
   localStorage.setItem(key,'done');
+ }
+}catch{}
+// Pierwsze uruchomienie zatwierdzonych robotów bez dekoracji i starych modyfikacji.
+try{
+ const version='pikseluj/magiczne/robots-approved-20261124';
+ if(localStorage.getItem(version)!=='done'){
+  Object.assign(magicState.values.robots,{kind:'square',eyes:'dots',mouth:'heart',extra:'one',scene:'none',color:'b'});
+  localStorage.setItem(version,'done');
  }
 }catch{}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
@@ -202,6 +210,8 @@ function magicRender(){
   ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
   :magicState.category==='animals'&&values.kind==='cat'
   ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
+  :magicState.category==='robots'
+  ?{easy:'Błękitek',medium:'Błękitek 2.0',hard:'TurboBot',expert:'MECHA NOVA'}
   :magicState.category==='monsters'
    ?{easy:'Z koroną · 5 kolorów',medium:'Turkusowy smoczek · 6 kolorów',hard:'Czerwony smok',expert:'Magiczny czarodziej'}
    :{easy:'Pierwsze kroki',medium:'Więcej kolorów',hard:'Więcej szczegółów',expert:'Mistrz pikseli'};
@@ -224,7 +234,7 @@ function magicRender(){
    if(values.kind!=='fox'&&field.key==='pose')continue;
   }
   // Najmniejsze obrazy mają najmniej elementów; nie pokazuj opcji bez efektu.
-  if(magicState.size==='easy'&&field.key==='scene'&&!['monsters','animals'].includes(magicState.category))continue;
+  if(magicState.size==='easy'&&field.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
   if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
   const group=document.createElement('fieldset');group.className='magic-trait-group';
   const legend=document.createElement('legend');legend.textContent=field.title;
@@ -312,7 +322,7 @@ function magicRandomize(){
  do{
   for(const f of d.fields){
    if(magicState.category==='animals'&&f.key==='kind')continue;
-   if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals'].includes(magicState.category))continue;
+   if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
    if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
    v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
   }
