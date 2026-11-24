@@ -577,6 +577,12 @@ const MagicApprovedLandscapes=(()=>{
     if(['g','l'].includes(get(x,y)))set(x,y,'r');
    // Pojedynczy czarny kwadracik w brązowym pniu, tylko gdy wybrano dziuplę.
    if(options.hollow==='yes')set(7,12,'k');
+   // Warianty kolorystyczne drzewa zmieniają tylko koronę, nigdy owoce ani pień.
+   const leaves=options.color==='O'?['o','y']:options.color==='v'?['v','p']:options.color==='l'?['l','h']:null;
+   if(leaves)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    if(rows[y][x]==='g')rows[y][x]=leaves[0];
+    else if(rows[y][x]==='l')rows[y][x]=leaves[1];
+   }
   }else{
    const tint=options.eyes==='night'
     ?{medium:'u',hard:'u',expert:'u'}[level]
