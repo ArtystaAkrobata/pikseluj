@@ -175,6 +175,9 @@ const MagicPremiumArt=(()=>{
   // Zatwierdzone wzory potworków: osobny projekt dla każdego poziomu, bez skalowania. 
   if(category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')
    return MagicApprovedMonsters.render(level,o);
+  // Cztery zatwierdzone roboty: natywne pełne kratki i osobne warstwy kreatora.
+  if(category==='robots'&&typeof MagicApprovedRobots!=='undefined')
+   return MagicApprovedRobots.render(level,o);
   // Kotki zaakceptowane przez użytkownika: cztery dokładne tablice, bez rysowania z geometrii.
   if(category==='animals'&&o.kind==='cat'&&typeof MagicApprovedCats!=='undefined')
    return MagicApprovedCats.render(level,o);
