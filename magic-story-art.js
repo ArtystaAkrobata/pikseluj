@@ -558,25 +558,49 @@ const MagicApprovedLandscapes=(()=>{
   const cells=[];
   for(let i=0;i<w*h;i++)cells.push(abc[(bytes.charCodeAt(i>>1)>>(i%2?0:4))&15]);
   const rows=Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w));
-  // Usuwamy wyłącznie obce linie siatki, które dostały się do danych
-  // podczas wcześniejszego odczytu obrazów z widoczną kratką.
+  const pick=(x,y)=>rows[y]?.[x];
   if(level==='medium'){
-   // Ślady pionowych linii w niebie i szary poziomy pas w wierszu 10.
-   for(let y=0;y<=8;y++)for(let x=0;x<w;x++)
-    if(rows[y][x]==='s')rows[y][x]='w';
-   for(let x=8;x<=15;x++)if(rows[9][x]==='s')rows[9][x]='w';
-   if(rows[9][22]==='s')rows[9][22]='w';
-   if(rows[9][1]==='s')rows[9][1]='w';
+   // Odtworzenie zaakceptowanego wodospadu: pionowe artefakty x=15 i x=22
+   // oraz przypadkowy szary pas w wierszu 9 nie należą do rysunku.
+   for(let y=1;y<=9;y++){
+    if(pick(15,y)==='s')rows[y][15]='w';
+    if(pick(22,y)==='s')rows[y][22]=y===9?'d':'w';
+   }
+   if(pick(8,8)==='s')rows[8][8]='w';
+   if(pick(1,9)==='s')rows[9][1]='w';
+   for(let x=8;x<=14;x++)if(pick(x,9)==='s')rows[9][x]=x===8?'d':'w';
+   // Druga pionowa linia przecięła wodę i kwiaty, nie skały.
+   for(let y=17;y<=22;y++){
+    if(pick(15,y)==='s')rows[y][15]=y>=20?'b':'w';
+   }
+   for(let y=18;y<=21;y++)if(pick(8,y)==='s')rows[y][8]=y===18?'d':'l';
+   if(pick(22,21)==='s')rows[21][22]='l';
   }
   if(level==='hard'){
-   // Nieistniejące w projekcie pionowe kolumny i pas w tle nieba.
-   for(let y=0;y<=7;y++)for(let x=0;x<w;x++)
-    if(rows[y][x]==='s'||rows[y][x]==='n')rows[y][x]='c';
-   for(const x of [6,7,8,24,25,26,27,28])
-    if(['s','n'].includes(rows[8][x]))rows[8][x]='c';
-   // Jeden pionowy szary pasek przecinał rzekę w dolnej części obrazu.
-   // Przywracamy kolor sąsiedniego fragmentu wody na tych samych polach.
-   for(let y=28;y<h;y++)if(rows[y][23]==='s')rows[y][23]=rows[y][22];
+   // Popraw tylko ślady dawnej siatki. Cienie skał i białe śniegi zostają.
+   for(let y=0;y<=8;y++)for(let x=0;x<w;x++)
+    if(rows[y][x]==='s')rows[y][x]=rows[y][Math.max(0,x-1)]==='o'?'o':'c';
+   // Ciągła, jednokratkowa kreska schodziła przez prawą część doliny.
+   for(let y=17;y<h;y++)if(pick(23,y)==='s'){
+    const left=pick(22,y),right=pick(24,y);
+    rows[y][23]=left===right?left:(['b','c'].includes(left)?left:(['b','c'].includes(right)?right:left));
+   }
+   // Podobny ślad po lewej przebiegał przez trawę i koryto rzeki.
+   for(let y=20;y<=36;y++)if(pick(8,y)==='s'){
+    const left=pick(7,y),right=pick(9,y);
+    rows[y][8]=left===right?left:(['l','d','b'].includes(right)?right:left);
+   }
+   // Pozioma linia w rzędzie 30. Bez ingerencji w właściwe skały na dole.
+   for(let x=0;x<w;x++)if(pick(x,30)==='s'){
+    const above=pick(x,29),below=pick(x,31);
+    rows[30][x]=above===below?above:(above==='b'||below==='b'?'b':(['l','d'].includes(above)?above:['l','d'].includes(below)?below:'l'));
+   }
+   // Na zatwierdzonym wzorze są dwie białe chmurki; przywróć je wyłącznie
+   // w wolnym niebie, bez przykrywania słońca i gór.
+   for(const [cx,cy] of [[3,3],[27,4]]){
+    for(const [dx,dy] of [[1,0],[2,0],[0,1],[1,1],[2,1],[3,1],[1,2],[2,2]])
+     if(pick(cx+dx,cy+dy)==='c')rows[cy+dy][cx+dx]='w';
+   }
   }
   return rows.map(row=>row.join(''));
  }
@@ -584,77 +608,62 @@ const MagicApprovedLandscapes=(()=>{
   const original=base(level);
   const rows=original.map(row=>row.split(''));
   const h=rows.length,w=rows[0].length;
-  const get=(x,y)=>rows[y]?.[x];
+  const baseAt=(x,y)=>original[y]?.[x];
+  const at=(x,y)=>rows[y]?.[x];
   const set=(x,y,c)=>{if(x>=0&&y>=0&&x<w&&y<h)rows[y][x]=c;};
-  const sky={easy:'.',medium:'w',hard:'c',expert:'r'}[level];
-  // Każda edycja jest nakładką na niezmienny, zatwierdzony obrazek.
-  // Żadnych pasków powstających przez ucinanie modyfikacji na jednym wierszu.
   if(level==='easy'){
-   // Trzy oryginalne czerwone jabłka są częścią bazowego drzewa.
    const apples=options.apples||'few';
    if(apples==='none')for(let y=0;y<h;y++)for(let x=0;x<w;x++)
-    if(get(x,y)==='r')set(x,y,'g');
+    if(at(x,y)==='r')set(x,y,'g');
    if(apples==='many')for(const [x,y] of [[5,4],[8,5],[11,7],[5,8]])
-    if(['g','l'].includes(get(x,y)))set(x,y,'r');
-   // Pojedynczy czarny kwadracik w brązowym pniu, tylko gdy wybrano dziuplę.
+    if(['g','l'].includes(at(x,y)))set(x,y,'r');
    if(options.hollow==='yes')set(7,12,'k');
-   // Warianty kolorystyczne drzewa zmieniają tylko koronę, nigdy owoce ani pień.
    const leaves=options.color==='O'?['o','y']:options.color==='v'?['v','p']:options.color==='l'?['l','h']:null;
    if(leaves)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-    if(rows[y][x]==='g')rows[y][x]=leaves[0];
-    else if(rows[y][x]==='l')rows[y][x]=leaves[1];
+    if(at(x,y)==='g')set(x,y,leaves[0]);
+    else if(at(x,y)==='l')set(x,y,leaves[1]);
    }
   }else{
-   const tint=options.eyes==='night'
-    ?{medium:'u',hard:'u',expert:'u'}[level]
-    :options.eyes==='evening'
-     ?{medium:'c',hard:'t',expert:'t'}[level]:null;
-   if(tint){
-    // Przemaluj wyłącznie niebo połączone z górną krawędzią,
-    // zamiast sztucznie malować pierwszych 6/13/23 wierszy.
-    const stack=[],seen=new Set();
-    for(let x=0;x<w;x++)if(get(x,0)===sky)stack.push([x,0]);
-    while(stack.length){
-     const [x,y]=stack.pop(),id=y*w+x;
-     if(seen.has(id)||get(x,y)!==sky)continue;
-     seen.add(id);
-     for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
-      const xx=x+dx,yy=y+dy;
-      if(xx>=0&&yy>=0&&xx<w&&yy<h&&get(xx,yy)===sky&&!seen.has(yy*w+xx))stack.push([xx,yy]);
-     }
+   // Pora dnia zmienia spójnie całe światło, wodę i roślinność.
+   // Nie stosujemy pasów na sztywnej wysokości ani flood-fill,
+   // który zatrzymywał się na chmurach i barwił tylko pół nieba.
+   const evening=options.eyes==='evening',night=options.eyes==='night';
+   if(evening||night){
+    const region={medium:10,hard:17,expert:28}[level];
+    const scene={
+     medium:evening?{y:'O',b:'a',l:'g',d:'G',n:'e'}:{y:'h',b:'a',l:'d',d:'G',n:'N'},
+     hard:evening?{o:'O',b:'a',l:'g',d:'G',s:'S'}:{o:'v',b:'a',l:'d',d:'G',n:'N',s:'S'},
+     expert:evening?{y:'h',b:'a',g:'l',d:'G'}:{y:'h',b:'a',g:'G',d:'u',n:'N'}
+    }[level];
+    const sky={medium:evening?'c':'u',hard:evening?'t':'u',expert:evening?'t':'u'}[level];
+    const skyBase={medium:'w',hard:'c',expert:'r'}[level];
+    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+     const src=baseAt(x,y);
+     if(y<region&&src===skyBase)set(x,y,sky);
+     else if(Object.hasOwn(scene,src))set(x,y,scene[src]);
     }
-    for(const id of seen)rows[Math.floor(id/w)][id%w]=tint;
    }
-   // Kolorystyka bez zamieniania ze sobą niezwiązanych odcieni i konturów.
-   const hue={l:'g',v:'v',O:'o'}[options.color];
-   if(hue)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-    if(original[y][x]==='b')set(x,y,hue);
-   }
-   // Dodatki malują tylko wolne, jednorodne fragmenty nieba albo łąki.
-   // Baza pozostaje identyczna po wybraniu „Bez dodatków”.
+   // Wariant kolorystyczny przestawia akcenty wody, ale nie linie horyzontu.
+   const water={l:'g',v:'v',O:'o'}[options.color];
+   if(water)for(let y=0;y<h;y++)for(let x=0;x<w;x++)
+    if(baseAt(x,y)==='b'&&at(x,y)===(evening||night?'a':'b'))set(x,y,water);
    const extra=options.extra||'none';
-   const background=(x,y)=>get(x,y)===sky||get(x,y)===tint;
-   const skyCell=(x,y,c)=>{if(background(x,y))set(x,y,c);};
-   if(extra==='stars')for(const [x,y] of (level==='medium'?[[2,1],[21,2]]:level==='hard'?[[3,2],[28,3],[22,6]]:[[4,2],[35,3],[30,8]]))
-    skyCell(x,y,'y');
+   // Dodatki mogą zmieniać tylko niebo lub łąkę, nigdy słońce bazowe.
+   const skyBase={medium:'w',hard:'c',expert:'r'}[level];
+   const skyHeight={medium:8,hard:10,expert:18}[level];
+   const skyCell=(x,y,color)=>{if(y>=0&&y<skyHeight&&baseAt(x,y)===skyBase)set(x,y,color);};
+   if(extra==='stars')for(const [x,y] of ({medium:[[2,1],[21,1]],hard:[[2,2],[28,2]],expert:[[3,2],[36,3]]}[level]))
+    skyCell(x,y,night?'h':'y');
    if(extra==='cloud'){
-    const y=level==='medium'?2:level==='hard'?5:7;
-    const x=level==='medium'?16:5;
-    for(const [dx,dy] of [[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1]])
-     skyCell(x+dx,y+dy,level==='medium'?'s':'w');
-   }
-   if(extra==='sun'){
-    const cx=level==='medium'?18:level==='hard'?25:31,cy=level==='medium'?3:level==='hard'?7:10;
-    for(const [dx,dy] of [[0,0],[1,0],[0,1],[1,1],[-1,0],[2,1],[0,-1],[1,2]])
-     skyCell(cx+dx,cy+dy,'y');
+    const [x,y]={medium:[15,2],hard:[2,8],expert:[31,6]}[level];
+    for(const [dx,dy] of [[1,0],[2,0],[0,1],[1,1],[2,1],[3,1]])
+     skyCell(x+dx,y+dy,night?'I':'w');
    }
    if(extra==='flowers'&&['medium','hard'].includes(level)){
     const y=level==='medium'?20:32;
-    const positions=level==='medium'?[4,19]:[5,27];
-    for(const x of positions){
-     if(['g','l','d'].includes(get(x,y)))set(x,y,'p');
-     if(['g','l','d'].includes(get(x-1,y)))set(x-1,y,'p');
-     if(['g','l','d'].includes(get(x,y-1)))set(x,y-1,'y');
+    for(const x of level==='medium'?[4,19]:[5,27]){
+     for(const [dx,dy,color] of [[0,0,'y'],[-1,0,'p'],[1,0,'p'],[0,-1,'p']])
+      if(['g','l','d','G'].includes(at(x+dx,y+dy)))set(x+dx,y+dy,color);
     }
    }
   }
