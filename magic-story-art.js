@@ -566,6 +566,7 @@ const MagicApprovedLandscapes=(()=>{
     if(rows[y][x]==='s')rows[y][x]='w';
    for(let x=8;x<=15;x++)if(rows[9][x]==='s')rows[9][x]='w';
    if(rows[9][22]==='s')rows[9][22]='w';
+   if(rows[9][1]==='s')rows[9][1]='w';
   }
   if(level==='hard'){
    // Nieistniejące w projekcie pionowe kolumny i pas w tle nieba.
