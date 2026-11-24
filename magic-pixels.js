@@ -36,7 +36,7 @@ const magicDefs={
   {key:'apples',title:'Jabłka na drzewie',options:[['few','Kilka jabłek','🍎'],['none','Bez jabłek','🌳'],['many','Więcej jabłek','🍎']]},
   {key:'hollow',title:'Dziupla w pniu',options:[['none','Bez dziupli','🌳'],['yes','Dodaj dziuplę','🕳️']]},
   {key:'eyes',title:'Pora dnia',options:[['day','Oryginalna sceneria','☀️'],['evening','Ciepłe światło','🌅'],['night','Wieczorny klimat','🌙']]},
-  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Chmurka','☁️'],['sun','Słońce','☀️'],['flowers','Kwiatki','🌼'],['stars','Gwiazdki','✨']]},
+  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Kwiatki','🌼'],['stars','Gwiazdki','✨']]},
   {key:'color',title:'Wariant kolorystyczny',options:[['b','Oryginalne kolory','🎨'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Ciepły','🧡']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
@@ -95,6 +95,16 @@ try{
   localStorage.setItem(version,'done');
  }
 }catch{}
+// Odrzuć dawny wybór „Dodaj słońce”: słońce jest już w bazie krajobrazów.
+// Resetujemy także zapisane błędne nakładki, ale nie ustawienia innych kategorii.
+try{
+ const version='pikseluj/magiczne/landscapes-corrected-sky-20261125';
+ if(localStorage.getItem(version)!=='done'){
+  Object.assign(magicState.values.landscapes,{eyes:'day',extra:'none',color:'b'});
+  if(magicState.category==='landscapes')magicState.name='';
+  localStorage.setItem(version,'done');
+ }
+}catch{magicState.values.landscapes.extra='none';}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -260,10 +270,7 @@ function magicRender(){
   const isColor=field.key==='color';
   if(isColor)choices.classList.add('magic-color-choices');
   for(const [key,label,emoji] of field.options){
-   if(magicState.category==='landscapes'&&field.key==='extra'&&(
-    (magicState.size==='expert'&&['flowers'].includes(key))||
-    (magicState.size==='medium'&&key==='stars'&&false)
-   ))continue;
+   if(magicState.category==='landscapes'&&field.key==='extra'&&magicState.size==='expert'&&key==='flowers')continue;
    const selected=values[field.key]===key;
    const button=magicCreateButton('magic-choice'+(isColor?' magic-color-choice':'')+(selected?' is-selected':''),undefined);
    button.dataset.field=field.key;button.dataset.option=key;
