@@ -557,7 +557,24 @@ const MagicApprovedLandscapes=(()=>{
   const [abc,payload]=DATA[level],[w,h]=SIZES[level],bytes=atob(payload);
   const cells=[];
   for(let i=0;i<w*h;i++)cells.push(abc[(bytes.charCodeAt(i>>1)>>(i%2?0:4))&15]);
-  return Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w).join(''));
+  const rows=Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w));
+  // Usuwamy wyłącznie obce linie siatki, które dostały się do danych
+  // podczas wcześniejszego odczytu obrazów z widoczną kratką.
+  if(level==='medium'){
+   // Ślady pionowych linii w niebie i szary poziomy pas w wierszu 10.
+   for(let y=0;y<=8;y++)for(let x=0;x<w;x++)
+    if(rows[y][x]==='s')rows[y][x]='w';
+   for(let x=8;x<=15;x++)if(rows[9][x]==='s')rows[9][x]='w';
+   if(rows[9][22]==='s')rows[9][22]='w';
+  }
+  if(level==='hard'){
+   // Nieistniejące w projekcie pionowe kolumny i pas w tle nieba.
+   for(let y=0;y<=7;y++)for(let x=0;x<w;x++)
+    if(rows[y][x]==='s'||rows[y][x]==='n')rows[y][x]='c';
+   for(const x of [6,7,8,24,25,26,27,28])
+    if(['s','n'].includes(rows[8][x]))rows[8][x]='c';
+  }
+  return rows.map(row=>row.join(''));
  }
  function render(level='medium',options={}){
   const original=base(level);
