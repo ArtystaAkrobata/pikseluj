@@ -640,7 +640,7 @@ const MagicApprovedLandscapes=(()=>{
     const y=level==='medium'?3:level==='hard'?5:7;
     const x=level==='medium'?3:5;
     for(const [dx,dy] of [[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1]])
-     skyCell(x+dx,y+dy,'w');
+     skyCell(x+dx,y+dy,level==='medium'?'s':'w');
    }
    if(extra==='sun'){
     const cx=level==='medium'?18:level==='hard'?25:31,cy=level==='medium'?3:level==='hard'?7:10;
@@ -648,7 +648,7 @@ const MagicApprovedLandscapes=(()=>{
      skyCell(cx+dx,cy+dy,'y');
    }
    if(extra==='flowers'&&['medium','hard'].includes(level)){
-    const y=level==='medium'?20:35;
+    const y=level==='medium'?20:32;
     const positions=level==='medium'?[4,19]:[5,27];
     for(const x of positions){
      if(['g','l','d'].includes(get(x,y)))set(x,y,'p');
