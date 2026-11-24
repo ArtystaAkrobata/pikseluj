@@ -13,8 +13,8 @@ const magicDefs={
   {key:'pose',title:'Jak wygląda Twój lisek?',options:[['sitting','Siedzący','🦊'],['head','Główka','😊'],['sleeping','Śpiący','💤'],['profile','Z profilu','🌿']]},
   {key:'eyes',title:'Jakie oczy?',options:[['sparkle','Błyszczące','✨'],['round','Duże','👀'],['happy','Wesołe','😊'],['wink','Mrugające','😉']]},
   {key:'mouth',title:'Jaka minka?',options:[['smile','Uśmiech','😊'],['tongue','Języczek','😋'],['surprised','Zdziwiona','😮']]},
-  {key:'extra',title:'Magiczny dodatek',options:[['none','Bez ozdoby','🌟'],['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣']]},
-  {key:'scene',title:'Małe ozdoby wokół',options:[['none','Bez tła','☁️'],['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕']]},
+  {key:'extra',title:'Dodatek na zwierzaku',options:[['none','Bez dodatkowej ozdoby','🌟'],['bow','Kokardka','🎀'],['flower','Kwiatuszek','🌼'],['star','Gwiazdka','⭐'],['crown','Korona','👑'],['scarf','Szalik','🧣']]},
+  {key:'scene',title:'Dekoracje wokół postaci',options:[['none','Bez dekoracji','☁️'],['stars','Iskierki','✨'],['flowers','Kwiatki','🌸'],['hearts','Serduszka','💕']]},
   {key:'color',title:'Kolor bohatera',options:[['natural','Naturalny','🎨'],['w','Biały','🤍'],['n','Brązowy','🤎'],['p','Różowy','🩷'],['v','Fioletowy','💜'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
  monsters:{title:'Potworki',emoji:'👾',desc:'Sam wybierasz oczy, minkę, dodatki i kolor!',fields:[
@@ -70,7 +70,7 @@ try{
 }catch{magicState.values.monsters.color='original';magicState.values.monsters.scene='none';}
 // Jednorazowo pokaż zatwierdzony wygląd kotka użytkownikom poprzedniej wersji.
 try{
- const key='pikseluj/magiczne/approved-cats-20261123';
+ const key='pikseluj/magiczne/cats-editable-layers-v2';
  if(localStorage.getItem(key)!=='done'&&magicState.values.animals.kind==='cat'){
   Object.assign(magicState.values.animals,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
   magicState.name='';
