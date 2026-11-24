@@ -540,10 +540,44 @@ const MagicStoryArt=(()=>{
   else if(cat==='monsters')monster(P,kind,options);
   else if(cat==='robots')robot(P,kind,options);
   else if(cat==='worlds')world(P,kind,options);
-  else if(cat==='landscapes')landscape(P,kind,options);
+  else if(cat==='landscapes')return MagicApprovedLandscapes.render(level,options);
   else return P.rows();
   decorate(P,cat,options);
   return P.rows();
  }
  return Object.freeze({render,levels});
+})();
+
+/* Zatwierdzone krajobrazy w rodzimych siatkach, bez interpolacji. */
+const MagicApprovedLandscapes=(()=>{
+ const DATA={"easy":[".dglrn","AAAAAAAAAAAAAAAREQAAAAAAESIiEQAAAAEiIzIiEAAAEiIyJCIhAAASMiIiIjEAASIiQiIyIhABIjMiIjIiEAASIiIyQiEAAAEiIiIiEAAAABEiIhEAAAAAABVRAAAAAAAAFVEAAAAAAAAVUQAAAAAAARVREAAAAAAiJVIiAAA="],"medium":["wysbldnp","AAAAAAAAAAAAAAAAAAAAAAABAAIAAAAgAAAzAAEAAQIAAAAgAAMzMAAREAIAMwAgADMzMxAREBIDMzAgAAAAAAAREAIzMzMgAAAAAAEAAQIAAAAgAABEAAABAAIARAAgAAREQCAAAAIEREAgAlVVVSIiIiJVVVUgBGZmZlAAAAVmZmZQBmZEZlMwMzZmRGZgBmRVRmMDMDZkVUZgBkVVVGMDMDZFVVRgBlVVVWMzAzZVVVVgBmVVVmMDAzZlVVZgBmZlZmMDMzZmVmZgBWZmY2MDMDIGZmZQBVVgBSAAAAJQBlVQBEREVSAAAAVVRERQBHRERCMzMzVEREdQBxdEdCAAM0VHRHEgBHRHF1MzADVxdEdQAAAAAAAAAAAAAAAA"],"hard":["csnokdlb","AAAAABAAAAAAAAACAAAAAAAAAAAQAAMzMzAAAgAAAAAAAAAAEAAzMzMzMAIAAAAAAAAAABAzMzMzMzMCAAAAAAAAAAETMzMzMzMzMgAAAAAAAAABEzMzMzMzMzIAAAAAAAAAADMzMzMzMzMyAAAAABERERETMzMzMzMzMRAREQEAAAATEzMzMzRDMzEwAAAAAAAAAzMzMzNEREMxMAAAAAAAAAMzQzM0EURDMTAAAAAAAAAANEQzQRRERDEAAAAABQAABCFERBEUREQiQAAAAFVQBEQRFEERRBFEQUQABQBVUEQREUERFEEREUIUQFVQVVVBESERERERURESURRVVVVVURUlERURFVUREVUVVVVVZlVVJVFVUVVVUVFVVWZVVmZmZSVVVVVVVVVRVVZmZWZlVWYlVVVVVmZVUVVmZmVVZmZmFmZ3ZlVVJmFWZmZmVmZmZmZwdmVVVmZhVmZWVWZmZmZldwB3ZmZVUWVVJVVmZmZmFXd3AHdlVVFmVSVWVmZWZmZWZ3cHd2ZhZmYiZlVVZmYWVmZmdwd3YWZVIlZSJVZVFWZlZmdwd3FlVVVVZSJVJSZlVVZmdwd3ZmZmZmYiUlVmVVVVZ3d3AXZlZmZmIiVmZmZmZ3dwAHF2VVZmZiEWYRZmcXcXEXdxYRERFmUiVVV3d3cHd3ciAWZmZmZVVVVVd3dwd3dyAAEmZmZmVmZmInd3B3d3UQABJmZmZmZmIgEXdwB3d1IiIWZlZmZmYgAAEndwB3d1VVFmVVZWZiERABAnd3B3d3dxUiVVVWUhEREQJ3d3AHd3cSACVVVVUhERIicHd3cAB3EAACVVVVd3d3cAd3d3cAdxIiIndQ=="],"expert":["rUncwgayb","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAMAAAAAA0QAARIAAAAAAAAAAAAEREMAAAM0REAAESAAAAAAAAAANDRERDAAAzMzMAAhUgAAAiIAADNERDAAAAAAAAAAACFVAAIRVVIAAAAAAAAAAAACEREgARUgIVUSERAAAAAAAAAAAhVVVVEhFVIWESEAAAAAAAAAAAAhEREVVRIVURESAAAAAAAAAAAAAhEiESEVURFREgAAAAAAAAAAAAACAAAAISFVEREiERIgAAAAAAAAAAAAAAAAIRURERVVVVIAAABERAAAAAAAIRERESchYRFVVSAHMzMzMzADQAIVVVUSIiEREhEVUgAAAAM0RDMzIVURERIichIAIhJSAAAAAAAAAAIVEREiEREhVRAAACEAAAAAAAAAAVERIgIRIREVUQAAAnd3cAAAAAABESAAISECERFVIAB3d3d3AAAAAAEQAAASIgABEVUgB3d3d3dwAAAAAQAAASIgAAAhFVAHd3d3d3cEQCAAADMhIQAAAAEVUHd3d3czMzMzEQAAAhIQADMAABEgd3d3d3d3AAAVEiABIiAzMzMAISAHd3d3VnIAAFVRUSIhAAAAAAByJ3d3dydyERIAEVVVEiIiEAAAAAIAAHd3VRFlURIRFVEiFVFRJ3d3d3d3IRERFVFVURURESIRVVVhVVVVVSIlIiIiJmZmVRUSISIRIRImZmZmZmV3dYZmZmZVVRIhIiEiEiJohmaIVVVVWIhmZhFRIhEiCIKCImKIhmZoV3WGZmZmImEiZzSIgoiIiGZmiIVViGZmaIZ3YiEnc4iIiIZmZmZmaIVVWGiIZncSIXOIiIiGZmaIiGZmZmZmZmZmchIidIiIiIiIhmZmaIVVhmZmZmZxIhV0iIiIiIiIiIhmZmiGZmZmZnEiF3NIiIiIiIiIiIiGaIhmiIZmISIndzSIiIiIiIiIiIiIhmaIiIgSISd3c0SIiIiIiIiIiIiIiIhmZhFRVVd3dzRIiIiIiIiIiIiIiIiIFVFVdVd3c0iIiIiIiIiIiIiIiIhVFRVlVXd3NIiISIiIiIiIiIiIiFVVFVd3d3dzRIiIiEREiIiIiIiIVSIhVVd3d3dzNESIiIiIiIiIiIhVIAASFXd3d3d3czRIiISIiIiIiGEQAHAGd3d3d3d3NIiIiIiESIiIEAAnAAJ1V3d3d3dzRESIiIiIREggACUiJlZ3d3d3d3dzM0REiIiIiBAAIgABYlVVd3d3d3d3dzM0REiIERAAIAESIVV3d3d3d3dwd3czREQVEAASEgABZXd3d3d3cAAAd3d3c1URIhEQAAAnVVd3czd3AAd3d3d3VRURZREAAidVd3cjMnd3B3d3VXVRVVZVUQIBFVVVd3cnd3d3d1V1VRFVEVVREREVVWdVd3d3d3d1VVVREVERFVEVYRVRVmVXd3d3d1d1VlERERERURFRERESd3d3d3d3d1EREQ=="]},SIZES={"easy":[16,16],"medium":[24,24],"hard":[32,40],"expert":[40,56]};
+ const names={easy:'Drzewo z jabłkami',medium:'Wodospad w dolinie',hard:'Górska dolina z rzeką',expert:'Tropikalna zatoka'};
+ function base(level){
+  level=Object.hasOwn(DATA,level)?level:'medium';
+  const [abc,payload]=DATA[level],[w,h]=SIZES[level],bytes=atob(payload);
+  const cells=[];
+  for(let i=0;i<w*h;i++)cells.push(abc[(bytes.charCodeAt(i>>1)>>(i%2?0:4))&15]);
+  return Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w).join(''));
+ }
+ function render(level='medium',options={}){
+  const rows=base(level).map(row=>row.split('')),w=rows[0].length;
+  const sky={easy:'.',medium:'w',hard:'c',expert:'r'}[level],top={easy:0,medium:6,hard:13,expert:23}[level];
+  const tint=options.eyes==='night'?{easy:'a',medium:'s',hard:'k',expert:'a'}[level]:
+   options.eyes==='evening'?{easy:'.',medium:'y',hard:'o',expert:'r'}[level]:null;
+  if(tint&&tint!==sky)for(let y=0;y<top;y++)for(let x=0;x<w;x++)if(rows[y][x]===sky)rows[y][x]=tint;
+  const theme={l:'g',v:'v',O:'o'}[options.color];
+  if(theme){
+   const primary=level==='easy'?'g':'b',hasTheme=rows.some(row=>row.includes(theme));
+   for(const row of rows)for(let x=0;x<w;x++){
+    if(row[x]===primary)row[x]='~';else if(hasTheme&&row[x]===theme)row[x]=primary;
+   }
+   for(const row of rows)for(let x=0;x<w;x++)if(row[x]==='~')row[x]=theme;
+  }
+  if(options.extra==='stars'){
+   const stars={easy:[[1,1],[14,2]],medium:[[2,1],[21,2]],hard:[[3,3],[28,2]],expert:[[2,2],[35,3]]}[level];
+   for(const [x,y] of stars)if(rows[y]?.[x]===sky)rows[y][x]='y';
+  }
+  return rows.map(row=>row.join(''));
+ }
+ return Object.freeze({base,render,names});
 })();
