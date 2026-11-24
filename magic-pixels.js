@@ -33,8 +33,10 @@ const magicDefs={
   {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
  landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Cztery dopracowane krajobrazy, po jednym na poziom',fields:[
+  {key:'apples',title:'Jabłka na drzewie',options:[['few','Kilka jabłek','🍎'],['none','Bez jabłek','🌳'],['many','Więcej jabłek','🍎']]},
+  {key:'hollow',title:'Dziupla w pniu',options:[['none','Bez dziupli','🌳'],['yes','Dodaj dziuplę','🕳️']]},
   {key:'eyes',title:'Pora dnia',options:[['day','Oryginalna sceneria','☀️'],['evening','Ciepłe światło','🌅'],['night','Wieczorny klimat','🌙']]},
-  {key:'extra',title:'Dodatkowe iskierki',options:[['none','Bez dodatkowych iskierek','🌤️'],['stars','Dodaj iskierki','✨']]},
+  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Chmurka','☁️'],['sun','Słońce','☀️'],['flowers','Kwiatki','🌼'],['stars','Gwiazdki','✨']]},
   {key:'color',title:'Wariant kolorystyczny',options:[['b','Oryginalne kolory','🎨'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Ciepły','🧡']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
@@ -240,7 +242,10 @@ function magicRender(){
  const fields=document.getElementById('magic-fields');
  fields.replaceChildren();
  for(const field of def.fields){
-  if(magicState.category==='landscapes'&&magicState.size==='easy'&&['eyes','extra'].includes(field.key))continue;
+  if(magicState.category==='landscapes'){
+   if(magicState.size==='easy'&&!['apples','hollow','color'].includes(field.key))continue;
+   if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
+  }
   if(magicState.category==='animals'){
    if(values.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))continue;
    if(values.kind==='fox'&&magicState.size==='easy'&&field.key==='scene')continue;
@@ -255,6 +260,10 @@ function magicRender(){
   const isColor=field.key==='color';
   if(isColor)choices.classList.add('magic-color-choices');
   for(const [key,label,emoji] of field.options){
+   if(magicState.category==='landscapes'&&field.key==='extra'&&(
+    (magicState.size==='expert'&&['flowers'].includes(key))||
+    (magicState.size==='medium'&&key==='stars'&&false)
+   ))continue;
    const selected=values[field.key]===key;
    const button=magicCreateButton('magic-choice'+(isColor?' magic-color-choice':'')+(selected?' is-selected':''),undefined);
    button.dataset.field=field.key;button.dataset.option=key;
@@ -334,10 +343,16 @@ function magicRandomize(){
  let tries=0;
  do{
   for(const f of d.fields){
+   if(magicState.category==='landscapes'){
+    if(magicState.size==='easy'&&!['apples','hollow','color'].includes(f.key))continue;
+    if(magicState.size!=='easy'&&['apples','hollow'].includes(f.key))continue;
+   }
    if(magicState.category==='animals'&&f.key==='kind')continue;
    if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
    if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
-   v[f.key]=f.options[Math.floor(Math.random()*f.options.length)][0];
+   const choices=magicState.category==='landscapes'&&f.key==='extra'&&magicState.size==='expert'
+    ?f.options.filter(option=>option[0]!=='flowers'):f.options;
+   v[f.key]=choices[Math.floor(Math.random()*choices.length)][0];
   }
   tries++;
  }while(JSON.stringify(v)===before&&tries<6);
