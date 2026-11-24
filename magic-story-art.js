@@ -586,7 +586,7 @@ const MagicApprovedLandscapes=(()=>{
     rows[y][23]=left===right?left:(['b','c'].includes(left)?left:(['b','c'].includes(right)?right:left));
    }
    // Podobny ślad po lewej przebiegał przez trawę i koryto rzeki.
-   for(let y=20;y<=36;y++)if(pick(8,y)==='s'){
+   for(let y=20;y<=36;y++)if(['s','n'].includes(pick(8,y))){
     const left=pick(7,y),right=pick(9,y);
     rows[y][8]=left===right?left:(['l','d','b'].includes(right)?right:left);
    }
@@ -632,7 +632,7 @@ const MagicApprovedLandscapes=(()=>{
     const region={medium:10,hard:17,expert:28}[level];
     const scene={
      medium:evening?{y:'O',b:'a',l:'g',d:'G',n:'e'}:{y:'h',b:'a',l:'d',d:'G',n:'N'},
-     hard:evening?{o:'O',b:'a',l:'g',d:'G',s:'S'}:{o:'v',b:'a',l:'d',d:'G',n:'N',s:'S'},
+     hard:evening?{o:'O',b:'a',l:'g',d:'G'}:{o:'v',b:'a',l:'d',d:'G',n:'N'},
      expert:evening?{y:'h',b:'a',g:'l',d:'G'}:{y:'h',b:'a',g:'G',d:'u',n:'N'}
     }[level];
     const sky={medium:evening?'c':'u',hard:evening?'t':'u',expert:evening?'t':'u'}[level];
@@ -655,9 +655,9 @@ const MagicApprovedLandscapes=(()=>{
    if(extra==='stars')for(const [x,y] of ({medium:[[2,1],[21,1]],hard:[[2,2],[28,2]],expert:[[3,2],[36,3]]}[level]))
     skyCell(x,y,night?'h':'y');
    if(extra==='cloud'){
-    const [x,y]={medium:[15,2],hard:[2,8],expert:[31,6]}[level];
+    const [x,y]={medium:[15,0],hard:[2,8],expert:[31,6]}[level];
     for(const [dx,dy] of [[1,0],[2,0],[0,1],[1,1],[2,1],[3,1]])
-     skyCell(x+dx,y+dy,night?'I':'w');
+     skyCell(x+dx,y+dy,level==='medium'?'b':night?'I':'w');
    }
    if(extra==='flowers'&&['medium','hard'].includes(level)){
     const y=level==='medium'?20:32;
