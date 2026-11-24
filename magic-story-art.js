@@ -560,22 +560,76 @@ const MagicApprovedLandscapes=(()=>{
   return Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w).join(''));
  }
  function render(level='medium',options={}){
-  const rows=base(level).map(row=>row.split('')),w=rows[0].length;
-  const sky={easy:'.',medium:'w',hard:'c',expert:'r'}[level],top={easy:0,medium:6,hard:13,expert:23}[level];
-  const tint=options.eyes==='night'?{easy:'a',medium:'s',hard:'k',expert:'a'}[level]:
-   options.eyes==='evening'?{easy:'.',medium:'y',hard:'o',expert:'r'}[level]:null;
-  if(tint&&tint!==sky)for(let y=0;y<top;y++)for(let x=0;x<w;x++)if(rows[y][x]===sky)rows[y][x]=tint;
-  const theme={l:'g',v:'v',O:'o'}[options.color];
-  if(theme){
-   const primary=level==='easy'?'g':'b',hasTheme=rows.some(row=>row.includes(theme));
-   for(const row of rows)for(let x=0;x<w;x++){
-    if(row[x]===primary)row[x]='~';else if(hasTheme&&row[x]===theme)row[x]=primary;
+  const original=base(level);
+  const rows=original.map(row=>row.split(''));
+  const h=rows.length,w=rows[0].length;
+  const get=(x,y)=>rows[y]?.[x];
+  const set=(x,y,c)=>{if(x>=0&&y>=0&&x<w&&y<h)rows[y][x]=c;};
+  const sky={easy:'.',medium:'w',hard:'c',expert:'r'}[level];
+  // Każda edycja jest nakładką na niezmienny, zatwierdzony obrazek.
+  // Żadnych pasków powstających przez ucinanie modyfikacji na jednym wierszu.
+  if(level==='easy'){
+   // Trzy oryginalne czerwone jabłka są częścią bazowego drzewa.
+   const apples=options.apples||'few';
+   if(apples==='none')for(let y=0;y<h;y++)for(let x=0;x<w;x++)
+    if(get(x,y)==='r')set(x,y,'g');
+   if(apples==='many')for(const [x,y] of [[5,4],[8,5],[11,7],[5,8]])
+    if(['g','l'].includes(get(x,y)))set(x,y,'r');
+   // Pojedynczy czarny kwadracik w brązowym pniu, tylko gdy wybrano dziuplę.
+   if(options.hollow==='yes')set(7,12,'k');
+  }else{
+   const tint=options.eyes==='night'
+    ?{medium:'u',hard:'u',expert:'u'}[level]
+    :options.eyes==='evening'
+     ?{medium:'c',hard:'t',expert:'t'}[level]:null;
+   if(tint){
+    // Przemaluj wyłącznie niebo połączone z górną krawędzią,
+    // zamiast sztucznie malować pierwszych 6/13/23 wierszy.
+    const stack=[],seen=new Set();
+    for(let x=0;x<w;x++)if(get(x,0)===sky)stack.push([x,0]);
+    while(stack.length){
+     const [x,y]=stack.pop(),id=y*w+x;
+     if(seen.has(id)||get(x,y)!==sky)continue;
+     seen.add(id);
+     for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){
+      const xx=x+dx,yy=y+dy;
+      if(xx>=0&&yy>=0&&xx<w&&yy<h&&get(xx,yy)===sky&&!seen.has(yy*w+xx))stack.push([xx,yy]);
+     }
+    }
+    for(const id of seen)rows[Math.floor(id/w)][id%w]=tint;
    }
-   for(const row of rows)for(let x=0;x<w;x++)if(row[x]==='~')row[x]=theme;
-  }
-  if(options.extra==='stars'){
-   const stars={easy:[[1,1],[14,2]],medium:[[2,1],[21,2]],hard:[[3,3],[28,2]],expert:[[2,2],[35,3]]}[level];
-   for(const [x,y] of stars)if(rows[y]?.[x]===sky)rows[y][x]='y';
+   // Kolorystyka bez zamieniania ze sobą niezwiązanych odcieni i konturów.
+   const hue={l:'g',v:'v',O:'o'}[options.color];
+   if(hue)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    if(original[y][x]==='b')set(x,y,hue);
+   }
+   // Dodatki malują tylko wolne, jednorodne fragmenty nieba albo łąki.
+   // Baza pozostaje identyczna po wybraniu „Bez dodatków”.
+   const extra=options.extra||'none';
+   const background=(x,y)=>get(x,y)===sky||get(x,y)===tint;
+   const skyCell=(x,y,c)=>{if(background(x,y))set(x,y,c);};
+   if(extra==='stars')for(const [x,y] of (level==='medium'?[[2,1],[21,2]]:level==='hard'?[[3,2],[28,3],[22,6]]:[[4,2],[35,3],[30,8]]))
+    skyCell(x,y,'y');
+   if(extra==='cloud'){
+    const y=level==='medium'?3:level==='hard'?5:7;
+    const x=level==='medium'?3:5;
+    for(const [dx,dy] of [[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[4,1]])
+     skyCell(x+dx,y+dy,'w');
+   }
+   if(extra==='sun'){
+    const cx=level==='medium'?18:level==='hard'?25:31,cy=level==='medium'?3:level==='hard'?7:10;
+    for(const [dx,dy] of [[0,0],[1,0],[0,1],[1,1],[-1,0],[2,1],[0,-1],[1,2]])
+     skyCell(cx+dx,cy+dy,'y');
+   }
+   if(extra==='flowers'&&['medium','hard'].includes(level)){
+    const y=level==='medium'?20:35;
+    const positions=level==='medium'?[4,19]:[5,27];
+    for(const x of positions){
+     if(['g','l','d'].includes(get(x,y)))set(x,y,'p');
+     if(['g','l','d'].includes(get(x-1,y)))set(x-1,y,'p');
+     if(['g','l','d'].includes(get(x,y-1)))set(x,y-1,'y');
+    }
+   }
   }
   return rows.map(row=>row.join(''));
  }
