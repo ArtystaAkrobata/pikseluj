@@ -561,6 +561,11 @@ const MagicApprovedLandscapes=(()=>{
   const pick=(x,y)=>rows[y]?.[x];
   // Średni: wzór odtworzony bezpośrednio z zaakceptowanego obrazka.
   // Nie poprawiamy już żadnych rzekomych artefaktów w oryginalnych danych.
+  if(level==='medium'){
+   // Oba pnie: ciemny brąz od korony do trawy, wyłącznie po 3 kratki.
+   // Naturalny kolor n w skałach zostaje bez zmian.
+   for(const x of [5,19])for(const y of [17,18,19])rows[y][x]='N';
+  }
   if(level==='hard'){
    // Popraw tylko ślady dawnej siatki. Cienie skał i białe śniegi zostają.
    for(let y=0;y<=8;y++)for(let x=0;x<w;x++)
@@ -612,13 +617,21 @@ const MagicApprovedLandscapes=(()=>{
     for(const [x,y] of stars)if(at(x,y)===blank)put(x,y,level==='hard'?'w':'y');
    }
    if(extra==='cloud'){
-    // Dodatkowa chmurka: tylko na pustym obszarze nieba, bez słońca.
-    const anchor={medium:[16,1],hard:[2,1],expert:[31,6]}[level];
+    // Trzecia chmurka w Średnim nie dotyka żadnej z dwóch oryginalnych.
+    // Osobny mały obłok na górze po prawej, z pełnych kratek.
+    const pixels=level==='medium'
+     ?[[19,0],[20,0],[21,0],[22,0],[20,1],[21,1]]
+     :level==='hard'
+      ?[[3,1],[4,1],[2,2],[3,2],[4,2],[5,2]]
+      :[[32,6],[33,6],[31,7],[32,7],[33,7],[34,7]];
     const background={medium:'w',hard:'c',expert:'r'}[level];
     const ink={medium:'b',hard:'w',expert:'w'}[level];
-    for(const [dx,dy] of [[1,0],[2,0],[0,1],[1,1],[2,1],[3,1]])
-     if(at(anchor[0]+dx,anchor[1]+dy)===background)
-      put(anchor[0]+dx,anchor[1]+dy,ink);
+    for(const [x,y] of pixels)if(at(x,y)===background)put(x,y,ink);
+   }
+   if(level==='medium'&&options.bird==='yes'){
+    // Oddzielna dekoracja: trzy ciemnobrązowe kwadraty tworzą lecącego ptaka.
+    // Nie narusza słońca, drzew ani chmur.
+    for(const [x,y] of [[1,1],[2,2],[3,1]])if(at(x,y)==='w')put(x,y,'N');
    }
    if(extra==='flowers'&&['medium','hard'].includes(level)){
     const yy=level==='medium'?20:32;
