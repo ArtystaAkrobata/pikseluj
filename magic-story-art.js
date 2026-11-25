@@ -553,7 +553,7 @@ const MagicApprovedLandscapes=(()=>{
  const DATA={"easy":[".dglrn","AAAAAAAAAAAAAAAREQAAAAAAESIiEQAAAAEiIzIiEAAAEiIyJCIhAAASMiIiIjEAASIiQiIyIhABIjMiIjIiEAASIiIyQiEAAAEiIiIiEAAAABEiIhEAAAAAABVRAAAAAAAAFVEAAAAAAAAVUQAAAAAAARVREAAAAAAiJVIiAAA="],"medium":["wysbldnp","AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAzAAEAAQAAAAAAAAMzAAAREAAAMwAAADMzMBAREBAAMzAAAAAAAAAREAADMzMAAABEAAABAAAARAAAAAREAAAAAAAAREAAAEREQAAAAAAEREQABERmRAAAAABEZkRARGZmZEAAAARGZmZERmZEZkMwMzRmRGZkZmRVZmMDMDZmVUZmZkVVRmMDMDZkVVRmZlVVVmMzAzZlVVVmZmVVZmMDAzZmVVZmZmZlZmMDMzZmVmZmZWZmImMDMDYiZmZWVVViUiAAAAIlJlVVREREVQAAAABVRERERHRERDMzMzREREdERxdERDAAM0RERHF0RHRHdEMzADNHdEdERUVFVDADMwBFVFRU"],"hard":["csnokdlb","AAAAABAAAAAAAAACAAAAAAAAAAAQAAMzMzAAAgAAAAAAAAAAEAAzMzMzMAIAAAAAAAAAABAzMzMzMzMCAAAAAAAAAAETMzMzMzMzMgAAAAAAAAABEzMzMzMzMzIAAAAAAAAAADMzMzMzMzMyAAAAABERERETMzMzMzMzMRAREQEAAAATEzMzMzRDMzEwAAAAAAAAAzMzMzNEREMxMAAAAAAAAAMzQzM0EURDMTAAAAAAAAAANEQzQRRERDEAAAAABQAABCFERBEUREQiQAAAAFVQBEQRFEERRBFEQUQABQBVUEQREUERFEEREUIUQFVQVVVBESERERERURESURRVVVVVURUlERURFVUREVUVVVVVZlVVJVFVUVVVUVFVVWZVVmZmZSVVVVVVVVVRVVZmZWZlVWYlVVVVVmZVUVVmZmVVZmZmFmZ3ZlVVJmFWZmZmVmZmZmZwdmVVVmZhVmZWVWZmZmZldwB3ZmZVUWVVJVVmZmZmFXd3AHdlVVFmVSVWVmZWZmZWZ3cHd2ZhZmYiZlVVZmYWVmZmdwd3YWZVIlZSJVZVFWZlZmdwd3FlVVVVZSJVJSZlVVZmdwd3ZmZmZmYiUlVmVVVVZ3d3AXZlZmZmIiVmZmZmZ3dwAHF2VVZmZiEWYRZmcXcXEXdxYRERFmUiVVV3d3cHd3ciAWZmZmZVVVVVd3dwd3dyAAEmZmZmVmZmInd3B3d3UQABJmZmZmZmIgEXdwB3d1IiIWZlZmZmYgAAEndwB3d1VVFmVVZWZiERABAnd3B3d3dxUiVVVWUhEREQJ3d3AHd3cSACVVVVUhERIicHd3cAB3EAACVVVVd3d3cAd3d3cAdxIiIndQ=="],"expert":["rUncwgayb","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAMAAAAAA0QAARIAAAAAAAAAAAAEREMAAAM0REAAESAAAAAAAAAANDRERDAAAzMzMAAhUgAAAiIAADNERDAAAAAAAAAAACFVAAIRVVIAAAAAAAAAAAACEREgARUgIVUSERAAAAAAAAAAAhVVVVEhFVIWESEAAAAAAAAAAAAhEREVVRIVURESAAAAAAAAAAAAAhEiESEVURFREgAAAAAAAAAAAAACAAAAISFVEREiERIgAAAAAAAAAAAAAAAAIRURERVVVVIAAABERAAAAAAAIRERESchYRFVVSAHMzMzMzADQAIVVVUSIiEREhEVUgAAAAM0RDMzIVURERIichIAIhJSAAAAAAAAAAIVEREiEREhVRAAACEAAAAAAAAAAVERIgIRIREVUQAAAnd3cAAAAAABESAAISECERFVIAB3d3d3AAAAAAEQAAASIgABEVUgB3d3d3dwAAAAAQAAASIgAAAhFVAHd3d3d3cEQCAAADMhIQAAAAEVUHd3d3czMzMzEQAAAhIQADMAABEgd3d3d3d3AAAVEiABIiAzMzMAISAHd3d3VnIAAFVRUSIhAAAAAAByJ3d3dydyERIAEVVVEiIiEAAAAAIAAHd3VRFlURIRFVEiFVFRJ3d3d3d3IRERFVFVURURESIRVVVhVVVVVSIlIiIiJmZmVRUSISIRIRImZmZmZmV3dYZmZmZVVRIhIiEiEiJohmaIVVVVWIhmZhFRIhEiCIKCImKIhmZoV3WGZmZmImEiZzSIgoiIiGZmiIVViGZmaIZ3YiEnc4iIiIZmZmZmaIVVWGiIZncSIXOIiIiGZmaIiGZmZmZmZmZmchIidIiIiIiIhmZmaIVVhmZmZmZxIhV0iIiIiIiIiIhmZmiGZmZmZnEiF3NIiIiIiIiIiIiGaIhmiIZmISIndzSIiIiIiIiIiIiIhmaIiIgSISd3c0SIiIiIiIiIiIiIiIhmZhFRVVd3dzRIiIiIiIiIiIiIiIiIFVFVdVd3c0iIiIiIiIiIiIiIiIhVFRVlVXd3NIiISIiIiIiIiIiIiFVVFVd3d3dzRIiIiEREiIiIiIiIVSIhVVd3d3dzNESIiIiIiIiIiIhVIAASFXd3d3d3czRIiISIiIiIiGEQAHAGd3d3d3d3NIiIiIiESIiIEAAnAAJ1V3d3d3dzRESIiIiIREggACUiJlZ3d3d3d3dzM0REiIiIiBAAIgABYlVVd3d3d3d3dzM0REiIERAAIAESIVV3d3d3d3dwd3czREQVEAASEgABZXd3d3d3cAAAd3d3c1URIhEQAAAnVVd3czd3AAd3d3d3VRURZREAAidVd3cjMnd3B3d3VXVRVVZVUQIBFVVVd3cnd3d3d1V1VRFVEVVREREVVWdVd3d3d3d1VVVREVERFVEVYRVRVmVXd3d3d1d1VlERERERURFRERESd3d3d3d3d1EREQ=="]},SIZES={"easy":[16,16],"medium":[26,26],"hard":[32,40],"expert":[40,56]};
  const names={easy:'Drzewo z jabłkami',medium:'Wodospad w dolinie',hard:'Górska dolina z rzeką',expert:'Tropikalna zatoka'};
  // Dokładna siatka 26×26 z przesłanej ilustracji. Jeden znak = jedna pełna kratka.
- const MEDIUM_REFERENCE=["..........................","............5.............","....33....5...5...........","...3333....555......33....","..333333.5.555.5...3333...","...........555....333333..","..........5...5...........","....11......5.......11....","...1111............1111...","..111111..........111111..",".11122111........11122111.","1122222211......1122222211","122211222133.3331222112221","22214412223.33.32221441222","22144441223.33.32214444122","2244444422333.332244444422","22244442223.3.332224444222","22228422223.33332222482222","24228226623.33.32662282242","444282666633.3.36666282444","4444866466......6646684444","111111444........444111111","11711111133333331111111711","1757117113...3311117117571","1171175711333..33175711711","1414147413..333..147414141"];
+ const MEDIUM_REFERENCE=["..........................",".........................","......................",".................","...........",".................","........................",".....................","..................","..............","..........","......",".","..","..",".","..",".","..","..","......","........","","...","..","...."];
  function base(level){
   level=Object.hasOwn(DATA,level)?level:'medium';
   if(level==='medium')return MEDIUM_REFERENCE.slice();
@@ -607,20 +607,24 @@ const MagicApprovedLandscapes=(()=>{
     if(['g','l'].includes(at(x,y)))put(x,y,'r');
    if(options.hollow==='yes')put(7,12,'k');
   }else if(level==='medium'){
-   // Oryginał z fotografii pozostaje nietknięty; dodatki są niezależne.
+   // Osobne kody kolorów, niezależne od palet potworków, kotów i robotów.
+   // Żadne ozdoby nie zmieniają bazowego obrazu.
+   const hue={cloud:'',stars:'',flowers:'',bird:''};
    if(options.extra==='cloud'){
     for(const [x,y] of [[19,0],[20,0],[21,0],[22,0],[20,1],[21,1]])
-     if(at(x,y)==='.')put(x,y,'3');
+     if(at(x,y)==='.')put(x,y,hue.cloud);
    }
    if(options.extra==='stars'){
-    for(const [x,y] of [[1,1],[24,1]])if(at(x,y)==='.')put(x,y,'5');
+    for(const [x,y] of [[1,1],[24,1]])if(at(x,y)==='.')put(x,y,hue.stars);
    }
    if(options.extra==='flowers'){
-    for(const [x,y,k] of [[4,22,'7'],[5,23,'5'],[6,23,'7'],[20,22,'7'],[20,23,'5'],[19,23,'7']])
-     if(at(x,y)==='1')put(x,y,k);
+    for(const [x,y,color] of [[4,22,''],[5,23,''],[6,23,''],[19,22,''],[20,23,''],[19,23,'']])
+     if(at(x,y)==='')put(x,y,color);
    }
-   if(options.bird==='yes')for(const [x,y] of [[1,1],[2,2],[3,1]])
-    if(at(x,y)==='.')put(x,y,'8');
+   if(options.bird==='yes'){
+    for(const [x,y] of [[1,1],[2,2],[3,1]])
+     if(at(x,y)==='.')put(x,y,hue.bird);
+   }
   }else{
    // W krajobrazach zawsze zachowujemy zaakceptowaną kolorystykę.
    // Żadna opcja nie zmienia wody, nieba, drzew ani łąk.
