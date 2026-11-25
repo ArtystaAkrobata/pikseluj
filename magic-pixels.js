@@ -36,7 +36,11 @@ const magicDefs={
   {key:'apples',title:'Jabłka na drzewie',options:[['few','Kilka jabłek','🍎'],['none','Bez jabłek','🌳'],['many','Więcej jabłek','🍎']]},
   {key:'hollow',title:'Dziupla w pniu',options:[['none','Bez dziupli','🌳'],['yes','Dodaj dziuplę','🕳️']]},
   {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Dodatkowe kwiatki','🌼'],['stars','Gwiazdki','✨']]},
-  {key:'bird',title:'Ptaszek nad wodospadem',options:[['none','Bez ptaszka','🌤️'],['yes','Dodaj ptaszka','🐦']]}
+  {key:'bird',title:'Ptaszek nad wodospadem',options:[['none','Bez ptaszka','🌤️'],['yes','Dodaj ptaszka','🐦']]},
+  {key:'season',title:'Pora roku',options:[['summer','☀️ Lato','☀️'],['spring','🌷 Wiosna','🌷'],['autumn','🍁 Jesień','🍁']]},
+  {key:'bridge',title:'Mostek nad rzeką',options:[['none','Bez mostku','🌊'],['wood','Drewniany mostek','🪵']]},
+  {key:'trees',title:'Rodzaj drzew',options:[['leafy','Liściaste','🌳'],['conifer','Iglaste','🌲']]},
+  {key:'rocks',title:'Skały nad rzeką',options:[['large','Duże','🪨'],['small','Małe','🪨'],['none','Bez kamieni','🌿']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
@@ -289,6 +293,7 @@ function magicRender(){
    if(magicState.size==='easy'&&!['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='medium'&&field.key==='bird')continue;
+   if(magicState.size!=='hard'&&['season','bridge','trees','rocks'].includes(field.key))continue;
   }
   if(magicState.category==='animals'){
    if(values.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))continue;
@@ -388,6 +393,7 @@ function magicRandomize(){
     if(magicState.size==='easy'&&!['apples','hollow'].includes(f.key))continue;
     if(magicState.size!=='easy'&&['apples','hollow'].includes(f.key))continue;
     if(magicState.size!=='medium'&&f.key==='bird')continue;
+    if(magicState.size!=='hard'&&['season','bridge','trees','rocks'].includes(f.key))continue;
    }
    if(magicState.category==='animals'&&f.key==='kind')continue;
    if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
