@@ -310,6 +310,8 @@ function magicRender(){
   ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
   :magicState.category==='animals'&&values.kind==='dog'
   ?{easy:'Psia główka',medium:'Corgi z łapkami',hard:'Siedzący corgi',expert:'Corgi z ogonem'}
+  :magicState.category==='animals'&&values.kind==='owl'
+  ?{easy:'Wesoła sówka',medium:'Sowa z dużymi oczami',hard:'Portret sowy',expert:'Rdzawa sowa'}
   :magicState.category==='animals'&&values.kind==='bunny'
   ?{easy:'Królicza główka',medium:'Długie uszy',hard:'Królik w podskoku',expert:'Neonowy króliczek'}
   :magicState.category==='robots'
