@@ -550,7 +550,7 @@ const MagicStoryArt=(()=>{
 
 /* Zatwierdzone krajobrazy w rodzimych siatkach, bez interpolacji. */
 const MagicApprovedLandscapes=(()=>{
- const DATA={"easy":[".dglrn","AAAAAAAAAAAAAAAREQAAAAAAESIiEQAAAAEiIzIiEAAAEiIyJCIhAAASMiIiIjEAASIiQiIyIhABIjMiIjIiEAASIiIyQiEAAAEiIiIiEAAAABEiIhEAAAAAABVRAAAAAAAAFVEAAAAAAAAVUQAAAAAAARVREAAAAAAiJVIiAAA="],"medium":["wysbldnp","AAAAAAAAAAAAAAAAAAAAAAABAAIAAAAgAAAzAAEAAQIAAAAgAAMzMAAREAIAMwAgADMzMxAREBIDMzAgAAAAAAAREAIzMzMgAAAAAAEAAQIAAAAgAABEAAABAAIARAAgAAREQCAAAAIEREAgAlVVVSIiIiJVVVUgBGZmZlAAAAVmZmZQBmZEZlMwMzZmRGZgBmRVRmMDMDZkVUZgBkVVVGMDMDZFVVRgBlVVVWMzAzZVVVVgBmVVVmMDAzZlVVZgBmZlZmMDMzZmVmZgBWZmY2MDMDIGZmZQBVVgBSAAAAJQBlVQBEREVSAAAAVVRERQBHRERCMzMzVEREdQBxdEdCAAM0VHRHEgBHRHF1MzADVxdEdQAAAAAAAAAAAAAAAA"],"hard":["csnokdlb","AAAAABAAAAAAAAACAAAAAAAAAAAQAAMzMzAAAgAAAAAAAAAAEAAzMzMzMAIAAAAAAAAAABAzMzMzMzMCAAAAAAAAAAETMzMzMzMzMgAAAAAAAAABEzMzMzMzMzIAAAAAAAAAADMzMzMzMzMyAAAAABERERETMzMzMzMzMRAREQEAAAATEzMzMzRDMzEwAAAAAAAAAzMzMzNEREMxMAAAAAAAAAMzQzM0EURDMTAAAAAAAAAANEQzQRRERDEAAAAABQAABCFERBEUREQiQAAAAFVQBEQRFEERRBFEQUQABQBVUEQREUERFEEREUIUQFVQVVVBESERERERURESURRVVVVVURUlERURFVUREVUVVVVVZlVVJVFVUVVVUVFVVWZVVmZmZSVVVVVVVVVRVVZmZWZlVWYlVVVVVmZVUVVmZmVVZmZmFmZ3ZlVVJmFWZmZmVmZmZmZwdmVVVmZhVmZWVWZmZmZldwB3ZmZVUWVVJVVmZmZmFXd3AHdlVVFmVSVWVmZWZmZWZ3cHd2ZhZmYiZlVVZmYWVmZmdwd3YWZVIlZSJVZVFWZlZmdwd3FlVVVVZSJVJSZlVVZmdwd3ZmZmZmYiUlVmVVVVZ3d3AXZlZmZmIiVmZmZmZ3dwAHF2VVZmZiEWYRZmcXcXEXdxYRERFmUiVVV3d3cHd3ciAWZmZmZVVVVVd3dwd3dyAAEmZmZmVmZmInd3B3d3UQABJmZmZmZmIgEXdwB3d1IiIWZlZmZmYgAAEndwB3d1VVFmVVZWZiERABAnd3B3d3dxUiVVVWUhEREQJ3d3AHd3cSACVVVVUhERIicHd3cAB3EAACVVVVd3d3cAd3d3cAdxIiIndQ=="],"expert":["rUncwgayb","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAMAAAAAA0QAARIAAAAAAAAAAAAEREMAAAM0REAAESAAAAAAAAAANDRERDAAAzMzMAAhUgAAAiIAADNERDAAAAAAAAAAACFVAAIRVVIAAAAAAAAAAAACEREgARUgIVUSERAAAAAAAAAAAhVVVVEhFVIWESEAAAAAAAAAAAAhEREVVRIVURESAAAAAAAAAAAAAhEiESEVURFREgAAAAAAAAAAAAACAAAAISFVEREiERIgAAAAAAAAAAAAAAAAIRURERVVVVIAAABERAAAAAAAIRERESchYRFVVSAHMzMzMzADQAIVVVUSIiEREhEVUgAAAAM0RDMzIVURERIichIAIhJSAAAAAAAAAAIVEREiEREhVRAAACEAAAAAAAAAAVERIgIRIREVUQAAAnd3cAAAAAABESAAISECERFVIAB3d3d3AAAAAAEQAAASIgABEVUgB3d3d3dwAAAAAQAAASIgAAAhFVAHd3d3d3cEQCAAADMhIQAAAAEVUHd3d3czMzMzEQAAAhIQADMAABEgd3d3d3d3AAAVEiABIiAzMzMAISAHd3d3VnIAAFVRUSIhAAAAAAByJ3d3dydyERIAEVVVEiIiEAAAAAIAAHd3VRFlURIRFVEiFVFRJ3d3d3d3IRERFVFVURURESIRVVVhVVVVVSIlIiIiJmZmVRUSISIRIRImZmZmZmV3dYZmZmZVVRIhIiEiEiJohmaIVVVVWIhmZhFRIhEiCIKCImKIhmZoV3WGZmZmImEiZzSIgoiIiGZmiIVViGZmaIZ3YiEnc4iIiIZmZmZmaIVVWGiIZncSIXOIiIiGZmaIiGZmZmZmZmZmchIidIiIiIiIhmZmaIVVhmZmZmZxIhV0iIiIiIiIiIhmZmiGZmZmZnEiF3NIiIiIiIiIiIiGaIhmiIZmISIndzSIiIiIiIiIiIiIhmaIiIgSISd3c0SIiIiIiIiIiIiIiIhmZhFRVVd3dzRIiIiIiIiIiIiIiIiIFVFVdVd3c0iIiIiIiIiIiIiIiIhVFRVlVXd3NIiISIiIiIiIiIiIiFVVFVd3d3dzRIiIiEREiIiIiIiIVSIhVVd3d3dzNESIiIiIiIiIiIhVIAASFXd3d3d3czRIiISIiIiIiGEQAHAGd3d3d3d3NIiIiIiESIiIEAAnAAJ1V3d3d3dzRESIiIiIREggACUiJlZ3d3d3d3dzM0REiIiIiBAAIgABYlVVd3d3d3d3dzM0REiIERAAIAESIVV3d3d3d3dwd3czREQVEAASEgABZXd3d3d3cAAAd3d3c1URIhEQAAAnVVd3czd3AAd3d3d3VRURZREAAidVd3cjMnd3B3d3VXVRVVZVUQIBFVVVd3cnd3d3d1V1VRFVEVVREREVVWdVd3d3d3d1VVVREVERFVEVYRVRVmVXd3d3d1d1VlERERERURFRERESd3d3d3d3d1EREQ=="]},SIZES={"easy":[16,16],"medium":[24,24],"hard":[32,40],"expert":[40,56]};
+ const DATA={"easy":[".dglrn","AAAAAAAAAAAAAAAREQAAAAAAESIiEQAAAAEiIzIiEAAAEiIyJCIhAAASMiIiIjEAASIiQiIyIhABIjMiIjIiEAASIiIyQiEAAAEiIiIiEAAAABEiIhEAAAAAABVRAAAAAAAAFVEAAAAAAAAVUQAAAAAAARVREAAAAAAiJVIiAAA="],"medium":["wysbldnp","AAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAzAAEAAQAAAAAAAAMzAAAREAAAMwAAADMzMBAREBAAMzAAAAAAAAAREAADMzMAAABEAAABAAAARAAAAAREAAAAAAAAREAAAEREQAAAAAAEREQABERmRAAAAABEZkRARGZmZEAAAARGZmZERmZEZkMwMzRmRGZkZmRVZmMDMDZmVUZmZkVVRmMDMDZkVVRmZlVVVmMzAzZlVVVmZmVVZmMDAzZmVVZmZmZlZmMDMzZmVmZmZWZmImMDMDYiZmZWVVViUiAAAAIlJlVVREREVQAAAABVRERERHRERDMzMzREREdERxdERDAAM0RERHF0RHRHdEMzADNHdEdERUVFVDADMwBFVFRU"],"hard":["csnokdlb","AAAAABAAAAAAAAACAAAAAAAAAAAQAAMzMzAAAgAAAAAAAAAAEAAzMzMzMAIAAAAAAAAAABAzMzMzMzMCAAAAAAAAAAETMzMzMzMzMgAAAAAAAAABEzMzMzMzMzIAAAAAAAAAADMzMzMzMzMyAAAAABERERETMzMzMzMzMRAREQEAAAATEzMzMzRDMzEwAAAAAAAAAzMzMzNEREMxMAAAAAAAAAMzQzM0EURDMTAAAAAAAAAANEQzQRRERDEAAAAABQAABCFERBEUREQiQAAAAFVQBEQRFEERRBFEQUQABQBVUEQREUERFEEREUIUQFVQVVVBESERERERURESURRVVVVVURUlERURFVUREVUVVVVVZlVVJVFVUVVVUVFVVWZVVmZmZSVVVVVVVVVRVVZmZWZlVWYlVVVVVmZVUVVmZmVVZmZmFmZ3ZlVVJmFWZmZmVmZmZmZwdmVVVmZhVmZWVWZmZmZldwB3ZmZVUWVVJVVmZmZmFXd3AHdlVVFmVSVWVmZWZmZWZ3cHd2ZhZmYiZlVVZmYWVmZmdwd3YWZVIlZSJVZVFWZlZmdwd3FlVVVVZSJVJSZlVVZmdwd3ZmZmZmYiUlVmVVVVZ3d3AXZlZmZmIiVmZmZmZ3dwAHF2VVZmZiEWYRZmcXcXEXdxYRERFmUiVVV3d3cHd3ciAWZmZmZVVVVVd3dwd3dyAAEmZmZmVmZmInd3B3d3UQABJmZmZmZmIgEXdwB3d1IiIWZlZmZmYgAAEndwB3d1VVFmVVZWZiERABAnd3B3d3dxUiVVVWUhEREQJ3d3AHd3cSACVVVVUhERIicHd3cAB3EAACVVVVd3d3cAd3d3cAdxIiIndQ=="],"expert":["rUncwgayb","AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAAMAAAAAA0QAARIAAAAAAAAAAAAEREMAAAM0REAAESAAAAAAAAAANDRERDAAAzMzMAAhUgAAAiIAADNERDAAAAAAAAAAACFVAAIRVVIAAAAAAAAAAAACEREgARUgIVUSERAAAAAAAAAAAhVVVVEhFVIWESEAAAAAAAAAAAAhEREVVRIVURESAAAAAAAAAAAAAhEiESEVURFREgAAAAAAAAAAAAACAAAAISFVEREiERIgAAAAAAAAAAAAAAAAIRURERVVVVIAAABERAAAAAAAIRERESchYRFVVSAHMzMzMzADQAIVVVUSIiEREhEVUgAAAAM0RDMzIVURERIichIAIhJSAAAAAAAAAAIVEREiEREhVRAAACEAAAAAAAAAAVERIgIRIREVUQAAAnd3cAAAAAABESAAISECERFVIAB3d3d3AAAAAAEQAAASIgABEVUgB3d3d3dwAAAAAQAAASIgAAAhFVAHd3d3d3cEQCAAADMhIQAAAAEVUHd3d3czMzMzEQAAAhIQADMAABEgd3d3d3d3AAAVEiABIiAzMzMAISAHd3d3VnIAAFVRUSIhAAAAAAByJ3d3dydyERIAEVVVEiIiEAAAAAIAAHd3VRFlURIRFVEiFVFRJ3d3d3d3IRERFVFVURURESIRVVVhVVVVVSIlIiIiJmZmVRUSISIRIRImZmZmZmV3dYZmZmZVVRIhIiEiEiJohmaIVVVVWIhmZhFRIhEiCIKCImKIhmZoV3WGZmZmImEiZzSIgoiIiGZmiIVViGZmaIZ3YiEnc4iIiIZmZmZmaIVVWGiIZncSIXOIiIiGZmaIiGZmZmZmZmZmchIidIiIiIiIhmZmaIVVhmZmZmZxIhV0iIiIiIiIiIhmZmiGZmZmZnEiF3NIiIiIiIiIiIiGaIhmiIZmISIndzSIiIiIiIiIiIiIhmaIiIgSISd3c0SIiIiIiIiIiIiIiIhmZhFRVVd3dzRIiIiIiIiIiIiIiIiIFVFVdVd3c0iIiIiIiIiIiIiIiIhVFRVlVXd3NIiISIiIiIiIiIiIiFVVFVd3d3dzRIiIiEREiIiIiIiIVSIhVVd3d3dzNESIiIiIiIiIiIhVIAASFXd3d3d3czRIiISIiIiIiGEQAHAGd3d3d3d3NIiIiIiESIiIEAAnAAJ1V3d3d3dzRESIiIiIREggACUiJlZ3d3d3d3dzM0REiIiIiBAAIgABYlVVd3d3d3d3dzM0REiIERAAIAESIVV3d3d3d3dwd3czREQVEAASEgABZXd3d3d3cAAAd3d3c1URIhEQAAAnVVd3czd3AAd3d3d3VRURZREAAidVd3cjMnd3B3d3VXVRVVZVUQIBFVVVd3cnd3d3d1V1VRFVEVVREREVVWdVd3d3d3d1VVVREVERFVEVYRVRVmVXd3d3d1d1VlERERERURFRERESd3d3d3d3d1EREQ=="]},SIZES={"easy":[16,16],"medium":[24,24],"hard":[32,40],"expert":[40,56]};
  const names={easy:'Drzewo z jabłkami',medium:'Wodospad w dolinie',hard:'Górska dolina z rzeką',expert:'Tropikalna zatoka'};
  function base(level){
   level=Object.hasOwn(DATA,level)?level:'medium';
@@ -559,23 +559,8 @@ const MagicApprovedLandscapes=(()=>{
   for(let i=0;i<w*h;i++)cells.push(abc[(bytes.charCodeAt(i>>1)>>(i%2?0:4))&15]);
   const rows=Array.from({length:h},(_,y)=>cells.slice(y*w,y*w+w));
   const pick=(x,y)=>rows[y]?.[x];
-  if(level==='medium'){
-   // Odtworzenie zaakceptowanego wodospadu: pionowe artefakty x=15 i x=22
-   // oraz przypadkowy szary pas w wierszu 9 nie należą do rysunku.
-   for(let y=1;y<=9;y++){
-    if(pick(15,y)==='s')rows[y][15]='w';
-    if(pick(22,y)==='s')rows[y][22]=y===9?'d':'w';
-   }
-   if(pick(8,8)==='s')rows[8][8]='w';
-   if(pick(1,9)==='s')rows[9][1]='w';
-   for(let x=8;x<=14;x++)if(pick(x,9)==='s')rows[9][x]=x===8?'d':'w';
-   // Druga pionowa linia przecięła wodę i kwiaty, nie skały.
-   for(let y=17;y<=22;y++){
-    if(pick(15,y)==='s')rows[y][15]=y>=20?'b':'w';
-   }
-   for(let y=18;y<=21;y++)if(pick(8,y)==='s')rows[y][8]=y===18?'d':'l';
-   if(pick(22,21)==='s')rows[21][22]='l';
-  }
+  // Średni: wzór odtworzony bezpośrednio z zaakceptowanego obrazka.
+  // Nie poprawiamy już żadnych rzekomych artefaktów w oryginalnych danych.
   if(level==='hard'){
    // Popraw tylko ślady dawnej siatki. Cienie skał i białe śniegi zostają.
    for(let y=0;y<=8;y++)for(let x=0;x<w;x++)
@@ -604,66 +589,44 @@ const MagicApprovedLandscapes=(()=>{
   }
   return rows.map(row=>row.join(''));
  }
+
  function render(level='medium',options={}){
-  const original=base(level);
-  const rows=original.map(row=>row.split(''));
-  const h=rows.length,w=rows[0].length;
-  const baseAt=(x,y)=>original[y]?.[x];
+  const rows=base(level).map(row=>row.split(''));
+  const height=rows.length,width=rows[0].length;
   const at=(x,y)=>rows[y]?.[x];
-  const set=(x,y,c)=>{if(x>=0&&y>=0&&x<w&&y<h)rows[y][x]=c;};
+  const put=(x,y,c)=>{if(x>=0&&y>=0&&x<width&&y<height)rows[y][x]=c;};
   if(level==='easy'){
    const apples=options.apples||'few';
-   if(apples==='none')for(let y=0;y<h;y++)for(let x=0;x<w;x++)
-    if(at(x,y)==='r')set(x,y,'g');
+   if(apples==='none')for(let y=0;y<height;y++)for(let x=0;x<width;x++)
+    if(at(x,y)==='r')put(x,y,'g');
    if(apples==='many')for(const [x,y] of [[5,4],[8,5],[11,7],[5,8]])
-    if(['g','l'].includes(at(x,y)))set(x,y,'r');
-   if(options.hollow==='yes')set(7,12,'k');
-   const leaves=options.color==='O'?['o','y']:options.color==='v'?['v','p']:options.color==='l'?['l','h']:null;
-   if(leaves)for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-    if(at(x,y)==='g')set(x,y,leaves[0]);
-    else if(at(x,y)==='l')set(x,y,leaves[1]);
-   }
+    if(['g','l'].includes(at(x,y)))put(x,y,'r');
+   if(options.hollow==='yes')put(7,12,'k');
   }else{
-   // Pora dnia zmienia spójnie całe światło, wodę i roślinność.
-   // Nie stosujemy pasów na sztywnej wysokości ani flood-fill,
-   // który zatrzymywał się na chmurach i barwił tylko pół nieba.
-   const evening=options.eyes==='evening',night=options.eyes==='night';
-   if(evening||night){
-    const region={medium:10,hard:17,expert:28}[level];
-    const scene={
-     medium:evening?{y:'O',b:'a',l:'g',d:'G',n:'e'}:{y:'h',b:'a',l:'d',d:'G',n:'N'},
-     hard:evening?{o:'O',b:'a',l:'g',d:'g'}:{o:'v',b:'a',l:'d',d:'d',n:'N'},
-     expert:evening?{y:'h',b:'a',g:'l',d:'G'}:{y:'h',b:'a',g:'G',d:'u',n:'N'}
-    }[level];
-    const sky={medium:evening?'c':'u',hard:evening?'t':'u',expert:evening?'t':'u'}[level];
-    const skyBase={medium:'w',hard:'c',expert:'r'}[level];
-    for(let y=0;y<h;y++)for(let x=0;x<w;x++){
-     const src=baseAt(x,y);
-     if(y<region&&src===skyBase)set(x,y,sky);
-     else if(Object.hasOwn(scene,src))set(x,y,scene[src]);
-    }
-   }
-   // Wariant kolorystyczny przestawia akcenty wody, ale nie linie horyzontu.
-   const water={l:'g',v:'v',O:'o'}[options.color];
-   if(water)for(let y=0;y<h;y++)for(let x=0;x<w;x++)
-    if(baseAt(x,y)==='b'&&at(x,y)===(evening||night?'a':'b'))set(x,y,water);
+   // W krajobrazach zawsze zachowujemy zaakceptowaną kolorystykę.
+   // Żadna opcja nie zmienia wody, nieba, drzew ani łąk.
    const extra=options.extra||'none';
-   // Dodatki mogą zmieniać tylko niebo lub łąkę, nigdy słońce bazowe.
-   const skyBase={medium:'w',hard:'c',expert:'r'}[level];
-   const skyHeight={medium:8,hard:10,expert:18}[level];
-   const skyCell=(x,y,color)=>{if(y>=0&&y<skyHeight&&baseAt(x,y)===skyBase)set(x,y,color);};
-   if(extra==='stars')for(const [x,y] of ({medium:[[2,1],[21,1]],hard:[[2,2],[28,2]],expert:[[3,2],[36,3]]}[level]))
-    skyCell(x,y,level==='hard'?'w':night?'h':'y');
+   if(extra==='stars'){
+    const stars={medium:[[1,1],[22,1]],hard:[[2,2],[29,2]],expert:[[3,3],[36,3]]}[level];
+    const blank={medium:'w',hard:'c',expert:'r'}[level];
+    for(const [x,y] of stars)if(at(x,y)===blank)put(x,y,level==='hard'?'w':'y');
+   }
    if(extra==='cloud'){
-    const [x,y]={medium:[15,0],hard:[2,8],expert:[31,6]}[level];
+    // Dodatkowa chmurka: tylko na pustym obszarze nieba, bez słońca.
+    const anchor={medium:[16,1],hard:[2,1],expert:[31,6]}[level];
+    const background={medium:'w',hard:'c',expert:'r'}[level];
+    const ink={medium:'b',hard:'w',expert:'w'}[level];
     for(const [dx,dy] of [[1,0],[2,0],[0,1],[1,1],[2,1],[3,1]])
-     skyCell(x+dx,y+dy,level==='medium'?'b':night?'I':'w');
+     if(at(anchor[0]+dx,anchor[1]+dy)===background)
+      put(anchor[0]+dx,anchor[1]+dy,ink);
    }
    if(extra==='flowers'&&['medium','hard'].includes(level)){
-    const y=level==='medium'?20:32;
-    for(const x of level==='medium'?[4,19]:[5,27]){
-     for(const [dx,dy,color] of (level==='hard'?[[0,0,'o'],[-1,0,'w'],[1,0,'w'],[0,-1,'w']]:[[0,0,'y'],[-1,0,'p'],[1,0,'p'],[0,-1,'p']]))
-      if(['g','l','d','G'].includes(at(x+dx,y+dy)))set(x+dx,y+dy,color);
+    const yy=level==='medium'?20:32;
+    const positions=level==='medium'?[4,19]:[5,27];
+    const petals=level==='medium'?'p':'w',center=level==='medium'?'y':'o';
+    for(const x of positions){
+     for(const [dx,dy,c] of [[0,0,center],[-1,0,petals],[1,0,petals],[0,-1,petals]])
+      if(['g','l','d'].includes(at(x+dx,yy+dy)))put(x+dx,yy+dy,c);
     }
    }
   }
