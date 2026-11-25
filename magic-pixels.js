@@ -35,7 +35,8 @@ const magicDefs={
  landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Cztery zatwierdzone krajobrazy, każdy z własnymi dodatkami',fields:[
   {key:'apples',title:'Jabłka na drzewie',options:[['few','Kilka jabłek','🍎'],['none','Bez jabłek','🌳'],['many','Więcej jabłek','🍎']]},
   {key:'hollow',title:'Dziupla w pniu',options:[['none','Bez dziupli','🌳'],['yes','Dodaj dziuplę','🕳️']]},
-  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Dodatkowe kwiatki','🌼'],['stars','Gwiazdki','✨']]}
+  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Dodatkowe kwiatki','🌼'],['stars','Gwiazdki','✨']]},
+  {key:'bird',title:'Ptaszek nad wodospadem',options:[['none','Bez ptaszka','🌤️'],['yes','Dodaj ptaszka','🐦']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
@@ -264,6 +265,7 @@ function magicRender(){
   if(magicState.category==='landscapes'){
    if(magicState.size==='easy'&&!['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
+   if(magicState.size!=='medium'&&field.key==='bird')continue;
   }
   if(magicState.category==='animals'){
    if(values.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))continue;
@@ -360,8 +362,9 @@ function magicRandomize(){
  do{
   for(const f of d.fields){
    if(magicState.category==='landscapes'){
-    if(magicState.size==='easy'&&!['apples','hollow','color'].includes(f.key))continue;
+    if(magicState.size==='easy'&&!['apples','hollow'].includes(f.key))continue;
     if(magicState.size!=='easy'&&['apples','hollow'].includes(f.key))continue;
+    if(magicState.size!=='medium'&&f.key==='bird')continue;
    }
    if(magicState.category==='animals'&&f.key==='kind')continue;
    if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
