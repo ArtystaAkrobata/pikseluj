@@ -83,7 +83,7 @@ const MagicApprovedRobots=(()=>{
    }
    if(o.extra==='two'){
     const gap=level==='easy'?2:level==='medium'?4:level==='hard'?5:7;
-    const startY=level==='easy'?0:level==='medium'?1:level==='hard'?2:1;
+    const startY=level==='easy'?0:level==='medium'?1:level==='hard'?2:3;
     for(const sign of [-1,1]){
      const x=cx+sign*gap;
      paint(x,startY,'Y');paint(x,startY+1,'K');
