@@ -622,7 +622,7 @@ const MagicApprovedLandscapes=(()=>{
      if(at(x,y)==='')put(x,y,color);
    }
    if(options.bird==='yes'){
-    for(const [x,y] of [[1,1],[2,2],[3,1]])
+    for(const [x,y] of [[13,9],[14,10],[15,9]])
      if(at(x,y)==='.')put(x,y,hue.bird);
    }
   }else{
