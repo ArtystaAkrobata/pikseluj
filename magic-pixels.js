@@ -115,9 +115,9 @@ try{
   localStorage.setItem(stamp,'done');
  }
 }catch{}
-// Nowy wzór Średni 26×26: pokaż oryginał bez starych nakładek.
+// Przy pierwszym uruchomieniu zatwierdzonego wzoru 24×24 wyłącz stare dodatki.
 try{
- const key='pikseluj/magiczne/wodospad-exact-26-20261125';
+ const key='pikseluj/magiczne/wodospad-exact-24-20261125';
  if(localStorage.getItem(key)!=='done'){
   magicState.values.landscapes.extra='none';
   magicState.values.landscapes.bird='none';
@@ -226,9 +226,7 @@ function magicRender(){
  }
  switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
- const variant=magicState.category==='landscapes'&&magicState.size==='medium'
-  ?{...MAGIC_VARIANTS.medium,width:26,height:26}
-  :MAGIC_VARIANTS[magicState.size];
+ const variant=MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
    magicState.category==='monsters' ? '👾 '+MagicApprovedMonsters.names[magicState.size]
    :magicState.category==='animals'&&values.kind==='fox'
@@ -268,7 +266,7 @@ function magicRender(){
   const emoji=document.createElement('span');emoji.className='magic-level-icon';emoji.textContent=levelIcons[key];
   const label=document.createElement('strong');label.textContent=item.label;
   const dimensions=document.createElement('small');
-  dimensions.textContent=(magicState.category==='landscapes'&&key==='medium'?'26 × 26':item.width+' × '+item.height);
+  dimensions.textContent=item.width+' × '+item.height;
   const note=document.createElement('span');note.className='magic-level-note';note.textContent=levelNotes[key];
   button.append(emoji,label,dimensions,note);levels.append(button);
  }
