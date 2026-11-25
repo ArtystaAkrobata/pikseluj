@@ -607,7 +607,7 @@ const MagicApprovedLandscapes=(()=>{
    // Żadna opcja nie zmienia wody, nieba, drzew ani łąk.
    const extra=options.extra||'none';
    if(extra==='stars'){
-    const stars={medium:[[1,1],[22,1]],hard:[[2,2],[29,2]],expert:[[3,3],[36,3]]}[level];
+    const stars={medium:[[1,1],[22,1]],hard:[[2,2],[29,2]],expert:[[18,2],[28,2]]}[level];
     const blank={medium:'w',hard:'c',expert:'r'}[level];
     for(const [x,y] of stars)if(at(x,y)===blank)put(x,y,level==='hard'?'w':'y');
    }
