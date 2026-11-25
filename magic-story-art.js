@@ -633,66 +633,28 @@ const MagicApprovedLandscapes=(()=>{
    // Każdy wariant rozpoczyna się od niezmiennej, zaakceptowanej siatki 32×40.
    const C={sky:'\uE320',sun:'\uE321',white:'\uE322',ink:'\uE323',snow:'\uE324',
     forest:'\uE325',grass:'\uE326',leaf:'\uE327',water:'\uE328',
-    brown:'\uE329',sand:'\uE32A',autumn:'\uE32B',gold:'\uE32C',spring:'\uE32D'};
+    brown:'\uE329',sand:'\uE32A',autumn:'\uE32B',gold:'\uE32C'};
    const original=base('hard');
    const ground=new Set([C.forest,C.grass,C.leaf]);
    // Pierwsza zmiana dotyczy WYŁĄCZNIE zieleni, bez kolorowania rzeki,
    // skał, konturów, śniegu, słońca czy nieba.
    const season=options.season||'summer';
-   if(season!=='summer')for(let y=18;y<height;y++)for(let x=0;x<width;x++){
+   if(season==='autumn')for(let y=18;y<height;y++)for(let x=0;x<width;x++){
     const c=at(x,y);
-    if(season==='autumn'){
-     if(c===C.grass)put(x,y,C.gold);
-     else if(c===C.leaf)put(x,y,C.autumn);
-    }else if(season==='spring'){
-     if(c===C.leaf)put(x,y,C.spring);
-    }
-   }
-   // Drzewa: zachowaj pnie i samą lokalizację. Igły zajmują osobne,
-   // w pełni zdefiniowane kratki na obu brzegach. Nie przecinaj rzeki.
-   if(options.trees==='conifer'){
-    const foliage=season==='autumn'?C.autumn:C.forest;
-    const clear=season==='autumn'?C.gold:C.grass;
-    for(const [x0,x1,y0,y1] of [[0,8,19,27],[26,31,19,27]])
-     for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)
-      if(ground.has(original[y][x])&&at(x,y)!==C.water)put(x,y,clear);
-    const fir=(cx,top,bottom,rad)=>{
-     for(let y=top;y<=bottom;y++){
-      const w=Math.min(rad,Math.floor((y-top+1)/2));
-      for(let x=cx-w;x<=cx+w;x++){
-       if(original[y]?.[x] && ground.has(original[y][x]))put(x,y,foliage);
-      }
-     }
-    };
-    fir(4,19,28,4);fir(29,19,27,2);
+    if(c===C.grass)put(x,y,C.gold);
+    else if(c===C.leaf)put(x,y,C.autumn);
    }
    // Mostek biegnie poprzecznie przez rzekę w środkowej części doliny.
    // Używa istniejących odcieni drewna, nigdy nie zmienia skał w dole.
    if(options.bridge==='wood'){
     for(let x=13;x<=24;x++){
-     if([C.water,C.white,C.forest,C.grass,C.leaf,C.gold,C.spring].includes(at(x,31)))put(x,31,C.brown);
-     if([C.water,C.white,C.forest,C.grass,C.leaf,C.gold,C.spring].includes(at(x,32)))put(x,32,C.sand);
+     if([C.water,C.white,C.forest,C.grass,C.leaf,C.gold].includes(at(x,31)))put(x,31,C.brown);
+     if([C.water,C.white,C.forest,C.grass,C.leaf,C.gold].includes(at(x,32)))put(x,32,C.sand);
     }
     for(const x of [13,24]){
      if(ground.has(original[30][x])||original[30][x]===C.water)put(x,30,C.brown);
     }
     for(const x of [16,19,22])if(at(x,31)===C.brown)put(x,31,C.sand);
-   }
-   // Skały: trzy oddzielne obszary. Tylko ich istniejące kratki są
-   // wymieniane; pień drzewa i brzegi rzeki pozostają w swoich miejscach.
-   if(options.rocks==='none'||options.rocks==='small'){
-    const mode=options.rocks;
-    const areas=[
-     {x0:3,x1:9,y0:36,y1:39,cx:6,cy:38},
-     {x0:19,x1:26,y0:33,y1:38,cx:23,cy:35},
-     {x0:26,x1:31,y0:37,y1:39,cx:29,cy:38}
-    ];
-    for(const a of areas)for(let y=a.y0;y<=a.y1;y++)for(let x=a.x0;x<=a.x1;x++){
-     const old=original[y][x];
-     if(![C.brown,C.sand,C.sky].includes(old))continue;
-     const keep=mode==='small'&&Math.abs(x-a.cx)<=1&&Math.abs(y-a.cy)<=1;
-     if(!keep)put(x,y,old===C.sky?C.water:C.forest);
-    }
    }
    // Ozdoby są osobnymi dodatkami, po wybraniu "bez dodatków" znikają.
    const extra=options.extra||'none';
