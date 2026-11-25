@@ -185,6 +185,8 @@ const MagicPremiumArt=(()=>{
    return MagicApprovedCats.render(level,o);
   if(category==='animals'&&o.kind==='dog'&&typeof MagicApprovedDogs!=='undefined')
    return MagicApprovedDogs.render(level,o);
+  if(category==='animals'&&o.kind==='bunny'&&typeof MagicApprovedBunnies!=='undefined')
+   return MagicApprovedBunnies.render(level,o);
   // Pozostałe zwierzęta — rysunki z natywnych kratek pod kreator.
   if(category==='animals'&&typeof MagicAnimalStudio!=='undefined'&&Object.hasOwn(MagicAnimalStudio.names,o.kind))
    return MagicAnimalStudio.render(o.kind,o,level);
