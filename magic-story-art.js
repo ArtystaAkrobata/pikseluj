@@ -641,7 +641,7 @@ const MagicApprovedLandscapes=(()=>{
      if(at(x,y)===sky)put(x,y,orange);
    }
    if(extra==='flowers'){
-    for(const [x,y] of [[4,33],[5,33],[4,32],[28,33],[27,33],[28,32]])
+    for(const [x,y] of [[9,31],[8,31],[10,31],[9,30],[29,35],[28,35],[30,35],[29,34]])
      if(at(x,y)==='')put(x,y,white);
    }
   }else{
