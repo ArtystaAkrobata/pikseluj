@@ -44,7 +44,16 @@ const magicDefs={
  worlds:{title:'Zamki',emoji:'🏰',desc:'Cztery zamki, własne kolory dachów, murów, flag i bram',fields:[{"key":"roof","title":"Kolor dachów","options":[["original","Oryginalny","🏰"],["blue","Niebieski","🟦"],["red","Czerwony","🟥"],["purple","Fioletowy","🟪"],["green","Zielony","🟩"]]},{"key":"wall","title":"Kolor murów","options":[["original","Oryginalny","🏰"],["sand","Piaskowy","🟫"],["pink","Różowy","🩷"],["blue","Błękitny","🩵"],["gray","Szary","🩶"]]},{"key":"flag","title":"Kolor flag","options":[["original","Oryginalny","🚩"],["red","Czerwony","🟥"],["blue","Niebieski","🟦"],["yellow","Żółty","🟨"],["purple","Fioletowy","🟪"]]},{"key":"gate","title":"Kolor bramy","options":[["original","Oryginalny","🚪"],["brown","Drewniany","🟫"],["gold","Złoty","🟨"],["gray","Stalowy","🩶"]]}]}
 
 };
-const magicFresh=()=>Object.fromEntries(Object.entries(magicDefs).map(([id,def])=>[id,Object.fromEntries(def.fields.map(f=>[f.key,f.options[0][0]]))]));
+function magicOriginalValues(category,kind){
+ const def=magicDefs[category];
+ const values=Object.fromEntries(def.fields.map(field=>[field.key,field.options[0][0]]));
+ if(category==='animals'){
+  if(def.fields[0].options.some(option=>option[0]===kind))values.kind=kind;
+  Object.assign(values,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
+ }
+ return values;
+}
+const magicFresh=()=>Object.fromEntries(Object.keys(magicDefs).map(category=>[category,magicOriginalValues(category)]));
 const magicState={category:null,name:'',size:'medium',values:magicFresh()},magicUndo=[];
 try{
  const saved=JSON.parse(localStorage.getItem(MAGIC_KEY)||'null');
@@ -156,6 +165,35 @@ function magicDefaultName(){
  return 'Mój '+(chosen?chosen[1]:d.title).toLowerCase();
 }
 let magicShowGrid=true;
+// Zmiana wzoru nie przenosi personalizacji z poprzedniego rysunku.
+// Wybrany gatunek zwierzątka pozostaje przy zmianie poziomu, nie jego dodatki.
+function magicResetDrawing(category,kind){
+ if(!Object.hasOwn(magicDefs,category))return;
+ magicState.values[category]=magicOriginalValues(category,kind);
+ magicState.name='';
+ magicShowGrid=true;
+}
+function magicSelectLevel(level){
+ if(!Object.hasOwn(MAGIC_VARIANTS,level)||level===magicState.size)return false;
+ const category=magicState.category;
+ const kind=category==='animals'?magicState.values.animals.kind:undefined;
+ magicHistory();magicState.size=level;
+ if(category)magicResetDrawing(category,kind);
+ return true;
+}
+function magicSelectTrait(key,value){
+ const category=magicState.category;
+ if(!category)return false;
+ const field=magicDefs[category].fields.find(f=>f.key===key);
+ if(!field||!field.options.some(option=>option[0]===value))return false;
+ if(magicState.values[category][key]===value)return false;
+ if(category==='animals'&&magicState.values.animals.kind==='fox'&&['pose','eyes','mouth','extra'].includes(key))return false;
+ magicHistory();
+ if(category==='animals'&&key==='kind')magicResetDrawing(category,value);
+ else magicState.values[category][key]=value;
+ return true;
+}
+
 function magicCelebrate(){
  const art=document.getElementById('magic-art');
  if(!art||magicState.category===null)return;
@@ -173,7 +211,7 @@ function magicCreateButton(className,label){
  return button;
 }
 function magicCategoryPreview(cat,def){
- const first=Object.fromEntries(def.fields.map(field=>[field.key,field.options[0][0]]));
+ const first=magicOriginalValues(cat);
  const rows=cat==='landscapes' ? MagicStoryArt.render(cat,first,'medium') : MagicPremiumArt.render(cat,first,'medium');
  return sprite(readPattern({id:'mini-'+cat,art:rows.join('\n')}));
 }
@@ -350,7 +388,7 @@ function magicOpen(){magicRender();magicMessage('')}
 function magicChoose(category){
  if(!Object.hasOwn(magicDefs,category))return;
  const firstEntry=!magicState.category;
- magicHistory();magicState.category=category;magicState.name='';magicShowGrid=true;
+ magicHistory();magicState.category=category;magicResetDrawing(category);
  magicPersist();magicRender();magicMessage('');
  if(firstEntry&&window.matchMedia('(max-width:859px)').matches){
   // Po wybraniu przygody pokaż cały edytor, nie nagłówek daleko nad obrazkiem.
@@ -453,20 +491,7 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
  if(!button||!magicState.category)return;
  const field=magicDefs[magicState.category].fields.find(field=>field.key===button.dataset.field);
  if(!field||!field.options.some(option=>option[0]===button.dataset.option))return;
- if(magicState.category==='animals'&&magicState.values.animals.kind==='fox'&&['pose','eyes','mouth','extra'].includes(field.key))return;
- if(magicState.values[magicState.category][field.key]===button.dataset.option)return;
- magicHistory();
- magicState.values[magicState.category][field.key]=button.dataset.option;
- if(magicState.category==='animals'&&field.key==='kind'&&button.dataset.option==='cat'){
-  // Nowa postać zaczyna w zaakceptowanej wersji. Dalej można ją dowolnie edytować.
-  Object.assign(magicState.values.animals,{eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural'});
-  magicState.name='';
- }
- if(magicState.category==='animals'&&field.key==='kind'&&button.dataset.option==='fox'){
-  magicState.values.animals.color='natural';
-  magicState.values.animals.scene=magicState.size==='easy'?'none':'stars';
-  magicState.name='';
- }
+ if(!magicSelectTrait(field.key,button.dataset.option))return;
  // Zmiana oczu/koloru nie kasuje nazwy wpisanej przez dziecko.
  magicPersist();magicRender();magicMessage('');magicCelebrate();
  const matching=document.querySelector('#magic-fields button[data-field="'+field.key+'"][data-option="'+button.dataset.option+'"]');
@@ -475,8 +500,7 @@ document.getElementById('magic-fields').addEventListener('click',event=>{
 document.getElementById('magic-levels').addEventListener('click',event=>{
  const button=event.target.closest('button[data-level]');
  if(!button||!Object.hasOwn(MAGIC_VARIANTS,button.dataset.level))return;
- if(button.dataset.level===magicState.size)return;
- magicHistory();magicState.size=button.dataset.level;
+ if(!magicSelectLevel(button.dataset.level))return;
  magicPersist();magicRender();magicMessage('');magicCelebrate();
  const matching=document.querySelector('#magic-levels button[data-level="'+button.dataset.level+'"]');
  matching?.focus({preventScroll:true});
@@ -490,16 +514,15 @@ document.getElementById('magic-fields').addEventListener('change',event=>{
  if(!magicState.category||!key)return;
  const f=magicDefs[magicState.category].fields.find(item=>item.key===key);
  if(!f||!f.options.some(item=>item[0]===event.target.value))return;
- magicHistory();magicState.values[magicState.category][key]=event.target.value;
- magicState.name='';magicPersist();magicRender();magicMessage('');
+ if(!magicSelectTrait(key,event.target.value))return;
+ magicPersist();magicRender();magicMessage('');
 });
 document.getElementById('magic-name').addEventListener('input',event=>{
  magicState.name=event.target.value.slice(0,42);magicPersist();
 });
 document.getElementById('magic-size').addEventListener('change',event=>{
  const size=event.target.value;
- if(!Object.hasOwn(MAGIC_VARIANTS,size)||size===magicState.size)return;
- magicHistory();magicState.size=size;
+ if(!magicSelectLevel(size))return;
  magicPersist();magicRender();magicMessage('Wybrano: '+MAGIC_VARIANTS[size].label+'.');
 });
 const magicBestSets={
