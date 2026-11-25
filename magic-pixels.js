@@ -125,6 +125,15 @@ try{
   localStorage.setItem(key,'done');
  }
 }catch{}
+// Nowy oryginalny krajobraz średni: bez wcześniejszych dekoracji.
+try{
+ const token='pikseluj/magiczne/wodospad-z-obrazka-26x26-v1';
+ if(localStorage.getItem(token)!=='done'){
+  magicState.values.landscapes.extra='none';
+  magicState.values.landscapes.bird='none';
+  localStorage.setItem(token,'done');
+ }
+}catch{}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -226,7 +235,9 @@ function magicRender(){
  }
  switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
- const variant=MAGIC_VARIANTS[magicState.size];
+ const variant=magicState.category==='landscapes'&&magicState.size==='medium'
+  ?{...MAGIC_VARIANTS.medium,width:26,height:26}
+  :MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
    magicState.category==='monsters' ? '👾 '+MagicApprovedMonsters.names[magicState.size]
    :magicState.category==='animals'&&values.kind==='fox'
@@ -266,7 +277,8 @@ function magicRender(){
   const emoji=document.createElement('span');emoji.className='magic-level-icon';emoji.textContent=levelIcons[key];
   const label=document.createElement('strong');label.textContent=item.label;
   const dimensions=document.createElement('small');
-  dimensions.textContent=item.width+' × '+item.height;
+  dimensions.textContent=magicState.category==='landscapes'&&key==='medium'
+   ?'26 × 26':item.width+' × '+item.height;
   const note=document.createElement('span');note.className='magic-level-note';note.textContent=levelNotes[key];
   button.append(emoji,label,dimensions,note);levels.append(button);
  }
