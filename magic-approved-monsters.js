@@ -129,9 +129,9 @@ const MagicApprovedMonsters=(()=>{
    const cx=level==='easy'?8:12;
    if(kind==='bow'){
     for(const [dx,dy] of [[-3,-1],[-2,-1],[2,-1],[3,-1],[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[-2,1],[2,1]])
-     put(g,cx+dx,level==='easy'?5+dy:4+dy,p.pink);
-    put(g,cx,level==='easy'?5:4,p.yellow);
-    for(const dx of [-4,4])put(g,cx+dx,level==='easy'?5:4,p.ink);
+     put(g,cx+dx,5+dy,p.pink);
+    put(g,cx,5,p.yellow);
+    for(const dx of [-4,4])put(g,cx+dx,5,p.ink);
    }else if(kind==='star'){
     insignia(g,cx,level==='easy'?3:4,'star',p);
     put(g,cx-2,level==='easy'?5:6,p.ink);
