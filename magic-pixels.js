@@ -306,6 +306,8 @@ function magicRender(){
   ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
   :magicState.category==='animals'&&values.kind==='cat'
   ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
+  :magicState.category==='animals'&&values.kind==='dog'
+  ?{easy:'Psia główka',medium:'Corgi z łapkami',hard:'Siedzący corgi',expert:'Corgi z ogonem'}
   :magicState.category==='robots'
   ?{easy:'Błękitek',medium:'Błękitek 2.0',hard:'TurboBot',expert:'MECHA NOVA'}
   :magicState.category==='landscapes'

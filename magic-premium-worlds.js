@@ -183,7 +183,9 @@ const MagicPremiumArt=(()=>{
   // Kotki zaakceptowane przez użytkownika: cztery dokładne tablice, bez rysowania z geometrii.
   if(category==='animals'&&o.kind==='cat'&&typeof MagicApprovedCats!=='undefined')
    return MagicApprovedCats.render(level,o);
-  // Kotek, piesek, króliczek i sówka — rysunki z natywnych kratek pod kreator.
+  if(category==='animals'&&o.kind==='dog'&&typeof MagicApprovedDogs!=='undefined')
+   return MagicApprovedDogs.render(level,o);
+  // Pozostałe zwierzęta — rysunki z natywnych kratek pod kreator.
   if(category==='animals'&&typeof MagicAnimalStudio!=='undefined'&&Object.hasOwn(MagicAnimalStudio.names,o.kind))
    return MagicAnimalStudio.render(o.kind,o,level);
   // Cztery niezależne, zaakceptowane kompozycje liska — poziom decyduje o pozie.
