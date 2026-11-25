@@ -238,7 +238,10 @@ function magicRender(){
  }
  switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
- const variant=magicState.category==='landscapes'&&magicState.size==='medium'
+ const approvedCastle=magicState.category==='worlds'&&values.kind==='castle';
+ const variant=approvedCastle&&magicState.size==='hard'
+  ?{...MAGIC_VARIANTS.hard,height:32}
+  :magicState.category==='landscapes'&&magicState.size==='medium'
   ?{...MAGIC_VARIANTS.medium,width:26,height:26}
   :MAGIC_VARIANTS[magicState.size];
  document.getElementById('magic-category-name').textContent=
@@ -262,7 +265,9 @@ function magicRender(){
  const levels=document.getElementById('magic-levels');
  levels.replaceChildren();
  const levelIcons={easy:'🌱',medium:'🌈',hard:'🔥',expert:'👑'};
- const levelNotes=magicState.category==='animals'&&values.kind==='fox'
+ const levelNotes=approvedCastle
+  ?{easy:'Bajkowy zamek',medium:'Trzy wieże',hard:'Cztery flagi',expert:'Niebieska twierdza'}
+  :magicState.category==='animals'&&values.kind==='fox'
   ?{easy:'Główka',medium:'Lisek przodem',hard:'Duży ogon',expert:'Profil + motylek'}
   :magicState.category==='animals'&&values.kind==='cat'
   ?{easy:'Kocia główka',medium:'Szary kotek',hard:'Złote oczy i dzwoneczek',expert:'Kotek Czarodziej'}
@@ -280,7 +285,7 @@ function magicRender(){
   const emoji=document.createElement('span');emoji.className='magic-level-icon';emoji.textContent=levelIcons[key];
   const label=document.createElement('strong');label.textContent=item.label;
   const dimensions=document.createElement('small');
-  dimensions.textContent=magicState.category==='landscapes'&&key==='medium'
+  dimensions.textContent=approvedCastle&&key==='hard'?'32 × 32':magicState.category==='landscapes'&&key==='medium'
    ?'26 × 26':item.width+' × '+item.height;
   const note=document.createElement('span');note.className='magic-level-note';note.textContent=levelNotes[key];
   button.append(emoji,label,dimensions,note);levels.append(button);
@@ -288,6 +293,7 @@ function magicRender(){
  const fields=document.getElementById('magic-fields');
  fields.replaceChildren();
  for(const field of def.fields){
+  if(approvedCastle&&field.key!=='kind')continue;
   if(magicState.category==='landscapes'){
    if(magicState.size==='easy'&&!['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
