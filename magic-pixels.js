@@ -32,12 +32,10 @@ const magicDefs={
   {key:'scene',title:'Dekoracje wokół robota',options:[['none','Bez dekoracji','☁️'],['stars','Energia','⚡'],['hearts','Serduszka','💕']]},
   {key:'color',title:'Kolor obudowy',options:[['b','Błękitny','🩵'],['v','Fioletowy','💜'],['p','Różowy','🩷'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
  ]},
- landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Cztery dopracowane krajobrazy, po jednym na poziom',fields:[
+ landscapes:{title:'Krajobrazy',emoji:'🏞️',desc:'Cztery zatwierdzone krajobrazy, każdy z własnymi dodatkami',fields:[
   {key:'apples',title:'Jabłka na drzewie',options:[['few','Kilka jabłek','🍎'],['none','Bez jabłek','🌳'],['many','Więcej jabłek','🍎']]},
   {key:'hollow',title:'Dziupla w pniu',options:[['none','Bez dziupli','🌳'],['yes','Dodaj dziuplę','🕳️']]},
-  {key:'eyes',title:'Pora dnia',options:[['day','Oryginalna sceneria','☀️'],['evening','Ciepłe światło','🌅'],['night','Wieczorny klimat','🌙']]},
-  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Kwiatki','🌼'],['stars','Gwiazdki','✨']]},
-  {key:'color',title:'Wariant kolorystyczny',options:[['b','Oryginalne kolory','🎨'],['l','Zielony','💚'],['v','Fioletowy','💜'],['O','Ciepły','🧡']]}
+  {key:'extra',title:'Dodatki do krajobrazu',options:[['none','Bez dodatków','🌤️'],['cloud','Dodatkowa chmurka','☁️'],['flowers','Dodatkowe kwiatki','🌼'],['stars','Gwiazdki','✨']]}
  ]},
  worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
@@ -105,6 +103,17 @@ try{
   localStorage.setItem(version,'done');
  }
 }catch{magicState.values.landscapes.extra='none';}
+// Krajobrazy: zatwierdzona kolorystyka bez nieudanych przeróbek wody.
+try{
+ const stamp='pikseluj/magiczne/landscapes-original-only-20261125';
+ if(localStorage.getItem(stamp)!=='done'){
+  magicState.values.landscapes.extra='none';
+  magicState.values.landscapes.apples='few';
+  magicState.values.landscapes.hollow='none';
+  magicState.name=magicState.category==='landscapes'?'':magicState.name;
+  localStorage.setItem(stamp,'done');
+ }
+}catch{}
 const magicSnapshot=()=>({category:magicState.category,name:magicState.name,size:magicState.size,values:JSON.parse(JSON.stringify(magicState.values))});
 function magicHistory(){magicUndo.push(magicSnapshot());if(magicUndo.length>20)magicUndo.shift()}
 function magicPersist(){try{localStorage.setItem(MAGIC_KEY,JSON.stringify(magicSnapshot()))}catch{/* bez zapisu */}}
@@ -253,7 +262,7 @@ function magicRender(){
  fields.replaceChildren();
  for(const field of def.fields){
   if(magicState.category==='landscapes'){
-   if(magicState.size==='easy'&&!['apples','hollow','color'].includes(field.key))continue;
+   if(magicState.size==='easy'&&!['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
   }
   if(magicState.category==='animals'){
