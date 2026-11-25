@@ -274,7 +274,9 @@ function magicRender(){
  switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
  const approvedCastle=magicState.category==='worlds';
- const variant=approvedCastle&&magicState.size==='hard'
+ const variant=magicState.category==='animals'&&values.kind==='bunny'&&magicState.size==='easy'&&values.extra==='scarf'
+  ?{...MAGIC_VARIANTS.easy,height:17}
+  :approvedCastle&&magicState.size==='hard'
   ?{...MAGIC_VARIANTS.hard,height:32}
   :magicState.category==='landscapes'&&magicState.size==='medium'
   ?{...MAGIC_VARIANTS.medium,width:26,height:26}

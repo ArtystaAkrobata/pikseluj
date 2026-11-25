@@ -32,7 +32,11 @@ function render(level='medium',options={}){
  }
  const motifs={bow:[[-2,-1],[-1,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[2,1]],flower:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],star:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],heart:[[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1]],crown:[[-2,-1],[0,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0]],scarf:[[-2,0],[-1,0],[0,0],[1,0],[2,0],[1,1],[1,2]]};
  const stamp=(kind,[x,y])=>{for(const [dx,dy] of motifs[kind]||[])put(x+dx,y+dy,kind==='star'||kind==='crown'||((kind==='bow'||kind==='flower')&&dx===0&&dy===0)?accents.yellow:kind==='scarf'||kind==='heart'?accents.red:accents.pink);};
- if(o.extra!=='none')stamp(o.extra,o.extra==='crown'?pos.crown:o.extra==='scarf'?pos.neck:pos.ear);
+ if(level==='easy'&&o.extra==='scarf'){
+  // Czerwony szalik pod brodą, zgodnie z zaznaczonymi kratkami (8 + 1).
+  for(let x=4;x<=11;x++)put(x,15,accents.red);
+  const tail=Array(w).fill('.');tail[9]=accents.red;g.push(tail);
+ }else if(o.extra!=='none')stamp(o.extra,o.extra==='crown'?pos.crown:o.extra==='scarf'?pos.neck:pos.ear);
  const motif={stars:'star',flowers:'flower',hearts:'heart'}[o.scene];
  if(motif){let placed=false;const fits=([x,y])=>motifs[motif].every(([dx,dy])=>g[y+dy]?.[x+dx]===bg);
  for(const pt of pos.scene)if(fits(pt)){stamp(motif,pt);placed=true;}
