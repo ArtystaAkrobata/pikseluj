@@ -1058,6 +1058,20 @@ Object.assign(colors,MagicApprovedMonsters.palette);
 Object.assign(colors,MagicApprovedCats.palette);
 Object.assign(colors,MagicApprovedRobots.palette);
 
+// Paleta wodospadu Krajobrazy / Średni — unikatowe znaki w Private Use Area.
+// Pozostałe kategorie nie mogą już nadpisywać tych ośmiu kolorów.
+Object.assign(colors,{
+ '\uE310':['#71DB2A','Jasnozielony – trawa i liście'],
+ '\uE311':['#B4582A','Brązowy – skarpa'],
+ '\uE312':['#00A8FE','Niebieski – chmury i wodospad'],
+ '\uE313':['#FFD31C','Żółty – słońce i kwiaty'],
+ '\uE314':['#018932','Ciemnozielony – korony drzew'],
+ '\uE315':['#C4C3C3','Szary – skały'],
+ '\uE316':['#F46EAC','Różowy – kwiaty'],
+ '\uE317':['#8D3A0B','Ciemnobrązowy – pnie']
+});
+
+
 const patterns = [
   { id:"piksel-kotek", name:"Kotek", group:"zwierzaki", bg:"#fef3e7", revision:6, credit:"Autorski wzór Pikseluj", art:`
     .......kk.........k......
