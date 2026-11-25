@@ -41,7 +41,7 @@ const magicDefs={
   {key:'bridge',title:'Mostek nad rzeką',options:[['none','Bez mostku','🌊'],['wood','Drewniany mostek','🪵']]}
 
  ]},
- worlds:{title:'Zamki i bajkowe światy',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
+ worlds:{title:'Zamki',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
   {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
   {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Zachód słońca','🌅'],['night','Noc z gwiazdami','🌙']]},
   {key:'extra',title:'Niebo i dekoracje',options:[['cloud','Chmurki','☁️'],['stars','Gwiazdy','✨'],['hearts','Serduszka','💕'],['none','Bez ozdób','🌤️']]},
