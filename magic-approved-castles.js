@@ -1,5 +1,5 @@
 'use strict';
-/* Cztery zaakceptowane zamki. Jeden znak = jedna kratka. Bez skalowania i dodatkowych ozdób. */
+/* Cztery zaakceptowane zamki, niezależne maski dachów, murów, flag i bram. */
 const MagicApprovedCastles=(()=>{
  const rows={
   "easy": [
@@ -275,9 +275,180 @@ const MagicApprovedCastles=(()=>{
   "": [
     "#C17B4A",
     "Jasny brąz"
+  ],
+  "": [
+    "#4389C7",
+    "Niebieski – dach"
+  ],
+  "": [
+    "#286199",
+    "Niebieski – dach (odcień 2)"
+  ],
+  "": [
+    "#E55737",
+    "Czerwony – dach"
+  ],
+  "": [
+    "#A83A2B",
+    "Czerwony – dach (odcień 2)"
+  ],
+  "": [
+    "#9361C5",
+    "Fioletowy – dach"
+  ],
+  "": [
+    "#633C92",
+    "Fioletowy – dach (odcień 2)"
+  ],
+  "": [
+    "#459D79",
+    "Zielony – dach"
+  ],
+  "": [
+    "#276B51",
+    "Zielony – dach (odcień 2)"
+  ],
+  "": [
+    "#D5C5A5",
+    "Piaskowy – mur"
+  ],
+  "": [
+    "#A49A85",
+    "Piaskowy – mur (odcień 2)"
+  ],
+  "": [
+    "#F5E8CA",
+    "Piaskowy – mur (odcień 3)"
+  ],
+  "": [
+    "#C2AE89",
+    "Piaskowy – mur (odcień 4)"
+  ],
+  "": [
+    "#F2B7CE",
+    "Różowy – mur"
+  ],
+  "": [
+    "#BE819F",
+    "Różowy – mur (odcień 2)"
+  ],
+  "": [
+    "#FBE5ED",
+    "Różowy – mur (odcień 3)"
+  ],
+  "": [
+    "#D99DB9",
+    "Różowy – mur (odcień 4)"
+  ],
+  "": [
+    "#A8C4E9",
+    "Niebieski – mur"
+  ],
+  "": [
+    "#7189B2",
+    "Niebieski – mur (odcień 2)"
+  ],
+  "": [
+    "#D8F0F8",
+    "Niebieski – mur (odcień 3)"
+  ],
+  "": [
+    "#89A7D4",
+    "Niebieski – mur (odcień 4)"
+  ],
+  "": [
+    "#C8CED3",
+    "Szary – mur"
+  ],
+  "": [
+    "#8B979F",
+    "Szary – mur (odcień 2)"
+  ],
+  "": [
+    "#F2F5F7",
+    "Szary – mur (odcień 3)"
+  ],
+  "": [
+    "#A7B1BA",
+    "Szary – mur (odcień 4)"
+  ],
+  "": [
+    "#E44C4C",
+    "Czerwony – flaga"
+  ],
+  "": [
+    "#FF8471",
+    "Czerwony – flaga (odcień 2)"
+  ],
+  "": [
+    "#2867D0",
+    "Niebieski – flaga"
+  ],
+  "": [
+    "#77B4FF",
+    "Niebieski – flaga (odcień 2)"
+  ],
+  "": [
+    "#E7B62F",
+    "Żółty – flaga"
+  ],
+  "": [
+    "#FFE285",
+    "Żółty – flaga (odcień 2)"
+  ],
+  "": [
+    "#9358C8",
+    "Fioletowy – flaga"
+  ],
+  "": [
+    "#D0A5F7",
+    "Fioletowy – flaga (odcień 2)"
+  ],
+  "": [
+    "#875139",
+    "Brązowy – brama"
+  ],
+  "": [
+    "#C17B4A",
+    "Brązowy – brama (odcień 2)"
+  ],
+  "": [
+    "#D68B36",
+    "Złoty – brama"
+  ],
+  "": [
+    "#F5BC65",
+    "Złoty – brama (odcień 2)"
+  ],
+  "": [
+    "#616A75",
+    "Szary – brama"
+  ],
+  "": [
+    "#A4AFB9",
+    "Szary – brama (odcień 2)"
   ]
 };
  const dims={"easy":[16,16],"medium":[24,24],"hard":[32,32],"expert":[40,56]};
- function render(level='medium'){return (rows[level]||rows.medium).slice();}
+ const roleMap={"easy":{"0":["roof",0],"1":["wall",0],"3":["flag",0]},"medium":{"5":["roof",0],"6":["wall",0],"7":["wall",1],"8":["gate",0]},"hard":{"12":["roof",0],"13":["roof",1],"14":["wall",0],"15":["wall",1],"17":["gate",0],"18":["gate",1]},"expert":{"22":["roof",0],"23":["roof",1],"24":["wall",1],"25":["wall",0],"26":["wall",2],"27":["wall",3],"30":["flag",0],"31":["flag",1],"32":["gate",0],"33":["gate",1]}};
+ const replacements={"roof":{"blue":["",""],"red":["",""],"purple":["",""],"green":["",""]},"wall":{"sand":["","","",""],"pink":["","","",""],"blue":["","","",""],"gray":["","","",""]},"flag":{"red":["",""],"blue":["",""],"yellow":["",""],"purple":["",""]},"gate":{"brown":["",""],"gold":["",""],"gray":["",""]}};
+ function pixelRole(level,cell,x,y){
+ const n=cell.charCodeAt(0)-0xe400;
+ if(level==='easy'&&n===2&&y>=12)return ["gate",0];
+ if(level==='medium'&&n===5&&(y<=1||((y===6||y===7)&&(x<8||x>=18))))return ["flag",0];
+ if(level==='hard'&&n===12&&(y===1||y===3||y===5||(y===9&&x>=27)))return ["flag",0];
+ // Złote obramowanie górnego okna pozostaje oryginalne.
+ if(level==='hard'&&(n===17||n===18)&&y<25)return null;
+ return roleMap[level]?.[n]||null;
+}
+ function render(level='medium',options={}){
+ if(!Object.hasOwn(rows,level))level='medium';
+ return rows[level].map((row,y)=>[...row].map((cell,x)=>{
+  const role=pixelRole(level,cell,x,y);
+  if(!role)return cell;
+  const [kind,shade]=role;
+  return replacements[kind]?.[options[kind]]?.[shade]||cell;
+ }).join(''));
+}
  return Object.freeze({render,palette,dims});
 })();

@@ -41,12 +41,8 @@ const magicDefs={
   {key:'bridge',title:'Mostek nad rzeką',options:[['none','Bez mostku','🌊'],['wood','Drewniany mostek','🪵']]}
 
  ]},
- worlds:{title:'Zamki',emoji:'🏰',desc:'Zamki, lasy, tajemnicze domki i morza',fields:[
-  {key:'kind',title:'Wybierz krainę',options:[['castle','Magiczny zamek','🏰'],['forest','Leśna bajka','🍄'],['garden','Bajkowy domek','🏡'],['sea','Latarnia morska','🌊']]},
-  {key:'eyes',title:'Pora dnia',options:[['day','Słoneczny dzień','☀️'],['evening','Zachód słońca','🌅'],['night','Noc z gwiazdami','🌙']]},
-  {key:'extra',title:'Niebo i dekoracje',options:[['cloud','Chmurki','☁️'],['stars','Gwiazdy','✨'],['hearts','Serduszka','💕'],['none','Bez ozdób','🌤️']]},
-  {key:'color',title:'Kolor głównego obiektu',options:[['v','Fioletowy','💜'],['p','Różowy','🩷'],['b','Błękitny','🩵'],['l','Zielony','💚'],['O','Pomarańczowy','🧡']]}
- ]}
+ worlds:{title:'Zamki',emoji:'🏰',desc:'Cztery zamki, własne kolory dachów, murów, flag i bram',fields:[{"key":"roof","title":"Kolor dachów","options":[["original","Oryginalny","🏰"],["blue","Niebieski","🟦"],["red","Czerwony","🟥"],["purple","Fioletowy","🟪"],["green","Zielony","🟩"]]},{"key":"wall","title":"Kolor murów","options":[["original","Oryginalny","🏰"],["sand","Piaskowy","🟫"],["pink","Różowy","🩷"],["blue","Błękitny","🩵"],["gray","Szary","🩶"]]},{"key":"flag","title":"Kolor flag","options":[["original","Oryginalny","🚩"],["red","Czerwony","🟥"],["blue","Niebieski","🟦"],["yellow","Żółty","🟨"],["purple","Fioletowy","🟪"]]},{"key":"gate","title":"Kolor bramy","options":[["original","Oryginalny","🚪"],["brown","Drewniany","🟫"],["gold","Złoty","🟨"],["gray","Stalowy","🩶"]]}]}
+
 };
 const magicFresh=()=>Object.fromEntries(Object.entries(magicDefs).map(([id,def])=>[id,Object.fromEntries(def.fields.map(f=>[f.key,f.options[0][0]]))]));
 const magicState={category:null,name:'',size:'medium',values:magicFresh()},magicUndo=[];
@@ -148,6 +144,7 @@ function magicRows(){
 }
 function magicDefaultName(){
  if(!magicState.category)return 'Mój magiczny wzór';
+ if(magicState.category==='worlds')return 'Mój magiczny zamek';
  if(magicState.category==='landscapes')return MagicApprovedLandscapes.names[magicState.size]||'Krajobraz';
  const d=magicDefs[magicState.category],o=magicState.values[magicState.category];
  if(magicState.category==='monsters'&&typeof MagicApprovedMonsters!=='undefined')return MagicApprovedMonsters.names[magicState.size];
@@ -238,7 +235,7 @@ function magicRender(){
  }
  switcher.append(switchTitle,switchList);
  const def=magicDefs[magicState.category],values=magicState.values[magicState.category];
- const approvedCastle=magicState.category==='worlds'&&values.kind==='castle';
+ const approvedCastle=magicState.category==='worlds';
  const variant=approvedCastle&&magicState.size==='hard'
   ?{...MAGIC_VARIANTS.hard,height:32}
   :magicState.category==='landscapes'&&magicState.size==='medium'
@@ -293,7 +290,6 @@ function magicRender(){
  const fields=document.getElementById('magic-fields');
  fields.replaceChildren();
  for(const field of def.fields){
-  if(approvedCastle&&field.key!=='kind')continue;
   if(magicState.category==='landscapes'){
    if(magicState.size==='easy'&&!['apples','hollow'].includes(field.key))continue;
    if(magicState.size!=='easy'&&['apples','hollow'].includes(field.key))continue;
@@ -545,15 +541,18 @@ const magicBestSets={
   {eyes:'day',extra:'none',color:'v'}
  ],
  worlds:[
-  {kind:'castle',eyes:'night',extra:'stars',color:'v'},
-  {kind:'forest',eyes:'evening',extra:'cloud',color:'l'},
-  {kind:'garden',eyes:'day',extra:'hearts',color:'p'},
-  {kind:'sea',eyes:'night',extra:'stars',color:'b'}
+  {roof:'blue',wall:'sand',flag:'red',gate:'brown'},
+  {roof:'purple',wall:'pink',flag:'yellow',gate:'gold'},
+  {roof:'green',wall:'gray',flag:'blue',gate:'brown'}
  ]
 };
 function magicSuper(){
  if(!magicState.category)return;
  const category=magicState.category;
+ if(category==='worlds'){
+  magicHistory();Object.assign(magicState.values.worlds,{roof:'original',wall:'original',flag:'original',gate:'original'});
+  magicPersist();magicRender();magicMessage('🏰 Przywrócono oryginalny zamek.');magicCelebrate();return;
+ }
  if(category==='animals'&&magicState.values.animals.kind==='fox'){
   const o=magicState.values.animals;
   const curated={
