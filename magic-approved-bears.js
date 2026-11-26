@@ -25,7 +25,7 @@ function render(level='medium',options={}){
  }
  const motifs={bow:[[-2,-1],[-1,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[2,1]],flower:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],star:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],heart:[[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1]],crown:[[-2,-1],[0,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0]],scarf:[[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[2,1],[2,2]]};
  const stamp=(kind,[x,y])=>{for(const [dx,dy] of motifs[kind]||[])put(x+dx,y+dy,kind==='star'||kind==='crown'||((kind==='bow'||kind==='flower')&&dx===0&&dy===0)?a.yellow:kind==='scarf'||kind==='heart'?a.red:a.pink);};
- if(o.extra!=='none')stamp(o.extra,o.extra==='crown'?m.crown:o.extra==='scarf'?m.neck:m.ear);
+ if(o.extra!=='none'&&!(level==='expert'&&o.extra==='scarf'))stamp(o.extra,o.extra==='crown'?m.crown:o.extra==='scarf'?m.neck:m.ear);
  const motif={stars:'star',flowers:'flower',hearts:'heart'}[o.scene];
  if(motif){const fits=([x,y])=>motifs[motif].every(([dx,dy])=>g[y+dy]?.[x+dx]==='.');let n=0;for(const pt of m.scene)if(fits(pt)){stamp(motif,pt);n++;}if(!n)outer:for(let y=1;y<h-1;y++)for(let x=1;x<w-1;x++)if(fits([x,y])){stamp(motif,[x,y]);break outer;}}
  const tint=tintLookup[o.color],keys={easy:['B',null,null,null],medium:['B','S',null,'T'],hard:['B','S','D','T'],expert:['B','S','D','T']}[level];

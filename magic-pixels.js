@@ -186,6 +186,7 @@ function magicSelectTrait(key,value){
  if(!category)return false;
  const field=magicDefs[category].fields.find(f=>f.key===key);
  if(!field||!field.options.some(option=>option[0]===value))return false;
+ if(category==='animals'&&magicState.values.animals.kind==='bear'&&magicState.size==='expert'&&key==='extra'&&value==='scarf')return false;
  if(magicState.values[category][key]===value)return false;
  if(category==='animals'&&magicState.values.animals.kind==='fox'&&(key==='pose'||magicState.size==='easy'&&['eyes','mouth','extra'].includes(key)))return false;
  magicHistory();
@@ -359,7 +360,8 @@ function magicRender(){
   if(isColor)choices.classList.add('magic-color-choices');
   for(const [key,label,emoji] of field.options){
    if(magicState.category==='landscapes'&&field.key==='extra'&&magicState.size==='expert'&&key==='flowers')continue;
-   const selected=values[field.key]===key;
+   if(magicState.category==='animals'&&values.kind==='bear'&&magicState.size==='expert'&&field.key==='extra'&&key==='scarf')continue;
+   const selected=values[field.key]===key||(magicState.category==='animals'&&values.kind==='bear'&&magicState.size==='expert'&&field.key==='extra'&&values.extra==='scarf'&&key==='none');
    const button=magicCreateButton('magic-choice'+(isColor?' magic-color-choice':'')+(selected?' is-selected':''),undefined);
    button.dataset.field=field.key;button.dataset.option=key;
    button.setAttribute('aria-pressed',String(selected));
@@ -447,7 +449,9 @@ function magicRandomize(){
    if(magicState.category==='animals'&&['kind','pose'].includes(f.key))continue;
    if(magicState.size==='easy'&&f.key==='scene'&&!['monsters','animals','robots'].includes(magicState.category))continue;
    if(magicState.category==='worlds'&&magicState.size==='easy'&&['eyes','extra'].includes(f.key))continue;
-   const choices=magicState.category==='landscapes'&&f.key==='extra'&&magicState.size==='expert'
+   const choices=magicState.category==='animals'&&v.kind==='bear'&&magicState.size==='expert'&&f.key==='extra'
+    ?f.options.filter(option=>option[0]!=='scarf')
+    :magicState.category==='landscapes'&&f.key==='extra'&&magicState.size==='expert'
     ?f.options.filter(option=>option[0]!=='flowers'):f.options;
    v[f.key]=choices[Math.floor(Math.random()*choices.length)][0];
   }
