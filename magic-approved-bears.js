@@ -16,7 +16,7 @@ function render(level='medium',options={}){
   const x=Math.floor((x0+x1)/2),y=Math.floor((y0+y1)/2);
   for(let yy=y0;yy<=y1;yy++)for(let xx=x0;xx<=x1;xx++)if(['K','D','S','C'].includes(g[yy][xx]))put(xx,yy,'B');
   if(o.eyes==='happy'||o.eyes==='wink'&&j===1){put(x,y-1,'K');put(x-1,y,'K');put(x+1,y,'K');}
-  else{const dy=level==='easy'&&o.eyes==='wink'&&j===0?-1:0;for(let yy=y0;yy<=Math.max(y0+1,y1);yy++)for(let xx=x0;xx<=Math.max(x0+1,x1);xx++)put(xx,yy+dy,'K');put(x0,y0+dy,a.white);}
+  else{const dy=level==='easy'&&(o.eyes==='round'||(o.eyes==='wink'&&j===0))?-1:0;for(let yy=y0;yy<=Math.max(y0+1,y1);yy++)for(let xx=x0;xx<=Math.max(x0+1,x1);xx++)put(xx,yy+dy,'K');put(x0,y0+dy,a.white);}
  }
  if(o.mouth!=='smile'){
   const [x0,x1,y0,y1]=m.mouth,x=Math.floor((x0+x1)/2),y=Math.floor((y0+y1)/2);
