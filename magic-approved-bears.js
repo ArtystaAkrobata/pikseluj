@@ -21,7 +21,7 @@ function render(level='medium',options={}){
  if(o.mouth!=='smile'){
   const [x0,x1,y0,y1]=m.mouth,x=Math.floor((x0+x1)/2),y=Math.floor((y0+y1)/2);
   if(o.mouth==='tongue'){put(x,y,'K');put(x,y+1,a.pink);if(x1>x0)put(x+1,y+1,a.pink);}
-  else{put(x,y-1,'K');put(x-1,y,'K');put(x,y,'K');put(x+1,y,'K');put(x,y+1,'K');if(level!=='easy')put(x,y,'C');}
+  else{const dx=level==='hard'&&o.mouth==='surprised'?1:0,dy=level==='hard'&&o.mouth==='surprised'?3:0;put(x+dx,y-1+dy,'K');put(x-1+dx,y+dy,'K');put(x+dx,y+dy,'K');put(x+1+dx,y+dy,'K');put(x+dx,y+1+dy,'K');if(level!=='easy')put(x+dx,y+dy,'C');}
  }
  const motifs={bow:[[-2,-1],[-1,-1],[1,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0],[-2,1],[2,1]],flower:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],star:[[0,0],[0,-1],[0,1],[-1,0],[1,0]],heart:[[-1,-1],[1,-1],[-1,0],[0,0],[1,0],[0,1]],crown:[[-2,-1],[0,-1],[2,-1],[-2,0],[-1,0],[0,0],[1,0],[2,0]],scarf:[[-3,0],[-2,0],[-1,0],[0,0],[1,0],[2,0],[3,0],[2,1],[2,2]]};
  const stamp=(kind,[x,y])=>{for(const [dx,dy] of motifs[kind]||[])put(x+dx,y+dy,kind==='star'||kind==='crown'||((kind==='bow'||kind==='flower')&&dx===0&&dy===0)?a.yellow:kind==='scarf'||kind==='heart'?a.red:a.pink);};
