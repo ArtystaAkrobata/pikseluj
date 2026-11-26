@@ -10,7 +10,7 @@ const MagicFoxStages=(()=>{
   easy:'Główka liska',
   medium:'Mały lisek przodem',
   hard:'Lisek z dużym ogonem',
-  expert:'Lisek z profilu i motylkiem'
+  expert:'Lisek z puszystym ogonem'
  };
  const palettes={
   natural:{O:'O',L:'H',D:'n'},O:{O:'O',L:'H',D:'n'},
