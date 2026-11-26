@@ -7,7 +7,7 @@ const palette={"":["#242020","Ciemny kontur"],"":["#FF8907","Pomarańczowy
 const lookup={"medium":{"K":"","O":"","B":"","W":""},"hard":{"K":"","O":"","S":"","W":"","B":""},"expert":{"W":"","L":"","P":"","O":"","F":"","R":"","D":"","K":"","Y":""}};
 const tintLookup={"w":["","","","",""],"n":["","","","",""],"p":["","","","",""],"v":["","","","",""],"b":["","","","",""],"l":["","","","",""],"O":["","","","",""]};
 const a={"red":"","pink":"","yellow":"","white":""};
-const marks={"medium":{"eyes":[[8,8,9,10],[14,14,9,10]],"mouth":[11,11,12,12],"ear":[8,5],"crown":[11,7],"neck":[11,14],"scene":[[2,2],[21,2],[2,19],[21,21]]},"hard":{"eyes":[[21,21,14,15],[26,26,14,15]],"mouth":[25,27,18,18],"ear":[18,8],"crown":[22,10],"neck":[23,20],"scene":[[3,3],[28,3],[2,35],[28,36]]},"expert":{"eyes":[[24,25,19,20],[29,31,19,20]],"mouth":[24,25,23,24],"ear":[34,14],"crown":[30,16],"neck":[31,26],"scene":[[3,4],[35,4],[4,50],[35,50]]}};
+const marks={"medium":{"eyes":[[8,8,9,10],[14,14,9,10]],"mouth":[11,11,12,12],"ear":[8,5],"crown":[11,5],"neck":[11,14],"scene":[[2,2],[21,2],[2,19],[21,21]]},"hard":{"eyes":[[21,21,14,15],[26,26,14,15]],"mouth":[25,27,18,18],"ear":[18,8],"crown":[22,9],"neck":[23,20],"scene":[[3,3],[28,3],[2,35],[28,36]]},"expert":{"eyes":[[24,25,19,20],[29,31,19,20]],"mouth":[24,25,23,24],"ear":[34,14],"crown":[30,16],"neck":[31,26],"scene":[[3,4],[35,4],[4,50],[35,50]]}};
 function render(options={},level='medium'){
  if(!Object.hasOwn(rows,level))return MagicFoxStages.render(options,level);
  const [w,h]=dims[level],g=rows[level].map(r=>[...r]),m=marks[level],o={eyes:'sparkle',mouth:'smile',extra:'none',scene:'none',color:'natural',...options};
