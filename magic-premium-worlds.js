@@ -189,6 +189,8 @@ const MagicPremiumArt=(()=>{
    return MagicApprovedBunnies.render(level,o);
   if(category==='animals'&&o.kind==='owl'&&typeof MagicApprovedOwls!=='undefined')
    return MagicApprovedOwls.render(level,o);
+  if(category==='animals'&&o.kind==='bear'&&typeof MagicApprovedBears!=='undefined')
+   return MagicApprovedBears.render(level,o);
   if(category==='animals'&&o.kind==='fox'&&level!=='easy'&&typeof MagicApprovedFoxes!=='undefined')
    return MagicApprovedFoxes.render(o,level);
   // Pozostałe zwierzęta — rysunki z natywnych kratek pod kreator.

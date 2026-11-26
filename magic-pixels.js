@@ -312,6 +312,8 @@ function magicRender(){
   ?{easy:'Psia główka',medium:'Corgi z łapkami',hard:'Siedzący corgi',expert:'Corgi z ogonem'}
   :magicState.category==='animals'&&values.kind==='owl'
   ?{easy:'Wesoła sówka',medium:'Sowa z dużymi oczami',hard:'Portret sowy',expert:'Rdzawa sowa'}
+  :magicState.category==='animals'&&values.kind==='bear'
+  ?{easy:'Główka misia',medium:'Siedzący miś',hard:'Miś z cieniowaniem',expert:'Pluszak z czerwoną kokardą'}
   :magicState.category==='animals'&&values.kind==='bunny'
   ?{easy:'Królicza główka',medium:'Długie uszy',hard:'Królik w podskoku',expert:'Neonowy króliczek'}
   :magicState.category==='robots'
