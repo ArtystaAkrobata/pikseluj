@@ -5220,7 +5220,7 @@ function restoreAppHistory() {
   }
   // Po aktualizacji telefon może mieć jeszcze historię z dawnego systemu zakładek.
   if(APP_TAB_VIEWS.has(view)&&APP_TABS.has(appHash())&&index>0&&index<lastRoutedIndex){
-    scrollHomeAfterHistory=true;history.go(-index);return;
+    lastRoutedIndex=index;scrollHomeAfterHistory=true;history.go(-index);return;
   }
   const expandedBefore = $('gallery').classList.contains('adventure-explore');
   route();
