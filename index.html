@@ -702,6 +702,48 @@ body.ach-adventure-page .site-header{display:none!important}
 #achievements-screen .ach-avatar-link strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .map-avatar-link strong{min-width:0;overflow-wrap:anywhere}
 </style>
+<style>
+/* Karta bohatera w stylistyce ilustrowanych Osiągnięć Adventure. */
+body:has(#hero-screen:not([hidden])){background:linear-gradient(#20b8ef,#1587ac 60%,#0b6380)!important}
+body:has(#hero-screen:not([hidden])) .site-header .topbar{height:86px;min-height:86px}
+body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);transform-origin:center}
+#hero-screen{width:min(100%,760px);max-width:760px;margin:0 auto!important;padding:0!important;color:#532b1c;overflow:hidden}
+#hero-screen .hero-page-header{display:flex;align-items:center;gap:8px;padding:4px 5% 10px;background:linear-gradient(#40bdf000,#20b8ef)}
+#hero-screen .hero-back{position:static;flex:0 0 43px;display:grid;place-items:center;min-height:43px;margin:0!important;border:2px solid #efcd71;border-radius:12px;background:linear-gradient(#c17aef,#842ac7 60%,#66209b);color:white;text-shadow:0 2px #4e155c;font-size:2rem;font-weight:900;line-height:1;text-decoration:none;box-shadow:0 3px #4e2268,inset 0 2px #e6b6ff}
+#hero-screen .hero-heading{flex:1;margin:0;padding:9px 5px;border:2px solid #c38b34;border-radius:12px;background:url('./assets/ach-parchment.webp') center/100% 100% no-repeat,#ffdf94;box-shadow:0 3px #70451f;color:#51291b;font-size:clamp(1.45rem,6.2vw,2rem);font-weight:950;line-height:1.2}
+.hero-custom-landscape{padding:10px 6% 20px;background:#137e9b url('./assets/ach-terrain.webp') top center/100% 100% no-repeat}
+.hero-current{display:grid;grid-template-columns:42% minmax(0,1fr);align-items:center;gap:5px;min-height:145px;margin:0 0 14px;padding:8px;border:3px solid #c88b30;border-radius:16px;background:radial-gradient(ellipse at 18% 52%,#fff5b4aa,transparent 58%),url('./assets/ach-paper-texture.webp') center/cover,#ffe3a2;box-shadow:0 4px #764722,inset 0 0 0 2px #fff3bd;overflow:hidden}
+.hero-current-art{position:relative;display:grid;place-items:center;min-width:0;align-self:stretch}
+.hero-current-art:before{content:'';position:absolute;inset:3% -9%;background:repeating-conic-gradient(from 6deg,#fff9bd99 0deg 7deg,transparent 10deg 30deg);mask-image:radial-gradient(ellipse,#000 20%,#000a 48%,transparent 73%);pointer-events:none}
+#hero-current-portrait{position:relative;width:min(100%,190px);filter:drop-shadow(0 3px 2px #8a54284d)}
+.hero-current-copy{min-width:0;padding:4px 0}
+.hero-current-ribbon{display:inline-block;padding:3px 7px;border:1px solid #f5cd70;border-radius:9px;background:linear-gradient(#c870ee,#8d2cc8 55%,#681ba1);color:#fff7d9;box-shadow:0 2px #753393;font-size:clamp(.65rem,2.7vw,.92rem);font-weight:900;line-height:1.3}
+#hero-current-name{font-size:clamp(1.5rem,6vw,2.5rem);line-height:1.13;font-weight:950;overflow-wrap:anywhere;margin:7px 0 4px;color:#522619}
+#hero-current-role{font-size:clamp(.8rem,3.2vw,1.05rem);font-weight:850;margin:0 0 5px;color:#793c1c}
+.hero-current-copy small{display:block;color:#70482a;font-size:clamp(.67rem,2.7vw,.88rem);line-height:1.25}
+#hero-screen .hero-name-panel{margin:0 0 14px;padding:12px 10px 9px;border:2px solid #c58e42;border-radius:14px;background:url('./assets/ach-paper-texture.webp') center/cover,#ffe7b6;box-shadow:0 4px #815026,inset 0 0 0 2px #fff3cc;color:#58301d}
+#hero-screen .hero-name-panel label{display:flex;gap:6px;align-items:center;font-size:clamp(.85rem,3.8vw,1.1rem);font-weight:950;margin:0 0 3px}
+.hero-pencil{width:26px;height:26px;flex:none}
+#hero-screen .hero-name-hint{margin:0 0 9px;font-size:.78rem;color:#70482a}
+#hero-screen .hero-name-row{gap:6px;align-items:stretch}
+#hero-screen .hero-name-row input{min-width:0;flex:1;min-height:44px;background:linear-gradient(#fff0cc,#fff9e6);border:2px solid #b37b39;border-radius:10px;box-shadow:inset 0 2px 4px #87552322;padding:7px 10px;font-size:16px;font-weight:750;color:#512b1e}
+#hero-screen .hero-name-row button{min-height:44px;flex:none;padding:7px 10px;border:2px solid #ffd36a;border-radius:11px;background:linear-gradient(#cb7cf4,#a23cdd 42%,#7421af 85%);box-shadow:0 3px #70318c,inset 0 2px #eeb6ff;color:#fff7d9;text-shadow:0 1px #531d75;font-size:.88rem;font-weight:950}
+#hero-screen .hero-name-row button:active{transform:translateY(2px);box-shadow:0 1px #70318c}
+#hero-screen .hero-name-help{font-size:.7rem;margin:8px 0 0;color:#745032}
+#hero-screen #hero-status{margin:7px 0 0;padding:5px 7px;border-radius:7px;background:#e6f3c7;border:1px solid #8eac52;color:#345a24;font-size:.75rem;font-weight:750}
+#hero-screen #hero-status[data-error="true"]{color:#8e2d25;background:#fff0d9;border-color:#c88a5e}
+.hero-gallery-panel{border:2px solid #c58e42;background:url('./assets/ach-paper-texture.webp') center/cover,#ffe6b4;border-radius:14px;box-shadow:0 4px #815026;overflow:hidden}
+.hero-gallery-heading{padding:8px 10px;margin:0;border-bottom:2px solid #c38b34;background:linear-gradient(#bb78ef,#9440cd 55%,#7730ae);color:#fff7df;font-size:1.03rem;text-shadow:0 1px #542279;font-weight:950;text-align:center}
+#hero-screen .hero-choices{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin:0;padding:8px}
+#hero-screen .hero-choice{min-height:0;min-width:0;gap:0;align-content:center;justify-items:center;padding:5px 4px 4px;border:1.5px solid #c59a57;border-radius:11px;background:linear-gradient(#fff9e3b0,#ffefc9b0),url('./assets/ach-paper-texture.webp') center/cover;box-shadow:inset 0 0 0 1px #fff7db,0 2px #b58b51;color:#532b1b;line-height:1.15}
+#hero-screen .hero-choice .hero-portrait{width:min(100%,132px)!important;filter:drop-shadow(0 2px 1px #93673138)}
+#hero-screen .hero-choice>span:last-child{display:block;width:100%;padding:5px 2px 3px;border-radius:7px;background:linear-gradient(#fff6d8,#f0d398);font-size:clamp(.74rem,3.1vw,.98rem);font-weight:950;overflow-wrap:anywhere}
+#hero-screen .hero-choice[aria-pressed=true]{border:2px solid #ffdc65;background:radial-gradient(ellipse at 50% 45%,#fffabc,#ffd578 65%,#eab144);box-shadow:0 0 0 1px #b37b24,inset 0 0 0 1px #fff6bd,0 3px #a8732a;padding:4.5px 3.5px 3.5px}
+#hero-screen .hero-choice[aria-pressed=true]:after{content:'✓';right:5px;top:5px;background:linear-gradient(#87d94c,#299b2c);border:2px solid #fff9d4;box-shadow:0 1px 2px #5d762b;color:#fff;width:24px;height:24px;font-size:.86rem;font-weight:950}
+#hero-screen .hero-choice[aria-pressed=true]>span:last-child{background:linear-gradient(#a2dd67,#4da82a);color:#fff;text-shadow:0 1px #316f22}
+#hero-screen #hero-return{display:block;width:max-content;max-width:100%;margin:16px auto 0;min-height:42px;padding:8px 20px;text-align:center;background:linear-gradient(#c97af2,#a33cda 45%,#7321ae);border:2px solid #f5cc63;color:#fff7df;border-radius:12px;box-shadow:0 3px #54236c,inset 0 2px #e3b4ff;text-shadow:0 1px #4e155c;font-size:.88rem;font-weight:900}
+@media(min-width:650px){#hero-screen .hero-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px}#hero-screen .hero-choice .hero-portrait{width:min(100%,155px)!important}.hero-current{grid-template-columns:35% minmax(0,1fr)}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -889,17 +931,33 @@ body.ach-adventure-page .site-header{display:none!important}
     </div>
   </section>
   <section id="hero-screen" class="studio" aria-labelledby="hero-title" hidden>
-    <a href="#osiagniecia" class="back">← Wróć</a>
-    <h1 class="studio-title hero-heading" id="hero-title" tabindex="-1">Mój bohater</h1>
-    <p class="hero-intro">Wybierz postać, która będzie Ci towarzyszyć w przygodzie z pikselami!</p>
-    <form id="hero-name-form" class="hero-name-panel">
-      <label for="hero-name-input">Imię Twojego bohatera</label>
-      <div class="hero-name-row"><input id="hero-name-input" type="text" maxlength="24" placeholder="Wpisz imię lub pseudonim" autocomplete="off" autocapitalize="words" enterkeyhint="done"><button type="submit">Zapisz</button></div>
-      <p>Możesz zmienić imię w każdej chwili. Puste pole przywraca nazwę postaci.</p>
-    </form>
-    <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
-    <p id="hero-status" role="status" class="hero-intro"></p>
-    <a class="action primary" id="hero-return" data-hero-return href="#osiagniecia">Wróć do osiągnięć</a>
+    <div class="hero-page-header">
+      <a href="#osiagniecia" class="back hero-back" aria-label="Wróć">‹</a>
+      <h1 class="studio-title hero-heading" id="hero-title" tabindex="-1">Mój bohater</h1>
+    </div>
+    <div class="hero-custom-landscape">
+      <div class="hero-current">
+        <div class="hero-current-art"><span id="hero-current-portrait" class="hero-portrait" aria-hidden="true"></span></div>
+        <div class="hero-current-copy">
+          <span class="hero-current-ribbon">✦ Aktualny bohater ✦</span>
+          <h2 id="hero-current-name"></h2>
+          <p id="hero-current-role"></p>
+          <small>Twój towarzysz w krainie pikseli!</small>
+        </div>
+      </div>
+      <form id="hero-name-form" class="hero-name-panel">
+        <label for="hero-name-input"><svg class="hero-pencil" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 22 22 5l5 5L10 27l-7 2z" fill="#ffd04c" stroke="#75421c" stroke-width="2"/><path d="m22 5 3-3 5 5-3 3z" fill="#ed87bd" stroke="#75421c" stroke-width="2"/><path d="m5 22 5 5-7 2z" fill="#fff0bd" stroke="#75421c" stroke-width="1.5"/><path d="m4 26 3 2-4 1z" fill="#4a2d24"/></svg> Nazwij swojego bohatera</label>
+        <p class="hero-name-hint">Nadaj mu własne imię lub pseudonim.</p>
+        <div class="hero-name-row"><input id="hero-name-input" type="text" maxlength="24" placeholder="Imię lub pseudonim" autocomplete="off" autocapitalize="words" enterkeyhint="done"><button type="submit"><span aria-hidden="true">✓</span> Zapisz</button></div>
+        <p class="hero-name-help">Puste pole przywraca nazwę postaci.</p>
+        <p id="hero-status" role="status" aria-live="polite" hidden></p>
+      </form>
+      <div class="hero-gallery-panel">
+        <h2 class="hero-gallery-heading">Wybierz postać</h2>
+        <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
+      </div>
+      <a class="action primary" id="hero-return" data-hero-return href="#osiagniecia">Wróć do osiągnięć</a>
+    </div>
   </section>
   <div id="ach-toast" role="status" aria-live="polite" hidden></div>
   <section id="magic-screen" class="studio magic-v2" aria-labelledby="magic-title" hidden>
@@ -4389,9 +4447,13 @@ function paintHero(node,index){
   node.style.backgroundPosition=(index%3*50)+'% '+(Math.floor(index/3)*100)+'%';
 }
 function syncHero(){
-  for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name']]){
+  for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name'],['hero-current-portrait','hero-current-name']]){
     paintHero($(portrait),heroSelected);$(name).textContent=heroDisplayName();$(name).title=heroDisplayName();
   }
+  $('hero-current-role').textContent=heroChoices[heroSelected];
+}
+function showHeroStatus(message,error=false){
+  const status=$('hero-status');status.textContent=message;status.hidden=!message;status.dataset.error=String(error);
 }
 function renderHero(){
   syncHero();
@@ -4409,11 +4471,11 @@ function renderHero(){
       let saved=true;try{localStorage.setItem(heroKey,String(index));}catch{saved=false;}
       syncHero();
       for(const [i,b] of [...list.children].entries())b.setAttribute('aria-pressed',String(i===heroSelected));
-      $('hero-status').textContent=saved?'Wybrano: '+heroDisplayName()+(heroName?' ('+name+')':'')+'.':'Wybrano: '+heroDisplayName()+'. Zapis niedostępny.';
+      showHeroStatus(saved?'✓ Wybrano postać: '+name+'.':'Wybrano postać, ale zapis na urządzeniu jest niedostępny.',!saved);
     });
     list.append(button);
   });
-  $('hero-status').textContent='Twój bohater: '+heroDisplayName()+'. Możesz go zmieniać w każdej chwili.';
+  showHeroStatus('');
 }
 $('hero-name-form').addEventListener('submit',event=>{
   event.preventDefault();
@@ -4421,7 +4483,7 @@ $('hero-name-form').addEventListener('submit',event=>{
   $('hero-name-input').value=heroName;
   let saved=true;try{if(heroName)localStorage.setItem(heroNameKey,heroName);else localStorage.removeItem(heroNameKey);}catch{saved=false;}
   syncHero();
-  $('hero-status').textContent=saved?(heroName?'Zapisano imię: '+heroName+'.':'Przywrócono nazwę postaci: '+heroDisplayName()+'.'):'Imię zmieniono, ale zapis na urządzeniu jest niedostępny.';
+  showHeroStatus(saved?(heroName?'✓ Zapisano imię: '+heroName+'.':'✓ Przywrócono nazwę postaci: '+heroDisplayName()+'.'):'Imię zmieniono, ale zapis na urządzeniu jest niedostępny.',!saved);
   $('hero-name-input').blur();
 });
 const achOpenGroups=new Set(['Rysowanie']);
