@@ -692,6 +692,16 @@ body.ach-adventure-page .site-header{display:none!important}
 @media(min-width:650px){#achievements-screen .ach-grid{grid-auto-columns:19%}#achievements-screen .ach-card .ach-medal{width:100px}}
 @media(max-width:350px){#achievements-screen .ach-grid{grid-auto-columns:44%;grid-template-columns:none}.ach-score-art{width:21px}}
 </style>
+<style>
+#hero-screen .hero-name-panel{margin:12px 0 15px;padding:12px;border:2px solid #ad712d;border-radius:14px;background:linear-gradient(#fff7df,#f3d9a5);box-shadow:0 3px #a67137;color:#58331e}
+.hero-name-panel label{display:block;font-weight:900;margin-bottom:7px;font-size:.95rem}
+.hero-name-row{display:flex;gap:7px;align-items:stretch}
+.hero-name-row input{min-width:0;flex:1;min-height:44px;padding:8px 10px;background:#fffdf1;border:1px solid #bc9258;border-radius:9px;color:#52331e;font:inherit;font-size:16px}
+.hero-name-row button{flex:none;padding:7px 12px;border:2px solid #397222;border-radius:10px;background:linear-gradient(#91d65b,#54a02d);color:#fff;font-weight:900;box-shadow:0 2px #326c22}
+.hero-name-panel p{font-size:.73rem;line-height:1.35;margin:8px 0 0}
+#achievements-screen .ach-avatar-link strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.map-avatar-link strong{min-width:0;overflow-wrap:anywhere}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -882,6 +892,11 @@ body.ach-adventure-page .site-header{display:none!important}
     <a href="#osiagniecia" class="back">← Wróć</a>
     <h1 class="studio-title hero-heading" id="hero-title" tabindex="-1">Mój bohater</h1>
     <p class="hero-intro">Wybierz postać, która będzie Ci towarzyszyć w przygodzie z pikselami!</p>
+    <form id="hero-name-form" class="hero-name-panel">
+      <label for="hero-name-input">Imię Twojego bohatera</label>
+      <div class="hero-name-row"><input id="hero-name-input" type="text" maxlength="24" placeholder="Wpisz imię lub pseudonim" autocomplete="off" autocapitalize="words" enterkeyhint="done"><button type="submit">Zapisz</button></div>
+      <p>Możesz zmienić imię w każdej chwili. Puste pole przywraca nazwę postaci.</p>
+    </form>
     <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
     <p id="hero-status" role="status" class="hero-intro"></p>
     <a class="action primary" id="hero-return" data-hero-return href="#osiagniecia">Wróć do osiągnięć</a>
@@ -4363,6 +4378,11 @@ async function achievementImportPhotos(){
 
 const heroChoices=['Podróżnik','Podróżniczka','Czarodziej','Czarodziejka','Rycerz','Księżniczka'];
 const heroKey='pikseluj/bohater/v1';
+const heroNameKey='pikseluj/bohater-imie/v1';
+function cleanHeroName(value){return Array.from(String(value??'').replace(/[\u0000-\u001f\u007f]/g,'').trim()).slice(0,24).join('');}
+let heroName='';
+try{heroName=cleanHeroName(localStorage.getItem(heroNameKey));}catch{}
+function heroDisplayName(){return heroName||heroChoices[heroSelected];}
 let heroSelected=0;
 try{const saved=localStorage.getItem(heroKey);if(saved!==null&&/^[0-5]$/.test(saved))heroSelected=Number(saved);}catch{}
 function paintHero(node,index){
@@ -4370,11 +4390,12 @@ function paintHero(node,index){
 }
 function syncHero(){
   for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name']]){
-    paintHero($(portrait),heroSelected);$(name).textContent=heroChoices[heroSelected];
+    paintHero($(portrait),heroSelected);$(name).textContent=heroDisplayName();$(name).title=heroDisplayName();
   }
 }
 function renderHero(){
   syncHero();
+  $('hero-name-input').value=heroName;
   const fromMap=navState()?.pikselujFromHash==='#mapa';
   $('hero-return').href=fromMap?'#mapa':'#osiagniecia';
   $('hero-return').textContent=fromMap?'Wróć do mapy':'Wróć do osiągnięć';
@@ -4388,12 +4409,21 @@ function renderHero(){
       let saved=true;try{localStorage.setItem(heroKey,String(index));}catch{saved=false;}
       syncHero();
       for(const [i,b] of [...list.children].entries())b.setAttribute('aria-pressed',String(i===heroSelected));
-      $('hero-status').textContent=saved?'Wybrano: '+name+'.':'Wybrano: '+name+'. Zapis niedostępny.';
+      $('hero-status').textContent=saved?'Wybrano: '+heroDisplayName()+(heroName?' ('+name+')':'')+'.':'Wybrano: '+heroDisplayName()+'. Zapis niedostępny.';
     });
     list.append(button);
   });
-  $('hero-status').textContent='Twój bohater: '+heroChoices[heroSelected]+'. Możesz go zmieniać w każdej chwili.';
+  $('hero-status').textContent='Twój bohater: '+heroDisplayName()+'. Możesz go zmieniać w każdej chwili.';
 }
+$('hero-name-form').addEventListener('submit',event=>{
+  event.preventDefault();
+  heroName=cleanHeroName($('hero-name-input').value);
+  $('hero-name-input').value=heroName;
+  let saved=true;try{if(heroName)localStorage.setItem(heroNameKey,heroName);else localStorage.removeItem(heroNameKey);}catch{saved=false;}
+  syncHero();
+  $('hero-status').textContent=saved?(heroName?'Zapisano imię: '+heroName+'.':'Przywrócono nazwę postaci: '+heroDisplayName()+'.'):'Imię zmieniono, ale zapis na urządzeniu jest niedostępny.';
+  $('hero-name-input').blur();
+});
 const achOpenGroups=new Set(['Rysowanie']);
 const achCategoryIcons=['🎨','🌈','🧭','✏️','🗝️'];
 // Ilustrowane medale SVG: kształt, wstęga, obwódka i symbol odpowiadają grupie i randze.
