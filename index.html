@@ -536,6 +536,48 @@ h1, h2, h3, p { margin:0 }
 @media(min-width:850px){.ach-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:350px){#achievements-screen .ach-hero{grid-template-columns:56px minmax(0,1fr);gap:8px;padding:12px}.ach-hero-medal{font-size:29px}}
 </style>
+<style>
+/* Adventure: nowa sala osiągnięć i wybór bohatera */
+#achievements-screen,#hero-screen{max-width:760px;margin-inline:auto;--wood:#8b4e23;--gold:#ffcd62;--parchment:#fff2cf}
+.ach-adventure{position:relative;min-height:188px;overflow:hidden;border:3px solid #885023;border-radius:20px;box-shadow:0 4px #73421f,inset 0 2px #fff4ad;background:linear-gradient(180deg,#009bdf00,#14763822),url('./assets/adventure-premium-world.svg') center 40%/cover,#49c6f4;padding:9px 10px 12px;color:#422018}
+#achievements-screen .ach-adventure h1,#hero-screen .hero-heading{position:relative;text-align:center;margin:0 auto 3px;padding:7px 8px;background:linear-gradient(#fff0a5,#ffc755 60%,#e9a43e);border:2px solid #a66325;border-radius:12px;box-shadow:0 3px #8d5126,inset 0 2px #fff8cc;color:#542b17;font-size:clamp(1.45rem,6.1vw,2.1rem);line-height:1.15;z-index:1}
+.ach-adventure>p{position:relative;text-align:center;margin:8px auto 0;width:max-content;max-width:100%;padding:2px 9px;border-radius:8px;background:#fff0c8;color:#5a371e;font-size:.79rem;font-weight:800}
+.hero-portrait{display:block;width:90px;aspect-ratio:1;background-image:url('data:image/webp;base64,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');background-size:300% 200%;background-repeat:no-repeat;border-radius:14px;flex-shrink:0}
+.ach-avatar-link{position:relative;z-index:2;display:flex;width:114px;flex-direction:column;align-items:center;margin-top:8px;padding:4px 4px 3px;border:2px solid #a66829;background:linear-gradient(#fff1c7,#e9bd73);border-radius:14px;color:#502d18;text-decoration:none;box-shadow:0 3px #70401f}
+.ach-avatar-link .hero-portrait{width:72px}.ach-avatar-link strong{font-size:.76rem;line-height:1.15;text-align:center}.ach-avatar-link small{font-size:.67rem;font-weight:800;color:#76419a}
+.ach-world-trophy{position:absolute;bottom:15px;left:54%;font-size:64px;filter:drop-shadow(0 0 9px #fff9a4)}
+#achievements-screen .ach-hero{margin:12px 0 9px;background:linear-gradient(#fff5d5,#eec878);padding:11px;grid-template-columns:52px minmax(0,1fr)}
+#achievements-screen .ach-hero-medal{font-size:28px}#achievements-screen .ach-hero h2{font-size:1.1rem;margin:2px 0 5px}
+.ach-stats>div{background:linear-gradient(#fff6d8,#f2d89e);border:2px solid #be9559;box-shadow:0 3px #b58b55}
+.ach-latest{display:grid;grid-template-columns:90px minmax(0,1fr);align-items:center;gap:8px;padding:9px 10px;margin:12px 0 16px;border:3px solid #c78622;border-radius:17px;background:radial-gradient(circle at 12% 50%,#fff5a8,#ffe3a2 45%,#fff0cc);box-shadow:0 4px #a46b2a;color:#53301c}
+.ach-latest[hidden]{display:none}.ach-latest small{display:inline-block;background:linear-gradient(#a65ce1,#6a239e);border:1px solid #592084;border-radius:8px;padding:3px 7px;color:#fff4d1;font-weight:900;font-size:.72rem}
+.ach-latest h2{font-size:1.03rem;margin:5px 0 2px;line-height:1.15}.ach-latest p{font-size:.76rem;margin:0;line-height:1.3}
+.ach-filters{margin:12px 0;gap:5px}.ach-filters button{background:linear-gradient(#fff8df,#ebca89);box-shadow:0 3px #b48648;color:#58331c;border:2px solid #ad7a3d;border-radius:11px;padding:6px 5px}
+.ach-filters button[aria-pressed=true]{background:linear-gradient(#b678f1,#7925be);color:#fff;border-color:#57238f;box-shadow:0 3px #552078}
+.ach-group{margin:9px 0;border:2px solid #a8753b;border-radius:13px;background:#f8e6ba;box-shadow:0 3px #996b3d;overflow:hidden}
+.ach-group summary{display:flex;align-items:center;gap:7px;min-height:49px;cursor:pointer;padding:9px 8px;color:#532c1d;background:linear-gradient(#fff1cb,#f2d396);list-style:none;font-weight:900;font-size:.89rem}
+.ach-group summary::-webkit-details-marker{display:none}.ach-group[open] summary{background:linear-gradient(#a96ce5,#783cb4);color:#fff6dd}
+.ach-summary-name{flex:1;min-width:0}.ach-summary-count{font-size:.73rem;white-space:nowrap;background:#fff3d4;color:#633f2c;border-radius:10px;padding:2px 6px}
+.ach-chevron{font-size:1rem;transition:transform .2s}.ach-group[open] .ach-chevron{transform:rotate(180deg)}
+.ach-grid{padding:9px;gap:8px}.ach-card{background:linear-gradient(#fff9e7,#fae8c5);border:1px solid #c9ad7a;border-radius:13px;box-shadow:0 2px #c7a46d}
+.ach-card.earned{background:radial-gradient(circle at 50% 20%,#fff8bc,#ffe6a1 60%,#f8d385);border:2px solid #c69031;box-shadow:0 3px #b27b32}
+.ach-card h3{font-size:.93rem}.ach-card p{font-size:.78rem}
+.ach-medal{display:block;width:74px;height:80px;flex:none;filter:drop-shadow(0 2px 1px #68432955)}
+.ach-card:not(.earned) .ach-medal{filter:grayscale(1) opacity(.78)}.ach-latest .ach-medal{width:90px;height:96px}
+.ach-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;background:linear-gradient(#a76a38,#7f4426);padding:6px;border:2px solid #633719;border-radius:15px;margin:10px 0 18px;box-shadow:0 3px #593019}
+.ach-nav a{min-width:0;display:grid;justify-items:center;align-content:center;min-height:52px;font-size:21px;text-decoration:none;color:#fff4ce;background:linear-gradient(#c19161,#865530);border:1px solid #663a1d;border-radius:9px}
+.ach-nav a span{font-size:clamp(.57rem,2.5vw,.72rem);font-weight:850;white-space:nowrap}.ach-nav a[aria-current]{background:linear-gradient(#ab6de7,#6f2bb3);border:2px solid #f9ce61}
+#hero-screen .hero-heading{margin-top:9px}.hero-intro{text-align:center;background:#fff1cf;border-radius:10px;padding:8px;color:#603a21;font-size:.84rem;font-weight:700}
+.hero-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.hero-choice{position:relative;display:grid;justify-items:center;gap:7px;min-width:0;padding:10px 5px 8px;border:2px solid #c39250;border-radius:15px;box-shadow:0 3px #a67137;background:linear-gradient(#fff5d6,#efd19a);font:inherit;font-weight:900;color:#57331e;cursor:pointer}
+.hero-choice .hero-portrait{width:min(100%,108px)}.hero-choice[aria-pressed=true]{border:3px solid #db9a27;background:radial-gradient(#fff9c1,#f5c55e);box-shadow:0 0 0 2px #fff0a1,0 4px #b77c2b;padding:9px 4px 7px}
+.hero-choice[aria-pressed=true]:after{content:'✓';position:absolute;right:7px;top:7px;background:#25873e;color:#fff;border:2px solid white;border-radius:50%;width:26px;height:26px;display:grid;place-items:center}
+.map-avatar-link{display:flex;gap:9px;align-items:center;text-decoration:none;color:#56321e;margin-bottom:12px}.map-avatar-link .hero-portrait{width:48px}
+#ach-toast:not([hidden]){animation:ach-reward .45s cubic-bezier(.15,1.3,.5,1) both}
+@keyframes ach-reward{from{opacity:0;transform:translate(-50%,25px) scale(.8)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@media(min-width:650px){.hero-choices{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(prefers-reduced-motion:reduce){#ach-toast{animation:none!important}.ach-chevron{transition:none}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -676,6 +718,7 @@ h1, h2, h3, p { margin:0 }
     <p class="section-kicker">Twoja pikselowa przygoda</p>
     <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa</h1>
     <div class="studio-panel">
+      <a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a>
       <h2>Bajkowa mapa przygód</h2>
       <p>Tu powstaną krainy, poziomy i kolejne obrazki do odkrycia. Mapę rozbudujemy w następnym etapie.</p>
       <a href="#galeria" class="action primary">Wybierz obrazek z galerii</a>
@@ -697,8 +740,12 @@ h1, h2, h3, p { margin:0 }
   </section>
   <section id="achievements-screen" class="studio" aria-labelledby="achievements-title" hidden>
     <a href="#galeria" class="back">← Strona główna</a>
-    <p class="section-kicker">Twoja sala skarbów</p>
-    <h1 class="studio-title" id="achievements-title" tabindex="-1">🏆 Osiągnięcia</h1>
+    <div class="ach-adventure">
+      <h1 class="studio-title" id="achievements-title" tabindex="-1">🏆 Osiągnięcia</h1>
+      <p>Twoja przygoda z pikselami</p>
+      <a href="#bohater" class="ach-avatar-link"><span class="hero-portrait" id="ach-avatar" aria-hidden="true"></span><strong id="ach-avatar-name">Mój bohater</strong><small>Zmień bohatera ›</small></a>
+      <span class="ach-world-trophy" aria-hidden="true">🏆</span>
+    </div>
     <div class="ach-hero">
       <span class="ach-hero-medal" aria-hidden="true">🏆</span>
       <div><p>Twoja przygoda z pikselami</p><h2 id="ach-rank">Mały odkrywca</h2><strong id="ach-total">0 zdobytych odznak</strong>
@@ -709,6 +756,7 @@ h1, h2, h3, p { margin:0 }
       <div><span aria-hidden="true">📸</span><strong id="ach-photos">0</strong><small>Zdjęcia prac</small></div>
       <div><span aria-hidden="true">✨</span><strong id="ach-projects">0</strong><small>Projekty</small></div>
     </div>
+    <div class="ach-latest" id="ach-latest" hidden><div id="ach-latest-icon"></div><div><small>✦ Ostatnio zdobyta ✦</small><h2 id="ach-latest-name"></h2><p id="ach-latest-description"></p></div></div>
     <div class="ach-filters" role="group" aria-label="Filtr odznak">
       <button type="button" data-ach-filter="all" aria-pressed="true">Wszystkie</button>
       <button type="button" data-ach-filter="earned" aria-pressed="false">Zdobyte</button>
@@ -717,6 +765,15 @@ h1, h2, h3, p { margin:0 }
     <div id="ach-list"></div>
     <p id="ach-storage" class="studio-small">Odznaki są zapisywane na tym urządzeniu. Rysuj we własnym tempie — zdobyte nagrody zostają z Tobą.</p>
     <a href="#galeria" class="action primary ach-return">🎨 Wybierz rysunek</a>
+    <nav class="ach-nav" aria-label="Nawigacja przygody"><a href="#mapa">🗺️<span>Mapa</span></a><a href="#minigry">🎮<span>Minigry</span></a><a href="#osiagniecia" aria-current="page">🏆<span>Osiągnięcia</span></a><a href="#album">🖼️<span>Kolekcja</span></a></nav>
+  </section>
+  <section id="hero-screen" class="studio" aria-labelledby="hero-title" hidden>
+    <a href="#osiagniecia" class="back">← Wróć</a>
+    <h1 class="studio-title hero-heading" id="hero-title" tabindex="-1">Mój bohater</h1>
+    <p class="hero-intro">Wybierz postać, która będzie Ci towarzyszyć w przygodzie z pikselami!</p>
+    <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
+    <p id="hero-status" role="status" class="hero-intro"></p>
+    <a class="action primary" href="#osiagniecia">Wróć do osiągnięć</a>
   </section>
   <div id="ach-toast" role="status" aria-live="polite" hidden></div>
   <section id="magic-screen" class="studio magic-v2" aria-labelledby="magic-title" hidden>
@@ -4192,7 +4249,52 @@ async function achievementImportPhotos(){
   for(const p of found)if(p&&journey.completed.some(q=>photoKey(q)===photoKey(p))&&!achievementState.photos.includes(p.id))achievementState.photos.push(p.id);
   achievementCommit();
 }
+
+const heroChoices=['Podróżnik','Podróżniczka','Czarodziej','Czarodziejka','Rycerz','Księżniczka'];
+const heroKey='pikseluj/bohater/v1';
+let heroSelected=0;
+try{const saved=localStorage.getItem(heroKey);if(saved!==null&&/^[0-5]$/.test(saved))heroSelected=Number(saved);}catch{}
+function paintHero(node,index){
+  node.style.backgroundPosition=(index%3*50)+'% '+(Math.floor(index/3)*100)+'%';
+}
+function syncHero(){
+  for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name']]){
+    paintHero($(portrait),heroSelected);$(name).textContent=heroChoices[heroSelected];
+  }
+}
+function renderHero(){
+  syncHero();
+  const list=$('hero-choices');list.replaceChildren();
+  heroChoices.forEach((name,index)=>{
+    const button=el('button','hero-choice');button.type='button';button.setAttribute('aria-pressed',String(index===heroSelected));
+    const portrait=el('span','hero-portrait');portrait.setAttribute('aria-hidden','true');paintHero(portrait,index);
+    button.append(portrait,el('span','',name));
+    button.addEventListener('click',()=>{
+      heroSelected=index;
+      let saved=true;try{localStorage.setItem(heroKey,String(index));}catch{saved=false;}
+      syncHero();
+      for(const [i,b] of [...list.children].entries())b.setAttribute('aria-pressed',String(i===heroSelected));
+      $('hero-status').textContent=saved?'Wybrano: '+name+'.':'Wybrano: '+name+'. Zapis niedostępny.';
+    });
+    list.append(button);
+  });
+  $('hero-status').textContent='Twój bohater: '+heroChoices[heroSelected]+'. Możesz go zmieniać w każdej chwili.';
+}
+const achOpenGroups=new Set();
+const achCategoryIcons=['🎨','🌈','🧭','✏️','🗝️'];
+// Ilustrowane medale SVG: kształt, wstęga, obwódka i symbol odpowiadają grupie i randze.
+function achievementMedal(rule){
+  const n=achievementRules.indexOf(rule);
+  const tier=rule.group==='Rysowanie'?Math.min(n,5):rule.target>=15?5:rule.target>=5?3:1;
+  const color=['#ce824a','#8e59ca','#558dbb','#38a06a','#d48935','#9d48c4'][tier];
+  const icon=rule.icon;
+  const span=el('span','ach-medal');span.setAttribute('aria-hidden','true');
+  span.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 108" width="100%" height="100%"><path d="M22 64L14 103l23-9 13 12 7-35M78 64l8 39-23-9-13 12-7-35" fill="'+color+'" stroke="#543354" stroke-width="3"/><path d="M13 44Q0 73 38 84M87 44Q100 73 62 84" fill="none" stroke="#99601d" stroke-width="5"/><g fill="#e2a138" stroke="#a56a26" stroke-width="1.5"><path d="M12 44q-10 14 8 22Q22 51 12 44M19 58q-6 15 13 21-1-14-13-21M88 44q10 14-8 22-2-15 8-22M81 58q6 15-13 21 1-14 13-21"/></g><path d="M50 4L66 13 84 19 89 39 85 61 72 77 50 86 28 77 15 61 11 39 16 19 34 13Z" fill="#c38429" stroke="#794515" stroke-width="3"/><path d="M50 10L78 23 83 40 77 61 65 73 50 79 35 73 23 61 17 40 22 23Z" fill="#ffda69" stroke="#fff1b1" stroke-width="3"/><circle cx="50" cy="44" r="27" fill="'+color+'" stroke="#985a22" stroke-width="3"/><circle cx="50" cy="44" r="23" fill="#fff2c6" stroke="#ffffff" stroke-width="2"/><text x="50" y="46" dominant-baseline="middle" text-anchor="middle" font-size="29">'+icon+'</text><path d="M50 69l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#ffe67d" stroke="#a9671d" stroke-width="1.5"/></svg>';
+  return span;
+}
+
 function renderAchievements(){
+  syncHero();
   const stats=achievementStats(achievementState);
   const total=achievementRules.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
   const ranks=[[60,'Legenda pikseli'],[30,'Mistrz pikseli'],[15,'Wielki twórca'],[5,'Mały twórca'],[1,'Pikselowy artysta'],[0,'Mały odkrywca']];
@@ -4201,18 +4303,27 @@ function renderAchievements(){
   $('ach-total-bar').max=achievementRules.length;$('ach-total-bar').value=total;
   $('ach-next').textContent=total===achievementRules.length?'Wszystkie odznaki zdobyte!':'Każda praca to kolejny krok w Twojej przygodzie.';
   $('ach-drawings').textContent=stats.drawings;$('ach-photos').textContent=stats.photos;$('ach-projects').textContent=stats.projects;
+  const latest=achievementRules.filter(r=>Object.hasOwn(achievementState.earned,r.id)).sort((a,b)=>achievementState.earned[b.id]-achievementState.earned[a.id]).at(0);
+  $('ach-latest').hidden=!latest;
+  if(latest){$('ach-latest-icon').replaceChildren(achievementMedal(latest));$('ach-latest-name').textContent=latest.name;$('ach-latest-description').textContent=latest.description+' · ✓ Zdobyta';}
   const list=$('ach-list');list.replaceChildren();
   let shown=0;
   for(const group of achievementGroups){
     const rules=achievementRules.filter(r=>r.group===group&&(achievementFilter==='all'||(achievementFilter==='earned')===Object.hasOwn(achievementState.earned,r.id)));
     if(!rules.length)continue;
-    const section=el('section','ach-group');const grid=el('div','ach-grid');
-    section.append(el('h2','',group),grid);
+    const section=el('details','ach-group');const grid=el('div','ach-grid');
+    const all=achievementRules.filter(r=>r.group===group);
+    const count=all.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
+    const summary=el('summary');
+    summary.append(el('span','',achCategoryIcons[achievementGroups.indexOf(group)]),el('span','ach-summary-name',group),el('span','ach-summary-count',count+' / '+all.length),el('span','ach-chevron','⌄'));
+    section.open=achOpenGroups.has(group);
+    section.addEventListener('toggle',()=>{if(section.isConnected){if(section.open)achOpenGroups.add(group);else achOpenGroups.delete(group);}});
+    section.append(summary,grid);
     for(const rule of rules){
       const earned=Object.hasOwn(achievementState.earned,rule.id);
       const value=earned?rule.target:Math.min(stats[rule.metric],rule.target);
       const card=el('article','ach-card'+(earned?' earned':''));
-      const icon=el('span','ach-emblem',rule.icon);icon.setAttribute('aria-hidden','true');
+      const icon=achievementMedal(rule);
       const progress=el('progress');progress.max=rule.target;progress.value=value;progress.setAttribute('aria-label',rule.name+' — postęp');
       card.append(icon,el('h3','',rule.name),el('p','',rule.description),progress,el('small','',earned?'✓ Zdobyta':value+' / '+rule.target));
       grid.append(card);shown++;
@@ -4666,6 +4777,7 @@ function showScreen(next) {
   $('world-map').hidden = next !== 'map';
   $('mini-games').hidden = next !== 'games';
   $('achievements-screen').hidden = next !== 'achievements';
+  $('hero-screen').hidden = next !== 'hero';
 }
 function route() {
   const hash = location.hash;
@@ -4705,6 +4817,7 @@ function route() {
     '#mapa':{screen:'map',title:'map-title',documentTitle:'Mapa'},
     '#minigry':{screen:'games',title:'games-title',documentTitle:'Minigry'},
     '#osiagniecia':{screen:'achievements',title:'achievements-title',documentTitle:'Osiągnięcia'},
+    '#bohater':{screen:'hero',title:'hero-title',documentTitle:'Mój bohater'},
     '#magiczne':{screen:'magic',title:'magic-title',documentTitle:'Magiczne piksele'}
   };
   if (Object.hasOwn(newSections,hash)) {
@@ -4712,6 +4825,8 @@ function route() {
     const previous = view;
     showScreen(target.screen);
     if(target.screen==='magic')magicOpen();
+    if(target.screen==='hero')renderHero();
+    if(target.screen==='map')syncHero();
     if(target.screen==='achievements'){achievementSyncDrawings();achievementSyncProjects();renderAchievements();void achievementImportPhotos();}
     document.title = target.documentTitle + ' — Pikseluj';
     if (previous !== target.screen) {
