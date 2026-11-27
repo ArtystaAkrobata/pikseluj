@@ -578,6 +578,65 @@ h1, h2, h3, p { margin:0 }
 @media(min-width:650px){.hero-choices{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(prefers-reduced-motion:reduce){#ach-toast{animation:none!important}.ach-chevron{transition:none}}
 </style>
+<style>
+/* Oryginalna ilustracja z projektu nr 3; treść i elementy interaktywne pozostają HTML. */
+body.ach-adventure-page{background:linear-gradient(180deg,#20b8ef 0,#159ed3 24%,#1587ac 60%,#0b6380 100%)}
+body.ach-adventure-page .site-header{display:none!important}
+#achievements-screen{width:min(100%,760px);max-width:760px;padding:0 10px 12px!important;margin:0 auto!important;color:#4c281c}
+.ach-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+#achievements-screen .ach-adventure{aspect-ratio:1024/444;min-height:0;border:0;border-radius:0;box-shadow:none;background:url('./assets/ach-scene.webp?v=2') center/100% 100% no-repeat;margin:0 -10px;padding:0;overflow:hidden;position:relative}
+.ach-scene-back{position:absolute!important;left:5.5%;top:0;width:11%;height:17%;min-width:40px;min-height:36px;margin:0!important;z-index:5}
+.ach-scene-home{position:absolute;left:31%;top:0;width:38%;height:19%;z-index:5}
+.hero-portrait{background-image:url('./assets/ach-heroes.webp?v=2')!important;background-size:300% 200%;background-repeat:no-repeat;border-radius:0!important}
+#achievements-screen .ach-avatar-link{position:absolute;bottom:0;left:0;display:block;width:31%;height:69%;margin:0;padding:0;background:none;border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 2px 2px #173a47aa)}
+#achievements-screen .ach-avatar-link .hero-portrait{position:absolute;bottom:0;left:0;width:100%;height:auto;aspect-ratio:1}
+#achievements-screen .ach-avatar-link strong{position:absolute;bottom:2px;left:5%;right:5%;background:#fff0c7;border:1px solid #a36925;border-radius:7px;padding:1px 3px;color:#482b18;font-size:clamp(.63rem,2.4vw,.84rem);box-shadow:0 1px 2px #64331e80}
+#achievements-screen .ach-avatar-link small{display:none}
+#achievements-screen .ach-scoreboard{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch;margin:-2px 0 11px;padding:6px 2px;border:2px solid #a16a27;border-radius:14px;background:linear-gradient(#fff5d8,#ffe4a3 52%,#ecc37a);box-shadow:0 4px #78411c,inset 0 2px #fff9e7;z-index:3}
+.ach-score{display:flex;align-items:center;justify-content:center;gap:4px;padding:3px 4px;min-width:0;border-right:1px solid #b77c3e;line-height:1.15}
+.ach-score:last-child{border-right:0}.ach-score>div{min-width:0;flex:0 1 auto}.ach-score small{display:block;font-size:clamp(.58rem,2.4vw,.79rem);font-weight:750;color:#633b25;overflow-wrap:anywhere}.ach-score strong{display:block;font-weight:950;font-size:clamp(.95rem,4vw,1.35rem);margin:2px 0}.ach-score-art{width:30px;height:34px;flex-shrink:0;display:grid;place-items:center}.ach-score-art svg{width:100%;height:100%}.ach-bars{display:flex;align-items:flex-end;justify-content:center;gap:2px;padding:4px 1px 7px}.ach-bars i{display:block;width:8px;border:1px solid #245675;border-radius:2px;background:linear-gradient(#84e1ff,#078cce);height:34%}.ach-bars i:nth-child(2){height:62%}.ach-bars i:nth-child(3){height:100%}
+#achievements-screen progress{height:9px;background:#d7b583;border:1px solid #a16e35;box-shadow:inset 0 1px 2px #80502b44}
+#achievements-screen progress::-webkit-progress-bar{background:linear-gradient(#cda877,#ead2aa)}
+#achievements-screen progress::-webkit-progress-value{background:linear-gradient(#b8f259,#6fc70f 50%,#3f9907);box-shadow:inset 0 1px #e8ffb2}
+#ach-total-bar{height:7px!important;margin:3px 0 0!important}
+#achievements-screen .ach-latest{position:relative;grid-template-columns:26% minmax(0,1fr);gap:8px;align-items:center;margin:15px 0 11px;padding:10px 8px 8px;border:2px solid #bb7b26;border-radius:15px;background:radial-gradient(ellipse at 12% 50%,#fff5b4 0,#ffdc7f 35%,#fff0c7 70%);box-shadow:0 4px #805020,inset 0 2px #fff8df}
+.ach-latest-copy{min-width:0}.ach-latest-medal{display:grid;place-items:center}.ach-latest .ach-medal{width:100%;height:auto;max-width:120px;aspect-ratio:1}
+#achievements-screen .ach-latest small{position:relative;display:inline-block;margin-top:-17px;padding:3px 12px;border:2px solid #b36fe8;border-radius:9px;background:linear-gradient(#bd59ef,#8c23c8 48%,#631296);color:#fff7d3;font-size:clamp(.68rem,2.8vw,.94rem);font-weight:900;box-shadow:0 2px #69218b;white-space:nowrap}
+#achievements-screen .ach-latest h2{font-size:clamp(1rem,4.2vw,1.5rem);line-height:1.17;color:#54261b;margin:4px 0 2px}
+#achievements-screen .ach-latest p{font-size:clamp(.71rem,2.7vw,.92rem);color:#643d25}
+.ach-latest-progress{display:flex;gap:6px;align-items:center;margin-top:6px}.ach-latest-progress progress{flex:1;min-width:0;height:12px!important}.ach-latest-progress strong{color:#fff9da;background:linear-gradient(#81c924,#369308);border:1px solid #337c0c;border-radius:8px;padding:1px 5px;font-size:.73rem;white-space:nowrap}
+#achievements-screen .ach-filters{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:5px;margin:10px 0 12px}
+#achievements-screen .ach-filters button{min-width:0;min-height:38px;line-height:1.12;border:2px solid #c38d44;border-radius:20px;padding:5px 3px;background:linear-gradient(#fff8e4,#ffe9bb 54%,#edcb89);box-shadow:0 3px #8e592c,inset 0 2px #fffef6;font-size:clamp(.68rem,2.8vw,.93rem);color:#472616;text-wrap:balance}
+#achievements-screen .ach-filters button[aria-pressed=true]{background:linear-gradient(#cb77f8,#8e25d0 50%,#681ca4);color:#fff8e3;border-color:#f8cc64;box-shadow:0 3px #76338b,inset 0 2px #e0aaff}
+#achievements-screen .ach-filters button>span:first-child{font-size:1.05em;font-weight:950}
+#achievements-screen .ach-group{margin:8px 0;border:2px solid #bd8a43;background:#ffe8b6;box-shadow:0 3px #684527,inset 0 2px #fff5d9;border-radius:12px;overflow:hidden}
+#achievements-screen .ach-group summary{display:flex;gap:7px;padding:7px 8px;min-height:42px;border-radius:9px;background:linear-gradient(#fff6dc,#ffebbe 55%,#edca85);color:#522b1c;font-size:clamp(.79rem,3.3vw,1.05rem);font-weight:900;box-shadow:inset 0 2px #fff9eb}
+#achievements-screen .ach-group[open] summary{background:linear-gradient(#c17aef,#9148d2 55%,#7234ad);color:#fff8e5;box-shadow:inset 0 2px #e2b9ff,0 2px #693099}
+.ach-group-icon{width:25px;height:25px;flex-shrink:0}.ach-group-icon svg{width:100%;height:100%}.ach-summary-count{background:none;color:inherit;padding:0;white-space:nowrap;font-size:.78rem}
+.ach-summary-progress{width:18%!important;max-width:90px;min-width:35px;margin:0 2px!important}
+#achievements-screen .ach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:6px;gap:5px}
+#achievements-screen .ach-card{background:linear-gradient(#fff9e8,#fff0cf 65%,#f2d89e);border:1px solid #d5ab64;box-shadow:inset 0 1px #fffdf6,0 2px #bc965c;border-radius:10px;padding:7px 4px 6px;position:relative;gap:4px}
+#achievements-screen .ach-card.earned{background:radial-gradient(circle at 50% 20%,#fffcc0,#ffe395 60%,#f7cf71);border:2px solid #e6a32d;box-shadow:inset 0 0 0 1px #fff6ad,0 2px #b17a2f;padding:6px 3px 5px}
+#achievements-screen .ach-card h3{font-size:clamp(.7rem,2.85vw,.99rem);line-height:1.15;color:#48261b;font-weight:900}
+#achievements-screen .ach-card p{font-size:clamp(.62rem,2.5vw,.82rem);line-height:1.22;color:#654326}
+#achievements-screen .ach-card .ach-medal{width:min(100%,73px);height:auto;aspect-ratio:1}
+#achievements-screen .ach-card.earned::after{content:'✓';position:absolute;top:3px;right:3px;background:linear-gradient(#7bd648,#168b13);border:1px solid white;color:white;width:19px;height:19px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:900}
+#achievements-screen .ach-card small{font-size:.67rem;font-weight:900}
+#achievements-screen .ach-card.earned small{background:linear-gradient(#8ed337,#399a14);color:white;border:1px solid #33880c;border-radius:8px;padding:1px 4px;width:100%}
+.ach-foot-stats{display:flex;justify-content:center;gap:16px;margin:12px 0 4px;font-size:.72rem;color:#fff4d1;font-weight:700}
+#achievements-screen #ach-storage{color:#fff9df;text-align:center;font-size:.67rem;margin:5px 8px 7px;line-height:1.4}
+#achievements-screen .ach-return{display:block;text-align:center;margin:8px auto 10px;width:max-content;max-width:100%;padding:7px 14px;min-height:36px;color:#fff7dc;border:2px solid #376d20;background:linear-gradient(#81ce44,#4b9428);box-shadow:0 3px #225b26;border-radius:11px}
+#achievements-screen .ach-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;background:linear-gradient(140deg,#d9d4db,#867d9b 50%,#655b76);padding:5px;border:2px solid #5b506b;border-radius:14px;box-shadow:0 3px #43374c,inset 0 2px #f4efff;margin:10px 0 8px}
+#achievements-screen .ach-nav a{background:linear-gradient(#a6a0b0,#70677f);border:2px solid #625772;box-shadow:inset 0 2px #cfc8d7,0 2px #4f455f;color:white;min-height:58px;gap:1px;border-radius:9px;padding:3px 0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-shadow:0 1px #3a2846}
+#achievements-screen .ach-nav a[aria-current]{background:linear-gradient(#c16af0,#8429ca);border-color:#ffce5c;box-shadow:0 2px #854429,inset 0 2px #e5b4fa}
+#achievements-screen .ach-nav a .nav-illustration{display:block;width:32px;height:30px;flex:none}#achievements-screen .ach-nav a svg{width:100%;height:100%}
+#achievements-screen .ach-nav a>span:last-child{font-size:clamp(.58rem,2.7vw,.82rem);font-weight:900}
+#hero-screen .hero-choice .hero-portrait{width:min(100%,154px)!important}
+#hero-screen .hero-choice{background:radial-gradient(ellipse at 50% 45%,#fff8df,#f0d093);border:2px solid #ad712d;border-radius:17px}
+#hero-screen .hero-choice[aria-pressed=true]{background:radial-gradient(ellipse,#fff5a2,#f4ba4e);border:3px solid #f8c64b;box-shadow:0 0 0 1px #a46b1f,0 3px #ae7a2c}
+@media(min-width:650px){#achievements-screen .ach-grid{grid-template-columns:repeat(4,minmax(0,1fr))}#achievements-screen .ach-card .ach-medal{width:95px}#achievements-screen .ach-score-art{width:41px;height:41px}}
+@media(max-width:350px){#achievements-screen .ach-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ach-score-art{width:23px}.ach-summary-progress{display:none!important}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -739,33 +798,28 @@ h1, h2, h3, p { margin:0 }
     </div>
   </section>
   <section id="achievements-screen" class="studio" aria-labelledby="achievements-title" hidden>
-    <a href="#galeria" class="back">← Strona główna</a>
     <div class="ach-adventure">
-      <h1 class="studio-title" id="achievements-title" tabindex="-1">🏆 Osiągnięcia</h1>
-      <p>Twoja przygoda z pikselami</p>
-      <a href="#bohater" class="ach-avatar-link"><span class="hero-portrait" id="ach-avatar" aria-hidden="true"></span><strong id="ach-avatar-name">Mój bohater</strong><small>Zmień bohatera ›</small></a>
-      <span class="ach-world-trophy" aria-hidden="true">🏆</span>
+      <h1 class="ach-sr-only" id="achievements-title" tabindex="-1">Osiągnięcia — Twoja przygoda z pikselami</h1>
+      <a href="#galeria" class="back ach-scene-back" aria-label="Wróć do poprzedniego ekranu"></a>
+      <a href="#galeria" class="ach-scene-home" aria-label="Pikseluj — strona główna"></a>
+      <a href="#bohater" class="ach-avatar-link" aria-label="Wybierz swojego bohatera"><span class="hero-portrait" id="ach-avatar" aria-hidden="true"></span><strong id="ach-avatar-name">Mój bohater</strong><small> Zmień ›</small></a>
     </div>
-    <div class="ach-hero">
-      <span class="ach-hero-medal" aria-hidden="true">🏆</span>
-      <div><p>Twoja przygoda z pikselami</p><h2 id="ach-rank">Mały odkrywca</h2><strong id="ach-total">0 zdobytych odznak</strong>
-      <progress id="ach-total-bar" aria-label="Zdobyte odznaki" value="0" max="1"></progress><p id="ach-next"></p></div>
+    <div class="ach-scoreboard" aria-label="Twoje postępy">
+      <div class="ach-score"><span class="ach-score-art" id="ach-score-icon"></span><div><small>Zdobyte</small><strong id="ach-total">0 / 27</strong></div></div>
+      <div class="ach-score"><span class="ach-score-art ach-bars" aria-hidden="true"><i></i><i></i><i></i></span><div><small>Postęp</small><strong id="ach-percent">0%</strong><progress id="ach-total-bar" aria-label="Zdobyte odznaki" value="0" max="27"></progress></div></div>
+      <div class="ach-score"><span class="ach-score-art" id="ach-score-draw-icon"></span><div><small>Rysunki</small><strong id="ach-drawings">0</strong><small id="ach-rank">Mały odkrywca</small></div></div>
     </div>
-    <div class="ach-stats" aria-label="Twoje postępy">
-      <div><span aria-hidden="true">🎨</span><strong id="ach-drawings">0</strong><small>Rysunki</small></div>
-      <div><span aria-hidden="true">📸</span><strong id="ach-photos">0</strong><small>Zdjęcia prac</small></div>
-      <div><span aria-hidden="true">✨</span><strong id="ach-projects">0</strong><small>Projekty</small></div>
-    </div>
-    <div class="ach-latest" id="ach-latest" hidden><div id="ach-latest-icon"></div><div><small>✦ Ostatnio zdobyta ✦</small><h2 id="ach-latest-name"></h2><p id="ach-latest-description"></p></div></div>
+    <div class="ach-latest" id="ach-latest"><div id="ach-latest-icon" class="ach-latest-medal"></div><div class="ach-latest-copy"><small id="ach-latest-label">Ostatnio zdobyta!</small><h2 id="ach-latest-name">Twoja pierwsza odznaka</h2><p id="ach-latest-description"></p><div class="ach-latest-progress"><progress id="ach-latest-bar" value="0" max="1" aria-label="Postęp wyróżnionej odznaki"></progress><strong id="ach-latest-count"></strong></div></div></div>
     <div class="ach-filters" role="group" aria-label="Filtr odznak">
-      <button type="button" data-ach-filter="all" aria-pressed="true">Wszystkie</button>
-      <button type="button" data-ach-filter="earned" aria-pressed="false">Zdobyte</button>
-      <button type="button" data-ach-filter="pending" aria-pressed="false">Do zdobycia</button>
+      <button type="button" data-ach-filter="all" aria-pressed="true"><span aria-hidden="true">▦</span> Wszystkie</button>
+      <button type="button" data-ach-filter="earned" aria-pressed="false"><span aria-hidden="true">✓</span> Zdobyte <span id="ach-filter-earned"></span></button>
+      <button type="button" data-ach-filter="pending" aria-pressed="false"><span aria-hidden="true">◇</span> Do zdobycia <span id="ach-filter-pending"></span></button>
     </div>
     <div id="ach-list"></div>
-    <p id="ach-storage" class="studio-small">Odznaki są zapisywane na tym urządzeniu. Rysuj we własnym tempie — zdobyte nagrody zostają z Tobą.</p>
-    <a href="#galeria" class="action primary ach-return">🎨 Wybierz rysunek</a>
-    <nav class="ach-nav" aria-label="Nawigacja przygody"><a href="#mapa">🗺️<span>Mapa</span></a><a href="#minigry">🎮<span>Minigry</span></a><a href="#osiagniecia" aria-current="page">🏆<span>Osiągnięcia</span></a><a href="#album">🖼️<span>Kolekcja</span></a></nav>
+    <div class="ach-foot-stats"><span>Zdjęcia prac: <strong id="ach-photos">0</strong></span><span>Projekty: <strong id="ach-projects">0</strong></span></div>
+    <p id="ach-storage" class="studio-small">Odznaki są zapisywane na tym urządzeniu.</p>
+    <a href="#galeria" class="action primary ach-return">Wybierz rysunek</a>
+    <nav class="ach-nav" aria-label="Nawigacja przygody"><a href="#mapa" data-ach-nav="map"><span>Mapa</span></a><a href="#minigry" data-ach-nav="games"><span>Minigry</span></a><a href="#osiagniecia" aria-current="page" data-ach-nav="achievements"><span>Osiągnięcia</span></a><a href="#album" data-ach-nav="collection"><span>Kolekcja</span></a></nav>
   </section>
   <section id="hero-screen" class="studio" aria-labelledby="hero-title" hidden>
     <a href="#osiagniecia" class="back">← Wróć</a>
@@ -4280,32 +4334,72 @@ function renderHero(){
   });
   $('hero-status').textContent='Twój bohater: '+heroChoices[heroSelected]+'. Możesz go zmieniać w każdej chwili.';
 }
-const achOpenGroups=new Set();
+const achOpenGroups=new Set(['Rysowanie']);
 const achCategoryIcons=['🎨','🌈','🧭','✏️','🗝️'];
 // Ilustrowane medale SVG: kształt, wstęga, obwódka i symbol odpowiadają grupie i randze.
+
+/* Własne ikony wektorowe, bez znaków emoji w medalach. */
+const achArt={
+ palette:'<path d="M47 13C27 7 11 19 9 37c-2 17 10 25 21 22 7-2 4-10 10-12 8-3 15 1 19-9 5-13-3-23-12-25z" fill="#ffd675"/><circle cx="24" cy="24" r="5" fill="#a945dc"/><circle cx="40" cy="20" r="5" fill="#14a6ea"/><circle cx="17" cy="38" r="5" fill="#58bb3a"/><circle cx="29" cy="48" r="5" fill="#ec4b67"/><path d="M48 40L68 16l5 4-18 25-8 9-5-3z" fill="#8941c4"/><path d="M42 45l7 6-7 10-8 1 1-8z" fill="#ec8739"/>',
+ star:'<path d="M36 5l9 20 23 3-17 16 4 22-19-11-20 11 4-22L3 28l23-3z" fill="#ffce3c"/><path d="M36 8l-1 35-17 19 8-35z" fill="#fff49c" stroke="none"/>',
+ cup:'<path d="M15 13H5v15q0 17 18 18M57 13h10v15q0 17-18 18" fill="none" stroke="#b86920" stroke-width="8"/><path d="M16 8h40v19q0 25-20 25T16 27z" fill="#ffcf39"/><path d="M24 13v13q0 13 6 17" stroke="#fff5a2" stroke-width="5" fill="none"/><path d="M31 49h10v12h14v8H17v-8h14z" fill="#f3a322"/>',
+ crown:'<path d="M7 17l16 15L36 8l13 24 16-15-6 39H13z" fill="#ffd13c"/><path d="M13 57h46v10H13z" fill="#ef982d"/><path d="M36 32l7 10-7 10-7-10z" fill="#dc4fca"/><circle cx="7" cy="16" r="4" fill="#ffeb74"/><circle cx="65" cy="16" r="4" fill="#ffeb74"/>',
+ rainbow:'<path d="M5 57a31 31 0 0162 0" fill="none" stroke="#ee4944" stroke-width="10"/><path d="M12 57a24 24 0 0148 0" fill="none" stroke="#ffb63d" stroke-width="8"/><path d="M19 57a17 17 0 0134 0" fill="none" stroke="#e9e84b" stroke-width="7"/><path d="M25 57a11 11 0 0122 0" fill="none" stroke="#38bc65" stroke-width="6"/><path d="M31 57a5 5 0 0110 0" fill="none" stroke="#6b6ce9" stroke-width="6"/>',
+ gem:'<path d="M15 14h42l13 18-34 34L2 32z" fill="#54ccef"/><path d="M15 14l9 18 12 34 12-34 9-18M2 32h68M24 32l12-18 12 18" fill="none" stroke="#246bae" stroke-width="2"/><path d="M15 14l9 18H2zM24 32l12-18 12 18z" fill="#c6f7ff"/>',
+ puzzle:'<path d="M12 9h20v7a7 7 0 1014 0V9h16v20h-7a7 7 0 100 14h7v19H42v-6a7 7 0 10-14 0v6H12V42H6a7 7 0 010-14h6z" fill="#66c9ef"/>',
+ shield:'<path d="M36 5l25 9v20c0 17-12 26-25 34C23 60 11 51 11 34V14z" fill="#4a8fdb"/><path d="M36 12l18 7v15c0 12-7 20-18 28z" fill="#9ad7fa"/><path d="M36 20l5 12 13 1-10 9 3 12-11-6-11 6 3-12-10-9 13-1z" fill="#ffda50"/>',
+ swords:'<path d="M11 5l9 2 39 40-9 9L10 15zM61 5l-9 2-39 40 9 9 40-41z" fill="#c0e8f7"/><path d="M40 48l16-16 6 6-16 16zM12 38l6-6 16 16-6 6z" fill="#e9a43c"/><path d="M53 51l12 12-6 6-12-12M19 51L7 63l6 6 12-12" fill="#a25e31"/>',
+ paw:'<ellipse cx="36" cy="47" rx="20" ry="15" fill="#d58d44"/><ellipse cx="13" cy="29" rx="8" ry="11" transform="rotate(-23 13 29)" fill="#f3b86b"/><ellipse cx="29" cy="17" rx="8" ry="11" fill="#f3b86b"/><ellipse cx="45" cy="17" rx="8" ry="11" fill="#f3b86b"/><ellipse cx="61" cy="29" rx="8" ry="11" transform="rotate(23 61 29)" fill="#f3b86b"/>',
+ mask:'<path d="M6 22q30-18 60 0l-4 23-19 10-7-9-7 9L10 45z" fill="#9b57d5"/><path d="M15 28q10-6 17 8-12 6-17-8M57 28q-10-6-17 8 12 6 17-8" fill="#fff5da"/>',
+ donut:'<circle cx="36" cy="36" r="29" fill="#c98547"/><path d="M12 21C22 0 49 1 61 21q9 16-7 21l-10 4-6-5-10 7-10-8-9 1q-6-9 3-20z" fill="#ee7dc8"/><circle cx="36" cy="36" r="10" fill="#fff1cd"/><path d="M19 17l4 4M45 15l4-3M55 29l5 2M17 33l-4 4" stroke="#fff1a0" stroke-width="4"/>',
+ castle:'<path d="M8 62V25h12v8h9V18h14v15h9v-8h12v37z" fill="#e6bb83"/><path d="M5 25l9-15 9 15M25 18L36 2l11 16M49 25l9-15 9 15" fill="#8f55cd"/><path d="M28 62V48a8 8 0 0116 0v14z" fill="#72492c"/><path d="M12 39h5v9h-5zM55 39h5v9h-5zM33 25h6v9h-6z" fill="#4e82b6"/>',
+ ball:'<circle cx="36" cy="36" r="29" fill="#fff4dd"/><path d="M36 23l12 9-5 15H29l-5-15zM14 13l9 7-8 15-8-5M58 13l-9 7 8 15 8-5M12 55l11-8 10 18M60 55l-11-8-10 18" fill="#44354a"/>',
+ compass:'<circle cx="36" cy="36" r="30" fill="#edb144"/><circle cx="36" cy="36" r="24" fill="#77d7ed"/><path d="M36 10v7M36 55v7M10 36h7M55 36h7" fill="none"/><path d="M49 19L41 43 23 53l8-24z" fill="#e94a47"/><path d="M31 29l10 14-18 10z" fill="#fff5d8"/>',
+ chest:'<path d="M6 30V20q0-12 12-12h36q12 0 12 12v10zM6 30h60v30H6z" fill="#b46b31"/><path d="M6 30h60v8H6zM17 8h7v52h-7zM48 8h7v52h-7z" fill="#ffcf4f"/><rect x="29" y="27" width="14" height="17" rx="3" fill="#ffd764"/><circle cx="36" cy="35" r="2.5" fill="#8b5127"/>',
+ pencil:'<path d="M11 51L48 7q4-5 9-1l10 9q4 4 0 8L29 65 7 69z" fill="#f2b439"/><path d="M48 7l19 16-7 8-19-16z" fill="#f68db6"/><path d="M11 51l18 14-22 4z" fill="#f7e0b3"/><path d="M8 59l7 8-8 2z" fill="#4c3a3b"/><path d="M22 51L52 17" stroke="#fff09f" stroke-width="4"/>',
+ ruler:'<path d="M9 10v52h54z" fill="#f4c252"/><path d="M22 31v18h18z" fill="#fff3d3"/><path d="M9 20h8M9 29h5M9 38h8M9 47h5M22 62v-7M33 62v-5M44 62v-7" fill="none" stroke="#8f622f" stroke-width="2"/>',
+ frame:'<rect x="6" y="8" width="60" height="54" rx="5" fill="#d99a46"/><rect x="14" y="16" width="44" height="38" rx="2" fill="#9bdcf1"/><circle cx="46" cy="26" r="6" fill="#ffdd54"/><path d="M14 54l15-22 10 12 8-6 11 16z" fill="#5caf4b"/>',
+ wand:'<path d="M10 63l40-39 7 7-40 39z" fill="#9d58d8"/><path d="M49 4l6 12 14 2-10 10 2 14-12-7-12 7 2-14-10-10 14-2z" fill="#ffda50"/><path d="M10 15v12M4 21h12M24 4v8M20 8h8" stroke="#f4b52d" stroke-width="3"/>',
+ camera:'<rect x="6" y="22" width="60" height="38" rx="7" fill="#547d9d"/><path d="M20 22l6-10h20l6 10z" fill="#8fc7e8"/><circle cx="36" cy="41" r="15" fill="#c3eaf3"/><circle cx="36" cy="41" r="10" fill="#245b97"/><circle cx="32" cy="36" r="3" fill="#d6f7ff"/><rect x="53" y="28" width="8" height="5" fill="#ffe16b"/>',
+ book:'<path d="M6 14q16-7 30 4 14-11 30-4v45q-16-5-30 4-14-9-30-4z" fill="#ba79db"/><path d="M36 18v45M11 22q11-3 20 2M41 24q9-5 20-2M11 30q11-3 20 2M41 32q9-5 20-2" fill="none" stroke="#fff1dc" stroke-width="3"/>',
+ lock:'<path d="M20 29V19a16 16 0 0132 0v10" fill="none" stroke="#c08329" stroke-width="9"/><rect x="10" y="27" width="52" height="39" rx="7" fill="#ffd45c"/><path d="M36 38a6 6 0 00-3 11l-2 9h10l-2-9a6 6 0 00-3-11z" fill="#8a512c"/>'
+};
+const achArtById={first:'palette',five:'palette',ten:'star',fifteen:'shield',thirty:'cup',sixty:'crown',color4:'rainbow',color6:'palette',color8:'gem',size256:'puzzle',size576:'shield',size1024:'swords',animals:'paw',characters:'mask',sweets:'donut',fantasy:'castle',sport:'ball',variety:'compass',gallery60:'chest',project1:'pencil',project5:'ruler',own1:'frame',magic1:'wand',photo1:'camera',photo5:'book',photo15:'book',mystery:'lock'};
+function achSymbolMarkup(name){return '<g stroke="#70451f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">'+(achArt[name]||achArt.star)+'</g>';}
+function achSymbol(name){
+  const node=el('span','ach-group-icon');node.setAttribute('aria-hidden','true');
+  node.innerHTML='<svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">'+achSymbolMarkup(name)+'</svg>';return node;
+}
 function achievementMedal(rule){
   const n=achievementRules.indexOf(rule);
   const tier=rule.group==='Rysowanie'?Math.min(n,5):rule.target>=15?5:rule.target>=5?3:1;
-  const color=['#ce824a','#8e59ca','#558dbb','#38a06a','#d48935','#9d48c4'][tier];
-  const icon=rule.icon;
+  const color=['#c57b43','#9451c6','#4c8ed3','#43a35c','#d48b35','#a64fc7'][tier];
   const span=el('span','ach-medal');span.setAttribute('aria-hidden','true');
-  span.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 108" width="100%" height="100%"><path d="M22 64L14 103l23-9 13 12 7-35M78 64l8 39-23-9-13 12-7-35" fill="'+color+'" stroke="#543354" stroke-width="3"/><path d="M13 44Q0 73 38 84M87 44Q100 73 62 84" fill="none" stroke="#99601d" stroke-width="5"/><g fill="#e2a138" stroke="#a56a26" stroke-width="1.5"><path d="M12 44q-10 14 8 22Q22 51 12 44M19 58q-6 15 13 21-1-14-13-21M88 44q10 14-8 22-2-15 8-22M81 58q6 15-13 21 1-14 13-21"/></g><path d="M50 4L66 13 84 19 89 39 85 61 72 77 50 86 28 77 15 61 11 39 16 19 34 13Z" fill="#c38429" stroke="#794515" stroke-width="3"/><path d="M50 10L78 23 83 40 77 61 65 73 50 79 35 73 23 61 17 40 22 23Z" fill="#ffda69" stroke="#fff1b1" stroke-width="3"/><circle cx="50" cy="44" r="27" fill="'+color+'" stroke="#985a22" stroke-width="3"/><circle cx="50" cy="44" r="23" fill="#fff2c6" stroke="#ffffff" stroke-width="2"/><text x="50" y="46" dominant-baseline="middle" text-anchor="middle" font-size="29">'+icon+'</text><path d="M50 69l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#ffe67d" stroke="#a9671d" stroke-width="1.5"/></svg>';
+  const uid='medal-'+(++achievementMedal.serial);
+  span.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 108" width="100%" height="100%"><defs><linearGradient id="'+uid+'g" x2=".2" y2="1"><stop stop-color="#fff5a3"/><stop offset=".42" stop-color="#ffce37"/><stop offset=".75" stop-color="#d88a1e"/><stop offset="1" stop-color="#ffca40"/></linearGradient><radialGradient id="'+uid+'c" cx=".35" cy=".2"><stop stop-color="#fffbe0"/><stop offset="1" stop-color="#f6ca7d"/></radialGradient></defs><path d="M22 68L16 104l20-9 13 10 5-32M78 68l6 36-20-9-13 10-5-32" fill="'+color+'" stroke="#513467" stroke-width="3"/><path d="M12 39Q-2 74 40 87M88 39Q102 74 60 87" fill="none" stroke="#965117" stroke-width="6"/><g fill="url(#'+uid+'g)" stroke="#a8641b" stroke-width="1.5"><path d="M9 40q-6 16 12 24Q22 50 9 40M15 57q-3 16 17 22 0-14-17-22M25 72q2 15 20 15-4-10-20-15M91 40q6 16-12 24-1-14 12-24M85 57q3 16-17 22 0-14 17-22M75 72q-2 15-20 15 4-10 20-15"/></g><path d="M50 4L69 11 85 23 90 44 82 66 66 81 50 88 34 81 18 66 10 44 15 23 31 11Z" fill="url(#'+uid+'g)" stroke="#8f4c13" stroke-width="3"/><path d="M50 10L78 25 84 44 75 65 50 81 25 65 16 44 22 25Z" fill="'+color+'" stroke="#fff6bb" stroke-width="2.5"/><circle cx="50" cy="44" r="30" fill="url(#'+uid+'c)" stroke="#9e5d1f" stroke-width="3"/><g transform="translate(24 18) scale(.72)">'+achSymbolMarkup(achArtById[rule.id])+'</g><path d="M50 72l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#fff0a0" stroke="#ae6b15" stroke-width="1.6"/></svg>';
   return span;
 }
-
+achievementMedal.serial=0;
 function renderAchievements(){
   syncHero();
   const stats=achievementStats(achievementState);
   const total=achievementRules.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
   const ranks=[[60,'Legenda pikseli'],[30,'Mistrz pikseli'],[15,'Wielki twórca'],[5,'Mały twórca'],[1,'Pikselowy artysta'],[0,'Mały odkrywca']];
   $('ach-rank').textContent=ranks.find(r=>stats.drawings>=r[0])[1];
-  $('ach-total').textContent=total+' / '+achievementRules.length+' odznak';
+  $('ach-total').textContent=total+' / '+achievementRules.length;
+  $('ach-percent').textContent=Math.round(100*total/achievementRules.length)+'%';
+  $('ach-filter-earned').textContent='('+total+')';$('ach-filter-pending').textContent='('+(achievementRules.length-total)+')';
+  $('ach-score-icon').replaceChildren(achSymbol('star'));$('ach-score-draw-icon').replaceChildren(achSymbol('palette'));
+  for(const node of document.querySelectorAll('[data-ach-nav]')){if(!node.querySelector('.nav-illustration')){const icon=document.querySelector('.reference-nav-'+node.dataset.achNav+' .nav-illustration');if(icon)node.prepend(icon.cloneNode(true));}}
   $('ach-total-bar').max=achievementRules.length;$('ach-total-bar').value=total;
-  $('ach-next').textContent=total===achievementRules.length?'Wszystkie odznaki zdobyte!':'Każda praca to kolejny krok w Twojej przygodzie.';
   $('ach-drawings').textContent=stats.drawings;$('ach-photos').textContent=stats.photos;$('ach-projects').textContent=stats.projects;
   const latest=achievementRules.filter(r=>Object.hasOwn(achievementState.earned,r.id)).sort((a,b)=>achievementState.earned[b.id]-achievementState.earned[a.id]).at(0);
-  $('ach-latest').hidden=!latest;
-  if(latest){$('ach-latest-icon').replaceChildren(achievementMedal(latest));$('ach-latest-name').textContent=latest.name;$('ach-latest-description').textContent=latest.description+' · ✓ Zdobyta';}
+  const featured=latest||achievementRules[0];
+  $('ach-latest-label').textContent=latest?'✦ Ostatnio zdobyta! ✦':'✦ Pierwsza odznaka ✦';
+  $('ach-latest-icon').replaceChildren(achievementMedal(featured));
+  $('ach-latest-name').textContent=featured.name;$('ach-latest-description').textContent=featured.description;
+  $('ach-latest-bar').max=featured.target;$('ach-latest-bar').value=latest?featured.target:Math.min(stats[featured.metric],featured.target);
+  $('ach-latest-count').textContent=(latest?featured.target:Math.min(stats[featured.metric],featured.target))+' / '+featured.target+(latest?' ✓':'');
   const list=$('ach-list');list.replaceChildren();
   let shown=0;
   for(const group of achievementGroups){
@@ -4315,7 +4409,8 @@ function renderAchievements(){
     const all=achievementRules.filter(r=>r.group===group);
     const count=all.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
     const summary=el('summary');
-    summary.append(el('span','',achCategoryIcons[achievementGroups.indexOf(group)]),el('span','ach-summary-name',group),el('span','ach-summary-count',count+' / '+all.length),el('span','ach-chevron','⌄'));
+    const groupBar=el('progress','ach-summary-progress');groupBar.max=all.length;groupBar.value=count;groupBar.setAttribute('aria-label',group+' — zdobyte odznaki');
+    summary.append(achSymbol(['palette','rainbow','compass','pencil','chest'][achievementGroups.indexOf(group)]),el('span','ach-summary-name',group),groupBar,el('span','ach-summary-count',count+' / '+all.length),el('span','ach-chevron','⌄'));
     section.open=achOpenGroups.has(group);
     section.addEventListener('toggle',()=>{if(section.isConnected){if(section.open)achOpenGroups.add(group);else achOpenGroups.delete(group);}});
     section.append(summary,grid);
@@ -4331,7 +4426,7 @@ function renderAchievements(){
     list.append(section);
   }
   if(!shown)list.append(el('p','studio-small',achievementFilter==='earned'?'Tutaj pojawią się Twoje pierwsze nagrody. Wybierz obrazek i zacznij przygodę!':'Wszystkie odznaki zostały zdobyte!'));
-  $('ach-storage').textContent=achievementStorage?'Postępy odznak są historyczne i zapisują się na tym urządzeniu. Rysuj we własnym tempie — zdobyte nagrody zostają z Tobą.':'Pamięć urządzenia jest niedostępna. Nowe osiągnięcia mogą nie zostać zapisane.';
+  $('ach-storage').textContent=achievementStorage?'Zdobyte nagrody zostają z Tobą. Postępy zapisują się na tym urządzeniu.':'Pamięć urządzenia jest niedostępna. Nowe osiągnięcia mogą nie zostać zapisane.';
 }
 for(const button of document.querySelectorAll('[data-ach-filter]')){
   button.addEventListener('click',()=>{
@@ -4767,6 +4862,7 @@ function showScreen(next) {
   }
   if (view === 'gallery' && next !== 'gallery') lastGalleryY = window.scrollY;
   view = next;
+  document.body.classList.toggle('ach-adventure-page',next==='achievements');
   $('gallery').hidden = next !== 'gallery';
   $('reader').hidden = next !== 'reader';
   $('my-studio').hidden = next !== 'studio';
