@@ -580,7 +580,7 @@ h1, h2, h3, p { margin:0 }
 </style>
 <style>
 /* Oryginalna ilustracja z projektu nr 3; treść i elementy interaktywne pozostają HTML. */
-body.ach-adventure-page{background:linear-gradient(180deg,#20b8ef 0,#159ed3 24%,#1587ac 60%,#0b6380 100%)}
+body.ach-adventure-page:has(#gallery[hidden]){background:linear-gradient(180deg,#20b8ef 0,#159ed3 24%,#1587ac 60%,#0b6380 100%)!important}
 body.ach-adventure-page .site-header{display:none!important}
 #achievements-screen{width:min(100%,760px);max-width:760px;padding:0 10px 12px!important;margin:0 auto!important;color:#4c281c}
 .ach-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
@@ -4376,6 +4376,7 @@ function achievementMedal(rule){
   const color=['#c57b43','#9451c6','#4c8ed3','#43a35c','#d48b35','#a64fc7'][tier];
   const span=el('span','ach-medal');span.setAttribute('aria-hidden','true');
   const uid='medal-'+(++achievementMedal.serial);
+  if(rule.id==='first'||rule.id==='five'){span.classList.add('ach-medal-palette');}
   span.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 108" width="100%" height="100%"><defs><linearGradient id="'+uid+'g" x2=".2" y2="1"><stop stop-color="#fff5a3"/><stop offset=".42" stop-color="#ffce37"/><stop offset=".75" stop-color="#d88a1e"/><stop offset="1" stop-color="#ffca40"/></linearGradient><radialGradient id="'+uid+'c" cx=".35" cy=".2"><stop stop-color="#fffbe0"/><stop offset="1" stop-color="#f6ca7d"/></radialGradient></defs><path d="M22 68L16 104l20-9 13 10 5-32M78 68l6 36-20-9-13 10-5-32" fill="'+color+'" stroke="#513467" stroke-width="3"/><path d="M12 39Q-2 74 40 87M88 39Q102 74 60 87" fill="none" stroke="#965117" stroke-width="6"/><g fill="url(#'+uid+'g)" stroke="#a8641b" stroke-width="1.5"><path d="M9 40q-6 16 12 24Q22 50 9 40M15 57q-3 16 17 22 0-14-17-22M25 72q2 15 20 15-4-10-20-15M91 40q6 16-12 24-1-14 12-24M85 57q3 16-17 22 0-14 17-22M75 72q-2 15-20 15 4-10 20-15"/></g><path d="M50 4L69 11 85 23 90 44 82 66 66 81 50 88 34 81 18 66 10 44 15 23 31 11Z" fill="url(#'+uid+'g)" stroke="#8f4c13" stroke-width="3"/><path d="M50 10L78 25 84 44 75 65 50 81 25 65 16 44 22 25Z" fill="'+color+'" stroke="#fff6bb" stroke-width="2.5"/><circle cx="50" cy="44" r="30" fill="url(#'+uid+'c)" stroke="#9e5d1f" stroke-width="3"/><g transform="translate(24 18) scale(.72)">'+achSymbolMarkup(achArtById[rule.id])+'</g><path d="M50 72l3 6 7 1-5 5 1 7-6-4-6 4 1-7-5-5 7-1z" fill="#fff0a0" stroke="#ae6b15" stroke-width="1.6"/></svg>';
   return span;
 }
