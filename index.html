@@ -704,11 +704,16 @@ body.ach-adventure-page .site-header{display:none!important}
 </style>
 <style>
 /* Karta bohatera w stylistyce ilustrowanych Osiągnięć Adventure. */
-body:has(#hero-screen:not([hidden])){background:linear-gradient(#20b8ef,#1587ac 60%,#0b6380)!important}
+body:has(#hero-screen:not([hidden])){position:relative;background:linear-gradient(#20b8ef,#1587ac 60%,#0b6380)!important}
+/* Wspólne ilustrowane tło za logo i nagłówkiem. Dolny fragment sceny nie zawiera napisów. */
+body:has(#hero-screen:not([hidden]))::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(100%,760px);height:170px;background:linear-gradient(to bottom,transparent 82%,#137e9b 100%),url('./assets/ach-scene.webp?v=2') center bottom/max(100%,860px) auto no-repeat;pointer-events:none;z-index:0}
+body:has(#hero-screen:not([hidden])) #hero-screen{position:relative;z-index:1}
+body:has(#hero-screen:not([hidden])) .site-header{background:transparent!important}
+@media(min-width:761px){body:has(#hero-screen:not([hidden]))::before{width:760px}}
 body:has(#hero-screen:not([hidden])) .site-header .topbar{height:86px;min-height:86px}
 body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);transform-origin:center}
 #hero-screen{width:min(100%,760px);max-width:760px;margin:0 auto!important;padding:0!important;color:#532b1c;overflow:hidden}
-#hero-screen .hero-page-header{display:flex;align-items:center;gap:8px;padding:4px 5% 10px;background:linear-gradient(#40bdf000,#20b8ef)}
+#hero-screen .hero-page-header{display:flex;align-items:center;gap:8px;padding:4px 5% 10px;background:transparent}
 #hero-screen .hero-back{position:static;flex:0 0 43px;display:grid;place-items:center;min-height:43px;margin:0!important;border:2px solid #efcd71;border-radius:12px;background:linear-gradient(#c17aef,#842ac7 60%,#66209b);color:white;text-shadow:0 2px #4e155c;font-size:2rem;font-weight:900;line-height:1;text-decoration:none;box-shadow:0 3px #4e2268,inset 0 2px #e6b6ff}
 #hero-screen .hero-heading{flex:1;margin:0;padding:9px 5px;border:2px solid #c38b34;border-radius:12px;background:url('./assets/ach-parchment.webp') center/100% 100% no-repeat,#ffdf94;box-shadow:0 3px #70451f;color:#51291b;font-size:clamp(1.45rem,6.2vw,2rem);font-weight:950;line-height:1.2}
 .hero-custom-landscape{padding:10px 6% 20px;background:#137e9b url('./assets/ach-terrain.webp') top center/100% 100% no-repeat}
