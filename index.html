@@ -749,6 +749,105 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
 #hero-screen #hero-return{display:block;width:max-content;max-width:100%;margin:16px auto 0;min-height:42px;padding:8px 20px;text-align:center;background:linear-gradient(#c97af2,#a33cda 45%,#7321ae);border:2px solid #f5cc63;color:#fff7df;border-radius:12px;box-shadow:0 3px #54236c,inset 0 2px #e3b4ff;text-shadow:0 1px #4e155c;font-size:.88rem;font-weight:900}
 @media(min-width:650px){#hero-screen .hero-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:12px}#hero-screen .hero-choice .hero-portrait{width:min(100%,155px)!important}.hero-current{grid-template-columns:35% minmax(0,1fr)}}
 </style>
+<style id="adventure-landscape-layout">
+/* Na telefonie zachowujemy dotychczasowe rozmieszczenie i tło. */
+.ach-overview,.ach-collection,.ach-bottom,.hero-profile-panel{display:contents}
+/* Poziomy tablet: osobna kompozycja, a nie powiększony ekran telefonu. */
+@media (min-width:700px) and (orientation:landscape) {
+  body.ach-adventure-page:has(#gallery[hidden]),
+  body:has(#hero-screen:not([hidden])){
+    min-height:100dvh;
+    background:linear-gradient(180deg,#0d5f7b19,#11536344),url('./assets/adventure-premium-world.svg') center/cover fixed no-repeat,#197ea1!important;
+  }
+  body:has(#hero-screen:not([hidden]))::before{display:none!important}
+  #achievements-screen:not([hidden]),#hero-screen:not([hidden]){
+    width:min(1440px,calc(100% - 24px));max-width:1440px;
+    margin:0 auto!important;padding:12px!important;overflow:visible;
+    border:2px solid #e8c477;border-radius:20px;
+    background:linear-gradient(120deg,#0f638cbb,#176e85aa),url('./assets/ach-terrain.webp') center/100% 100% no-repeat;
+    box-shadow:0 5px #5e472d,0 8px 24px #123b4c66,inset 0 0 0 2px #fff3b655;
+  }
+  #achievements-screen:not([hidden]){
+    display:grid;
+    grid-template-columns:minmax(0,42fr) minmax(0,58fr);
+    grid-template-rows:auto auto auto 1fr;
+    column-gap:clamp(10px,1.3vw,20px);
+    row-gap:10px;
+    align-items:start;
+    align-content:start;
+    margin-top:10px!important;
+  }
+  #achievements-screen .ach-landscape{display:contents}
+  #achievements-screen .ach-overview,#achievements-screen .ach-collection,#achievements-screen .ach-bottom{display:block;min-width:0}
+  #achievements-screen .ach-adventure{
+    grid-column:1;grid-row:1;width:100%;margin:0;
+    border:2px solid #e7bb67;border-radius:13px;
+    box-shadow:0 3px #744322;
+  }
+  #achievements-screen .ach-overview{grid-column:1;grid-row:2}
+  #achievements-screen .ach-collection{
+    grid-column:2;grid-row:1 / 5;align-self:start;
+    padding:10px;border:2px solid #b27b32;border-radius:15px;
+    background:linear-gradient(#fff0cc99,#efd29b99),url('./assets/ach-paper-texture.webp') center/cover;
+    box-shadow:0 4px #764722,inset 0 0 0 2px #fff4c7;
+  }
+  #achievements-screen .ach-bottom{grid-column:1;grid-row:3;align-self:start}
+  #achievements-screen .ach-scoreboard{margin:0 0 12px;padding:8px 2px}
+  #achievements-screen .ach-score{gap:4px;padding:4px}
+  #achievements-screen .ach-score small{font-size:clamp(.65rem,1.1vw,.8rem)}
+  #achievements-screen .ach-score strong{font-size:clamp(.95rem,1.6vw,1.3rem)}
+  #achievements-screen .ach-score-art{width:clamp(21px,2.7vw,35px);height:30px}
+  #achievements-screen .ach-latest{margin:15px 0 0;grid-template-columns:26% minmax(0,1fr)}
+  #achievements-screen .ach-latest .ach-medal{max-width:94px}
+  #achievements-screen .ach-latest small{font-size:clamp(.67rem,1.1vw,.92rem);padding:3px 7px;white-space:normal}
+  #achievements-screen .ach-latest h2{font-size:clamp(1rem,1.7vw,1.4rem)}
+  #achievements-screen .ach-latest p{font-size:clamp(.72rem,1.15vw,.92rem)}
+  #achievements-screen .ach-filters{margin:0 0 10px;gap:6px}
+  #achievements-screen .ach-filters button{min-height:42px;font-size:clamp(.73rem,1.25vw,.98rem)}
+  #achievements-screen .ach-group{margin:8px 0}
+  #achievements-screen .ach-group summary{min-height:42px;font-size:clamp(.85rem,1.4vw,1.07rem)}
+  #achievements-screen .ach-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-flow:row;grid-auto-columns:auto;overflow:visible;scroll-snap-type:none;gap:7px;padding:8px}
+  #achievements-screen .ach-card .ach-medal{width:min(100%,72px)}
+  #achievements-screen .ach-card h3{font-size:clamp(.75rem,1.2vw,.95rem)}
+  #achievements-screen .ach-card p{font-size:clamp(.65rem,1.05vw,.82rem)}
+  #achievements-screen .ach-swipe-hint{display:none}
+  #achievements-screen .ach-collection>.studio-small,#ach-list>.studio-small{color:#613d23;padding:8px}
+  #achievements-screen .ach-foot-stats{margin:1px 0 4px;font-size:.78rem}
+  #achievements-screen #ach-storage{font-size:.72rem}
+  #achievements-screen .ach-return{margin:9px auto 12px;min-height:40px;font-size:.85rem}
+  #achievements-screen .ach-nav{width:100%;max-width:440px;margin:6px auto 0}
+  #achievements-screen .ach-nav a,#achievements-screen .ach-nav a[aria-current]{aspect-ratio:200/172}
+  body:has(#hero-screen:not([hidden])) .site-header .topbar{height:94px;min-height:94px;padding-top:12px}
+  body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88)}
+  #hero-screen .hero-page-header{padding:0 0 12px;max-width:100%;margin:0 auto;background:none}
+  #hero-screen .hero-heading{font-size:clamp(1.35rem,2.4vw,2rem)}
+  #hero-screen .hero-custom-landscape{
+    display:grid;grid-template-columns:minmax(0,40fr) minmax(0,60fr);
+    grid-template-rows:auto 1fr;gap:12px;
+    padding:0;background:none;align-items:start;
+  }
+  #hero-screen .hero-profile-panel{display:block;min-width:0;grid-column:1;grid-row:1}
+  #hero-screen .hero-current{grid-template-columns:38% minmax(0,1fr);min-height:128px;margin-bottom:12px}
+  #hero-current-portrait{width:min(100%,158px)}
+  #hero-current-name{font-size:clamp(1.25rem,2.5vw,2rem)}
+  #hero-current-role{font-size:clamp(.8rem,1.3vw,1.05rem)}
+  #hero-screen .hero-current-ribbon{font-size:clamp(.65rem,1.05vw,.9rem)}
+  #hero-screen .hero-current-copy small{font-size:.75rem}
+  #hero-screen .hero-name-panel{margin:0;padding:12px 10px}
+  #hero-screen .hero-name-panel label{font-size:clamp(.82rem,1.4vw,1.1rem)}
+  #hero-screen .hero-name-row{flex-wrap:wrap}
+  #hero-screen .hero-name-row input{width:0;min-width:100px}
+  #hero-screen .hero-gallery-panel{grid-column:2;grid-row:1 / 3;align-self:start;min-width:0}
+  #hero-screen .hero-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:9px}
+  #hero-screen .hero-choice .hero-portrait{width:min(100%,clamp(84px,11vw,150px))!important}
+  #hero-screen .hero-choice>span:last-child{font-size:clamp(.72rem,1.25vw,.98rem)}
+  #hero-screen #hero-return{grid-column:1;grid-row:2;align-self:start;margin:0 auto 5px}
+}
+@media(min-width:1200px) and (orientation:landscape){
+  #achievements-screen .ach-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #achievements-screen .ach-card .ach-medal{width:min(100%,80px)}
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -917,22 +1016,28 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
       <a href="#bohater" class="ach-avatar-link" aria-label="Wybierz swojego bohatera"><span class="hero-portrait" id="ach-avatar" aria-hidden="true"></span><strong id="ach-avatar-name">Mój bohater</strong><small> Zmień ›</small></a>
     </div>
     <div class="ach-landscape">
+    <div class="ach-overview">
     <div class="ach-scoreboard" aria-label="Twoje postępy">
       <div class="ach-score"><span class="ach-score-art" id="ach-score-icon"></span><div><small>Zdobyte</small><strong id="ach-total">0 / 27</strong></div></div>
       <div class="ach-score"><span class="ach-score-art ach-bars" aria-hidden="true"><i></i><i></i><i></i></span><div><small>Postęp</small><strong id="ach-percent">0%</strong><progress id="ach-total-bar" aria-label="Zdobyte odznaki" value="0" max="27"></progress></div></div>
       <div class="ach-score"><span class="ach-score-art" id="ach-score-draw-icon"></span><div><small>Rysunki</small><strong id="ach-drawings">0</strong><small id="ach-rank">Mały odkrywca</small></div></div>
     </div>
     <div class="ach-latest" id="ach-latest"><div id="ach-latest-icon" class="ach-latest-medal"></div><div class="ach-latest-copy"><small id="ach-latest-label">Ostatnio zdobyta!</small><h2 id="ach-latest-name">Twoja pierwsza odznaka</h2><p id="ach-latest-description"></p><div class="ach-latest-progress"><progress id="ach-latest-bar" value="0" max="1" aria-label="Postęp wyróżnionej odznaki"></progress><strong id="ach-latest-count"></strong></div></div></div>
+    </div>
+    <div class="ach-collection">
     <div class="ach-filters" role="group" aria-label="Filtr odznak">
       <button type="button" data-ach-filter="all" aria-pressed="true"><span aria-hidden="true">▦</span> Wszystkie</button>
       <button type="button" data-ach-filter="earned" aria-pressed="false"><span aria-hidden="true">✓</span> Zdobyte <span id="ach-filter-earned"></span></button>
       <button type="button" data-ach-filter="pending" aria-pressed="false"><span aria-hidden="true">◇</span> Do zdobycia <span id="ach-filter-pending"></span></button>
     </div>
     <div id="ach-list"></div>
+    </div>
+    <div class="ach-bottom">
     <div class="ach-foot-stats"><span>Zdjęcia prac: <strong id="ach-photos">0</strong></span><span>Projekty: <strong id="ach-projects">0</strong></span></div>
     <p id="ach-storage" class="studio-small">Odznaki są zapisywane na tym urządzeniu.</p>
     <a href="#galeria" class="action primary ach-return">Wybierz rysunek</a>
     <nav class="ach-nav" aria-label="Nawigacja przygody"><a href="#mapa" data-ach-nav="map"><span>Mapa</span></a><a href="#minigry" data-ach-nav="games"><span>Minigry</span></a><a href="#osiagniecia" aria-current="page" data-ach-nav="achievements"><span>Osiągnięcia</span></a><a href="#album" data-ach-nav="collection"><span>Kolekcja</span></a></nav>
+    </div>
     </div>
   </section>
   <section id="hero-screen" class="studio" aria-labelledby="hero-title" hidden>
@@ -941,6 +1046,7 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
       <h1 class="studio-title hero-heading" id="hero-title" tabindex="-1">Mój bohater</h1>
     </div>
     <div class="hero-custom-landscape">
+      <div class="hero-profile-panel">
       <div class="hero-current">
         <div class="hero-current-art"><span id="hero-current-portrait" class="hero-portrait" aria-hidden="true"></span></div>
         <div class="hero-current-copy">
@@ -957,6 +1063,7 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
         <p class="hero-name-help">Puste pole przywraca nazwę postaci.</p>
         <p id="hero-status" role="status" aria-live="polite" hidden></p>
       </form>
+      </div>
       <div class="hero-gallery-panel">
         <h2 class="hero-gallery-heading">Wybierz postać</h2>
         <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
@@ -4563,7 +4670,7 @@ function renderAchievements(){
     const rules=achievementRules.filter(r=>r.group===group&&(achievementFilter==='all'||(achievementFilter==='earned')===Object.hasOwn(achievementState.earned,r.id)));
     if(!rules.length)continue;
     const section=el('details','ach-group');const grid=el('div','ach-grid');
-    grid.tabIndex=0;grid.setAttribute('aria-label','Odznaki: '+group+' — przewijaj w poziomie');
+    grid.tabIndex=0;grid.setAttribute('aria-label','Odznaki: '+group);
     const all=achievementRules.filter(r=>r.group===group);
     const count=all.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
     const summary=el('summary');
