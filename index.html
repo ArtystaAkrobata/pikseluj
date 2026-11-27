@@ -587,7 +587,7 @@ body.ach-adventure-page .site-header{display:none!important}
 #achievements-screen .ach-adventure{aspect-ratio:1024/444;min-height:0;border:0;border-radius:0;box-shadow:none;background:url('./assets/ach-scene.webp?v=2') center/100% 100% no-repeat;margin:0 -10px;padding:0;overflow:hidden;position:relative}
 .ach-scene-back{position:absolute!important;left:5.5%;top:0;width:11%;height:17%;min-width:40px;min-height:36px;margin:0!important;z-index:5}
 .ach-scene-home{position:absolute;left:31%;top:0;width:38%;height:19%;z-index:5}
-.hero-portrait{background-image:url('./assets/ach-heroes.webp?v=2')!important;background-size:300% 200%;background-repeat:no-repeat;border-radius:0!important}
+.hero-portrait{background-image:url('./assets/ach-heroes-transparent.webp?v=1')!important;background-size:300% 200%;background-repeat:no-repeat;border-radius:0!important}
 #achievements-screen .ach-avatar-link{position:absolute;bottom:0;left:0;display:block;width:31%;height:69%;margin:0;padding:0;background:none;border:0;border-radius:0;box-shadow:none;filter:drop-shadow(0 2px 2px #173a47aa)}
 #achievements-screen .ach-avatar-link .hero-portrait{position:absolute;bottom:0;left:0;width:100%;height:auto;aspect-ratio:1}
 #achievements-screen .ach-avatar-link strong{position:absolute;bottom:2px;left:5%;right:5%;background:#fff0c7;border:1px solid #a36925;border-radius:7px;padding:1px 3px;color:#482b18;font-size:clamp(.63rem,2.4vw,.84rem);box-shadow:0 1px 2px #64331e80}
@@ -884,7 +884,7 @@ body.ach-adventure-page .site-header{display:none!important}
     <p class="hero-intro">Wybierz postać, która będzie Ci towarzyszyć w przygodzie z pikselami!</p>
     <div id="hero-choices" class="hero-choices" role="group" aria-label="Wybór bohatera"></div>
     <p id="hero-status" role="status" class="hero-intro"></p>
-    <a class="action primary" href="#osiagniecia">Wróć do osiągnięć</a>
+    <a class="action primary" id="hero-return" data-hero-return href="#osiagniecia">Wróć do osiągnięć</a>
   </section>
   <div id="ach-toast" role="status" aria-live="polite" hidden></div>
   <section id="magic-screen" class="studio magic-v2" aria-labelledby="magic-title" hidden>
@@ -4375,6 +4375,9 @@ function syncHero(){
 }
 function renderHero(){
   syncHero();
+  const fromMap=navState()?.pikselujFromHash==='#mapa';
+  $('hero-return').href=fromMap?'#mapa':'#osiagniecia';
+  $('hero-return').textContent=fromMap?'Wróć do mapy':'Wróć do osiągnięć';
   const list=$('hero-choices');list.replaceChildren();
   heroChoices.forEach((name,index)=>{
     const button=el('button','hero-choice');button.type='button';button.setAttribute('aria-pressed',String(index===heroSelected));
@@ -4935,6 +4938,7 @@ function showScreen(next) {
   $('hero-screen').hidden = next !== 'hero';
 }
 function route() {
+  lastRoutedIndex=navState()?.pikselujIndex??0;
   const hash = location.hash;
   if (!hash || hash === '#galeria') syncGalleryMode();
   const projectId = hash.startsWith('#wzor/') ? hash.slice(6) : '';
@@ -5038,6 +5042,9 @@ function route() {
 }
 // Jedna historia dla wszystkich ekranów. Obsługuje także systemowy Wstecz Androida.
 const APP_NAV = 'pikselujApp';
+const APP_TABS=new Set(['#mapa','#minigry','#osiagniecia','#album']);
+const APP_TAB_VIEWS=new Set(['map','games','achievements','album']);
+let lastRoutedIndex=0, pendingMainTab=null;
 function navState() {
   const state = history.state;
   return state && state[APP_NAV] === true ? state : null;
@@ -5052,8 +5059,12 @@ function initialAppHistory() {
   // Głęboki link też ma bezpieczne Wstecz do ekranu startowego.
   if (currentHash && currentHash !== '#galeria') {
     history.replaceState(root,'',baseUrl + '#galeria');
-    history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',
-      pikselujFromGallery:true},'',baseUrl + currentHash);
+    if(currentHash==='#bohater'){
+      history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',pikselujFromGallery:true},'',baseUrl+'#osiagniecia');
+      history.pushState({...root,pikselujIndex:2,pikselujFromHash:'#osiagniecia'},'',baseUrl+currentHash);
+    }else{
+      history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',pikselujFromGallery:true},'',baseUrl + currentHash);
+    }
   } else {
     history.replaceState(root,'',baseUrl + (currentHash || '#galeria'));
   }
@@ -5077,8 +5088,32 @@ function navigateTo(hash,{replace = false,resume = false} = {}) {
   pushAppState(hash,{pikselujResume:resume},replace);
   route();
 }
+// Dolne zakładki są równorzędne: wymieniają ekran, nie tworzą stosu podstron.
+function navigateMainTab(hash){
+  if(!APP_TABS.has(hash)||pendingMainTab)return;
+  const index=navState()?.pikselujIndex??0;
+  if(index===1&&APP_TABS.has(appHash())){
+    if(hash===appHash())return;
+    pushAppState(hash,{pikselujFromHash:'#galeria',pikselujFromGallery:true,pikselujFromStudio:false,pikselujFromAlbum:false},true);
+    route();
+    return;
+  }
+  if(index>0){
+    pendingMainTab=hash;
+    history.go(-index);
+    return;
+  }
+  navigateTo(hash);
+}
 function navigateBack() {
-  if ((navState()?.pikselujIndex ?? 0) > 0) {
+  const state=navState();
+  // Główna zakładka otwarta z innej głównej zakładki w starej wersji
+  // nie powinna prowadzić przez całą listę zakładek. Podstrony (np. wzór,
+  // bohater albo album otwarty z rysunku) zachowują prawdziwego rodzica.
+  if(APP_TABS.has(appHash())&&(state?.pikselujFromGallery||APP_TABS.has(state?.pikselujFromHash))){
+    navigateHome();return;
+  }
+  if ((state?.pikselujIndex ?? 0) > 0) {
     history.back();
     return;
   }
@@ -5143,8 +5178,10 @@ document.addEventListener('click',event => {
   const target = anchor.getAttribute('href');
   if (!target || target === '#') return;
   event.preventDefault();
-  if (anchor.classList.contains('back')) {
+  if (anchor.classList.contains('back')||anchor.hasAttribute('data-hero-return')) {
     navigateBack();
+  } else if(APP_TABS.has(target)&&anchor.closest('.reference-bottom-nav,.adventure-nav,.ach-nav')){
+    navigateMainTab(target);
   } else if (target === '#galeria') {
     navigateHome();
   } else {
@@ -5176,6 +5213,15 @@ document.addEventListener('visibilitychange',() => {
 });
 window.addEventListener('pagehide',stopWake);
 function restoreAppHistory() {
+  const index=navState()?.pikselujIndex??0;
+  if(pendingMainTab&&index===0){
+    const target=pendingMainTab;pendingMainTab=null;
+    route();navigateTo(target);return;
+  }
+  // Po aktualizacji telefon może mieć jeszcze historię z dawnego systemu zakładek.
+  if(APP_TAB_VIEWS.has(view)&&APP_TABS.has(appHash())&&index>0&&index<lastRoutedIndex){
+    scrollHomeAfterHistory=true;history.go(-index);return;
+  }
   const expandedBefore = $('gallery').classList.contains('adventure-explore');
   route();
   const justReturnedHome = expandedBefore &&
