@@ -498,6 +498,44 @@ h1, h2, h3, p { margin:0 }
 .album-delete-actions button:active{transform:translateY(2px);box-shadow:none}
 </style>
 <link rel="stylesheet" href="./magic-premium-ui.css?v=sticky-preview-20261123b">
+<style>
+/* Sala skarbów — wyłącznie w zakładce osiągnięć. */
+#achievements-screen{--ach-gold:#e5ad4a;--ach-ink:#58351f;max-width:900px;margin-inline:auto}
+#achievements-screen .ach-hero{display:grid;grid-template-columns:74px minmax(0,1fr);align-items:center;gap:14px;padding:17px;border:2px solid #ad6d2b;border-radius:20px;background:linear-gradient(145deg,#fff1bc,#f9d385 70%,#eeb75e);box-shadow:inset 0 2px #fff8df,0 4px #a76b35;color:var(--ach-ink);margin:12px 0 17px}
+.ach-hero-medal{display:grid;place-items:center;aspect-ratio:1;border:3px solid #b7792d;border-radius:50%;background:radial-gradient(circle at 35% 20%,#fff5bf,#e3a23b);font-size:38px;box-shadow:inset 0 3px #fff8d5,0 3px #b27935}
+#achievements-screen .ach-hero h2{font-size:clamp(1.25rem,5vw,1.8rem);line-height:1.15;margin:3px 0 8px;color:#59351e}
+#achievements-screen .ach-hero p{margin:0;font-size:.78rem;color:#704828}
+#ach-total{display:block;font-size:.85rem}
+#achievements-screen progress{display:block;width:100%;height:10px;border:0;border-radius:20px;overflow:hidden;background:#e4d7b8;accent-color:#438a54}
+#achievements-screen progress::-webkit-progress-bar{background:#e4d7b8;border-radius:20px}
+#achievements-screen progress::-webkit-progress-value{background:linear-gradient(#8bd86b,#3e9a52);border-radius:20px}
+#achievements-screen progress::-moz-progress-bar{background:#4b9b52;border-radius:20px}
+#ach-total-bar{margin:6px 0}
+.ach-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0 0 14px}
+.ach-stats>div{display:grid;justify-items:center;gap:2px;padding:8px 3px;border:1px solid #d5b783;background:#fff9eb;color:#563c2b;border-radius:13px;box-shadow:0 2px #d5b783}
+.ach-stats span{font-size:22px}.ach-stats strong{font-size:1.25rem;line-height:1}.ach-stats small{font-size:.72rem;text-align:center}
+.ach-filters{display:flex;gap:6px;margin:15px 0;flex-wrap:wrap}
+.ach-filters button{flex:1 1 auto;min-height:42px;padding:7px 8px;border:1px solid #bc9a67;border-radius:12px;background:#fff6e3;color:#563c2b;font:inherit;font-size:.78rem;font-weight:800;box-shadow:0 2px #c5a777}
+.ach-filters button[aria-pressed=true]{background:linear-gradient(#a5df86,#56a55c);border-color:#367b3d;color:#133a22;box-shadow:0 2px #367b3d}
+.ach-group{margin:19px 0}.ach-group h2{font-size:1.08rem;color:var(--ink);margin:0 0 9px}
+.ach-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.ach-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;min-width:0;padding:12px 7px 9px;border:1px solid #d1c6b5;border-radius:15px;background:#fffaf0;color:#594a3e;box-shadow:0 2px #ded2bd}
+.ach-card.earned{border:2px solid #c38a35;background:linear-gradient(#fff9de,#ffe7a7);box-shadow:0 3px #be8c43;padding:11px 6px 8px}
+.ach-emblem{display:grid;place-items:center;width:57px;height:57px;border-radius:50%;font-size:29px;background:linear-gradient(#eee9e0,#dcd4c9);border:2px solid #bcb2a4;filter:grayscale(1)}
+.ach-card.earned .ach-emblem{filter:none;background:radial-gradient(circle at 35% 20%,#fff6b8,#e8ae43);border:2px solid #bd7d29;box-shadow:inset 0 2px #fff6cf,0 2px #bd7d29}
+.ach-card h3{margin:0;font-size:.91rem;line-height:1.18;color:#4f3525;overflow-wrap:anywhere}
+.ach-card p{margin:0;font-size:.74rem;line-height:1.3;flex:1}
+.ach-card progress{margin-top:4px}
+.ach-card small{font-size:.69rem;font-weight:750;color:#645347}
+.ach-card.earned small{color:#235e32}
+.ach-return{margin:10px 0 24px}
+#ach-storage{margin-top:12px}
+#ach-toast{position:fixed;z-index:10000;bottom:max(15px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(90vw,420px);padding:13px 15px;border:2px solid #9a662b;border-radius:14px;background:#fff0bf;color:#55331d;font-weight:800;font-size:.85rem;box-shadow:0 4px 16px #39271250;text-align:center;pointer-events:none}
+#ach-toast[hidden]{display:none}
+@media(min-width:650px){.ach-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:850px){.ach-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:350px){#achievements-screen .ach-hero{grid-template-columns:56px minmax(0,1fr);gap:8px;padding:12px}.ach-hero-medal{font-size:29px}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -658,15 +696,29 @@ h1, h2, h3, p { margin:0 }
     </div>
   </section>
   <section id="achievements-screen" class="studio" aria-labelledby="achievements-title" hidden>
-    <a href="#galeria" class="back">← Wróć do galerii</a>
-    <p class="section-kicker">Twoje nagrody</p>
+    <a href="#galeria" class="back">← Strona główna</a>
+    <p class="section-kicker">Twoja sala skarbów</p>
     <h1 class="studio-title" id="achievements-title" tabindex="-1">🏆 Osiągnięcia</h1>
-    <div class="studio-panel">
-      <h2>Tu pojawią się odznaki i puchary</h2>
-      <p>Nagrody będzie można zdobywać za przechodzenie mapy i ukończenie minigier. System osiągnięć zbudujemy wraz z tymi funkcjami.</p>
-      <a href="#minigry" class="action primary">Zobacz minigry</a>
+    <div class="ach-hero">
+      <span class="ach-hero-medal" aria-hidden="true">🏆</span>
+      <div><p>Twoja przygoda z pikselami</p><h2 id="ach-rank">Mały odkrywca</h2><strong id="ach-total">0 zdobytych odznak</strong>
+      <progress id="ach-total-bar" aria-label="Zdobyte odznaki" value="0" max="1"></progress><p id="ach-next"></p></div>
     </div>
+    <div class="ach-stats" aria-label="Twoje postępy">
+      <div><span aria-hidden="true">🎨</span><strong id="ach-drawings">0</strong><small>Rysunki</small></div>
+      <div><span aria-hidden="true">📸</span><strong id="ach-photos">0</strong><small>Zdjęcia prac</small></div>
+      <div><span aria-hidden="true">✨</span><strong id="ach-projects">0</strong><small>Projekty</small></div>
+    </div>
+    <div class="ach-filters" role="group" aria-label="Filtr odznak">
+      <button type="button" data-ach-filter="all" aria-pressed="true">Wszystkie</button>
+      <button type="button" data-ach-filter="earned" aria-pressed="false">Zdobyte</button>
+      <button type="button" data-ach-filter="pending" aria-pressed="false">Do zdobycia</button>
+    </div>
+    <div id="ach-list"></div>
+    <p id="ach-storage" class="studio-small">Odznaki są zapisywane na tym urządzeniu. Rysuj we własnym tempie — zdobyte nagrody zostają z Tobą.</p>
+    <a href="#galeria" class="action primary ach-return">🎨 Wybierz rysunek</a>
   </section>
+  <div id="ach-toast" role="status" aria-live="polite" hidden></div>
   <section id="magic-screen" class="studio magic-v2" aria-labelledby="magic-title" hidden>
     <a href="#galeria" id="magic-back" class="back magic-back">← Strona główna</a>
     <div class="magic-hero-head">
@@ -3621,6 +3673,7 @@ function persistStudio() {
   } catch {
     studio.available = false;
   }
+  if(studio.available)achievementSyncProjects(view==='magic'?'magic':'',true);
   return studio.available;
 }
 const inheritedNotice = 'Pamięć przeglądarki jest niedostępna. Zmiany mogą zniknąć po zamknięciu karty.';
@@ -4029,6 +4082,154 @@ function readJourney() {
   }
 }
 const journey = readJourney();
+
+// Osiągnięcia: niezależny, lokalny rejestr historyczny. Jeden identyfikator wzoru = jedna praca.
+const achievementKey='pikseluj/osiagniecia/v1';
+function readAchievements(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(achievementKey)||'{}');
+    const ids=value=>[...new Set((Array.isArray(value)?value:[]).filter(validJournalId))];
+    const drawings=(Array.isArray(raw?.drawings)?raw.drawings:[]).filter(p=>p&&validJournalId(p.id)&&typeof p.group==='string'&&Number.isInteger(p.colors)&&p.colors>=0&&Number.isInteger(p.area)&&p.area>0);
+    const earned=Object.fromEntries(Object.entries(raw?.earned||{}).filter(([id,date])=>validJournalId(id)&&Number.isFinite(date)&&date>0));
+    return {drawings:[...new Map(drawings.map(p=>[p.id,p])).values()],projects:ids(raw?.projects),magic:ids(raw?.magic),photos:ids(raw?.photos),earned};
+  }catch{return {drawings:[],projects:[],magic:[],photos:[],earned:{}};}
+}
+const achievementState=readAchievements();
+let achievementStorage=true, achievementFilter='all', achievementToastTimer, achievementPhotoScan=0;
+function achievementStats(state){
+  const ds=state.drawings;
+  const group=g=>ds.filter(p=>p.group===g).length;
+  return {drawings:ds.length,projects:state.projects.length,magic:state.magic.length,photos:state.photos.length,
+    gallery:ds.filter(p=>patterns.some(x=>x.id===p.id)).length,
+    groups:new Set(ds.filter(p=>['zwierzaki','postacie','slodkosci','fantazja','sport','kluby'].includes(p.group)).map(p=>p.group==='kluby'?'sport':p.group)).size,
+    animals:group('zwierzaki'),characters:group('postacie'),sweets:group('slodkosci'),fantasy:group('fantazja'),sport:group('sport')+group('kluby'),
+    colors:Math.max(0,...ds.map(p=>p.colors)),area:Math.max(0,...ds.map(p=>p.area)),
+    own:group('own'),mystery:group('mystery')};
+}
+const achievementGroups=['Rysowanie','Kolory i wyzwania','Odkrywca galerii','Twórczość','Kolekcja i tajemnice'];
+const achievementRules=[
+ ['first','Rysowanie','🎨','Pierwszy artysta','Ukończ 1 rysunek','drawings',1],
+ ['five','Rysowanie','🥉','Mały twórca','Ukończ 5 różnych rysunków','drawings',5],
+ ['ten','Rysowanie','🎖️','Pikselowy talent','Ukończ 10 różnych rysunków','drawings',10],
+ ['fifteen','Rysowanie','🥈','Wielki twórca','Ukończ 15 różnych rysunków','drawings',15],
+ ['thirty','Rysowanie','🏆','Mistrz pikseli','Ukończ 30 różnych rysunków','drawings',30],
+ ['sixty','Rysowanie','👑','Legenda pikseli','Ukończ 60 różnych rysunków','drawings',60],
+ ['color4','Kolory i wyzwania','🌈','Kolorowy świat','Ukończ wzór z co najmniej 4 kolorami','colors',4],
+ ['color6','Kolory i wyzwania','🎨','Mistrz kolorów','Ukończ wzór z co najmniej 6 kolorami','colors',6],
+ ['color8','Kolory i wyzwania','💎','Tęczowy mistrz','Ukończ wzór z co najmniej 8 kolorami','colors',8],
+ ['size256','Kolory i wyzwania','🧩','Mała układanka','Ukończ wzór na siatce min. 256 kratek','area',256],
+ ['size576','Kolory i wyzwania','🛡️','Wielka układanka','Ukończ wzór na siatce min. 576 kratek','area',576],
+ ['size1024','Kolory i wyzwania','⚔️','Pikselowe wyzwanie','Ukończ wzór na siatce min. 1024 kratek','area',1024],
+ ['animals','Odkrywca galerii','🐾','Przyjaciel zwierząt','Ukończ 3 wzory z kategorii Zwierzaki','animals',3],
+ ['characters','Odkrywca galerii','🦸','Świat bohaterów','Ukończ 3 wzory z kategorii Postacie','characters',3],
+ ['sweets','Odkrywca galerii','🍩','Słodka kraina','Ukończ 3 wzory z kategorii Słodkości','sweets',3],
+ ['fantasy','Odkrywca galerii','🏰','Bajkowy odkrywca','Ukończ 3 wzory z kategorii Fantazja','fantasy',3],
+ ['sport','Odkrywca galerii','⚽','Sportowy mistrz','Ukończ 3 wzory sportowe lub klubowe','sport',3],
+ ['variety','Odkrywca galerii','🧭','Odkrywca krain','Ukończ wzór z każdej z 5 grup tematycznych','groups',5],
+ ['gallery60','Odkrywca galerii','💫','Skarb galerii','Ukończ 60 różnych wzorów z galerii','gallery',60],
+ ['project1','Twórczość','✏️','Projektant','Zapisz 1 własny projekt','projects',1],
+ ['project5','Twórczość','📐','Wynalazca','Zapisz 5 różnych projektów','projects',5],
+ ['own1','Twórczość','🖼️','Moje arcydzieło','Narysuj 1 własny projekt w zeszycie','own',1],
+ ['magic1','Twórczość','🪄','Czarodziej pikseli','Zapisz projekt z Magicznych Pikseli','magic',1],
+ ['photo1','Kolekcja i tajemnice','📷','Pierwsza pamiątka','Dodaj zdjęcie ukończonej pracy','photos',1],
+ ['photo5','Kolekcja i tajemnice','📒','Kolekcjoner','Dodaj zdjęcia 5 różnych prac','photos',5],
+ ['photo15','Kolekcja i tajemnice','📚','Album mistrza','Dodaj zdjęcia 15 różnych prac','photos',15],
+ ['mystery','Kolekcja i tajemnice','🔐','Odkrywca tajemnicy','Ukończ Tajemniczy obrazek','mystery',1]
+].map(([id,group,icon,name,description,metric,target])=>({id,group,icon,name,description,metric,target}));
+function achievementEvaluate(state,now=Date.now()){
+  const stats=achievementStats(state);
+  const added=[];
+  for(const rule of achievementRules){
+    if(!Object.hasOwn(state.earned,rule.id)&&stats[rule.metric]>=rule.target){
+      state.earned[rule.id]=now;added.push(rule);
+    }
+  }
+  return added;
+}
+function achievementCommit(notify=false){
+  const added=achievementEvaluate(achievementState);
+  try{localStorage.setItem(achievementKey,JSON.stringify(achievementState));achievementStorage=true;}
+  catch{achievementStorage=false;}
+  if(notify&&added.length){
+    const toast=$('ach-toast');
+    toast.textContent='🏆 '+(added.length===1?'Nowa odznaka: '+added[0].name:'Nowe odznaki ('+added.length+'): '+added.map(r=>r.name).join(' • '))+(achievementStorage?'':' — zapis niedostępny');
+    toast.hidden=false;clearTimeout(achievementToastTimer);
+    achievementToastTimer=setTimeout(()=>{toast.hidden=true;},5000);
+  }
+  if(!$('achievements-screen').hidden)renderAchievements();
+}
+function achievementSyncDrawings(notify=false){
+  for(const item of journey.completed){
+    const existing=achievementState.drawings.find(p=>p.id===item.id);
+    const group=item.id===mystery.id?'mystery':ownId.test(item.id)?'own':patterns.find(p=>p.id===item.id)?.group||'other';
+    const colorCount=new Set(item.rows.join('').replace(/\./g,'')).size, area=item.rows.length*item.rows[0].length;
+    if(existing){existing.colors=Math.max(existing.colors,colorCount);existing.area=Math.max(existing.area,area);}
+    else achievementState.drawings.push({id:item.id,group,colors:colorCount,area});
+  }
+  achievementCommit(notify);
+}
+function achievementSyncProjects(source='',notify=false){
+  for(const project of studio.projects){
+    if(achievementState.projects.includes(project.id))continue;
+    achievementState.projects.push(project.id);
+    if(source==='magic')achievementState.magic.push(project.id);
+  }
+  achievementCommit(notify);
+}
+function achievementRecordPhoto(key,notify=false){
+  const item=journey.completed.find(p=>photoKey(p)===key);
+  if(!item||achievementState.photos.includes(item.id))return;
+  achievementState.photos.push(item.id);achievementCommit(notify);
+}
+async function achievementImportPhotos(){
+  if(!PikselujPhotos.supported())return;
+  const token=++achievementPhotoScan;
+  const entries=journey.completed.slice();
+  const found=await Promise.all(entries.map(async p=>{
+    try{return await PikselujPhotos.get(photoKey(p))?p:null;}catch{return null;}
+  }));
+  if(token!==achievementPhotoScan)return;
+  for(const p of found)if(p&&journey.completed.some(q=>photoKey(q)===photoKey(p))&&!achievementState.photos.includes(p.id))achievementState.photos.push(p.id);
+  achievementCommit();
+}
+function renderAchievements(){
+  const stats=achievementStats(achievementState);
+  const total=achievementRules.filter(r=>Object.hasOwn(achievementState.earned,r.id)).length;
+  const ranks=[[60,'Legenda pikseli'],[30,'Mistrz pikseli'],[15,'Wielki twórca'],[5,'Mały twórca'],[1,'Pikselowy artysta'],[0,'Mały odkrywca']];
+  $('ach-rank').textContent=ranks.find(r=>stats.drawings>=r[0])[1];
+  $('ach-total').textContent=total+' / '+achievementRules.length+' odznak';
+  $('ach-total-bar').max=achievementRules.length;$('ach-total-bar').value=total;
+  $('ach-next').textContent=total===achievementRules.length?'Wszystkie odznaki zdobyte!':'Każda praca to kolejny krok w Twojej przygodzie.';
+  $('ach-drawings').textContent=stats.drawings;$('ach-photos').textContent=stats.photos;$('ach-projects').textContent=stats.projects;
+  const list=$('ach-list');list.replaceChildren();
+  let shown=0;
+  for(const group of achievementGroups){
+    const rules=achievementRules.filter(r=>r.group===group&&(achievementFilter==='all'||(achievementFilter==='earned')===Object.hasOwn(achievementState.earned,r.id)));
+    if(!rules.length)continue;
+    const section=el('section','ach-group');const grid=el('div','ach-grid');
+    section.append(el('h2','',group),grid);
+    for(const rule of rules){
+      const earned=Object.hasOwn(achievementState.earned,rule.id);
+      const value=earned?rule.target:Math.min(stats[rule.metric],rule.target);
+      const card=el('article','ach-card'+(earned?' earned':''));
+      const icon=el('span','ach-emblem',rule.icon);icon.setAttribute('aria-hidden','true');
+      const progress=el('progress');progress.max=rule.target;progress.value=value;progress.setAttribute('aria-label',rule.name+' — postęp');
+      card.append(icon,el('h3','',rule.name),el('p','',rule.description),progress,el('small','',earned?'✓ Zdobyta':value+' / '+rule.target));
+      grid.append(card);shown++;
+    }
+    list.append(section);
+  }
+  if(!shown)list.append(el('p','studio-small',achievementFilter==='earned'?'Tutaj pojawią się Twoje pierwsze nagrody. Wybierz obrazek i zacznij przygodę!':'Wszystkie odznaki zostały zdobyte!'));
+  $('ach-storage').textContent=achievementStorage?'Postępy odznak są historyczne i zapisują się na tym urządzeniu. Rysuj we własnym tempie — zdobyte nagrody zostają z Tobą.':'Pamięć urządzenia jest niedostępna. Nowe osiągnięcia mogą nie zostać zapisane.';
+}
+for(const button of document.querySelectorAll('[data-ach-filter]')){
+  button.addEventListener('click',()=>{
+    achievementFilter=button.dataset.achFilter;
+    for(const b of document.querySelectorAll('[data-ach-filter]'))b.setAttribute('aria-pressed',String(b===button));
+    renderAchievements();
+  });
+}
+
 let trashEntry = null;
 let trashPhoto = null;
 let albumPhotoTargetKey = null;
@@ -4101,6 +4302,7 @@ $('finish-design').addEventListener('click',() => {
     'Nie udało się zapisać albumu w pamięci. ' + inheritedNotice;
   $('finish-status').textContent = ok ? 'Brawo! Rysunek trafił do albumu.' : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
   $('album-feedback').textContent = ok ? 'Dodano nowy rysunek.' : inheritedNotice;
+  if(ok)achievementSyncDrawings(true);
   // Po oznaczeniu pracy jako ukończonej pokaż od razu opcje aparatu.
   // Następna klatka pozwala przeglądarce ułożyć nowo odsłonięte przyciski.
   requestAnimationFrame(() => {
@@ -4166,6 +4368,7 @@ async function handlePhotoFile(input) {
       throw new Error('Ten obrazek nie jest już w Kolekcji. Zdjęcie nie zostało zapisane.');
     }
     await PikselujPhotos.save(key,picture);
+    achievementRecordPhoto(key,true);
     if(view==='album') renderAlbum();
     photoStatus('📷 Zdjęcie zapisane! Znajdziesz je w Kolekcji i możesz je tam powiększyć lub wymienić.');
   }catch(error){
@@ -4509,6 +4712,7 @@ function route() {
     const previous = view;
     showScreen(target.screen);
     if(target.screen==='magic')magicOpen();
+    if(target.screen==='achievements'){achievementSyncDrawings();achievementSyncProjects();renderAchievements();void achievementImportPhotos();}
     document.title = target.documentTitle + ' — Pikseluj';
     if (previous !== target.screen) {
       window.scrollTo(0,0);
@@ -4713,6 +4917,9 @@ function restoreAppHistory() {
 }
 window.addEventListener('popstate',restoreAppHistory);
 window.addEventListener('hashchange',restoreAppHistory);
+achievementSyncDrawings();
+achievementSyncProjects();
+void achievementImportPhotos();
 initialAppHistory();
 route();
 </script>
