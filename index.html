@@ -1163,6 +1163,63 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
  #world-map.map-premium-ready:not(.map-detail) .map-nav a{min-height:39px}
 }
 </style>
+<style>
+/* Kampania: 25 pól, lokalne maski szarości i aktualny bohater. */
+#world-map .campaign-top-status,#world-map .campaign-shades,#world-map .campaign-route,#world-map .campaign-fields{display:none}
+#world-map.map-campaign .map-land[data-locked="true"]{filter:grayscale(1);cursor:default}
+#world-map.map-campaign .map-land[data-locked="true"] .map-sign{position:relative;background:linear-gradient(#f4f2e9,#d4d1c5);border-color:#77766e;box-shadow:0 2px #62635d,inset 0 0 0 1px #f4f4ec}
+#world-map.map-campaign .map-land[data-locked="true"] .map-sign strong{color:#454640}
+#world-map .campaign-lock{position:absolute;right:3px;top:-8px;width:clamp(15px,4vw,25px);height:auto;aspect-ratio:1;display:grid;place-items:center;border:1px solid #777;border-radius:50%;background:#eeeee7;color:#565951;box-shadow:0 1px 2px #282a28a0}
+#world-map .campaign-lock svg{width:72%;height:72%;display:block}
+#world-map.map-campaign.map-premium-ready:not(.map-detail) .map-scene-avatar{display:none}
+#world-map.map-campaign.map-premium-ready:not(.map-detail) .campaign-shades,
+#world-map.map-campaign.map-premium-ready:not(.map-detail) .campaign-fields,
+#world-map.map-campaign.map-premium-ready:not(.map-detail) .campaign-route{position:absolute;inset:0;display:block;pointer-events:none}
+#world-map .campaign-shades{z-index:0}
+#world-map .campaign-shade{position:absolute;inset:0;background:url('./assets/map-premium-portrait.webp') 0 0/100% 100% no-repeat;filter:grayscale(1) brightness(.84) contrast(.96);pointer-events:none}
+#world-map .campaign-shade[data-land="zwierzeta"]{clip-path:polygon(5% 7%,12% 3%,32% 3%,40% 12%,43% 23%,45% 28%,40% 32%,9% 32%,6% 25%,4% 16%)}
+#world-map .campaign-shade[data-land="fantazja"]{clip-path:polygon(67% 5%,89% 4%,96% 9%,97% 24%,96% 33%,90% 36%,60% 36%,59% 29%,64% 22%,65% 12%)}
+#world-map .campaign-shade[data-land="bohaterowie"]{clip-path:polygon(10% 33%,21% 31%,38% 34%,44% 42%,44% 51%,45% 58%,39% 61%,8% 61%,6% 54%,7% 42%)}
+#world-map .campaign-shade[data-land="smaki"]{clip-path:polygon(65% 38%,78% 36%,94% 39%,96% 50%,95% 58%,96% 64%,89% 68%,57% 68%,56% 61%,59% 52%,63% 45%)}
+#world-map .campaign-shade[data-land="sport"]{clip-path:polygon(29% 66%,44% 64%,60% 67%,65% 75%,65% 89%,61% 93%,28% 93%,25% 86%,25% 76%)}
+#world-map.map-campaign .map-lands{z-index:2}
+#world-map .campaign-route{z-index:1;width:100%;height:100%;overflow:visible}
+#world-map .campaign-track{fill:none;stroke:#433e31;stroke-opacity:.55;stroke-width:1.9;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1.7 3.8}
+#world-map .campaign-fields{z-index:3}
+#world-map .campaign-field{position:absolute;left:var(--field-x);top:var(--field-y);width:clamp(8px,2.7vw,15px);height:auto;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1.5px solid #f3ead1;background:radial-gradient(circle at 35% 25%,#d1d2cc,#858981 62%,#575b55);box-shadow:0 1px 2px #242b21ad,0 0 0 1px #52584b;display:block;text-decoration:none}
+#world-map a.campaign-field{pointer-events:auto}
+#world-map a.campaign-field::after{content:"";position:absolute;inset:-9px;border-radius:50%}
+#world-map .campaign-field[data-done="true"]{background:radial-gradient(circle at 40% 28%,#fffde0,#ffdd59 45%,#e79622 95%);border-color:#fff6a4;box-shadow:0 0 6px 2px #ffcf52,0 0 0 1px #ad651b}
+#world-map .campaign-field[data-current="true"]{z-index:2;border-color:#fff8cc;box-shadow:0 0 0 2px #765d37,0 0 9px 2px #f3dc8a}
+#world-map .campaign-token.hero-portrait{position:absolute;width:clamp(33px,10vw,62px);height:auto;aspect-ratio:1;left:50%;bottom:55%;transform:translateX(-50%);max-width:none;filter:drop-shadow(0 2px 2px #1c2718aa) drop-shadow(0 0 1px #fff3ae);pointer-events:none}
+#world-map.map-campaign .campaign-stage-empty{background:linear-gradient(145deg,#fff1c8,#ead1a0);height:clamp(100px,28vw,150px)}
+#world-map .campaign-stage-number{width:58px;aspect-ratio:1;display:grid;place-items:center;border-radius:50%;background:linear-gradient(#e7c68b,#d8ab65);border:2px solid #b58546;box-shadow:inset 0 2px #fff3ce;color:#67471f;font:800 1.65rem DynaPuff,system-ui,sans-serif}
+#world-map.map-campaign .campaign-stage .map-pattern-copy{text-align:center}
+@media (orientation:landscape) and (min-width:600px){
+ #world-map .campaign-shade{background-image:url('./assets/map-premium-v3-landscape.webp')}
+ #world-map .campaign-shade[data-land="zwierzeta"]{clip-path:polygon(7% 14%,17% 9%,29% 12%,34% 26%,35% 39%,36% 49%,12% 49%,10% 41%,7% 31%)}
+ #world-map .campaign-shade[data-land="fantazja"]{clip-path:polygon(53% 3%,70% 1%,78% 12%,78% 28%,77% 40%,52% 43%,49% 35%,52% 21%)}
+ #world-map .campaign-shade[data-land="bohaterowie"]{clip-path:polygon(33% 35%,44% 32%,53% 36%,54% 51%,56% 64%,56% 76%,32% 76%,31% 66%,32% 51%)}
+ #world-map .campaign-shade[data-land="smaki"]{clip-path:polygon(74% 27%,92% 23%,96% 35%,96% 51%,93% 66%,68% 66%,69% 52%,71% 37%)}
+ #world-map .campaign-shade[data-land="sport"]{clip-path:polygon(60% 62%,77% 60%,83% 70%,83% 85%,83% 98%,57% 98%,56% 85%,57% 71%)}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-top{gap:4px;justify-content:space-between}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-brand{margin-left:auto;margin-right:auto}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .campaign-top-status{display:flex;align-items:center;gap:6px;max-width:38%;padding:4px 7px;border-radius:9px;border:1px solid #a36934;background:linear-gradient(#fff4c9,#edcc89);color:#4b2816;box-shadow:0 2px #70401f;line-height:1.05;font-size:clamp(.6rem,1.3vw,.87rem);pointer-events:none}
+ #world-map .campaign-top-status strong{font-family:DynaPuff,system-ui,sans-serif;font-weight:700;overflow-wrap:anywhere}
+ #world-map .campaign-top-status span{white-space:nowrap;font-weight:900}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land{height:9.2%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land[data-land="sport"]{width:20.8%;top:91.9%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land[data-land="smaki"]{width:20%;top:59.4%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land[data-land="bohaterowie"]{width:21%;top:69.5%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land[data-land="fantazja"]{width:21%;top:37.1%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land[data-land="zwierzeta"]{width:21%;top:43.1%}
+ #world-map.map-campaign.map-premium-ready:not(.map-detail) .map-land-progress .map-meter{display:none}
+ #world-map .campaign-field{width:clamp(9px,1.6vw,19px)}
+ #world-map .campaign-token.hero-portrait{width:clamp(33px,6.8vw,75px)}
+ #world-map .campaign-lock{width:clamp(14px,2.5vw,25px)}
+}
+@media (prefers-reduced-motion:no-preference){#world-map .campaign-field[data-current="true"] .campaign-token{animation:campaign-bob 2s ease-in-out infinite}@keyframes campaign-bob{50%{transform:translate(-50%,-2px)}}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1299,7 +1356,7 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
   </div>
 
   <section id="world-map" class="studio" aria-labelledby="map-title" hidden>
-    <div class="map-top"><a href="#galeria" class="back" id="map-back" aria-label="Wróć do galerii">←</a><a href="#galeria" class="map-brand" aria-label="Pikseluj — strona główna">Pikseluj</a><a href="#galeria" class="map-home" aria-label="Strona główna">⌂</a></div>
+    <div class="map-top"><a href="#galeria" class="back" id="map-back" aria-label="Wróć do galerii">←</a><a href="#galeria" class="map-brand" aria-label="Pikseluj — strona główna">Pikseluj</a><div class="campaign-top-status" id="campaign-top-status" aria-live="polite"></div><a href="#galeria" class="map-home" aria-label="Strona główna">⌂</a></div>
     <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa przygód</h1>
     <div class="studio-panel">
       <div class="map-info"><a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a><div id="map-overview" class="map-overview"></div></div>
@@ -1337,7 +1394,7 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
 <g opacity=".95"><use href="#mw-pine" x="48" y="52"/><use href="#mw-pine" x="86" y="33"/><use href="#mw-tree" x="218" y="47"/><use href="#mw-tree" x="242" y="79"/><use href="#mw-pine" x="53" y="186"/><use href="#mw-tree" x="88" y="213"/><use href="#mw-pine" x="240" y="235"/><use href="#mw-pine" x="350" y="52"/><use href="#mw-pine" x="390" y="34"/><use href="#mw-tree" x="532" y="63"/><use href="#mw-pine" x="550" y="272"/><use href="#mw-tree" x="378" y="303"/><use href="#mw-tree" x="53" y="416"/><use href="#mw-tree" x="84" y="456"/><use href="#mw-pine" x="219" y="450"/><use href="#mw-tree" x="550" y="523"/><use href="#mw-tree" x="518" y="560"/><use href="#mw-pine" x="66" y="552"/><use href="#mw-pine" x="98" y="608"/><use href="#mw-tree" x="430" y="642"/><use href="#mw-pine" x="492" y="634"/><use href="#mw-rock" x="238" y="166"/><use href="#mw-rock" x="349" y="240"/><use href="#mw-rock" x="52" y="256"/><use href="#mw-rock" x="380" y="507"/><use href="#mw-rock" x="122" y="504"/><use href="#mw-rock" x="380" y="654"/></g>
 <g><use href="#mw-flower" x="103" y="179"/><use href="#mw-flower" x="116" y="185"/><use href="#mw-flower" x="405" y="275"/><use href="#mw-flower" x="420" y="285"/><use href="#mw-flower" x="111" y="416"/><use href="#mw-flower" x="125" y="411"/><use href="#mw-flower" x="496" y="487"/><use href="#mw-flower" x="514" y="497"/><use href="#mw-flower" x="203" y="643"/></g>
 <g transform="translate(535 625)"><circle r="26" fill="#fff1c4" stroke="#946c40" stroke-width="2"/><path d="M0 -22L7 -7 22 0 7 7 0 22 -7 7 -22 0 -7 -7Z" fill="#d9b670" stroke="#946c40" stroke-width="1"/><path d="M0 -17L5 0 0 5 -5 0Z" fill="#b45945"/><path d="M0 17L5 0 0 -5 -5 0Z" fill="#47768e"/><circle r="3" fill="#7f5334"/></g>
-</svg><div id="map-lands" class="map-lands"></div><a href="#bohater" class="map-scene-avatar" aria-label="Zmień swojego bohatera"><span class="hero-portrait" id="map-scene-hero" aria-hidden="true"></span><strong id="map-scene-hero-name"></strong><small>Twój bohater ›</small><span id="map-scene-progress"></span></a></div>
+</svg><div id="campaign-shades" class="campaign-shades" aria-hidden="true"></div><svg id="campaign-route" class="campaign-route" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"></svg><div id="map-lands" class="map-lands"></div><div id="campaign-fields" class="campaign-fields" aria-label="Pola przygody"></div><a href="#bohater" class="map-scene-avatar" aria-label="Zmień swojego bohatera"><span class="hero-portrait" id="map-scene-hero" aria-hidden="true"></span><strong id="map-scene-hero-name"></strong><small>Twój bohater ›</small><span id="map-scene-progress"></span></a></div>
       <div id="map-patterns" class="map-patterns" hidden></div>
     </div>
     <nav class="ach-nav map-nav" aria-label="Nawigacja przygody"><a href="#mapa" aria-current="page"><span class="nav-illustration" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17 21 13 39 17 56 12v37L40 54 22 49 7 53Z" fill="#fff4c5" stroke="#5d391d" stroke-width="4"/><path d="M21 13v36M40 17v37" stroke="#cfac6a" stroke-width="3"/><path d="M12 43c11-12 11-4 20-13s9-1 15-11" stroke="#5ca95b" stroke-width="5" stroke-dasharray="5 5"/><path d="M36 19a9 9 0 1 1 18 0c0 7-9 15-9 15s-9-8-9-15Z" fill="#f45c6e" stroke="#75401f" stroke-width="3"/><circle cx="45" cy="19" r="3" fill="#fff6ba"/></svg></span><span>Mapa</span></a><a href="#minigry"><span class="nav-illustration" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M16 20Q18 13 27 13h10q9 0 11 7l8 20q3 11-6 14-6 2-13-8H27q-7 10-13 8-9-3-6-14Z" fill="#f3d6ff" stroke="#49306d" stroke-width="4"/><path d="M16 20q15-6 32 0l4 15H12Z" fill="#9de6ff"/><path d="M21 25v16M13 33h16" stroke="#51427f" stroke-width="6"/><circle cx="44" cy="28" r="4" fill="#ff668f" stroke="#673c69" stroke-width="2"/><circle cx="39" cy="37" r="4" fill="#ffe05a" stroke="#673c69" stroke-width="2"/><path d="m24 8 2 3 4 1-4 2-2 4-2-4-4-2 4-1Z" fill="#fff6ad" stroke="#72589d" stroke-width="1.3"/></svg></span><span>Minigry</span></a><a href="#osiagniecia"><span class="nav-illustration" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M16 15H7v10q1 10 12 10M48 15h9v10q-1 10-12 10" stroke="#8d4b21" stroke-width="5"/><path d="M16 10h32v15q0 18-16 21-16-3-16-21Z" fill="#ffcc40" stroke="#8b491b" stroke-width="4"/><path d="M20 13h23v12c0 9-5 15-11 16-7-3-12-8-12-16Z" fill="#ffe583"/><path d="m32 16 3.3 7 7.7.8-5.6 5.3 1.5 7.3-6.9-3.6-6.9 3.6 1.5-7.3-5.6-5.3 7.7-.8Z" fill="#f39020" stroke="#ad6327" stroke-width="1.5"/><path d="M29 45v7h-9v5h24v-5h-9v-7" fill="#ffc04b" stroke="#8b491b" stroke-width="4"/></svg></span><span>Osiągnięcia</span></a><a href="#album"><span class="nav-illustration" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="7" y="9" width="50" height="46" rx="5" fill="#ffcd77" stroke="#6c3c21" stroke-width="4"/><rect x="13" y="15" width="38" height="34" rx="2" fill="#9eeaff" stroke="#ba6c31" stroke-width="3"/><circle cx="40" cy="24" r="5" fill="#ffe070"/><path d="m15 43 12-16 9 11 6-8 8 13Z" fill="#59ae84" stroke="#2c865d" stroke-width="2"/><path d="m14 43 12-13 6 7 5-4 14 10v5H14Z" fill="#78d76c"/><path d="M5 55h54" stroke="#65391c" stroke-width="3"/></svg></span><span>Kolekcja</span></a></nav>
@@ -5497,7 +5554,104 @@ function syncMapPremiumArtwork(){
 mapPremiumImage.addEventListener('load',syncMapPremiumArtwork);
 mapPremiumImage.addEventListener('error',syncMapPremiumArtwork);
 syncMapPremiumArtwork();
-function mapLandPatterns(land){return patterns.filter(p=>land.groups.includes(p.group));}
+// Kolejność i pięć miejsc na ręcznie zatwierdzone wzory. Galeria nie jest ograniczana.
+const campaignOrder=['sport','smaki','bohaterowie','fantazja','zwierzeta'];
+const CAMPAIGN_SIZE=5;
+const campaignPatternIds={
+  sport:[null,null,null,null,null],
+  smaki:[null,null,null,null,null],
+  bohaterowie:[null,null,null,null,null],
+  fantazja:[null,null,null,null,null],
+  zwierzeta:[null,null,null,null,null]
+};
+// Każda pozycja odpowiada jednemu z pięciu obrazków danej krainy.
+// Współrzędne w procentach obrazu; osobna geometria dla obu orientacji.
+const campaignPoints={
+  portrait:{
+    sport:[[50,80],[57,80],[65,78.6],[72,75.6],[77.5,70.3]],
+    smaki:[[79,66],[58.5,53.8],[55,49.5],[49.8,45.1],[42,47.8]],
+    bohaterowie:[[40,44.4],[47,42],[54.5,41],[61.5,37.4],[58.8,33.6]],
+    fantazja:[[59,28],[62,24],[55.2,21.7],[46.8,19.5],[40.6,18.3]],
+    zwierzeta:[[36,18.5],[31.7,18.8],[27.5,19.2],[23.3,18.6],[19.1,18.6]]
+  },
+  landscape:{
+    sport:[[13,87],[24,80],[34,83],[45,87],[55,88.5]],
+    smaki:[[83,87],[87,80.5],[89,72.5],[92,65],[92,53.5]],
+    bohaterowie:[[69,54],[64,51],[59,47],[54,49],[55,59.5]],
+    fantazja:[[57,64],[62,58],[67,48],[61,40.5],[62,33.5]],
+    zwierzeta:[[55,27.5],[47,25],[40,31],[33,38.5],[25,40.2]]
+  }
+};
+// Zaliczone wzory są odczytywane z istniejącego zapisu osiągnięć, nie z liczby wejść.
+function campaignState(completedIds, assignments=campaignPatternIds){
+  const used=new Set();
+  let unlocked=true;
+  const lands=campaignOrder.map(id=>{
+    const ids=Array.from({length:CAMPAIGN_SIZE},(_,i)=>{
+      const p=assignments[id]?.[i];
+      if(typeof p!=='string'||!p||used.has(p))return null;
+      used.add(p);return p;
+    });
+    const flags=ids.map(p=>unlocked&&!!p&&completedIds.has(p));
+    const done=flags.filter(Boolean).length;
+    const state={id,ids,flags,done,locked:!unlocked,complete:unlocked&&done===CAMPAIGN_SIZE};
+    unlocked=state.complete;return state;
+  });
+  const active=lands.find(x=>!x.complete&&!x.locked)||lands[lands.length-1];
+  return {lands,active,finished:lands.every(x=>x.complete)};
+}
+function readCampaign(){
+  return campaignState(new Set(achievementState.drawings.map(p=>p.id)));
+}
+function campaignStageLink(state,i){
+  const id=state.ids[i];
+  return id&&!state.locked&&patterns.some(p=>p.id===id)?'#wzor/'+id:null;
+}
+function campaignLock(){
+  const icon=el('span','campaign-lock');
+  icon.setAttribute('aria-hidden','true');
+  icon.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10V7a5 5 0 0 1 10 0v3"/><rect x="4" y="10" width="16" height="12" rx="3" fill="currentColor" stroke="none"/><circle cx="12" cy="15" r="1.5" fill="#f3f1e7" stroke="none"/><path d="M12 16v2" stroke="#f3f1e7" stroke-width="1.6"/></svg>';
+  return icon;
+}
+const campaignLandscape=matchMedia('(orientation:landscape) and (min-width:600px)');
+function renderCampaignFields(campaign){
+  const fieldLayer=$('campaign-fields'),shades=$('campaign-shades'),routeLayer=$('campaign-route');
+  fieldLayer.replaceChildren();shades.replaceChildren();routeLayer.replaceChildren();
+  const geometry=campaignPoints[campaignLandscape.matches?'landscape':'portrait'];
+  const coords=[];
+  for(const state of campaign.lands){
+    if(state.locked){
+      const shade=el('div','campaign-shade');shade.dataset.land=state.id;shades.append(shade);
+    }
+    const currentIndex=state.flags.findIndex(x=>!x);
+    for(let i=0;i<CAMPAIGN_SIZE;i++){
+      const [x,y]=geometry[state.id][i];coords.push([x,y,state.flags[i]]);
+      const current=!campaign.finished&&state.id===campaign.active.id&&i===currentIndex;
+      const href=campaignStageLink(state,i);
+      const field=el(href||current?'a':'span','campaign-field');
+      if(href||current)field.href=href||'#mapa/'+state.id;
+      field.dataset.done=String(state.flags[i]);field.dataset.current=String(current);
+      field.style.setProperty('--field-x',x+'%');field.style.setProperty('--field-y',y+'%');
+      const land=mapLands.find(l=>l.id===state.id);
+      field.setAttribute('aria-label',land.name+', pole '+(i+1)+(state.flags[i]?', ukończone':current?', aktualne':state.locked?', zablokowane':', do wykonania'));
+      if(current){
+        field.setAttribute('aria-current','step');
+        const avatar=el('span','hero-portrait campaign-token');avatar.setAttribute('aria-hidden','true');paintHero(avatar,heroSelected);
+        field.append(avatar);
+      }
+      fieldLayer.append(field);
+    }
+  }
+  // Cienki łącznik porządkuje drogę tam, gdzie ilustracja nie ma już ścieżki.
+  const path=svgNode('polyline');
+  path.setAttribute('points',coords.map(([x,y])=>x*10+','+y*10).join(' '));
+  path.setAttribute('class','campaign-track');routeLayer.append(path);
+}
+function refreshCampaignGeometry(){
+  if(!$('world-map').hidden&&!$('world-map').classList.contains('map-detail'))renderCampaignFields(readCampaign());
+}
+campaignLandscape.addEventListener?.('change',refreshCampaignGeometry);
+
 function mapMeter(done,total){
   const meter=el('span','map-meter'),fill=el('span');
   meter.setAttribute('role','progressbar');meter.setAttribute('aria-label','Ukończone rysunki');
@@ -5506,39 +5660,56 @@ function mapMeter(done,total){
 }
 function renderWorldMap(id=''){
   syncHero();achievementSyncDrawings();
-  const completed=new Set(achievementState.drawings.map(p=>p.id));
-  const land=mapLands.find(x=>x.id===id);
+  const campaign=readCampaign();
+  const state=campaign.lands.find(x=>x.id===id&&!x.locked);
+  const land=state?mapLands.find(x=>x.id===state.id):null;
+  const activeLand=mapLands.find(x=>x.id===campaign.active.id);
   const lands=$('map-lands'),list=$('map-patterns'),overview=$('map-overview');
+  $('world-map').classList.add('map-campaign');
   $('map-back').href=land?'#mapa':'#galeria';$('map-back').setAttribute('aria-label',land?'Wróć do mapy':'Wróć do galerii');
   $('map-title').textContent=land?land.icon+' '+land.name:'🗺️ Mapa przygód';
-  $('map-heading').textContent=land?'Wybierz obrazek':'Wybierz krainę';
+  $('map-heading').textContent=land?'Pięć etapów przygody':'Wybierz krainę';
   $('map-intro').textContent=land?land.desc:'Dotknij miejsca na mapie!';
   $('map-scene').hidden=!!land;$('world-map').classList.toggle('map-detail',!!land);
-  const items=land?mapLandPatterns(land):patterns;
-  const done=items.filter(p=>completed.has(p.id)).length;
-  overview.replaceChildren(el('strong','',done+' / '+items.length+' ukończonych wzorów'),mapMeter(done,items.length));
-  $('map-scene-progress').replaceChildren(el('strong','',done+' / '+items.length+' wzorów'),mapMeter(done,items.length));
+  const status=state||campaign.active;
+  const title=campaign.finished&&!land?'Przygoda ukończona!':(land||activeLand).name;
+  overview.replaceChildren(el('strong','campaign-overview-title',title+' · '+status.done+' / '+CAMPAIGN_SIZE),mapMeter(status.done,CAMPAIGN_SIZE));
+  $('campaign-top-status').replaceChildren(el('strong','',title),el('span','',status.done+' / '+CAMPAIGN_SIZE));
+  $('map-scene-progress').replaceChildren(el('strong','',''+status.done+' / '+CAMPAIGN_SIZE),mapMeter(status.done,CAMPAIGN_SIZE));
   lands.hidden=!!land;list.hidden=!land;lands.replaceChildren();list.replaceChildren();
   if(!land){
-    for(const entry of mapLands){
-      const ps=mapLandPatterns(entry),n=ps.filter(p=>completed.has(p.id)).length;
-      const link=el('a','map-land');link.href='#mapa/'+entry.id;link.style.setProperty('--land-tint',entry.tint);
-      link.dataset.land=entry.id;link.dataset.complete=String(ps.length>0&&n===ps.length);
+    for(const entry of campaign.lands){
+      const def=mapLands.find(x=>x.id===entry.id);
+      const link=el(entry.locked?'div':'a','map-land');
+      if(!entry.locked)link.href='#mapa/'+entry.id;
+      link.style.setProperty('--land-tint',def.tint);
+      link.dataset.land=entry.id;link.dataset.complete=String(entry.complete);link.dataset.locked=String(entry.locked);
       const sign=el('span','map-sign');
-      const progress=el('span','map-land-progress',(n===ps.length&&n>0?'✓ ':'')+n+' / '+ps.length);progress.append(mapMeter(n,ps.length));
-      link.setAttribute('aria-label',entry.name+', '+n+' z '+ps.length+' ukończonych');
-      sign.append(el('strong','',entry.name),progress);link.append(mapLandArt(entry.id),sign);lands.append(link);
+      const progress=el('span','map-land-progress',(entry.complete?'✓ ':'')+entry.done+' / '+CAMPAIGN_SIZE);
+      progress.append(mapMeter(entry.done,CAMPAIGN_SIZE));
+      link.setAttribute('aria-label',def.name+', '+entry.done+' z '+CAMPAIGN_SIZE+(entry.locked?', zablokowana':', ukończonych'));
+      if(entry.locked)link.setAttribute('aria-disabled','true');
+      sign.append(el('strong','',def.name),progress);
+      if(entry.locked)sign.append(campaignLock());
+      link.append(mapLandArt(entry.id),sign);lands.append(link);
     }
+    renderCampaignFields(campaign);
   }else{
-    for(const p of items){
-      const link=el('a','map-pattern');link.href='#wzor/'+p.id;
-      const art=el('span','map-pattern-art');art.style.setProperty('--card-bg',p.bg);art.append(sprite(p,{paper:true}));
-      const copy=el('span','map-pattern-copy');copy.append(el('strong','',p.name),el('small','',sizeText(p)+' · '+paperDescriptor(p)));
-      if(completed.has(p.id))copy.append(el('span','map-done','✓ Narysowane'));
+    for(let i=0;i<CAMPAIGN_SIZE;i++){
+      const p=patterns.find(p=>p.id===state.ids[i]);
+      const link=el(p?'a':'div','map-pattern campaign-stage');
+      if(p)link.href='#wzor/'+p.id;
+      const art=el('span','map-pattern-art');
+      if(p){art.style.setProperty('--card-bg',p.bg);art.append(sprite(p,{paper:true}));}
+      else{art.classList.add('campaign-stage-empty');art.append(el('span','campaign-stage-number',String(i+1)));}
+      const copy=el('span','map-pattern-copy');
+      copy.append(el('strong','',p?p.name:'Etap '+(i+1)),el('small','',p?sizeText(p)+' · '+paperDescriptor(p):'Wzór do wybrania'));
+      if(state.flags[i])copy.append(el('span','map-done','✓ Narysowane'));
       link.append(art,copy);list.append(link);
     }
   }
 }
+
 let view = 'gallery';
 function showScreen(next) {
   if (view === 'album' && next !== 'album') {
@@ -5600,6 +5771,13 @@ function route() {
   if (editor) { finishStroke(); editor = null; }
   if(hash.startsWith('#mapa/')){
     const id=hash.slice(6);
+    const entry=readCampaign().lands.find(x=>x.id===id);
+    if(!entry||entry.locked){
+      history.replaceState(navState()||history.state,'','#mapa');
+      lastRoutedHash='#mapa';
+      showScreen('map');renderWorldMap();
+      document.title='Mapa — Pikseluj';window.scrollTo(0,0);return;
+    }
     showScreen('map');renderWorldMap(id);
     document.title=$('map-title').textContent+' — Pikseluj';
     window.scrollTo(0,0);$('map-title').focus({preventScroll:true});return;
