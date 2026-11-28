@@ -1221,6 +1221,19 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
 }
 @media (prefers-reduced-motion:no-preference){#world-map .campaign-field[data-current="true"] .campaign-token{animation:campaign-bob 2s ease-in-out infinite}@keyframes campaign-bob{50%{transform:translate(-50%,-2px)}}}
 </style>
+<style>
+/* Drogowskaz pionowy: odwrócenie wyłącznie strzałki, bez zmiany mapy i trasy.
+   Odbicie wycinka oryginalnego obrazu 941×1029 wewnątrz drewnianej tabliczki. */
+#world-map.map-premium-ready .map-premium-picture::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:url('./assets/map-premium-portrait.webp') 0 0/100% 100% no-repeat;
+  clip-path:inset(8.84% 39.00% 87.75% 54.73% round 1px);
+  transform-origin:57.865% 50%;transform:scaleX(-1);
+}
+@media (orientation:landscape) and (min-width:600px){
+  #world-map.map-premium-ready .map-premium-picture::after{display:none}
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
