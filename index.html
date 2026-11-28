@@ -871,6 +871,66 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
   #achievements-screen .ach-card .ach-medal{width:min(100%,80px)}
 }
 </style>
+<style>
+/* Mapa przygód — żywa scena wektorowa, przyciski pozostają HTML. */
+body.map-adventure-page{background:linear-gradient(#84ddf6,#39b6d9 62%,#217d9a)!important}
+body.map-adventure-page .site-header{display:none!important}
+#world-map{width:min(100% - 20px,540px);max-width:920px;padding:8px 0 20px;color:#4e2c19}
+#world-map .map-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 9px}
+#world-map .map-top .back,#world-map .map-home{display:grid;place-items:center;min-width:42px;min-height:39px;margin:0;padding:4px 9px;border:2px solid #86512e;border-radius:11px;background:linear-gradient(#fff0b9,#dba960);box-shadow:0 3px #8f512e;color:#54301a;text-decoration:none;font-weight:900;font-size:.95rem}
+#world-map .map-brand{font-family:DynaPuff,system-ui,sans-serif;font-size:clamp(1.3rem,5.5vw,2rem);font-weight:800;color:#fff4b7;text-shadow:0 2px #84502b,0 3px #84502b,1px 0 #84502b,-1px 0 #84502b;text-decoration:none}
+#world-map .studio-title{text-align:center;font-family:DynaPuff,system-ui,sans-serif;letter-spacing:-.03em;color:#5d341b;font-size:clamp(1.35rem,5vw,2rem);margin:0 0 10px;padding:7px;background:linear-gradient(#fff1c2,#eec77b);border:2px solid #a46e35;border-radius:14px;box-shadow:0 3px #94572b}
+#world-map .studio-panel{background:transparent;border:0;box-shadow:none;padding:0;margin:0}
+#world-map .map-info{display:flex;align-items:center;gap:10px;padding:7px 10px;background:linear-gradient(#fffae2,#ffedb9);border:2px solid #a46e35;border-radius:14px;box-shadow:0 3px #94572b;margin-bottom:12px}
+#world-map .map-avatar-link{margin:0;min-width:0;max-width:48%;gap:3px;flex-shrink:0;display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center}
+#world-map .map-avatar-link .hero-portrait{grid-row:span 2;width:48px}
+#world-map .map-avatar-link strong{font-size:.85rem;overflow-wrap:anywhere;line-height:1.15}
+#world-map .map-avatar-link span:last-child{font-size:.66rem;line-height:1}
+#world-map .map-overview{padding:0 0 0 9px;margin:0;border:0;border-left:1px solid #d6b57a;background:none;border-radius:0;flex:1;min-width:0}
+#world-map .map-overview strong{font-size:.75rem;line-height:1.2}
+#world-map .map-caption{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 2px 6px;color:#204c36}
+#world-map .map-caption h2{font-size:.88rem;margin:0;font-weight:900}
+#world-map .map-caption p{font-size:.73rem;margin:0;color:#245449;text-align:right}
+#world-map .map-scene{position:relative;isolation:isolate;aspect-ratio:600/700;border:3px solid #9a6b39;border-radius:19px;overflow:hidden;background:#69cde9;box-shadow:0 4px #7f512c,0 7px 14px #215e6670}
+#world-map .map-terrain{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:-1}
+#world-map .map-lands:not([hidden]){position:absolute;inset:0;display:block}
+#world-map .map-land{position:absolute;width:43%;max-width:190px;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;gap:0;min-width:0;text-align:center;padding:0;border:0;border-radius:10px;background:none;box-shadow:none;color:#4d2d17}
+#world-map .map-land:active{transform:translate(-50%,-48%) scale(.98);box-shadow:none}
+#world-map .map-land[data-land="zwierzeta"]{left:24%;top:17.4%}
+#world-map .map-land[data-land="fantazja"]{left:75%;top:28%}
+#world-map .map-land[data-land="bohaterowie"]{left:27.5%;top:47.9%}
+#world-map .map-land[data-land="smaki"]{left:75.2%;top:61.5%}
+#world-map .map-land[data-land="sport"]{left:44%;top:83.8%}
+#world-map .map-land-art{display:block;width:clamp(65px,21vw,116px);height:auto;aspect-ratio:144/110;filter:drop-shadow(0 3px 1px #416e3a65);margin-bottom:-4px;pointer-events:none}
+#world-map .map-land-art svg{display:block;width:100%;height:100%;overflow:visible}
+#world-map .map-sign{width:100%;padding:5px 5px 5px;background:linear-gradient(#fff9d8,var(--land-tint,#ffebc2) 85%,#ebca8b);border:2px solid #8e6034;border-radius:11px;box-shadow:0 3px #83532c,inset 0 1px #fff;display:grid;gap:3px}
+#world-map .map-sign strong{font-family:DynaPuff,system-ui,sans-serif;font-size:clamp(.65rem,3vw,.98rem);line-height:1.13;letter-spacing:-.025em}
+#world-map .map-land-progress{margin:0;font-size:clamp(.61rem,2.4vw,.78rem);line-height:1.1;white-space:nowrap}
+#world-map .map-land-progress .map-meter{height:6px;margin-top:3px}
+#world-map .map-land[data-complete="true"] .map-sign{border-color:#477b3b;background:linear-gradient(#fffbd2,#c5ef9e)}
+#world-map .map-nav{margin-top:13px;margin-bottom:0}
+#world-map .map-nav a{min-height:44px;font-size:1.1rem;line-height:1.1}
+#world-map .map-nav a span{font-size:clamp(.57rem,2.3vw,.75rem)}
+#world-map.map-detail .map-caption{display:block;padding:9px 10px;background:#fff0c7;border:1px solid #ad7946;border-radius:10px;margin-bottom:10px}
+#world-map.map-detail .map-caption p{text-align:left;margin-top:3px}
+@media(min-width:700px) and (orientation:landscape){
+ #world-map{width:min(100% - 30px,900px);display:grid;grid-template-columns:minmax(185px, .75fr) minmax(0,2fr);grid-template-areas:"top top" "title title" "panel panel" "nav nav";gap:0}
+ #world-map[hidden]{display:none}
+ #world-map .map-top{grid-area:top}#world-map .studio-title{grid-area:title}
+ #world-map .studio-panel{grid-area:panel;display:grid;grid-template-columns:minmax(170px,.68fr) minmax(0,2fr);grid-template-rows:auto 1fr;gap:10px 14px;align-items:start}
+ #world-map .map-info{grid-column:1;grid-row:1;display:grid;gap:10px;margin:0}
+ #world-map .map-avatar-link{max-width:none}#world-map .map-overview{border-left:0;border-top:1px solid #d6b57a;padding:8px 0 0}
+ #world-map .map-caption{grid-column:1;grid-row:2;display:block;background:#fff0c7;border:1px solid #ad7946;border-radius:10px;padding:9px}
+ #world-map .map-caption p{text-align:left;margin-top:5px}
+ #world-map .map-scene{grid-column:2;grid-row:1 / span 2;aspect-ratio:600/510}
+ #world-map .map-land-art{width:clamp(58px,11vw,89px)}
+ #world-map .map-sign strong{font-size:clamp(.68rem,1.8vw,.9rem)}
+ #world-map .map-land-progress{font-size:.67rem}
+ #world-map .map-nav{grid-area:nav}
+ #world-map .map-patterns{grid-column:2;grid-row:1/span 2}
+}
+@media(max-width:345px){#world-map .map-land-art{width:61px}#world-map .map-sign{padding:3px}#world-map .map-land-progress .map-meter{height:5px}}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1007,17 +1067,48 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
   </div>
 
   <section id="world-map" class="studio" aria-labelledby="map-title" hidden>
-    <a href="#galeria" class="back" id="map-back">← Wróć do galerii</a>
-    <p class="section-kicker">Twoja pikselowa przygoda</p>
-    <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa</h1>
+    <div class="map-top"><a href="#galeria" class="back" id="map-back" aria-label="Wróć do galerii">←</a><a href="#galeria" class="map-brand" aria-label="Pikseluj — strona główna">Pikseluj</a><a href="#galeria" class="map-home" aria-label="Strona główna">⌂</a></div>
+    <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa przygód</h1>
     <div class="studio-panel">
-      <a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a>
-      <h2 id="map-heading">Bajkowa mapa przygód</h2>
-      <p id="map-intro">Odwiedź krainę, wybierz rysunek i zdobywaj odznaki!</p>
-      <div id="map-overview" class="map-overview"></div>
-      <div id="map-lands" class="map-lands"></div>
+      <div class="map-info"><a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a><div id="map-overview" class="map-overview"></div></div>
+      <div class="map-caption"><h2 id="map-heading">Wybierz krainę</h2><p id="map-intro">Dotknij miejsca na mapie!</p></div>
+      <div class="map-scene" id="map-scene"><svg class="map-terrain" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="mw-water" x2=".2" y2="1"><stop stop-color="#96e6f4"/><stop offset="1" stop-color="#269ed5"/></linearGradient>
+ <linearGradient id="mw-grass" x2=".3" y2="1"><stop stop-color="#c1eb83"/><stop offset=".45" stop-color="#94d668"/><stop offset="1" stop-color="#65b34b"/></linearGradient>
+ <linearGradient id="mw-sand" x2="0" y2="1"><stop stop-color="#ffeac0"/><stop offset="1" stop-color="#dfae67"/></linearGradient>
+ <pattern id="mw-wave" width="65" height="48" patternUnits="userSpaceOnUse"><path d="M7 25q8 -5 16 0m18 13q6 -4 12 0" fill="none" stroke="#dcfaff" stroke-width="2" opacity=".55" stroke-linecap="round"/></pattern>
+ <pattern id="mw-grassmark" width="65" height="60" patternUnits="userSpaceOnUse"><path d="M9 35l3 -4 3 4m34 -17l3 -4 3 4" fill="none" stroke="#4d9d4c" stroke-width="2" opacity=".30" stroke-linecap="round"/></pattern>
+ <g id="mw-pine"><path d="M-5 0v12h10V0" fill="#94613f"/><path d="M0 -46L-20 -17h8L-26 3Q0 11 26 3L12 -17h8Z" fill="#428b47" stroke="#306e44" stroke-width="3"/><path d="M0 -43l-15 24h9L-17 1Q-6 3 0 0Z" fill="#78c76a"/></g>
+ <g id="mw-tree"><path d="M-5 -3v22h10V-3" fill="#95643c"/><path d="M-19 1C-35 -7 -28 -30 -13 -30C-12 -49 16 -49 20 -29C37 -22 31 1 15 3Z" fill="#4a9f48" stroke="#347e3c" stroke-width="3"/><path d="M-20 -15C-20 -29 -4 -28 -5 -36Q-25 -37 -24 -20Z" fill="#9bd763"/></g>
+ <g id="mw-rock"><path d="M-15 1L-10 -12 6 -17 15 -7 17 2Z" fill="#a3b6a2" stroke="#648c83" stroke-width="2"/><path d="M-10 -12L5 -12 6 -17Z" fill="#e1e9ce"/></g>
+ <g id="mw-flower"><path d="M0 0V-8" stroke="#388742" stroke-width="2"/><circle cy="-10" r="4" fill="#fff1ba"/><circle cy="-10" r="1.5" fill="#e6a14e"/></g>
+</defs>
+<path fill="url(#mw-water)" d="M0 0h600v700H0z"/><path fill="url(#mw-wave)" d="M0 0h600v700H0z"/>
+<path d="M28 0H577Q600 40 581 76T590 160Q573 215 588 254T571 335Q597 390 576 448T589 535Q562 595 579 630Q550 682 498 681Q454 703 398 687T288 694Q220 675 172 690T61 667Q17 651 25 609T13 530Q30 475 13 423T25 339Q4 295 20 250T14 166Q37 114 21 66T28 0Z" fill="#3399a1" opacity=".5" transform="translate(0 5)"/>
+<path d="M28 0H577Q600 40 581 76T590 160Q573 215 588 254T571 335Q597 390 576 448T589 535Q562 595 579 630Q550 682 498 681Q454 703 398 687T288 694Q220 675 172 690T61 667Q17 651 25 609T13 530Q30 475 13 423T25 339Q4 295 20 250T14 166Q37 114 21 66T28 0Z" fill="url(#mw-sand)" stroke="#d7be7c" stroke-width="4"/>
+<path d="M42 0H559Q581 40 563 77T572 159Q554 214 570 254T552 335Q577 390 558 448T570 535Q544 595 560 628Q536 661 493 662Q451 683 398 669T288 676Q220 656 172 672T68 649Q34 638 43 605T31 529Q48 475 31 423T43 339Q22 295 38 250T32 166Q55 114 39 66T42 0Z" fill="url(#mw-grass)" stroke="#79ae4f" stroke-width="3"/>
+<path d="M42 0H559Q581 40 563 77T572 159Q554 214 570 254T552 335Q577 390 558 448T570 535Q544 595 560 628Q536 661 493 662Q451 683 398 669T288 676Q220 656 172 672T68 649Q34 638 43 605T31 529Q48 475 31 423T43 339Q22 295 38 250T32 166Q55 114 39 66T42 0Z" fill="url(#mw-grassmark)"/>
+<path d="M44 74Q111 10 227 43Q294 85 252 148Q195 189 68 156Z" fill="#81c85b" opacity=".8"/>
+<path d="M356 100Q422 48 555 107L557 210Q479 258 374 211Z" fill="#bba9df" opacity=".63"/>
+<path d="M46 278Q114 234 224 264Q293 310 253 382Q149 426 47 379Z" fill="#b1d9a1"/>
+<path d="M352 364Q449 308 552 370L559 467Q478 520 373 483Z" fill="#efb8b2" opacity=".65"/>
+<path d="M153 532Q285 478 413 534L464 629Q299 680 138 625Z" fill="#dddc85"/>
+<path d="M306 -10C257 60 330 97 305 172S265 238 313 281S352 337 319 375S260 447 312 494S331 566 313 612S302 670 317 707" fill="none" stroke="#80b466" stroke-width="40"/>
+<path d="M306 -10C257 60 330 97 305 172S265 238 313 281S352 337 319 375S260 447 312 494S331 566 313 612S302 670 317 707" fill="none" stroke="#4caacb" stroke-width="27"/>
+<path d="M306 -10C257 60 330 97 305 172S265 238 313 281S352 337 319 375S260 447 312 494S331 566 313 612S302 670 317 707" fill="none" stroke="#8be4f3" stroke-width="17"/>
+<path d="M145 122C174 182 276 199 450 196C480 262 340 297 165 335C118 400 320 419 451 430C485 489 400 552 264 587" fill="none" stroke="#689d44" stroke-width="31" stroke-linecap="round"/>
+<path d="M145 122C174 182 276 199 450 196C480 262 340 297 165 335C118 400 320 419 451 430C485 489 400 552 264 587" fill="none" stroke="#b48b50" stroke-width="23" stroke-linecap="round"/>
+<path d="M145 122C174 182 276 199 450 196C480 262 340 297 165 335C118 400 320 419 451 430C485 489 400 552 264 587" fill="none" stroke="#ffe0a2" stroke-width="17" stroke-linecap="round"/>
+<path d="M145 122C174 182 276 199 450 196C480 262 340 297 165 335C118 400 320 419 451 430C485 489 400 552 264 587" fill="none" stroke="#d7a364" stroke-width="2" stroke-dasharray="3 12" stroke-linecap="round"/>
+<g fill="#c68e53" stroke="#75472c" stroke-width="2"><path d="M269 181l72 5v17l-72 -5z"/><path d="M284 182v17m12 -16v17m12 -16v17m12 -16v17m12 -16v17" fill="none"/><path d="M287 289l49 -20 7 15 -49 20z"/><path d="M298 285l7 15m5 -20 7 15m5 -20 7 15" fill="none"/><path d="M274 397l55 9 -3 17 -55 -9z"/><path d="M286 399l-3 17m15 -15 -3 17m15 -15 -3 17" fill="none"/></g>
+<g opacity=".95"><use href="#mw-pine" x="48" y="52"/><use href="#mw-pine" x="86" y="33"/><use href="#mw-tree" x="218" y="47"/><use href="#mw-tree" x="242" y="79"/><use href="#mw-pine" x="53" y="186"/><use href="#mw-tree" x="88" y="213"/><use href="#mw-pine" x="240" y="235"/><use href="#mw-pine" x="350" y="52"/><use href="#mw-pine" x="390" y="34"/><use href="#mw-tree" x="532" y="63"/><use href="#mw-pine" x="550" y="272"/><use href="#mw-tree" x="378" y="303"/><use href="#mw-tree" x="53" y="416"/><use href="#mw-tree" x="84" y="456"/><use href="#mw-pine" x="219" y="450"/><use href="#mw-tree" x="550" y="523"/><use href="#mw-tree" x="518" y="560"/><use href="#mw-pine" x="66" y="552"/><use href="#mw-pine" x="98" y="608"/><use href="#mw-tree" x="430" y="642"/><use href="#mw-pine" x="492" y="634"/><use href="#mw-rock" x="238" y="166"/><use href="#mw-rock" x="349" y="240"/><use href="#mw-rock" x="52" y="256"/><use href="#mw-rock" x="380" y="507"/><use href="#mw-rock" x="122" y="504"/><use href="#mw-rock" x="380" y="654"/></g>
+<g><use href="#mw-flower" x="103" y="179"/><use href="#mw-flower" x="116" y="185"/><use href="#mw-flower" x="405" y="275"/><use href="#mw-flower" x="420" y="285"/><use href="#mw-flower" x="111" y="416"/><use href="#mw-flower" x="125" y="411"/><use href="#mw-flower" x="496" y="487"/><use href="#mw-flower" x="514" y="497"/><use href="#mw-flower" x="203" y="643"/></g>
+<g transform="translate(535 625)"><circle r="26" fill="#fff1c4" stroke="#946c40" stroke-width="2"/><path d="M0 -22L7 -7 22 0 7 7 0 22 -7 7 -22 0 -7 -7Z" fill="#d9b670" stroke="#946c40" stroke-width="1"/><path d="M0 -17L5 0 0 5 -5 0Z" fill="#b45945"/><path d="M0 17L5 0 0 -5 -5 0Z" fill="#47768e"/><circle r="3" fill="#7f5334"/></g>
+</svg><div id="map-lands" class="map-lands"></div></div>
       <div id="map-patterns" class="map-patterns" hidden></div>
     </div>
+    <nav class="ach-nav map-nav" aria-label="Nawigacja przygody"><a href="#mapa" aria-current="page">🗺️<span>Mapa</span></a><a href="#minigry">🎮<span>Minigry</span></a><a href="#osiagniecia">🏆<span>Osiągnięcia</span></a><a href="#album">📚<span>Kolekcja</span></a></nav>
   </section>
   <section id="mini-games" class="studio" aria-labelledby="games-title" hidden>
     <a href="#galeria" class="back">← Wróć do galerii</a>
@@ -5152,6 +5243,20 @@ const mapLands = [
   {id:'smaki',name:'Kraina smaków',icon:'🍩',groups:['slodkosci'],desc:'Owoce, słodycze i przekąski',tint:'#ffd9df'},
   {id:'sport',name:'Kraina sportu',icon:'🏆',groups:['sport','kluby'],desc:'Sport, kluby, medale i puchary',tint:'#ffe6ad'}
 ];
+
+const mapLandArtwork={
+zwierzeta:'<ellipse cx="72" cy="96" rx="64" ry="12" fill="#5a9c46"/><path d="M16 91V52h12v39m86 0V48h11v43" fill="#895437"/><path d="M22 9L3 42h10L0 61q22 9 44 0L32 42h10zM119 6l-20 34h10L91 61q28 10 53 0l-16-21h10z" fill="#439e54" stroke="#336f42" stroke-width="3"/><path d="M32 92V49l40-29 40 29v43Z" fill="#e2b275" stroke="#8b5834" stroke-width="3"/><path d="M25 51l47-38 47 38-7 9-40-30-40 30z" fill="#ae653d" stroke="#77482e" stroke-width="3"/><path d="M57 92V68q15-16 30 0v24" fill="#76442b"/><circle cx="72" cy="75" r="11" fill="#fff0bd"/><g fill="#fff0bd"><circle cx="60" cy="64" r="4"/><circle cx="69" cy="60" r="4"/><circle cx="79" cy="61" r="4"/><circle cx="86" cy="67" r="4"/></g><path d="M7 93h24m83 0h24" stroke="#ffedaa" stroke-width="4" stroke-linecap="round"/>',
+fantazja:'<ellipse cx="72" cy="96" rx="64" ry="11" fill="#77639b"/><path d="M29 91V36h22v12h42V36h22v55Z" fill="#e3c3f4" stroke="#77518f" stroke-width="3"/><path d="M53 88V24h38v64" fill="#c6a9ec" stroke="#77518f" stroke-width="3"/><path d="M49 27L72 3l23 24zM22 39L40 16l18 23zM86 39l18-23 18 23z" fill="#8151c2" stroke="#54387b" stroke-width="3"/><path d="M72 4V0m0 0 23 5-23 8" fill="#ffce72" stroke="#8e6034" stroke-width="2"/><path d="M64 91V73q8-11 16 0v18" fill="#5c3c82"/><path d="M38 52v14m66-14v14m-32-26v13" stroke="#68458b" stroke-width="6" stroke-linecap="round"/><path d="M5 33l4-8 4 8 8 4-8 4-4 8-4-8-8-4zm125-14 3-7 3 7 7 3-7 3-3 7-3-7-7-3z" fill="#fff6a8" stroke="#cda85d" stroke-width="1.5"/>',
+bohaterowie:'<ellipse cx="72" cy="97" rx="64" ry="11" fill="#559774"/><path d="M16 94V42h112v52Z" fill="#aec5e6" stroke="#547c9e" stroke-width="3"/><path d="M9 42L72 10l63 32Z" fill="#6693ca" stroke="#395f94" stroke-width="3"/><path d="M21 45h102v10H21z" fill="#e4edff"/><path d="M34 55v36m76-36v36" stroke="#7899c1" stroke-width="11"/><path d="M45 94V61h54v33" fill="#5977a4" stroke="#395f94" stroke-width="3"/><path d="M72 44l22 10v17Q94 86 72 94Q50 86 50 71V54Z" fill="#ebbb55" stroke="#936735" stroke-width="3"/><path d="M72 54l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#fff7c0"/><path d="M11 92V15m122 77V15" stroke="#805332" stroke-width="3"/><path d="M11 16l20 5-20 11zm122 0-20 5 20 11z" fill="#e76c66" stroke="#a84948" stroke-width="2"/>',
+smaki:'<ellipse cx="72" cy="96" rx="65" ry="11" fill="#c3868f"/><path d="M30 91V48h84v43" fill="#ffe2b2" stroke="#9c5e55" stroke-width="3"/><path d="M20 50l52-29 52 29v11H20Z" fill="#f3a5bd" stroke="#a65c79" stroke-width="3"/><path d="M22 51h100v14q-10 14-20 0-10 14-20 0-10 14-20 0-10 14-20 0-10 14-20 0z" fill="#fff1cb" stroke="#b8758d" stroke-width="2"/><path d="M60 91V76q12-13 24 0v15" fill="#ad667f"/><rect x="37" y="75" width="15" height="13" rx="3" fill="#92d7ee" stroke="#ad667f" stroke-width="2"/><rect x="92" y="75" width="15" height="13" rx="3" fill="#92d7ee" stroke="#ad667f" stroke-width="2"/><circle cx="72" cy="21" r="18" fill="#eeb27d" stroke="#a46242" stroke-width="3"/><circle cx="72" cy="21" r="13" fill="#eb85ae"/><circle cx="72" cy="21" r="5" fill="#fff2bf"/><path d="M64 14l3 2m13 7 3-2m-13 9 2-3" stroke="#fff1ba" stroke-width="2" stroke-linecap="round"/><path d="M10 94V47m124 47V47" stroke="#fff2c2" stroke-width="6"/><path d="M10 94V47m124 47V47" stroke="#dc738f" stroke-width="5" stroke-dasharray="6 6"/><circle cx="10" cy="45" r="8" fill="#f0a2bc" stroke="#9f6278" stroke-width="2"/><circle cx="134" cy="45" r="8" fill="#f0a2bc" stroke="#9f6278" stroke-width="2"/>',
+sport:'<ellipse cx="72" cy="95" rx="66" ry="13" fill="#5d9a4e"/><ellipse cx="72" cy="84" rx="64" ry="17" fill="#c4784c" stroke="#925934" stroke-width="3"/><ellipse cx="72" cy="82" rx="47" ry="10" fill="#82c771" stroke="#fff2c9" stroke-width="2"/><path d="M36 82h72m-36-10v20" stroke="#fff5c3" stroke-width="2"/><path d="M52 22H37v10q0 17 20 20m35-30h15v10q0 17-20 20" fill="none" stroke="#ab7434" stroke-width="11" stroke-linejoin="round"/><path d="M52 22H37v10q0 17 20 20m35-30h15v10q0 17-20 20" fill="none" stroke="#ffd970" stroke-width="6"/><path d="M49 13h46v25q0 24-23 29Q49 62 49 38Z" fill="#f9c455" stroke="#9d672d" stroke-width="3"/><path d="M55 19h8v23q0 12 7 17Q55 56 55 38Z" fill="#fff1a4"/><path d="M66 64h12v15H66zM56 79h32v10H56z" fill="#e4a941" stroke="#936432" stroke-width="3"/><path d="M72 23l4 9 10 1-7 6 2 10-9-5-9 5 2-10-7-6 10-1z" fill="#fff1a4"/><circle cx="118" cy="72" r="13" fill="#fff6d8" stroke="#8b643b" stroke-width="2"/><path d="M118 66l5 4-2 6h-6l-2-6zM108 68l3-4m17 4-3-4m-7 15v4" fill="#5c6559" stroke="#5c6559" stroke-width="2"/>'
+};
+function mapLandArt(id){
+ const art=el('span','map-land-art');art.setAttribute('aria-hidden','true');
+ art.innerHTML='<svg viewBox="0 0 144 110" xmlns="http://www.w3.org/2000/svg" stroke-linejoin="round" stroke-linecap="round" focusable="false">'+mapLandArtwork[id]+'</svg>';
+ return art;
+}
+
 function mapLandPatterns(land){return patterns.filter(p=>land.groups.includes(p.group));}
 function mapMeter(done,total){
   const meter=el('span','map-meter'),fill=el('span');
@@ -5164,10 +5269,11 @@ function renderWorldMap(id=''){
   const completed=new Set(achievementState.drawings.map(p=>p.id));
   const land=mapLands.find(x=>x.id===id);
   const lands=$('map-lands'),list=$('map-patterns'),overview=$('map-overview');
-  $('map-back').href=land?'#mapa':'#galeria';$('map-back').textContent=land?'← Wróć do mapy':'← Wróć do galerii';
-  $('map-title').textContent=land?land.icon+' '+land.name:'🗺️ Mapa';
-  $('map-heading').textContent=land?'Wybierz obrazek':'Bajkowa mapa przygód';
-  $('map-intro').textContent=land?land.desc:'Odwiedź krainę, wybierz rysunek i zdobywaj odznaki!';
+  $('map-back').href=land?'#mapa':'#galeria';$('map-back').setAttribute('aria-label',land?'Wróć do mapy':'Wróć do galerii');
+  $('map-title').textContent=land?land.icon+' '+land.name:'🗺️ Mapa przygód';
+  $('map-heading').textContent=land?'Wybierz obrazek':'Wybierz krainę';
+  $('map-intro').textContent=land?land.desc:'Dotknij miejsca na mapie!';
+  $('map-scene').hidden=!!land;$('world-map').classList.toggle('map-detail',!!land);
   const items=land?mapLandPatterns(land):patterns;
   const done=items.filter(p=>completed.has(p.id)).length;
   overview.replaceChildren(el('strong','',done+' / '+items.length+' ukończonych wzorów'),mapMeter(done,items.length));
@@ -5176,9 +5282,11 @@ function renderWorldMap(id=''){
     for(const entry of mapLands){
       const ps=mapLandPatterns(entry),n=ps.filter(p=>completed.has(p.id)).length;
       const link=el('a','map-land');link.href='#mapa/'+entry.id;link.style.setProperty('--land-tint',entry.tint);
-      const icon=el('span','map-land-icon',entry.icon);icon.setAttribute('aria-hidden','true');
-      const progress=el('span','map-land-progress',n+' / '+ps.length+' ukończonych');progress.append(mapMeter(n,ps.length));
-      link.append(icon,el('strong','',entry.name),el('small','',entry.desc),progress);lands.append(link);
+      link.dataset.land=entry.id;link.dataset.complete=String(ps.length>0&&n===ps.length);
+      const sign=el('span','map-sign');
+      const progress=el('span','map-land-progress',(n===ps.length&&n>0?'✓ ':'')+n+' / '+ps.length);progress.append(mapMeter(n,ps.length));
+      link.setAttribute('aria-label',entry.name+', '+n+' z '+ps.length+' ukończonych');
+      sign.append(el('strong','',entry.name),progress);link.append(mapLandArt(entry.id),sign);lands.append(link);
     }
   }else{
     for(const p of items){
@@ -5200,6 +5308,7 @@ function showScreen(next) {
   if (view === 'gallery' && next !== 'gallery') lastGalleryY = window.scrollY;
   view = next;
   document.body.classList.toggle('ach-adventure-page',next==='achievements');
+  document.body.classList.toggle('map-adventure-page',next==='map');
   $('gallery').hidden = next !== 'gallery';
   $('reader').hidden = next !== 'reader';
   $('my-studio').hidden = next !== 'studio';
