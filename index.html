@@ -1017,7 +1017,10 @@ body.map-adventure-page .site-header{display:none!important}
 <style>
 /* Mapa 3.0: jeden ekran gry, bez pustych marginesów i kart na ilustracji. */
 body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([hidden])){
-  background:#173f39!important;overflow:hidden;
+  background:#173f39!important;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:auto;
+}
+html:has(body.map-adventure-page #world-map.map-premium-ready:not(.map-detail):not([hidden])){
+  overflow-y:auto;overscroll-behavior-y:auto;
 }
 body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([hidden]))::before{
   content:"";position:fixed;inset:-28px;z-index:-1;
@@ -1025,7 +1028,8 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
   filter:blur(15px);pointer-events:none;
 }
 #world-map.map-premium-ready:not(.map-detail):not([hidden]){
-  position:fixed;inset:0;margin:0 auto;width:min(100%,600px);max-width:none;height:100%;min-height:0;max-height:100%;
+  /* Pozostaw mapę w naturalnym przepływie strony, aby Android mógł wykonać pull-to-refresh. */
+  position:relative;inset:auto;margin:0 auto;width:min(100%,600px);max-width:none;height:100dvh;min-height:0;max-height:100dvh;overscroll-behavior-y:auto;
   padding:6px 6px max(6px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr);
   grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"top" "panel" "nav";gap:5px;
   overflow:hidden;box-sizing:border-box;isolation:isolate;
