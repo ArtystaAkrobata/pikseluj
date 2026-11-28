@@ -1014,6 +1014,155 @@ body.map-adventure-page .site-header{display:none!important}
  #world-map.map-premium-ready:not(.map-detail) .map-nav a span:last-child{font-size:clamp(.58rem,1vw,.72rem)}
 }
 </style>
+<style>
+/* Mapa 3.0: jeden ekran gry, bez pustych marginesów i kart na ilustracji. */
+body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([hidden])){
+  background:#173f39!important;overflow:hidden;
+}
+body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([hidden]))::before{
+  content:"";position:fixed;inset:-28px;z-index:-1;
+  background:linear-gradient(180deg,#13363b9c,#183f29a6 56%,#2e211bcc),url('./assets/map-premium-portrait.webp') center/cover no-repeat;
+  filter:blur(15px);pointer-events:none;
+}
+#world-map.map-premium-ready:not(.map-detail):not([hidden]){
+  position:fixed;inset:0;margin:0 auto;width:min(100%,600px);max-width:none;height:100%;min-height:0;max-height:100%;
+  padding:6px 6px max(6px,env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr);
+  grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"top" "panel" "nav";gap:5px;
+  overflow:hidden;box-sizing:border-box;isolation:isolate;
+}
+#world-map.map-premium-ready:not(.map-detail) #map-title,
+#world-map.map-premium-ready:not(.map-detail) .map-caption{
+  position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:0!important;border:0!important;
+  overflow:hidden!important;clip-path:inset(50%);white-space:nowrap;pointer-events:none;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-top{
+  grid-area:top;display:flex;align-items:center;justify-content:space-between;margin:0;gap:6px;
+  padding:1px 5px 2px;min-height:35px;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-brand{
+  color:#fff1b1;font-size:clamp(1.45rem,6.6vw,2.25rem);line-height:1.04;
+  text-shadow:0 2px #a55c28,0 3px #502711,1px 0 #79401c,-1px 0 #79401c,0 0 12px #fff3a73c;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-top .back,
+#world-map.map-premium-ready:not(.map-detail) .map-home{
+  min-width:35px;min-height:34px;padding:3px 7px;border:2px solid #8a4c24;border-radius:10px;
+  background:linear-gradient(#fff1bd 5%,#f8ce78 60%,#c88a44);box-shadow:0 2px #613a24,inset 0 1px 1px #fff6d5;
+}
+#world-map.map-premium-ready:not(.map-detail) .studio-panel{
+  grid-area:panel;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
+  gap:5px;min-height:0;padding:0;margin:0;align-items:stretch;background:transparent;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-info{
+  display:flex;align-items:center;gap:8px;grid-column:1;grid-row:1;min-height:0;margin:0 4px;padding:3px 8px;
+  color:#4a2815;border:2px solid #bd8a46;border-radius:14px;
+  background:linear-gradient(112deg,#fff1bf,#ffe8a6 45%,#eac58b);box-shadow:0 2px #75421e,inset 0 0 0 1px #fff8df;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-avatar-link{
+  display:grid;grid-template-columns:42px minmax(0,1fr);max-width:49%;gap:0 5px;align-items:center;margin:0;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-avatar-link .hero-portrait{
+  width:42px;filter:drop-shadow(0 2px 1px #9a5d3170);
+}
+#world-map.map-premium-ready:not(.map-detail) .map-avatar-link strong{font-size:.82rem}
+#world-map.map-premium-ready:not(.map-detail) .map-overview{padding:0 0 0 8px;margin:0;border-left:1px solid #b98c4f;border-top:0}
+#world-map.map-premium-ready:not(.map-detail) .map-overview strong{font-size:clamp(.65rem,2.8vw,.9rem);margin-bottom:4px}
+#world-map.map-premium-ready:not(.map-detail) .map-overview .map-meter{height:8px}
+#world-map.map-premium-ready:not(.map-detail) .map-scene{
+  grid-column:1;grid-row:2;width:100%;height:100%;min-height:0;max-height:calc(min(100vw,600px) * 1.42);
+  aspect-ratio:auto;align-self:center;margin:0;border-radius:9px;overflow:hidden;box-shadow:0 4px 14px #0e201f65;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-premium-picture img{object-fit:fill}
+#world-map.map-premium-ready:not(.map-detail) .map-nav{
+  grid-area:nav;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:1fr;
+  gap:4px;margin:0;padding:5px;min-height:0;
+  background:repeating-linear-gradient(175deg,transparent 0px,transparent 13px,#5f331528 14px,#f8cc8030 16px,transparent 18px),linear-gradient(#98602f,#6f3a20 52%,#9d5a30);
+  border:2px solid #e6b960;border-radius:15px;box-shadow:0 2px 0 #462719,inset 0 0 0 2px #623619;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-nav a{
+  min-height:46px;padding:3px 1px;gap:1px;color:#fff4d2;
+  background:linear-gradient(#e9b46b,#bd7a3d 57%,#925124);
+  border:1px solid #edc184;border-radius:10px;box-shadow:0 2px #5e301c,inset 0 1px 1px #ffe2aa;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-nav a[aria-current]{
+  background:radial-gradient(ellipse at 30% 0%,#e9b4ff,#a34ce2 53%,#7226b1 98%);border:2px solid #ffe29a;
+  box-shadow:0 0 5px #ffe4a0,0 2px #5e301c,inset 0 1px #f6d2ff;
+}
+#world-map.map-premium-ready:not(.map-detail) .map-nav .nav-illustration{width:clamp(23px,7vw,34px)}
+#world-map.map-premium-ready:not(.map-detail) .map-nav a span:last-child{font-size:clamp(.57rem,2.4vw,.77rem);line-height:1.1;text-shadow:0 1px #653718}
+#world-map.map-premium-ready:not(.map-detail) .map-sign{
+  border-color:#a3652a;background:linear-gradient(#fff9da 0%,#ffedbc 70%,#eac186);
+  box-shadow:0 2px #8e5027,inset 0 0 0 1px #fff5ce;
+}
+@media (orientation:landscape) and (min-width:600px){
+ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([hidden]))::before{
+   background:linear-gradient(180deg,#143b38b3,#1b422d9c 60%,#3e2a1eaa),url('./assets/map-premium-v3-landscape.webp') center/cover no-repeat;
+ }
+ #world-map.map-premium-ready:not(.map-detail):not([hidden]){
+   width:100%;max-width:1800px;grid-template-columns:minmax(0,1fr) clamp(70px,10.3vw,115px);
+   grid-template-rows:minmax(0,1fr);grid-template-areas:"panel nav";gap:5px;padding:3px 5px max(3px,env(safe-area-inset-bottom));
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-top{
+   position:absolute;z-index:5;top:7px;left:8px;right:calc(clamp(70px,10.3vw,115px) + 10px);min-height:0;padding:0 3px;pointer-events:none;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-top a{pointer-events:auto}
+ #world-map.map-premium-ready:not(.map-detail) .map-brand{
+   font-size:clamp(1.25rem,3.8vh,2.2rem);padding:1px 11px 3px;border-radius:0 0 12px 12px;
+   background:linear-gradient(#5f351f9c,#75421fbd);border-bottom:1px solid #e7bb67;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-top .back,#world-map.map-premium-ready:not(.map-detail) .map-home{
+   min-width:34px;min-height:30px;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .studio-panel{display:block;width:100%;height:100%;min-height:0;overflow:hidden}
+ #world-map.map-premium-ready:not(.map-detail) .map-info{display:none}
+ #world-map.map-premium-ready:not(.map-detail) .map-scene{
+   width:100%;height:100%;max-height:none;min-height:0;aspect-ratio:auto;margin:0;border-radius:9px;
+ }
+ #world-map.map-premium-ready .map-land[data-land="zwierzeta"]{left:24.2%;top:43.1%;width:23%;height:11%}
+ #world-map.map-premium-ready .map-land[data-land="fantazja"]{left:64.5%;top:37.1%;width:23%;height:11%}
+ #world-map.map-premium-ready .map-land[data-land="bohaterowie"]{left:43.2%;top:69.5%;width:23.5%;height:11%}
+ #world-map.map-premium-ready .map-land[data-land="smaki"]{left:79.1%;top:59.4%;width:22%;height:11%}
+ #world-map.map-premium-ready .map-land[data-land="sport"]{left:69.6%;top:91.4%;width:23%;height:11%}
+ #world-map.map-premium-ready .map-land::before{height:180%}
+ #world-map.map-premium-ready .map-sign{border-radius:11px;padding:1px 3px;gap:1px}
+ #world-map.map-premium-ready .map-sign strong{font-size:clamp(.58rem,1.55vw,1.05rem);line-height:1.04}
+ #world-map.map-premium-ready .map-land-progress{font-size:clamp(.55rem,1.25vw,.8rem);line-height:1}
+ #world-map.map-premium-ready .map-land-progress .map-meter{height:4px;margin-top:2px}
+ #world-map.map-premium-ready:not(.map-detail) .map-scene-avatar{
+   position:absolute;left:3.3%;bottom:3.4%;top:auto;width:19.1%;height:42%;display:flex;flex-direction:column;
+   align-items:center;justify-content:flex-end;gap:0;padding:0;border:0;border-radius:0;background:none;box-shadow:none;
+   overflow:visible;text-decoration:none;z-index:3;color:#4b2816;text-align:center;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-scene-avatar .hero-portrait{
+   width:auto;height:70%;max-height:none;aspect-ratio:1;flex:0 1 auto;min-height:0;
+   filter:drop-shadow(0 3px 2px #213417a0) drop-shadow(0 0 2px #fff3bf);
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-scene-avatar>strong{
+   max-width:100%;min-width:62%;padding:2px 5px;border:1px solid #93602f;border-radius:7px;background:linear-gradient(#fff2c4,#e4b46b);
+   font-family:DynaPuff,system-ui,sans-serif;font-size:clamp(.63rem,1.5vw,.95rem);line-height:1.1;box-shadow:0 1px #70401f;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-scene-avatar small{display:none}
+ #world-map.map-premium-ready:not(.map-detail) #map-scene-progress{
+   width:94%;margin:1px 0 0;padding:2px 5px 4px;border:1px solid #a36934;border-radius:8px;
+   background:linear-gradient(#fff1c8,#efd094);box-shadow:0 1px #70401f;
+ }
+ #world-map.map-premium-ready:not(.map-detail) #map-scene-progress strong{font-size:clamp(.53rem,1.15vw,.72rem);margin-bottom:2px;line-height:1}
+ #world-map.map-premium-ready:not(.map-detail) #map-scene-progress .map-meter{height:4px}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav{
+   grid-area:nav;grid-template-columns:1fr;grid-template-rows:repeat(4,minmax(0,1fr));align-self:stretch;
+   padding:4px;gap:4px;border-radius:13px;
+ }
+ #world-map.map-premium-ready:not(.map-detail) .map-nav a{min-height:0;gap:3px}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav .nav-illustration{width:clamp(24px,8.5vh,48px)}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav a span:last-child{font-size:clamp(.55rem,1.1vw,.77rem)}
+}
+@media (orientation:portrait) and (max-height:570px){
+ #world-map.map-premium-ready:not(.map-detail):not([hidden]){gap:3px;padding:3px}
+ #world-map.map-premium-ready:not(.map-detail) .map-top{min-height:30px}
+ #world-map.map-premium-ready:not(.map-detail) .map-avatar-link .hero-portrait{width:32px}
+ #world-map.map-premium-ready:not(.map-detail) .map-avatar-link{grid-template-columns:32px minmax(0,1fr)}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav a{min-height:39px}
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1155,7 +1304,7 @@ body.map-adventure-page .site-header{display:none!important}
     <div class="studio-panel">
       <div class="map-info"><a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a><div id="map-overview" class="map-overview"></div></div>
       <div class="map-caption"><h2 id="map-heading">Wybierz krainę</h2><p id="map-intro">Dotknij miejsca na mapie!</p></div>
-      <div class="map-scene" id="map-scene"><picture class="map-premium-picture" aria-hidden="true"><source media="(orientation:landscape) and (min-width:600px)" srcset="./assets/map-premium-landscape.webp"><img id="map-premium-image" src="./assets/map-premium-portrait.webp" alt="" decoding="async"></picture><svg class="map-terrain" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <div class="map-scene" id="map-scene"><picture class="map-premium-picture" aria-hidden="true"><source media="(orientation:landscape) and (min-width:600px)" srcset="./assets/map-premium-v3-landscape.webp"><img id="map-premium-image" src="./assets/map-premium-portrait.webp" alt="" decoding="async"></picture><svg class="map-terrain" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
 <defs>
  <linearGradient id="mw-water" x2=".2" y2="1"><stop stop-color="#96e6f4"/><stop offset="1" stop-color="#269ed5"/></linearGradient>
  <linearGradient id="mw-grass" x2=".3" y2="1"><stop stop-color="#c1eb83"/><stop offset=".45" stop-color="#94d668"/><stop offset="1" stop-color="#65b34b"/></linearGradient>
