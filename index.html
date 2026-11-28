@@ -573,6 +573,29 @@ h1, h2, h3, p { margin:0 }
 .hero-choice .hero-portrait{width:min(100%,108px)}.hero-choice[aria-pressed=true]{border:3px solid #db9a27;background:radial-gradient(#fff9c1,#f5c55e);box-shadow:0 0 0 2px #fff0a1,0 4px #b77c2b;padding:9px 4px 7px}
 .hero-choice[aria-pressed=true]:after{content:'✓';position:absolute;right:7px;top:7px;background:#25873e;color:#fff;border:2px solid white;border-radius:50%;width:26px;height:26px;display:grid;place-items:center}
 .map-avatar-link{display:flex;gap:9px;align-items:center;text-decoration:none;color:#56321e;margin-bottom:12px}.map-avatar-link .hero-portrait{width:48px}
+#world-map .map-overview{padding:10px 12px;margin:12px 0 16px;border:2px solid #bd8a45;border-radius:13px;background:linear-gradient(#fff9dc,#fce7ab);color:#4d2d17}
+#world-map .map-overview strong{display:block;font-size:.95rem;margin-bottom:6px}
+#world-map .map-meter{display:block;width:100%;height:10px;overflow:hidden;border:1px solid #b9925b;border-radius:99px;background:#f6eed9}
+#world-map .map-meter span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#439440,#86ce59)}
+#world-map .map-lands:not([hidden]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+#world-map .map-land{min-width:0;display:flex;flex-direction:column;gap:8px;align-items:flex-start;text-decoration:none;padding:12px;border:2px solid #a87539;border-radius:16px;background:linear-gradient(150deg,#fffdf0,var(--land-tint,#ffe9bd));box-shadow:0 4px #a87539;color:#4d2d17}
+#world-map .map-land:active{transform:translateY(2px);box-shadow:0 2px #a87539}
+#world-map .map-land-icon{font-size:2rem;line-height:1.15}
+#world-map .map-land strong{font-family:DynaPuff,system-ui,sans-serif;font-size:clamp(.85rem,3.8vw,1.05rem);overflow-wrap:anywhere}
+#world-map .map-land small{font-size:.77rem;line-height:1.3}
+#world-map .map-land-progress{margin-top:auto;width:100%;font-size:.78rem;font-weight:800}
+#world-map .map-land-progress .map-meter{margin-top:5px}
+#world-map .map-patterns:not([hidden]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+#world-map .map-pattern{position:relative;display:flex;flex-direction:column;min-width:0;border:2px solid #d5b67b;border-radius:13px;overflow:hidden;text-decoration:none;background:#fff9eb;color:#4d2d17}
+#world-map .map-pattern-art{height:clamp(100px,28vw,150px);display:grid;place-items:center;padding:8px;background:var(--card-bg,#fff)}
+#world-map .map-pattern-art svg{display:block;max-height:100%;max-width:100%;width:100%;height:100%}
+#world-map .map-pattern-copy{padding:8px;display:grid;gap:4px}
+#world-map .map-pattern-copy strong{overflow-wrap:anywhere;font-size:.89rem}
+#world-map .map-pattern-copy small{font-size:.74rem;line-height:1.3}
+#world-map .map-done{font-size:.74rem;color:#23692a;font-weight:800}
+#world-map a:focus-visible{outline:3px solid #2376b5;outline-offset:3px}
+@media(min-width:700px){#world-map .map-lands:not([hidden]),#world-map .map-patterns:not([hidden]){grid-template-columns:repeat(3,minmax(0,1fr))}}
+
 #ach-toast:not([hidden]){animation:ach-reward .45s cubic-bezier(.15,1.3,.5,1) both}
 @keyframes ach-reward{from{opacity:0;transform:translate(-50%,25px) scale(.8)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
 @media(min-width:650px){.hero-choices{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -984,14 +1007,16 @@ body:has(#hero-screen:not([hidden])) .site-header .brand{transform:scale(.88);tr
   </div>
 
   <section id="world-map" class="studio" aria-labelledby="map-title" hidden>
-    <a href="#galeria" class="back">← Wróć do galerii</a>
+    <a href="#galeria" class="back" id="map-back">← Wróć do galerii</a>
     <p class="section-kicker">Twoja pikselowa przygoda</p>
     <h1 class="studio-title" id="map-title" tabindex="-1">🗺️ Mapa</h1>
     <div class="studio-panel">
       <a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a>
-      <h2>Bajkowa mapa przygód</h2>
-      <p>Tu powstaną krainy, poziomy i kolejne obrazki do odkrycia. Mapę rozbudujemy w następnym etapie.</p>
-      <a href="#galeria" class="action primary">Wybierz obrazek z galerii</a>
+      <h2 id="map-heading">Bajkowa mapa przygód</h2>
+      <p id="map-intro">Odwiedź krainę, wybierz rysunek i zdobywaj odznaki!</p>
+      <div id="map-overview" class="map-overview"></div>
+      <div id="map-lands" class="map-lands"></div>
+      <div id="map-patterns" class="map-patterns" hidden></div>
     </div>
   </section>
   <section id="mini-games" class="studio" aria-labelledby="games-title" hidden>
@@ -3665,7 +3690,7 @@ function renderReaderColorCounts(){
 function openPattern(pattern) {
   activePattern = pattern;
   resetPrintPanel();
-  $('back').href = history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
+  $('back').href = history.state?.pikselujFromHash?.startsWith('#mapa/') ? history.state.pikselujFromHash : history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
   $('reader-edit').href = pattern.own ? '#kreator/' + pattern.id : '#moje';
   $('pattern-size').textContent = sizeText(pattern);
   $('pattern-paper').textContent = '📄 '+patternPaperInfo(pattern)+' · kratka 5 mm';
@@ -5119,6 +5144,51 @@ $('monster-save').addEventListener('click',() => {
   navigateStudio('#moje');
 });
 
+const mapLands = [
+  {id:'zwierzeta',name:'Kraina zwierząt',icon:'🐾',groups:['zwierzaki'],desc:'Zwierzątka, owady i przyroda',tint:'#d7efb5'},
+  {id:'fantazja',name:'Kraina fantazji',icon:'🏰',groups:['fantazja'],desc:'Magia, roboty i niezwykłe przedmioty',tint:'#e6d3fc'},
+  {id:'bohaterowie',name:'Kraina bohaterów',icon:'🦸',groups:['postacie'],desc:'Postacie z bajek, gier i filmów',tint:'#d4eaff'},
+  {id:'smaki',name:'Kraina smaków',icon:'🍩',groups:['slodkosci'],desc:'Owoce, słodycze i przekąski',tint:'#ffd9df'},
+  {id:'sport',name:'Kraina sportu',icon:'🏆',groups:['sport','kluby'],desc:'Sport, kluby, medale i puchary',tint:'#ffe6ad'}
+];
+function mapLandPatterns(land){return patterns.filter(p=>land.groups.includes(p.group));}
+function mapMeter(done,total){
+  const meter=el('span','map-meter'),fill=el('span');
+  meter.setAttribute('role','progressbar');meter.setAttribute('aria-label','Ukończone rysunki');
+  meter.setAttribute('aria-valuemin','0');meter.setAttribute('aria-valuemax',String(total||1));meter.setAttribute('aria-valuenow',String(done));
+  fill.style.width=(total?100*done/total:0)+'%';meter.append(fill);return meter;
+}
+function renderWorldMap(id=''){
+  syncHero();achievementSyncDrawings();
+  const completed=new Set(achievementState.drawings.map(p=>p.id));
+  const land=mapLands.find(x=>x.id===id);
+  const lands=$('map-lands'),list=$('map-patterns'),overview=$('map-overview');
+  $('map-back').href=land?'#mapa':'#galeria';$('map-back').textContent=land?'← Wróć do mapy':'← Wróć do galerii';
+  $('map-title').textContent=land?land.icon+' '+land.name:'🗺️ Mapa';
+  $('map-heading').textContent=land?'Wybierz obrazek':'Bajkowa mapa przygód';
+  $('map-intro').textContent=land?land.desc:'Odwiedź krainę, wybierz rysunek i zdobywaj odznaki!';
+  const items=land?mapLandPatterns(land):patterns;
+  const done=items.filter(p=>completed.has(p.id)).length;
+  overview.replaceChildren(el('strong','',done+' / '+items.length+' ukończonych wzorów'),mapMeter(done,items.length));
+  lands.hidden=!!land;list.hidden=!land;lands.replaceChildren();list.replaceChildren();
+  if(!land){
+    for(const entry of mapLands){
+      const ps=mapLandPatterns(entry),n=ps.filter(p=>completed.has(p.id)).length;
+      const link=el('a','map-land');link.href='#mapa/'+entry.id;link.style.setProperty('--land-tint',entry.tint);
+      const icon=el('span','map-land-icon',entry.icon);icon.setAttribute('aria-hidden','true');
+      const progress=el('span','map-land-progress',n+' / '+ps.length+' ukończonych');progress.append(mapMeter(n,ps.length));
+      link.append(icon,el('strong','',entry.name),el('small','',entry.desc),progress);lands.append(link);
+    }
+  }else{
+    for(const p of items){
+      const link=el('a','map-pattern');link.href='#wzor/'+p.id;
+      const art=el('span','map-pattern-art');art.style.setProperty('--card-bg',p.bg);art.append(sprite(p,{paper:true}));
+      const copy=el('span','map-pattern-copy');copy.append(el('strong','',p.name),el('small','',sizeText(p)+' · '+paperDescriptor(p)));
+      if(completed.has(p.id))copy.append(el('span','map-done','✓ Narysowane'));
+      link.append(art,copy);list.append(link);
+    }
+  }
+}
 let view = 'gallery';
 function showScreen(next) {
   if (view === 'album' && next !== 'album') {
@@ -5144,6 +5214,7 @@ function showScreen(next) {
 function route() {
   lastRoutedIndex=navState()?.pikselujIndex??0;
   const hash = location.hash;
+  lastRoutedHash=hash;
   if (!hash || hash === '#galeria') syncGalleryMode();
   const projectId = hash.startsWith('#wzor/') ? hash.slice(6) : '';
   const editId = hash.startsWith('#kreator/') ? hash.slice(9) : '';
@@ -5176,6 +5247,12 @@ function route() {
     return;
   }
   if (editor) { finishStroke(); editor = null; }
+  if(hash.startsWith('#mapa/')){
+    const id=hash.slice(6);
+    showScreen('map');renderWorldMap(id);
+    document.title=$('map-title').textContent+' — Pikseluj';
+    window.scrollTo(0,0);$('map-title').focus({preventScroll:true});return;
+  }
   const newSections = {
     '#mapa':{screen:'map',title:'map-title',documentTitle:'Mapa'},
     '#minigry':{screen:'games',title:'games-title',documentTitle:'Minigry'},
@@ -5189,10 +5266,10 @@ function route() {
     showScreen(target.screen);
     if(target.screen==='magic')magicOpen();
     if(target.screen==='hero')renderHero();
-    if(target.screen==='map')syncHero();
+    if(target.screen==='map')renderWorldMap();
     if(target.screen==='achievements'){achievementSyncDrawings();achievementSyncProjects();renderAchievements();void achievementImportPhotos();}
     document.title = target.documentTitle + ' — Pikseluj';
-    if (previous !== target.screen) {
+    if (previous !== target.screen || target.screen==='map') {
       window.scrollTo(0,0);
       $(target.title).focus({preventScroll:true});
     }
@@ -5248,7 +5325,7 @@ function route() {
 const APP_NAV = 'pikselujApp';
 const APP_TABS=new Set(['#mapa','#minigry','#osiagniecia','#album']);
 const APP_TAB_VIEWS=new Set(['map','games','achievements','album']);
-let lastRoutedIndex=0, pendingMainTab=null;
+let lastRoutedIndex=0, lastRoutedHash='', pendingMainTab=null;
 function navState() {
   const state = history.state;
   return state && state[APP_NAV] === true ? state : null;
@@ -5423,7 +5500,7 @@ function restoreAppHistory() {
     route();navigateTo(target);return;
   }
   // Po aktualizacji telefon może mieć jeszcze historię z dawnego systemu zakładek.
-  if(APP_TAB_VIEWS.has(view)&&APP_TABS.has(appHash())&&index>0&&index<lastRoutedIndex){
+  if(APP_TAB_VIEWS.has(view)&&APP_TABS.has(lastRoutedHash)&&APP_TABS.has(appHash())&&index>0&&index<lastRoutedIndex){
     lastRoutedIndex=index;scrollHomeAfterHistory=true;history.go(-index);return;
   }
   const expandedBefore = $('gallery').classList.contains('adventure-explore');
