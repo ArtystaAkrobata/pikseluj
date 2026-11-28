@@ -931,6 +931,63 @@ body.map-adventure-page .site-header{display:none!important}
 }
 @media(max-width:345px){#world-map .map-land-art{width:61px}#world-map .map-sign{padding:3px}#world-map .map-land-progress .map-meter{height:5px}}
 </style>
+<style>
+/* Mapa premium — ilustracja referencyjna, niezależne liczniki i aktywne obszary. */
+#world-map .map-premium-picture,#world-map .map-scene-avatar{display:none}
+#world-map.map-premium-ready .map-scene{border:0;border-radius:12px;box-shadow:none;background:none;aspect-ratio:941/1029}
+#world-map.map-premium-ready .map-terrain{visibility:hidden}
+#world-map.map-premium-ready .map-premium-picture{display:block;position:absolute;inset:0;z-index:-1}
+#world-map.map-premium-ready .map-premium-picture img{display:block;width:100%;height:100%;object-fit:fill}
+#world-map.map-premium-ready .map-land-art{display:none}
+#world-map.map-premium-ready .map-land{width:37%;max-width:none;height:11%;border:0;border-radius:22px;gap:0;overflow:visible}
+#world-map.map-premium-ready .map-land::before{content:"";position:absolute;left:1%;right:1%;height:145%;bottom:96%;border-radius:18px}
+#world-map.map-premium-ready .map-sign{height:100%;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:4px 5px;background:linear-gradient(#fff7d5,#ffe7ae 67%,#f6d395);border:2px solid #ac7234;border-radius:22px;box-shadow:0 2px #8f5028,inset 0 0 0 2px #fff3cc}
+#world-map.map-premium-ready .map-sign strong{font-size:clamp(.65rem,2.9vw,.98rem);line-height:1.04;letter-spacing:-.04em;color:#4a2715}
+#world-map.map-premium-ready .map-land-progress{font-size:clamp(.61rem,2.4vw,.8rem);line-height:1.05;padding:0 6%;width:100%}
+#world-map.map-premium-ready .map-land-progress .map-meter{height:6px;margin-top:3px}
+#world-map.map-premium-ready .map-land[data-land="zwierzeta"]{left:26.3%;top:24.9%;width:35%;height:10.4%}
+#world-map.map-premium-ready .map-land[data-land="fantazja"]{left:77.3%;top:29.1%;width:35%;height:10.5%}
+#world-map.map-premium-ready .map-land[data-land="bohaterowie"]{left:25.8%;top:53.8%;width:38%;height:10.6%}
+#world-map.map-premium-ready .map-land[data-land="smaki"]{left:75.5%;top:60.3%;width:37%;height:10.7%}
+#world-map.map-premium-ready .map-land[data-land="sport"]{left:45.1%;top:86.2%;width:36%;height:10.5%}
+#world-map.map-premium-ready .map-land[data-complete="true"] .map-sign{background:linear-gradient(#fff8ca,#ceef9e)}
+#world-map.map-premium-ready .map-top{margin-bottom:5px}
+#world-map.map-premium-ready .studio-title{margin-bottom:6px;padding:4px;font-size:clamp(1.2rem,4.7vw,1.8rem)}
+#world-map.map-premium-ready .map-info{margin-bottom:7px;padding:5px 8px}
+#world-map.map-premium-ready .map-caption{margin-bottom:4px}
+#world-map.map-premium-ready .map-nav{margin-top:7px}
+@media (orientation:landscape) and (min-width:600px){
+ #world-map.map-premium-ready:not(.map-detail){width:min(100% - 12px,1500px);max-width:1500px;padding:3px 0 6px;display:grid;grid-template-columns:minmax(0,1fr) 84px;grid-template-areas:"top nav" "panel nav";gap:5px 7px;align-items:start}
+ #world-map.map-premium-ready:not(.map-detail)[hidden]{display:none}
+ #world-map.map-premium-ready:not(.map-detail) .map-top{grid-area:top;margin:0}
+ #world-map.map-premium-ready:not(.map-detail) .map-top .back,#world-map.map-premium-ready:not(.map-detail) .map-home{min-width:36px;min-height:31px;padding:2px 6px}
+ #world-map.map-premium-ready:not(.map-detail) .studio-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);padding:0;margin:0;border:0}
+ #world-map.map-premium-ready:not(.map-detail) .studio-panel{grid-area:panel;display:block}
+ #world-map.map-premium-ready:not(.map-detail) .map-info,#world-map.map-premium-ready:not(.map-detail) .map-caption{display:none}
+ #world-map.map-premium-ready .map-scene{aspect-ratio:1672/761;width:min(100%,calc((100dvh - 48px) * 2.197));margin:auto;border-radius:9px}
+ #world-map.map-premium-ready .map-land{width:23%;height:12%}
+ #world-map.map-premium-ready .map-land::before{height:180%}
+ #world-map.map-premium-ready .map-land[data-land="zwierzeta"]{left:24%;top:43.7%;width:23%;height:12%}
+ #world-map.map-premium-ready .map-land[data-land="fantazja"]{left:64.5%;top:38.2%;width:23%;height:12%}
+ #world-map.map-premium-ready .map-land[data-land="bohaterowie"]{left:43.2%;top:70.8%;width:24%;height:12%}
+ #world-map.map-premium-ready .map-land[data-land="smaki"]{left:79%;top:60.2%;width:22%;height:12%}
+ #world-map.map-premium-ready .map-land[data-land="sport"]{left:69.5%;top:91%;width:23%;height:12%}
+ #world-map.map-premium-ready .map-sign{border-radius:12px;gap:1px;padding:2px 4px;box-shadow:0 2px #8b4e24,inset 0 0 0 1px #fff4d4}
+ #world-map.map-premium-ready .map-sign strong{font-size:clamp(.55rem,1.55vw,.9rem)}
+ #world-map.map-premium-ready .map-land-progress{font-size:clamp(.52rem,1.25vw,.72rem)}
+ #world-map.map-premium-ready .map-land-progress .map-meter{height:4px;margin-top:2px}
+ #world-map.map-premium-ready .map-scene-avatar{position:absolute;left:.4%;top:45.5%;width:21.9%;height:52.5%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 7px;border:2px solid #a56934;border-radius:16px;background:radial-gradient(ellipse at 50% 25%,#fff5ce,#f3d09a 80%,#dfb376);box-shadow:0 2px #885027,inset 0 0 0 2px #fff2ca;text-decoration:none;color:#54311b;text-align:center;z-index:2;overflow:hidden}
+ #world-map.map-premium-ready .map-scene-avatar .hero-portrait{display:block;width:58%;height:auto;aspect-ratio:1;max-height:62%;flex:0 1 auto}
+ #world-map.map-premium-ready .map-scene-avatar strong{font-size:clamp(.66rem,1.8vw,1.1rem);line-height:1;overflow-wrap:anywhere;max-width:100%}
+ #world-map.map-premium-ready .map-scene-avatar small{font-size:clamp(.5rem,1.2vw,.72rem);line-height:1.05}
+ #world-map.map-premium-ready #map-scene-progress{width:94%;margin-top:2px;font-size:.62rem}
+ #world-map.map-premium-ready #map-scene-progress strong{display:block;font-size:clamp(.5rem,1.2vw,.76rem);margin-bottom:2px}
+ #world-map.map-premium-ready #map-scene-progress .map-meter{height:5px}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav{grid-area:nav;display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,minmax(0,1fr));gap:4px;padding:4px;margin:0;align-self:stretch}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav a{min-height:0;font-size:1.25rem}
+ #world-map.map-premium-ready:not(.map-detail) .map-nav a span{font-size:.59rem}
+}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1072,7 +1129,7 @@ body.map-adventure-page .site-header{display:none!important}
     <div class="studio-panel">
       <div class="map-info"><a class="map-avatar-link" href="#bohater"><span class="hero-portrait" id="map-avatar" aria-hidden="true"></span><strong id="map-avatar-name">Mój bohater</strong><span> Zmień ›</span></a><div id="map-overview" class="map-overview"></div></div>
       <div class="map-caption"><h2 id="map-heading">Wybierz krainę</h2><p id="map-intro">Dotknij miejsca na mapie!</p></div>
-      <div class="map-scene" id="map-scene"><svg class="map-terrain" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <div class="map-scene" id="map-scene"><picture class="map-premium-picture" aria-hidden="true"><source media="(orientation:landscape) and (min-width:600px)" srcset="./assets/map-premium-landscape.webp"><img id="map-premium-image" src="./assets/map-premium-portrait.webp" alt="" decoding="async"></picture><svg class="map-terrain" viewBox="0 0 600 700" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
 <defs>
  <linearGradient id="mw-water" x2=".2" y2="1"><stop stop-color="#96e6f4"/><stop offset="1" stop-color="#269ed5"/></linearGradient>
  <linearGradient id="mw-grass" x2=".3" y2="1"><stop stop-color="#c1eb83"/><stop offset=".45" stop-color="#94d668"/><stop offset="1" stop-color="#65b34b"/></linearGradient>
@@ -1105,7 +1162,7 @@ body.map-adventure-page .site-header{display:none!important}
 <g opacity=".95"><use href="#mw-pine" x="48" y="52"/><use href="#mw-pine" x="86" y="33"/><use href="#mw-tree" x="218" y="47"/><use href="#mw-tree" x="242" y="79"/><use href="#mw-pine" x="53" y="186"/><use href="#mw-tree" x="88" y="213"/><use href="#mw-pine" x="240" y="235"/><use href="#mw-pine" x="350" y="52"/><use href="#mw-pine" x="390" y="34"/><use href="#mw-tree" x="532" y="63"/><use href="#mw-pine" x="550" y="272"/><use href="#mw-tree" x="378" y="303"/><use href="#mw-tree" x="53" y="416"/><use href="#mw-tree" x="84" y="456"/><use href="#mw-pine" x="219" y="450"/><use href="#mw-tree" x="550" y="523"/><use href="#mw-tree" x="518" y="560"/><use href="#mw-pine" x="66" y="552"/><use href="#mw-pine" x="98" y="608"/><use href="#mw-tree" x="430" y="642"/><use href="#mw-pine" x="492" y="634"/><use href="#mw-rock" x="238" y="166"/><use href="#mw-rock" x="349" y="240"/><use href="#mw-rock" x="52" y="256"/><use href="#mw-rock" x="380" y="507"/><use href="#mw-rock" x="122" y="504"/><use href="#mw-rock" x="380" y="654"/></g>
 <g><use href="#mw-flower" x="103" y="179"/><use href="#mw-flower" x="116" y="185"/><use href="#mw-flower" x="405" y="275"/><use href="#mw-flower" x="420" y="285"/><use href="#mw-flower" x="111" y="416"/><use href="#mw-flower" x="125" y="411"/><use href="#mw-flower" x="496" y="487"/><use href="#mw-flower" x="514" y="497"/><use href="#mw-flower" x="203" y="643"/></g>
 <g transform="translate(535 625)"><circle r="26" fill="#fff1c4" stroke="#946c40" stroke-width="2"/><path d="M0 -22L7 -7 22 0 7 7 0 22 -7 7 -22 0 -7 -7Z" fill="#d9b670" stroke="#946c40" stroke-width="1"/><path d="M0 -17L5 0 0 5 -5 0Z" fill="#b45945"/><path d="M0 17L5 0 0 -5 -5 0Z" fill="#47768e"/><circle r="3" fill="#7f5334"/></g>
-</svg><div id="map-lands" class="map-lands"></div></div>
+</svg><div id="map-lands" class="map-lands"></div><a href="#bohater" class="map-scene-avatar" aria-label="Zmień swojego bohatera"><span class="hero-portrait" id="map-scene-hero" aria-hidden="true"></span><strong id="map-scene-hero-name"></strong><small>Twój bohater ›</small><span id="map-scene-progress"></span></a></div>
       <div id="map-patterns" class="map-patterns" hidden></div>
     </div>
     <nav class="ach-nav map-nav" aria-label="Nawigacja przygody"><a href="#mapa" aria-current="page">🗺️<span>Mapa</span></a><a href="#minigry">🎮<span>Minigry</span></a><a href="#osiagniecia">🏆<span>Osiągnięcia</span></a><a href="#album">📚<span>Kolekcja</span></a></nav>
@@ -4675,7 +4732,7 @@ function paintHero(node,index){
   node.style.backgroundPosition=(index%3*50)+'% '+(Math.floor(index/3)*100)+'%';
 }
 function syncHero(){
-  for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name'],['hero-current-portrait','hero-current-name']]){
+  for(const [portrait,name] of [['ach-avatar','ach-avatar-name'],['map-avatar','map-avatar-name'],['map-scene-hero','map-scene-hero-name'],['hero-current-portrait','hero-current-name']]){
     paintHero($(portrait),heroSelected);$(name).textContent=heroDisplayName();$(name).title=heroDisplayName();
   }
   $('hero-current-role').textContent=heroChoices[heroSelected];
@@ -5257,6 +5314,14 @@ function mapLandArt(id){
  return art;
 }
 
+const mapPremiumImage=$('map-premium-image');
+function syncMapPremiumArtwork(){
+  const ready=mapPremiumImage.complete&&mapPremiumImage.naturalWidth>0;
+  $('world-map').classList.toggle('map-premium-ready',ready);
+}
+mapPremiumImage.addEventListener('load',syncMapPremiumArtwork);
+mapPremiumImage.addEventListener('error',syncMapPremiumArtwork);
+syncMapPremiumArtwork();
 function mapLandPatterns(land){return patterns.filter(p=>land.groups.includes(p.group));}
 function mapMeter(done,total){
   const meter=el('span','map-meter'),fill=el('span');
@@ -5277,6 +5342,7 @@ function renderWorldMap(id=''){
   const items=land?mapLandPatterns(land):patterns;
   const done=items.filter(p=>completed.has(p.id)).length;
   overview.replaceChildren(el('strong','',done+' / '+items.length+' ukończonych wzorów'),mapMeter(done,items.length));
+  $('map-scene-progress').replaceChildren(el('strong','',done+' / '+items.length+' wzorów'),mapMeter(done,items.length));
   lands.hidden=!!land;list.hidden=!land;lands.replaceChildren();list.replaceChildren();
   if(!land){
     for(const entry of mapLands){
