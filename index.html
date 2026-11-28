@@ -1282,6 +1282,11 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
  #world-map .campaign-bonus-label{font-size:clamp(.6rem,1.3vw,.85rem)}
 }
 </style>
+<style>
+#world-map .campaign-stage[data-locked="true"]{filter:grayscale(1);opacity:.75;cursor:default}
+#world-map .campaign-stage-locked-label,#world-map .campaign-stage-camera-label{display:block;font-size:.74rem;line-height:1.2;font-weight:700;margin:4px 0}
+#world-map .campaign-stage-camera-label{color:#69421d}
+</style>
 </head>
 <body>
 <header class="site-header" id="galeria">
@@ -1780,6 +1785,7 @@ body.map-adventure-page:has(#world-map.map-premium-ready:not(.map-detail):not([h
       <div class="finish-actions">
         <button type="button" class="action primary" id="finish-design">✓ Narysowane!</button>
         <a href="#album" id="reader-album" class="action" hidden>Mój album</a>
+        <a href="#mapa" id="reader-campaign-next" class="action primary" hidden>Wróć do przygody ›</a>
       </div>
       <div id="finish-photo-options" class="finish-photo-options" hidden>
         <span class="finish-photo-label">📷 Dodaj zdjęcie swojej pracy</span>
@@ -4132,7 +4138,7 @@ function renderReaderColorCounts(){
 function openPattern(pattern) {
   activePattern = pattern;
   resetPrintPanel();
-  $('back').href = history.state?.pikselujFromHash?.startsWith('#mapa/') ? history.state.pikselujFromHash : history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
+  $('back').href = campaignReaderContext() ? history.state.pikselujFromHash : history.state?.pikselujFromAlbum ? '#album' : history.state?.pikselujFromGallery ? '#galeria' : pattern.own ? '#moje' : '#galeria';
   $('reader-edit').href = pattern.own ? '#kreator/' + pattern.id : '#moje';
   $('pattern-size').textContent = sizeText(pattern);
   $('pattern-paper').textContent = '📄 '+patternPaperInfo(pattern)+' · kratka 5 mm';
@@ -4911,8 +4917,8 @@ function readAchievements(){
     const ids=value=>[...new Set((Array.isArray(value)?value:[]).filter(validJournalId))];
     const drawings=(Array.isArray(raw?.drawings)?raw.drawings:[]).filter(p=>p&&validJournalId(p.id)&&typeof p.group==='string'&&Number.isInteger(p.colors)&&p.colors>=0&&Number.isInteger(p.area)&&p.area>0);
     const earned=Object.fromEntries(Object.entries(raw?.earned||{}).filter(([id,date])=>validJournalId(id)&&Number.isFinite(date)&&date>0));
-    return {drawings:[...new Map(drawings.map(p=>[p.id,p])).values()],projects:ids(raw?.projects),magic:ids(raw?.magic),photos:ids(raw?.photos),earned};
-  }catch{return {drawings:[],projects:[],magic:[],photos:[],earned:{}};}
+    return {drawings:[...new Map(drawings.map(p=>[p.id,p])).values()],projects:ids(raw?.projects),magic:ids(raw?.magic),photos:ids(raw?.photos),campaignPhotos:ids(raw?.campaignPhotos),earned};
+  }catch{return {drawings:[],projects:[],magic:[],photos:[],campaignPhotos:[],earned:{}};}
 }
 const achievementState=readAchievements();
 let achievementStorage=true, achievementFilter='all', achievementToastTimer, achievementPhotoScan=0;
@@ -4925,7 +4931,7 @@ function achievementStats(state){
     animals:group('zwierzaki'),characters:group('postacie'),sweets:group('slodkosci'),fantasy:group('fantazja'),sport:group('sport')+group('kluby'),
     colors:Math.max(0,...ds.map(p=>p.colors)),area:Math.max(0,...ds.map(p=>p.area)),
     own:group('own'),mystery:group('mystery'),
-    campaignMaster:campaignState(new Set(ds.map(p=>p.id))).finished?1:0};
+    campaignMaster:campaignState(new Set(state.campaignPhotos||[])).finished?1:0};
 }
 const achievementGroups=['Rysowanie','Kolory i wyzwania','Odkrywca galerii','Twórczość','Kolekcja i tajemnice'];
 const achievementRules=[
@@ -4998,10 +5004,14 @@ function achievementSyncProjects(source='',notify=false){
   }
   achievementCommit(notify);
 }
-function achievementRecordPhoto(key,notify=false){
+function achievementRecordPhoto(key,notify=false,fromCamera=false){
   const item=journey.completed.find(p=>photoKey(p)===key);
-  if(!item||achievementState.photos.includes(item.id))return;
-  achievementState.photos.push(item.id);achievementCommit(notify);
+  if(!item)return false;
+  const newProof=fromCamera&&campaignPhotoTarget()===item.id&&!achievementState.campaignPhotos.includes(item.id);
+  if(!achievementState.photos.includes(item.id))achievementState.photos.push(item.id);
+  if(newProof)achievementState.campaignPhotos.push(item.id);
+  achievementCommit(notify);
+  return newProof;
 }
 async function achievementImportPhotos(){
   if(!PikselujPhotos.supported())return;
@@ -5246,9 +5256,21 @@ function syncFinishStrip() {
   $('reader-album').hidden = !saved;
   $('finish-photo-options').hidden = !saved;
   $('finish-photo-camera').disabled = !PikselujPhotos.supported() || albumPhotoLoading;
+  const campaignPattern=isCampaignPattern(activePattern.id);
+  const proof=campaignPattern&&achievementState.campaignPhotos.includes(activePattern.id);
+  const required=campaignPattern&&!proof&&campaignPhotoTarget()===activePattern.id;
+  const mapReader=campaignReaderContext();
+  $('finish-photo-gallery').hidden=mapReader&&campaignPattern;
   $('finish-photo-gallery').disabled = !PikselujPhotos.supported() || albumPhotoLoading;
+  const next=$('reader-campaign-next');next.hidden=!campaignPattern||!proof;
+  if(campaignPattern&&proof){
+    const c=readCampaign();
+    next.href=c.finished?'#osiagniecia':c.landsFinished?'#mapa/bonus':'#mapa/'+c.active.id;
+    next.textContent=c.finished?'Odbierz nagrody ›':'Dalej w przygodzie ›';
+  }
+  $('finish-photo-options').querySelector('.finish-photo-label').textContent=required?'📷 Zdjęcie jest wymagane, aby przejść dalej':'📷 Dodaj zdjęcie swojej pracy';
   if (!saved) $('finish-photo-message').textContent = '';
-  $('finish-status').textContent = saved ? 'Ten rysunek jest już w Twoim albumie.' : 'Dodaj ten wzór do swojego albumu.';
+  $('finish-status').textContent = required?(saved?'Zrób zdjęcie ukończonego rysunku w zeszycie, aby odblokować kolejny etap.':'Narysuj wzór w zeszycie, a następnie zrób jego zdjęcie.'):proof?'✓ Etap przygody zaliczony zdjęciem!':saved?'Ten rysunek jest już w Twoim albumie.':'Dodaj ten wzór do swojego albumu.';
 }
 $('finish-design').addEventListener('click',() => {
   if (!activePattern || activePattern === mystery && !mysteryRevealed || inAlbum(activePattern)) return;
@@ -5259,9 +5281,10 @@ $('finish-design').addEventListener('click',() => {
   const ok = writeJourney();
   syncFinishStrip();
   $('finish-photo-camera').focus({preventScroll:true});
-  $('finish-photo-message').textContent = ok ? 'Możesz teraz sfotografować obrazek lub dodać zdjęcie później w Kolekcji.' :
+  const required=campaignPhotoTarget()===activePattern.id;
+  $('finish-photo-message').textContent = ok ? (required?'Teraz zrób zdjęcie gotowego rysunku. Dopiero wtedy odblokujesz następny etap.':'Możesz teraz sfotografować obrazek lub dodać zdjęcie później w Kolekcji.') :
     'Nie udało się zapisać albumu w pamięci. ' + inheritedNotice;
-  $('finish-status').textContent = ok ? 'Brawo! Rysunek trafił do albumu.' : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
+  $('finish-status').textContent = ok ? (required?'Rysunek w albumie — do zaliczenia etapu potrzebne jest jeszcze zdjęcie.':'Brawo! Rysunek trafił do albumu.') : 'Rysunek dodano do albumu w tej karcie. ' + inheritedNotice;
   $('album-feedback').textContent = ok ? 'Dodano nowy rysunek.' : inheritedNotice;
   if(ok)achievementSyncDrawings(true);
   // Po oznaczeniu pracy jako ukończonej pokaż od razu opcje aparatu.
@@ -5329,9 +5352,9 @@ async function handlePhotoFile(input) {
       throw new Error('Ten obrazek nie jest już w Kolekcji. Zdjęcie nie zostało zapisane.');
     }
     await PikselujPhotos.save(key,picture);
-    achievementRecordPhoto(key,true);
+    const wasConfirmed=achievementRecordPhoto(key,true,input.id==='album-camera-input');
     if(view==='album') renderAlbum();
-    photoStatus('📷 Zdjęcie zapisane! Znajdziesz je w Kolekcji i możesz je tam powiększyć lub wymienić.');
+    photoStatus(wasConfirmed?'📷 Etap zaliczony! Kolejny etap przygody został odblokowany.': '📷 Zdjęcie zapisane! Znajdziesz je w Kolekcji i możesz je tam powiększyć lub wymienić.');
   }catch(error){
     photoStatus('Nie udało się zapisać zdjęcia: '+(error?.message||'brak miejsca lub problem z aparatem')+'.');
   }finally{
@@ -5643,7 +5666,7 @@ const CAMPAIGN_SIZE=5;
 // Oddzielny identyfikator rysunku finałowego zostanie nadany po jego zatwierdzeniu.
 const campaignBonusPatternId=null;
 const campaignPatternIds={
-  sport:[null,null,null,null,null],
+  sport:['gokart-mario','puchar','puchar-swiata','koszykowka','koszulka-ronaldo'],
   smaki:[null,null,null,null,null],
   bohaterowie:[null,null,null,null,null],
   fantazja:[null,null,null,null,null],
@@ -5678,7 +5701,11 @@ function campaignState(completedIds, assignments=campaignPatternIds, bonusId=cam
       if(typeof p!=='string'||!p||used.has(p))return null;
       used.add(p);return p;
     });
-    const flags=ids.map(p=>unlocked&&!!p&&completedIds.has(p));
+    let previousConfirmed=unlocked;
+    const flags=ids.map(p=>{
+      const confirmed=previousConfirmed&&!!p&&completedIds.has(p);
+      previousConfirmed=confirmed;return confirmed;
+    });
     const done=flags.filter(Boolean).length;
     const state={id,ids,flags,done,locked:!unlocked,complete:unlocked&&done===CAMPAIGN_SIZE};
     unlocked=state.complete;return state;
@@ -5691,11 +5718,26 @@ function campaignState(completedIds, assignments=campaignPatternIds, bonusId=cam
   return {lands,active,landsFinished,bonus,finished:bonus.complete};
 }
 function readCampaign(){
-  return campaignState(new Set(achievementState.drawings.map(p=>p.id)));
+  return campaignState(new Set(achievementState.campaignPhotos));
+}
+function campaignStageAvailable(state,i){
+  return !state.locked&&(i===0||state.flags[i-1]===true);
 }
 function campaignStageLink(state,i){
   const id=state.ids[i];
-  return id&&!state.locked&&patterns.some(p=>p.id===id)?'#wzor/'+id:null;
+  return id&&campaignStageAvailable(state,i)&&patterns.some(p=>p.id===id)?'#wzor/'+id:null;
+}
+function campaignPhotoTarget(campaign=readCampaign()){
+  if(campaign.landsFinished)return campaign.bonus.complete?null:campaign.bonus.ids[0];
+  const i=campaign.active.flags.findIndex(x=>!x);
+  return i>=0?campaign.active.ids[i]:null;
+}
+function isCampaignPattern(id){
+  return !!id&&(campaignBonusPatternId===id||Object.values(campaignPatternIds).some(ids=>ids.includes(id)));
+}
+function campaignReaderContext(){
+  const from=history.state?.pikselujFromHash||'';
+  return from==='#mapa'||from.startsWith('#mapa/');
 }
 function campaignLock(){
   const icon=el('span','campaign-lock');
@@ -5810,14 +5852,19 @@ function renderWorldMap(id=''){
   }else{
     for(let i=0;i<state.ids.length;i++){
       const p=patterns.find(p=>p.id===state.ids[i]);
-      const link=el(p?'a':'div','map-pattern campaign-stage');
-      if(p)link.href='#wzor/'+p.id;
+      const available=campaignStageAvailable(state,i);
+      const href=campaignStageLink(state,i);
+      const link=el(href?'a':'div','map-pattern campaign-stage');
+      if(href)link.href=href;
+      if(!available){link.dataset.locked='true';link.setAttribute('aria-disabled','true');}
       const art=el('span','map-pattern-art');
       if(p){art.style.setProperty('--card-bg',p.bg);art.append(sprite(p,{paper:true}));}
       else{art.classList.add('campaign-stage-empty');art.append(el('span','campaign-stage-number',String(i+1)));}
       const copy=el('span','map-pattern-copy');
       copy.append(el('strong','',p?p.name:state.id==='bonus'?'Rysunek mistrzowski':'Etap '+(i+1)),el('small','',p?sizeText(p)+' · '+paperDescriptor(p):'Wzór do wybrania'));
-      if(state.flags[i])copy.append(el('span','map-done','✓ Narysowane'));
+      if(state.flags[i])copy.append(el('span','map-done','✓ Zdjęcie zaliczone'));
+      else if(!available)copy.append(el('span','campaign-stage-locked-label','🔒 Ukończ poprzedni etap ze zdjęciem'));
+      else if(p)copy.append(el('span','campaign-stage-camera-label','📷 Wymagane zdjęcie rysunku'));
       link.append(art,copy);list.append(link);
     }
     if(state.id==='bonus'){
