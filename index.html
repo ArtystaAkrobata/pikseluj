@@ -4595,8 +4595,9 @@ function showHeroStatus(message,error=false){
 function renderHero(){
   syncHero();
   $('hero-name-input').value=heroName;
-  const fromMap=navState()?.pikselujFromHash==='#mapa';
-  $('hero-return').href=fromMap?'#mapa':'#osiagniecia';
+  const parentHash=navState()?.pikselujFromHash||'';
+  const fromMap=parentHash==='#mapa'||parentHash.startsWith('#mapa/');
+  $('hero-return').href=fromMap?parentHash:'#osiagniecia';
   $('hero-return').textContent=fromMap?'Wróć do mapy':'Wróć do osiągnięć';
   const list=$('hero-choices');list.replaceChildren();
   heroChoices.forEach((name,index)=>{
@@ -5343,6 +5344,9 @@ function initialAppHistory() {
     if(currentHash==='#bohater'){
       history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',pikselujFromGallery:true},'',baseUrl+'#osiagniecia');
       history.pushState({...root,pikselujIndex:2,pikselujFromHash:'#osiagniecia'},'',baseUrl+currentHash);
+    }else if(currentHash.startsWith('#mapa/')){
+      history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',pikselujFromGallery:true},'',baseUrl+'#mapa');
+      history.pushState({...root,pikselujIndex:2,pikselujFromHash:'#mapa'},'',baseUrl+currentHash);
     }else{
       history.pushState({...root,pikselujIndex:1,pikselujFromHash:'#galeria',pikselujFromGallery:true},'',baseUrl + currentHash);
     }
